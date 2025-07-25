@@ -1,0 +1,41 @@
+﻿@model List<Dish>
+
+<!-- Search Result -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr class="bg-primary">
+                <th>Image</th>
+                <th>Dish Name</th>
+                <th>Dish Description</th>
+                <th>Dish Price</th>
+                <th>Category</th>
+                <th style="width:100px; color: darkgray">Place Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ImageUrl</td>
+                    <td>@item.DishName</td>
+                    <td>@item.DishDescription</td>
+                    <td>@item.DishPrice</td>
+                    <td>@item.CategoryId</td>
+                    <td>
+                        <form method="post" asp-action="AddCart" asp-controller="Order" class="d-flex">
+                            <input type="hidden" name="dishId" value="@item.DishId"/>
+                            <div style="display:flex">
+                                <input class="form-control me-2" style="width:57px; height:25px" type="number" value="1" min="1" name="Quantity"/>
+
+                                <button style="margin-left: 10px; width: 57px; height: 25px" type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fa fa-plus"></i> Add
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

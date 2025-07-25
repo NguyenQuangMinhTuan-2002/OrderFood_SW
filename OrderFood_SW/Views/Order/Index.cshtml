@@ -1,0 +1,43 @@
+﻿@model OrderFood_SW.ViewModels.OrderPageModel
+@{
+    ViewBag.Title = "Order List table Available";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>TableId</th>
+            <th>TableNumber</th>
+            <th>Status</th>
+            <th>QRCode</th>
+            <th>Description</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var table in Model.FoundTables)
+        {
+            <tr>
+                <td>@table.TableId</td>
+                <td>@table.TableNumber</td>
+                <td>@table.Status</td>
+                <td>@table.QRCode</td>
+                <td>@table.Description</td>
+                <td>
+                    @if (table.Status.Equals("Occupied") || table.Status.Equals("Reserved") || table.Status.Equals("maintenance"))
+                    {
+                        <a href="#" class="btn disable" style="color: crimson ;font-size: 14px; padding-left: 8px">
+                            Out of order
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Order" asp-action="Create" asp-route-tableId="@table.TableId" class="btn btn-primary btn-sm">
+                            Create Order
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

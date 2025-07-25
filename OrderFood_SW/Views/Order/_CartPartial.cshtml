@@ -1,0 +1,101 @@
+﻿@using OrderFood_SW.ViewModels
+@model List<OrderCartItem>
+@{
+    int currentTableId = ViewBag.TableId ?? 0;
+}
+
+<!-- Search Result -->
+<div class="table-responsive">
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr class="bg-primary">
+                    <th>Dish Name</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                    <th style="width:50px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DishName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                        <td>@item.Total</td>
+                        <td>
+                            <button onclick="removeFromCart(@item.DishId)" class="btn btn-xs btn-danger"><i class="fa fa-minus"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="#" style="display:flex">
+            <div class="#">
+                <button onclick="removeAllCart()" class="btn btn-danger">
+                    <i class="fa fa-trash"></i> Delete All
+                </button>
+            </div>
+
+            <div class="text-right" style="margin-left:20px">
+                <form method="post" asp-controller="Order" asp-action="OrderInit">
+                    <input type="hidden" name="tableId" value="@currentTableId" />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-check-circle"></i> Confirm & Create Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h3 class="text-center">Empty Cart</h3>
+            <p class="text-center">Add some dish to see more detail here.</p>
+            @if (true) // Replace with a condition to check if the user is logged in
+            {
+                <div class="text-center">
+                    <a href="/Order/Index" class="btn btn-primary">exit</a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<script>
+    function removeFromCart(dishId) {
+        fetch('/Order/RemoveFromCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'id=' + dishId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                //alert('Đã xóa khỏi giỏ hàng');
+                location.reload();
+            }
+        });
+    }
+    function removeAllCart() {
+        if (confirm("Are you sure want to delete all dish?")) {
+            fetch('/Order/RemoveAllCart', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    //alert("Đã xoá toàn bộ giỏ hàng");
+                    location.reload();
+                }
+            });
+        }
+    }
+</script>
+

@@ -1,0 +1,815 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\shared\\_mainsidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\shared\\_mainsidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\order\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\order\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\order\\_cartpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\order\\_cartpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\shared\\_mainheader.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\shared\\_mainheader.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\order\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\order\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\helper\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\helper\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\viewmodels\\orderdetailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\viewmodels\\orderdetailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\viewmodels\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\viewmodels\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\viewmodels\\ordercartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\viewmodels\\ordercartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\viewmodels\\orderpagemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\viewmodels\\orderpagemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\orderfood_sw.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\orderfood_sw.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\order\\_dishlistpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\order\\_dishlistpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\dishes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\dishes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\models\\orderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\models\\orderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\controllers\\tablescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\controllers\\tablescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\models\\dish.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\models\\dish.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\dishes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\dishes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\dishes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\dishes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\dishes\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\dishes\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\dishes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\dishes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\tables\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\tables\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\tables\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\tables\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\tables\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\tables\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\tables\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\tables\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\tables\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\tables\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\models\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\models\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\controllers\\dishescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\controllers\\dishescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\helper\\sessionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\helper\\sessionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\workspace\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\categories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\categories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\models\\categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\models\\categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\categories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\categories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\categories\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\categories\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\categories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\categories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|d:\\workspace\\c#\\sw_web\\orderfood_sw\\orderfood_sw\\wwwroot\\themes\\pages\\examples\\blank.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{46999D3C-FF61-4145-B8B5-A95E9D8780CB}|OrderFood_SW\\OrderFood_SW.csproj|solutionrelative:orderfood_sw\\wwwroot\\themes\\pages\\examples\\blank.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Detail.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\Detail.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Order\\Detail.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\Detail.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Order\\Detail.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-25T07:16:55.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_MainSidebar.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Shared\\_MainSidebar.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Shared\\_MainSidebar.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Shared\\_MainSidebar.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Shared\\_MainSidebar.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T09:58:19.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_MainHeader.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Shared\\_MainHeader.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Shared\\_MainHeader.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Shared\\_MainHeader.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Shared\\_MainHeader.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-24T08:11:28.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAACcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T09:40:42.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_CartPartial.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\_CartPartial.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Order\\_CartPartial.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\_CartPartial.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Order\\_CartPartial.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-24T04:21:28.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\Index.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Order\\Index.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\Index.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Order\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-25T03:06:49.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\Create.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Order\\Create.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\Create.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Order\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-24T04:40:08.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Controllers\\OrderController.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "OrderFood_SW\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAALIAAAAAAAAAAAAuwLsAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T02:03:50.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DatabaseHelper.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Helper\\DatabaseHelper.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Helper\\DatabaseHelper.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Helper\\DatabaseHelper.cs",
+              "RelativeToolTip": "OrderFood_SW\\Helper\\DatabaseHelper.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAIwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T09:37:03.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "OrderDetailViewModel.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\OrderDetailViewModel.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\ViewModels\\OrderDetailViewModel.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\OrderDetailViewModel.cs",
+              "RelativeToolTip": "OrderFood_SW\\ViewModels\\OrderDetailViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T07:14:13.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\ViewModels\\ErrorViewModel.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\ErrorViewModel.cs",
+              "RelativeToolTip": "OrderFood_SW\\ViewModels\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T03:45:30.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "OrderCartItem.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\OrderCartItem.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\ViewModels\\OrderCartItem.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\OrderCartItem.cs",
+              "RelativeToolTip": "OrderFood_SW\\ViewModels\\OrderCartItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T04:06:00.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "OrderFood_SW\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:23:16.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "OrderPageModel.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\OrderPageModel.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\ViewModels\\OrderPageModel.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\ViewModels\\OrderPageModel.cs",
+              "RelativeToolTip": "OrderFood_SW\\ViewModels\\OrderPageModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T04:44:44.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "OrderFood_SW",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\OrderFood_SW.csproj",
+              "RelativeDocumentMoniker": "OrderFood_SW\\OrderFood_SW.csproj",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\OrderFood_SW.csproj",
+              "RelativeToolTip": "OrderFood_SW\\OrderFood_SW.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-25T07:06:01.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "_DishListPartial.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\_DishListPartial.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Order\\_DishListPartial.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Order\\_DishListPartial.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Order\\_DishListPartial.cshtml",
+              "ViewState": "AgIAABEAAAAAAAAAAAAIwCIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-24T04:20:36.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Models\\Order.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Order.cs",
+              "RelativeToolTip": "OrderFood_SW\\Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T02:04:22.595Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Index.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Dishes\\Index.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Index.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Dishes\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T09:14:43.481Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "OrderStatus.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\OrderStatus.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Models\\OrderStatus.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\OrderStatus.cs",
+              "RelativeToolTip": "OrderFood_SW\\Models\\OrderStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T04:52:10.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "TablesController.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\TablesController.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Controllers\\TablesController.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\TablesController.cs",
+              "RelativeToolTip": "OrderFood_SW\\Controllers\\TablesController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBkAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T09:38:34.967Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Dish.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Dish.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Models\\Dish.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Dish.cs",
+              "RelativeToolTip": "OrderFood_SW\\Models\\Dish.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T08:17:16.322Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Models\\OrderDetail.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\OrderDetail.cs",
+              "RelativeToolTip": "OrderFood_SW\\Models\\OrderDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T02:04:39.994Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Edit.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Dishes\\Edit.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Edit.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Dishes\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-24T01:20:58.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Details.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Dishes\\Details.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Details.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Dishes\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-24T01:11:44.376Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Delete.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Dishes\\Delete.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Delete.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Dishes\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T10:00:55.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Create.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Dishes\\Create.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Dishes\\Create.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Dishes\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T09:26:41.278Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Index.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Tables\\Index.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Index.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Tables\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T09:39:43.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Create.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Tables\\Create.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Create.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Tables\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T02:19:39.365Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Delete.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Tables\\Delete.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Delete.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Tables\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T03:34:40.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Details.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Tables\\Details.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Details.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Tables\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T03:51:35.997Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Edit.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Tables\\Edit.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Tables\\Edit.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Tables\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T02:37:15.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Table.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Table.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Models\\Table.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Table.cs",
+              "RelativeToolTip": "OrderFood_SW\\Models\\Table.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T01:17:43.918Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T01:05:03.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "DishesController.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\DishesController.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Controllers\\DishesController.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\DishesController.cs",
+              "RelativeToolTip": "OrderFood_SW\\Controllers\\DishesController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAzwEgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T08:32:24.734Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "SessionExtensions.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Helper\\SessionExtensions.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Helper\\SessionExtensions.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Helper\\SessionExtensions.cs",
+              "RelativeToolTip": "OrderFood_SW\\Helper\\SessionExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T03:59:10.899Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "D:\\workspace\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs",
+              "ToolTip": "D:\\workspace\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "..\\..\\..\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T02:48:21.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Program.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Program.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Program.cs",
+              "RelativeToolTip": "OrderFood_SW\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T02:06:35.508Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Controllers\\CategoriesController.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "OrderFood_SW\\Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAiwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:08:47.759Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Details.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Categories\\Details.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Details.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Categories\\Details.cshtml",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAABwAAABrAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T08:05:13.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Categories.cs",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Categories.cs",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Models\\Categories.cs",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Models\\Categories.cs",
+              "RelativeToolTip": "OrderFood_SW\\Models\\Categories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:06:01.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Delete.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Categories\\Delete.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Delete.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Categories\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T07:40:41.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Create.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Categories\\Create.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Create.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Categories\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T07:30:38.843Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Edit.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Categories\\Edit.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Edit.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Categories\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T07:51:34.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Index.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\Categories\\Index.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\Categories\\Index.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\Categories\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T07:15:28.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\appsettings.json",
+              "RelativeDocumentMoniker": "OrderFood_SW\\appsettings.json",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\appsettings.json",
+              "RelativeToolTip": "OrderFood_SW\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-22T08:59:42.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\_ViewImports.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T01:05:56.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "OrderFood_SW\\Views\\_ViewStart.cshtml",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "OrderFood_SW\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T01:05:54.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "blank.html",
+              "DocumentMoniker": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\wwwroot\\themes\\pages\\examples\\blank.html",
+              "RelativeDocumentMoniker": "OrderFood_SW\\wwwroot\\themes\\pages\\examples\\blank.html",
+              "ToolTip": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\wwwroot\\themes\\pages\\examples\\blank.html",
+              "RelativeToolTip": "OrderFood_SW\\wwwroot\\themes\\pages\\examples\\blank.html",
+              "ViewState": "AgIAADcCAAAAAAAAAAAAwD8CAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-22T09:53:22.72Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

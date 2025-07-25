@@ -1,0 +1,36 @@
+﻿@model OrderFood_SW.Models.Categories
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!-- Show table info -->
+<div class="box box-primary" style="min-height:74vh;">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+                <div class="panel panel-default" style="margin: 100px 0px">
+                    <div class="panel-heading" style="text-align: center">
+                        <strong>Detail Table Information | Need Update ?</strong>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            <dt>@Html.DisplayNameFor(model => model.CategoryId)</dt>
+                            <dd>@Html.DisplayFor(model => model.CategoryId)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.CategoryName)</dt>
+                            <dd>@Html.DisplayFor(model => model.CategoryName)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.CategoryDescription)</dt>
+                            <dd>@Html.DisplayFor(model => model.CategoryDescription)</dd>
+                        </dl>
+                    </div>
+
+                    <div class="panel-footer text-right">
+                        <a href="~/Categories/Edit/@Model.CategoryId" class="btn btn-success">Goto Edit</a>
+                        <a asp-action="Index" class="btn btn-default">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

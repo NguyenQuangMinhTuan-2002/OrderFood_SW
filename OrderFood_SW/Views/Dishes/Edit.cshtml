@@ -1,0 +1,90 @@
+﻿@model OrderFood_SW.Models.Dish
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<!-- box border (just for fun) -->
+<div class="box box-primary" style="min-height:74vh;">
+    <div class="box-body">
+        <!-- edit form table -->
+        <div class="row">
+            <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+                <div class="panel panel-default" style="margin: 50px 0px">
+                    <div class="panel-heading" style="text-align: center">
+                        <strong>Edit Dish Information</strong>
+                    </div>
+                    <div class="panel-body">
+                        <form asp-action="Edit" class="form-horizontal" role="form">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="DishId" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="DishId" class="form-control" readonly />
+                                    <span asp-validation-for="DishId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DishName" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="DishName" class="form-control" />
+                                    <span asp-validation-for="DishName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DishDescription" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="DishDescription" class="form-control" />
+                                    <span asp-validation-for="DishDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DishPrice" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="DishPrice" class="form-control" />
+                                    <span asp-validation-for="DishPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ImageUrl" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="ImageUrl" class="form-control" />
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CategoryId" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <input asp-for="CategoryId" class="form-control" />
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Check box</label>
+                                <div class="col-sm-9">
+                                    <label class="form-check-label" style="margin-top:6px">
+                                        <input class="form-check-input" asp-for="IsAvailable" /> @Html.DisplayNameFor(model => model.IsAvailable)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-right">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" value="Save Changes" class="btn btn-success" />
+                                    <a asp-action="Index" class="btn btn-default">Back to List</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
