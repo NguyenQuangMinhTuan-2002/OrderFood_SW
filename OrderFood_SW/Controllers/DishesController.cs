@@ -57,18 +57,39 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Dish table)
+        public async Task<IActionResult> Create(Dish dish, IFormFile ImageFile)
         {
-            if (!ModelState.IsValid)
-                return View(table);
+            // Upload ảnh
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(uploadFolder);
+                string filePath = Path.Combine(uploadFolder, fileName);
 
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(stream);
+                }
+
+                dish.ImageUrl = fileName;
+            }
+
+            // Validate sau khi gán ảnh
+            if (!ModelState.IsValid)
+            {
+                return View(dish);
+            }
+
+            // Insert DB
             var sql = @"INSERT INTO Dishes (DishName, DishDescription, DishPrice, ImageUrl, CategoryId, IsAvailable)
-                        VALUES (@DishName, @DishDescription, @DishPrice, @ImageUrl, @CategoryId, @IsAvailable)";
+                VALUES (@DishName, @DishDescription, @DishPrice, @ImageUrl, @CategoryId, @IsAvailable)";
             using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, table);
+            await conn.ExecuteAsync(sql, dish);
 
             return RedirectToAction(nameof(Index));
         }
+
 
         public async Task<IActionResult> Edit(int id)
         {
@@ -81,17 +102,38 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Dish table)
+        public async Task<IActionResult> Edit(Dish dish, IFormFile ImageFile, string OldImageUrl)
         {
-            if (!ModelState.IsValid)
-                return View(table);
+            // Nếu có ảnh mới thì xử lý upload
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(uploadFolder);
+                string filePath = Path.Combine(uploadFolder, fileName);
 
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(stream);
+                }
+
+                // Gán ảnh mới
+                dish.ImageUrl = fileName;
+            }else{
+                // Dùng lại ảnh cũ
+                dish.ImageUrl = OldImageUrl;
+            }
+
+            if (!ModelState.IsValid)
+                return View(dish);
+
+            // Cập nhật DB
             var sql = @"UPDATE Dishes SET DishName = @DishName, DishDescription = @DishDescription,
-                        DishPrice = @DishPrice, ImageUrl = @ImageUrl, CategoryId = @CategoryId, IsAvailable = @IsAvailable
-                        WHERE DishId = @DishId";
+                DishPrice = @DishPrice, ImageUrl = @ImageUrl, CategoryId = @CategoryId, IsAvailable = @IsAvailable
+                WHERE DishId = @DishId";
 
             using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, table);
+            await conn.ExecuteAsync(sql, dish);
 
             return RedirectToAction(nameof(Index));
         }
