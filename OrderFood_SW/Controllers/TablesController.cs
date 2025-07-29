@@ -1,125 +1,126 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
+
+// Updated EF
 
 namespace OrderFood_SW.Controllers
 {
     public class TablesController : Controller
     {
-        private readonly DatabaseHelper _db;
+        private readonly DatabaseHelperEF _db;
 
-        public TablesController(DatabaseHelper db)
+        public TablesController(DatabaseHelperEF db)
         {
             _db = db;
         }
 
-        public async Task<IActionResult> Index(String keyword = "", int page = 1)
+        // GET: /Tables
+        public async Task<IActionResult> Index(string keyword = "", int page = 1)
         {
             int pageSize = 8;
-            int offset = (page - 1) * pageSize;
+            int skip = (page - 1) * pageSize;
 
-            string sql = @"
-                SELECT * FROM Tables
-                WHERE (@Keyword = '' OR 
-                       CAST(TableNumber AS NVARCHAR) LIKE '%' + @Keyword + '%' OR 
-                       Description LIKE '%' + @Keyword + '%')
-                ORDER BY TableId
-                OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+            var query = _db.Tables.AsQueryable();
 
-                SELECT COUNT(*) FROM Tables
-                WHERE (@Keyword = '' OR 
-                       CAST(TableNumber AS NVARCHAR) LIKE '%' + @Keyword + '%' OR 
-                       Description LIKE '%' + @Keyword + '%');
-            ";
-
-            using (var connection = DatabaseHelper.GetConnection())
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                using (var multi = await connection.QueryMultipleAsync(sql, new { Keyword = keyword, Offset = offset, PageSize = pageSize }))
-                {
-                    var tables = (await multi.ReadAsync<Table>()).ToList();
-                    int totalRows = await multi.ReadFirstAsync<int>();
-
-                    ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                    ViewBag.CurrentPage = page;
-                    ViewBag.Keyword = keyword;
-
-                    return View(tables);
-                }
+                query = query.Where(c =>
+                    c.TableNumber.Equals(keyword) ||
+                    c.Description.Contains(keyword));
             }
+
+            int totalRows = await query.CountAsync();
+            var Tables = await query
+                .OrderBy(c => c.TableId)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.Keyword = keyword;
+
+            return View(Tables);
         }
 
+        // GET: /Tables/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: /Tables/Create
         [HttpPost]
-        public async Task<IActionResult> Create(Table table)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Table Table)
         {
             if (!ModelState.IsValid)
-                return View(table);
+                return View(Table);
 
-            var sql = @"INSERT INTO Tables (TableNumber, QRCode, Status, Description)
-                        VALUES (@TableNumber, @QRCode, @Status, @Description)";
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, table);
-
+            _db.Tables.Add(Table);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: /Tables/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var sql = "SELECT * FROM Tables WHERE TableId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Table>(sql, new { id });
+            var Table = await _db.Tables.FindAsync(id);
+            if (Table == null)
+                return NotFound();
 
-            if (table == null) return NotFound();
-            return View(table);
+            return View(Table);
         }
 
+        // POST: /Tables/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(Table table)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Table Table)
         {
+            if (id != Table.TableId)
+                return NotFound();
+
             if (!ModelState.IsValid)
-                return View(table);
+                return View(Table);
 
-            var sql = @"UPDATE Tables SET TableNumber = @TableNumber, QRCode = @QRCode,
-                        Status = @Status, Description = @Description
-                        WHERE TableId = @TableId";
-
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, table);
-
+            _db.Update(Table);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: /Tables/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var sql = "SELECT * FROM Tables WHERE TableId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Table>(sql, new { id });
+            var Table = await _db.Tables.FindAsync(id);
+            if (Table == null)
+                return NotFound();
 
-            if (table == null) return NotFound();
-            return View(table);
+            return View(Table);
         }
 
+        // GET: /Tables/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var sql = "SELECT * FROM Tables WHERE TableId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Table>(sql, new { id });
+            var Table = await _db.Tables.FindAsync(id);
+            if (Table == null)
+                return NotFound();
 
-            if (table == null) return NotFound();
-            return View(table);
+            return View(Table);
         }
 
+        // POST: /Tables/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sql = "DELETE FROM Tables WHERE TableId = @id";
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, new { id });
+            var Table = await _db.Tables.FindAsync(id);
+            if (Table != null)
+            {
+                _db.Tables.Remove(Table);
+                await _db.SaveChangesAsync();
+            }
 
             return RedirectToAction(nameof(Index));
         }

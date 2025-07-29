@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 
+// Updated EF
+
 namespace OrderFood_SW.Controllers
 {
     public class CategoriesController : Controller

@@ -10,7 +10,7 @@ namespace OrderFood_SW.Helper
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Table> tables { get; set; }
+        public DbSet<Table> Tables { get; set; }
 
         public DbSet<Dish> Dishes { get; set; }
 
