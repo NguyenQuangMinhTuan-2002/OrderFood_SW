@@ -17,7 +17,7 @@
                     <div class="panel-body">
                         <form asp-action="Edit" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <input type="hidden" name="OldImageUrl" value="@Model.ImageUrl" />
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div asp-validation-summary="All" class="text-danger"></div>
 
                             <div class="form-group">
                                 <label asp-for="DishId" class="col-sm-3 control-label"></label>
@@ -51,14 +51,6 @@
                                 </div>
                             </div>
 
-                            @* <div class="form-group">
-                                <label asp-for="ImageUrl" class="col-sm-3 control-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="ImageUrl" class="form-control" />
-                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
-                                </div>
-                            </div> *@
-
                             <div class="form-group">
                                 <label asp-for="CategoryId" class="col-sm-3 control-label"></label>
                                 <div class="col-sm-9">
@@ -76,17 +68,26 @@
                                 </div>
                             </div>
 
-                            <!-- Upload ảnh mới -->
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Upload image</label>
+                                <label class="col-sm-3 control-label">Dish Image</label>
                                 <div class="col-sm-9">
-                                    <input type="file" name="ImageFile" class="form-control" />
+                                    <img style="width:200px; height: 150px" src="~/images/@Model.ImageUrl" alt="No photo" />
+                                </div>
+                            </div>
+
+                            
+
+                            <!-- Upload New Image -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">New image ?</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="ImageFile" class="form-control"/>
                                 </div>
                             </div>
 
                             <div class="form-group text-right">
                                 <div class="col-sm-offset-3 col-sm-9">
-                                    <input type="submit" value="Save Changes" class="btn btn-success" />
+                                    <input type="submit" value="Save Changes" class="btn btn-success"/>
                                     <a asp-action="Index" class="btn btn-default">Back to List</a>
                                 </div>
                             </div>

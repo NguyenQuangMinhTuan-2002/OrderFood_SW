@@ -107,6 +107,9 @@ namespace OrderFood_SW.Controllers
                 dish.ImageUrl = OldImageUrl;
             }
 
+            // Remove the ImageFile from ModelState to prevent validation errors
+            ModelState.Remove("ImageFile");
+
             if (!ModelState.IsValid)
                 return View(dish);
 
