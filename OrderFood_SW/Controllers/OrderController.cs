@@ -1,72 +1,63 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
-using static NuGet.Packaging.PackagingConstants;
 
 public class OrderController : Controller
 {
-    private readonly DatabaseHelper _db;
     private const int PageSize = 5;
 
-    public OrderController(DatabaseHelper db)
+    private readonly DatabaseHelperEF _db;
+
+    public OrderController(DatabaseHelperEF db)
     {
         _db = db;
     }
+
     public IActionResult Index()
     {
-        // Truy vấn danh sách bàn ăn
-        string query = "SELECT * FROM Tables ORDER BY TableNumber";
-
-        var tableList = _db.Query<Table>(query);
+        var tableList = _db.Tables.OrderBy(t => t.TableNumber).ToList();
 
         var model = new OrderPageModel
         {
-            FoundTables = tableList.ToList()
+            FoundTables = tableList
         };
 
         return View(model);
     }
 
-
-    // GET: /Order/Create
     public IActionResult Create(string searchKeyword, int page = 1, int? tableId = null)
     {
         if (tableId.HasValue)
         {
             HttpContext.Session.SetInt32("CurrentTableId", tableId.Value);
         }
-        int offset = (page - 1) * PageSize;
 
+        int offset = (page - 1) * PageSize;
         ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
 
+        var query = _db.Dishes.AsQueryable();
 
-        string whereClause = string.IsNullOrEmpty(searchKeyword) ? "" : "WHERE DishName LIKE @kw";
-        string countSql = $"SELECT COUNT(*) FROM Dishes {whereClause}";
-        string querySql = $@"
-            SELECT * FROM Dishes
-            {whereClause}
-            ORDER BY DishName
-            OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
-
-        var parameters = new
+        if (!string.IsNullOrEmpty(searchKeyword))
         {
-            kw = $"%{searchKeyword}%",
-            offset,
-            limit = PageSize
-        };
+            query = query.Where(d => d.DishName.Contains(searchKeyword));
+        }
 
-        int totalItems = _db.QuerySingle<int>(countSql, string.IsNullOrEmpty(searchKeyword) ? null : parameters);
+        int totalItems = query.Count();
         int totalPages = (int)Math.Ceiling((double)totalItems / PageSize);
 
-        var dishes = _db.Query<Dish>(querySql, string.IsNullOrEmpty(searchKeyword) ? new { offset, limit = PageSize } : parameters);
+        var dishes = query.OrderBy(d => d.DishName)
+                          .Skip(offset)
+                          .Take(PageSize)
+                          .ToList();
+
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
         var model = new OrderPageModel
         {
             SearchKeyword = searchKeyword,
-            FoundDishes = (List<Dish>)dishes,
+            FoundDishes = dishes,
             CartItems = cart
         };
 
@@ -76,24 +67,10 @@ public class OrderController : Controller
         return View(model);
     }
 
-    // POST: /Order/SearchDish
     [HttpPost]
-    public IActionResult SearchDish(string keyword)
+    public IActionResult AddCart(int dishId, int quantity)
     {
-        var dishes = _db.Query<Dish>(
-            "SELECT * " +
-            "FROM Dishes WHERE DishName LIKE @kw OR cast(CategoryId as nvarchar) like @kw" +
-            "ORDER BY DishId",
-            new { kw = $"%{keyword}%" });
-
-        return PartialView("_DishListPartial", dishes);
-    }
-
-    // POST: /Order/AddCart
-    [HttpPost]
-    public IActionResult AddCart(int dishId, int Quantity)
-    {
-        var dish = _db.QuerySingle<Dish>("SELECT * FROM Dishes WHERE DishId = @id", new { id = dishId });
+        var dish = _db.Dishes.Find(dishId);
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
         var existing = cart.FirstOrDefault(x => x.DishId == dishId);
@@ -105,14 +82,13 @@ public class OrderController : Controller
                 DishId = dish.DishId,
                 DishName = dish.DishName,
                 Price = dish.DishPrice,
-                Quantity = Quantity
+                Quantity = quantity
             });
 
         HttpContext.Session.SetObject("Cart", cart);
         return RedirectToAction("Create");
     }
 
-    // GET: /Order/GetCart
     public IActionResult GetCart()
     {
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
@@ -137,9 +113,7 @@ public class OrderController : Controller
     [HttpPost]
     public IActionResult RemoveAllCart()
     {
-        // Xoá toàn bộ giỏ hàng bằng cách remove key khỏi session
         HttpContext.Session.Remove("Cart");
-
         return Json(new { success = true });
     }
 
@@ -148,57 +122,60 @@ public class OrderController : Controller
     {
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
-        if (cart == null || cart.Count == 0)
+        if (!cart.Any())
         {
             TempData["Error"] = "Giỏ hàng trống!";
             return RedirectToAction("Create", new { tableId });
         }
 
-        var order = new
+        var order = new Order
         {
             TableId = tableId,
             OrderTime = DateTime.Now,
-            OrderStatus = 1, // pending
+            OrderStatus = 1,
             TotalAmount = cart.Sum(x => x.Price * x.Quantity),
-            Note = "n/a"
+            note = "n/a"
         };
 
-        string insertOrderSql = @"
-        INSERT INTO Orders (TableId, OrderTime, OrderStatus, TotalAmount, Note)
-        VALUES (@TableId, @OrderTime, @OrderStatus, @TotalAmount, @Note);
-        SELECT CAST(SCOPE_IDENTITY() as int);";
-
-        int newOrderId = _db.QuerySingle<int>(insertOrderSql, order);
+        _db.Orders.Add(order);
+        _db.SaveChanges();
 
         foreach (var item in cart)
         {
-            _db.Execute("INSERT INTO OrderDetails (OrderId, DishId, Quantity) VALUES (@OrderId, @DishId, @Quantity);",
-                new { OrderId = newOrderId, DishId = item.DishId, Quantity = item.Quantity });
+            var orderDetail = new OrderDetail
+            {
+                OrderId = order.OrderId,
+                DishId = item.DishId,
+                Quantity = item.Quantity
+            };
+
+            _db.OrderDetails.Add(orderDetail);
         }
 
+        _db.SaveChanges();
         HttpContext.Session.Remove("Cart");
 
-        return RedirectToAction("Detail", new { orderId = newOrderId });
+        return RedirectToAction("Detail", new { orderId = order.OrderId });
     }
 
     public IActionResult Detail(int orderId)
     {
-        // 1. Lấy đơn hàng
-        var orderSql = @"SELECT * FROM Orders WHERE OrderId = @OrderId";
-        var order = _db.QuerySingleOrDefault<Order>(orderSql, new { OrderId = orderId });
+        var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderId);
         if (order == null)
-        {
             return NotFound("Không tìm thấy đơn hàng");
-        }
-        // 2. Lấy chi tiết món ăn đã đặt
-        var detailsSql = @"
-        SELECT od.DishId, d.DishName, od.Quantity, d.DishPrice
-        FROM OrderDetails od
-        INNER JOIN Dishes d ON od.DishId = d.DishId
-        WHERE od.OrderId = @OrderId";
-        var orderDetails = _db.Query<OrderDetailsWithDish>(detailsSql, new { OrderId = orderId }).ToList();
 
-        // 3. Gói vào ViewModel
+        var orderDetails = _db.OrderDetails
+            .Include(od => od.Dish)
+            .Where(od => od.OrderId == orderId)
+            .Select(od => new OrderDetailsWithDish
+            {
+                DishId = od.DishId,
+                DishName = od.Dish.DishName,
+                DishPrice = od.Dish.DishPrice,
+                Quantity = od.Quantity
+            })
+            .ToList();
+
         var viewModel = new OrderDetailViewModel
         {
             Order = order,

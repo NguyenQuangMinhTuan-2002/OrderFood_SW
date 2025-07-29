@@ -12,5 +12,7 @@ namespace OrderFood_SW.Models
         public string? ImageUrl { get; set; }
         public int CategoryId { get; set; }
         public bool IsAvailable { get; set; }
+
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

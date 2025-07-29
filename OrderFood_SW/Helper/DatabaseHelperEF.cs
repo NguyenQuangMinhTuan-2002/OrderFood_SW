@@ -17,5 +17,24 @@ namespace OrderFood_SW.Helper
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<OrderDetail>()
+                .HasKey(od => new { od.OrderId, od.DishId });
+
+            modelBuilder.Entity<OrderDetail>()
+                .HasOne(od => od.Order)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(od => od.OrderId);
+
+            modelBuilder.Entity<OrderDetail>()
+                .HasOne(od => od.Dish)
+                .WithMany(d => d.OrderDetails)
+                .HasForeignKey(od => od.DishId);
+        }
+
     }
 }

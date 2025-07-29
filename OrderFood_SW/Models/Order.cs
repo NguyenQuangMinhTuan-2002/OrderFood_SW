@@ -11,5 +11,7 @@ namespace OrderFood_SW.Models
         public int OrderStatus { get; set; }
         public decimal TotalAmount { get; set; }
         public string note { get; set; }
+
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
