@@ -1,54 +1,47 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OrderFood_SW.Controllers
 {
     public class DishesController : Controller
     {
-        private readonly DatabaseHelper _db;
+        private readonly DatabaseHelperEF _db;
 
-        public DishesController(DatabaseHelper db)
+        public DishesController(DatabaseHelperEF db)
         {
             _db = db;
         }
 
-        public async Task<IActionResult> Index(String keyword = "", int page = 1)
+        public async Task<IActionResult> Index(string keyword = "", int page = 1)
         {
             int pageSize = 8;
             int offset = (page - 1) * pageSize;
 
-            string sql = @"
-                SELECT * FROM Dishes
-                WHERE (@Keyword = '' OR 
-                       CAST(DishPrice AS NVARCHAR) LIKE '%' + @Keyword + '%' OR 
-                       DishName LIKE '%' + @Keyword + '%' OR
-                       DishDescription LIKE '%' + @Keyword + '%')
-                ORDER BY DishId
-                OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+            var query = _db.Dishes.AsQueryable();
 
-                SELECT COUNT(*) FROM Dishes
-                WHERE (@Keyword = '' OR 
-                       CAST(DishPrice AS NVARCHAR) LIKE '%' + @Keyword + '%' OR 
-                       DishName LIKE '%' + @Keyword + '%' OR
-                       DishDescription LIKE '%' + @Keyword + '%');
-            ";
-
-            using (var connection = DatabaseHelper.GetConnection())
+            if (!string.IsNullOrEmpty(keyword))
             {
-                using (var multi = await connection.QueryMultipleAsync(sql, new { Keyword = keyword, Offset = offset, PageSize = pageSize }))
-                {
-                    var Dishes = (await multi.ReadAsync<Dish>()).ToList();
-                    int totalRows = await multi.ReadFirstAsync<int>();
-
-                    ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                    ViewBag.CurrentPage = page;
-                    ViewBag.Keyword = keyword;
-
-                    return View(Dishes);
-                }
+                query = query.Where(d => d.DishName.Contains(keyword) ||
+                                         d.DishDescription.Contains(keyword) ||
+                                         d.DishPrice.ToString().Contains(keyword)
+                );
             }
+            int totalRows = await query.CountAsync();
+            var dishes = await query.OrderBy(d => d.DishId)
+                                    .Skip(offset)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.Keyword = keyword;
+
+            return View(dishes);
         }
 
         public IActionResult Create()
@@ -59,7 +52,6 @@ namespace OrderFood_SW.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Dish dish, IFormFile ImageFile)
         {
-            // Upload ảnh
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
@@ -75,36 +67,27 @@ namespace OrderFood_SW.Controllers
                 dish.ImageUrl = fileName;
             }
 
-            // Validate sau khi gán ảnh
             if (!ModelState.IsValid)
             {
                 return View(dish);
             }
 
-            // Insert DB
-            var sql = @"INSERT INTO Dishes (DishName, DishDescription, DishPrice, ImageUrl, CategoryId, IsAvailable)
-                VALUES (@DishName, @DishDescription, @DishPrice, @ImageUrl, @CategoryId, @IsAvailable)";
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, dish);
+            _db.Dishes.Add(dish);
+            await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
 
-
         public async Task<IActionResult> Edit(int id)
         {
-            var sql = "SELECT * FROM Dishes WHERE DishId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Dish>(sql, new { id });
-
-            if (table == null) return NotFound();
-            return View(table);
+            var dish = await _db.Dishes.FindAsync(id);
+            if (dish == null) return NotFound();
+            return View(dish);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(Dish dish, IFormFile ImageFile, string OldImageUrl)
         {
-            // Nếu có ảnh mới thì xử lý upload
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
@@ -117,53 +100,44 @@ namespace OrderFood_SW.Controllers
                     await ImageFile.CopyToAsync(stream);
                 }
 
-                // Gán ảnh mới
                 dish.ImageUrl = fileName;
-            }else{
-                // Dùng lại ảnh cũ
+            }
+            else
+            {
                 dish.ImageUrl = OldImageUrl;
             }
 
             if (!ModelState.IsValid)
                 return View(dish);
 
-            // Cập nhật DB
-            var sql = @"UPDATE Dishes SET DishName = @DishName, DishDescription = @DishDescription,
-                DishPrice = @DishPrice, ImageUrl = @ImageUrl, CategoryId = @CategoryId, IsAvailable = @IsAvailable
-                WHERE DishId = @DishId";
-
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, dish);
+            _db.Dishes.Update(dish);
+            await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var sql = "SELECT * FROM Dishes WHERE DishId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Dish>(sql, new { id });
-
-            if (table == null) return NotFound();
-            return View(table);
+            var dish = await _db.Dishes.FindAsync(id);
+            if (dish == null) return NotFound();
+            return View(dish);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var sql = "SELECT * FROM Dishes WHERE DishId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Dish>(sql, new { id });
-
-            if (table == null) return NotFound();
-            return View(table);
+            var dish = await _db.Dishes.FindAsync(id);
+            if (dish == null) return NotFound();
+            return View(dish);
         }
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sql = "DELETE FROM Dishes WHERE DishId = @id";
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, new { id });
+            var dish = await _db.Dishes.FindAsync(id);
+            if (dish == null) return NotFound();
+
+            _db.Dishes.Remove(dish);
+            await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

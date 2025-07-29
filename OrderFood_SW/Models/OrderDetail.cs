@@ -1,7 +1,10 @@
-﻿namespace OrderFood_SW.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OrderFood_SW.Models
 {
     public class OrderDetail
     {
+        [Key]
         public int OrderDetailId { get; set; }
         public int OrderId { get; set; }
         public int DishId { get; set; }

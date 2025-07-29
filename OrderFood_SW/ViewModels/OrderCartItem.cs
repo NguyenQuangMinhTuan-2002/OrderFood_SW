@@ -4,8 +4,8 @@
     {
         public int DishId { get; set; }
         public string DishName { get; set; }
-        public float Price { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public float Total => Price * Quantity;
+        public decimal Total => Price * Quantity;
     }
 }

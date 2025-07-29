@@ -1,4 +1,5 @@
 ﻿using OrderFood_SW.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class OrderDetailViewModel
 {
@@ -8,6 +9,7 @@ public class OrderDetailViewModel
 
 public class OrderDetailsWithDish
 {
+    [Key]
     public int DishId { get; set; }
     public string DishName { get; set; }
     public int Quantity { get; set; }
