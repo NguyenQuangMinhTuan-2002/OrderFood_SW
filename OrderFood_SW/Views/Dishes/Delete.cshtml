@@ -34,6 +34,11 @@
 
                             <dt>@Html.DisplayNameFor(model => model.IsAvailable)</dt>
                             <dd>@Html.DisplayFor(model => model.IsAvailable)</dd>
+
+                            <dt>Photo: </dt>
+                            <dd>
+                                <img style="width:200px; height: 150px" src="~/images/@Model.ImageUrl" alt="No photo" />
+                            </dd>
                         </dl>
                     </div>
 

@@ -9,7 +9,6 @@
                 <th>Dish Name</th>
                 <th>Dish Description</th>
                 <th>Dish Price</th>
-                <th>Category</th>
                 <th style="width:100px; color: darkgray">Place Order</th>
             </tr>
         </thead>
@@ -17,11 +16,13 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.ImageUrl</td>
+                    <td>
+                        <img class="img-bordered" style="width: 50px; height: 40px"
+                             src="~/images/@item.ImageUrl" alt="NoPhoto">
+                    </td>
                     <td>@item.DishName</td>
                     <td>@item.DishDescription</td>
                     <td>@item.DishPrice</td>
-                    <td>@item.CategoryId</td>
                     <td>
                         <form method="post" asp-action="AddCart" asp-controller="Order" class="d-flex">
                             <input type="hidden" name="dishId" value="@item.DishId"/>

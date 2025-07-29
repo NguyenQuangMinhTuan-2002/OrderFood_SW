@@ -1,5 +1,5 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 
@@ -7,118 +7,118 @@ namespace OrderFood_SW.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly DatabaseHelper _db;
+        private readonly DatabaseHelperEF _db;
 
-        public CategoriesController(DatabaseHelper db)
+        public CategoriesController(DatabaseHelperEF db)
         {
             _db = db;
         }
 
-        public async Task<IActionResult> Index(String keyword = "", int page = 1)
+        // GET: /Categories
+        public async Task<IActionResult> Index(string keyword = "", int page = 1)
         {
             int pageSize = 8;
-            int offset = (page - 1) * pageSize;
+            int skip = (page - 1) * pageSize;
 
-            string sql = @"
-                    SELECT * FROM Categories
-                    WHERE (@Keyword = '' OR 
-                           CAST(CategoryName AS NVARCHAR) LIKE '%' + @Keyword + '%' OR 
-                           CategoryDescription LIKE '%' + @Keyword + '%')
-                    ORDER BY CategoryId
-                    OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+            var query = _db.Categories.AsQueryable();
 
-                    SELECT COUNT(*) FROM Categories
-                    WHERE (@Keyword = '' OR 
-                           CAST(CategoryName AS NVARCHAR) LIKE '%' + @Keyword + '%' OR 
-                           CategoryDescription LIKE '%' + @Keyword + '%');
-                ";
-
-            using (var connection = DatabaseHelper.GetConnection())
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                using (var multi = await connection.QueryMultipleAsync(sql, new { Keyword = keyword, Offset = offset, PageSize = pageSize }))
-                {
-                    var Categories = (await multi.ReadAsync<Categories>()).ToList();
-                    int totalRows = await multi.ReadFirstAsync<int>();
-
-                    ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                    ViewBag.CurrentPage = page;
-                    ViewBag.Keyword = keyword;
-
-                    return View(Categories);
-                }
+                query = query.Where(c =>
+                    c.CategoryName.Contains(keyword) ||
+                    c.CategoryDescription.Contains(keyword));
             }
+
+            int totalRows = await query.CountAsync();
+            var categories = await query
+                .OrderBy(c => c.CategoryId)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.Keyword = keyword;
+
+            return View(categories);
         }
 
+        // GET: /Categories/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: /Categories/Create
         [HttpPost]
-        public async Task<IActionResult> Create(Categories table)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Category category)
         {
             if (!ModelState.IsValid)
-                return View(table);
+                return View(category);
 
-            var sql = @"INSERT INTO Categories (CategoryName, CategoryDescription)
-                        VALUES (@CategoryName, @CategoryDescription)";
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, table);
-
+            _db.Categories.Add(category);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: /Categories/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var sql = "SELECT * FROM Categories WHERE CategoryId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Categories>(sql, new { id });
+            var category = await _db.Categories.FindAsync(id);
+            if (category == null)
+                return NotFound();
 
-            if (table == null) return NotFound();
-            return View(table);
+            return View(category);
         }
 
+        // POST: /Categories/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(Categories table)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Category category)
         {
+            if (id != category.CategoryId)
+                return NotFound();
+
             if (!ModelState.IsValid)
-                return View(table);
+                return View(category);
 
-            var sql = @"UPDATE Categories SET CategoryName = @CategoryName, CategoryDescription = @CategoryDescription
-                        WHERE CategoryId = @CategoryId";
-
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, table);
-
+            _db.Update(category);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: /Categories/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var sql = "SELECT * FROM Categories WHERE CategoryId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Categories>(sql, new { id });
+            var category = await _db.Categories.FindAsync(id);
+            if (category == null)
+                return NotFound();
 
-            if (table == null) return NotFound();
-            return View(table);
+            return View(category);
         }
 
+        // GET: /Categories/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var sql = "SELECT * FROM Categories WHERE CategoryId = @id";
-            using var conn = _db.CreateConnection();
-            var table = await conn.QuerySingleOrDefaultAsync<Categories>(sql, new { id });
+            var category = await _db.Categories.FindAsync(id);
+            if (category == null)
+                return NotFound();
 
-            if (table == null) return NotFound();
-            return View(table);
+            return View(category);
         }
 
+        // POST: /Categories/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sql = "DELETE FROM Categories WHERE CategoryId = @id";
-            using var conn = _db.CreateConnection();
-            await conn.ExecuteAsync(sql, new { id });
+            var category = await _db.Categories.FindAsync(id);
+            if (category != null)
+            {
+                _db.Categories.Remove(category);
+                await _db.SaveChangesAsync();
+            }
 
             return RedirectToAction(nameof(Index));
         }

@@ -15,6 +15,7 @@
                     </div>
                     <div class="panel-body">
                         <dl class="dl-horizontal">
+
                             <dt>@Html.DisplayNameFor(model => model.DishId)</dt>
                             <dd>@Html.DisplayFor(model => model.DishId)</dd>
 
@@ -35,6 +36,11 @@
 
                             <dt>@Html.DisplayNameFor(model => model.IsAvailable)</dt>
                             <dd>@Html.DisplayFor(model => model.IsAvailable)</dd>
+
+                            <dt>Photo: </dt>
+                            <dd>
+                                <img style="width:200px; height: 150px" src="~/images/@Model.ImageUrl" alt="No photo" />
+                            </dd>
                         </dl>
                     </div>
 

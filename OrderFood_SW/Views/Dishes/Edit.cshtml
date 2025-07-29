@@ -15,7 +15,8 @@
                         <strong>Edit Dish Information</strong>
                     </div>
                     <div class="panel-body">
-                        <form asp-action="Edit" class="form-horizontal" role="form">
+                        <form asp-action="Edit" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <input type="hidden" name="OldImageUrl" value="@Model.ImageUrl" />
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <div class="form-group">
@@ -50,13 +51,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            @* <div class="form-group">
                                 <label asp-for="ImageUrl" class="col-sm-3 control-label"></label>
                                 <div class="col-sm-9">
                                     <input asp-for="ImageUrl" class="form-control" />
                                     <span asp-validation-for="ImageUrl" class="text-danger"></span>
                                 </div>
-                            </div>
+                            </div> *@
 
                             <div class="form-group">
                                 <label asp-for="CategoryId" class="col-sm-3 control-label"></label>
@@ -72,6 +73,14 @@
                                     <label class="form-check-label" style="margin-top:6px">
                                         <input class="form-check-input" asp-for="IsAvailable" /> @Html.DisplayNameFor(model => model.IsAvailable)
                                     </label>
+                                </div>
+                            </div>
+
+                            <!-- Upload ảnh mới -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Upload image</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="ImageFile" class="form-control" />
                                 </div>
                             </div>
 
