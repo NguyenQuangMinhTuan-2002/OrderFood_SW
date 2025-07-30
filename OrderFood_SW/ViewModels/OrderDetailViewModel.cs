@@ -17,5 +17,6 @@ public class DetailsWithDish
     public int Quantity { get; set; }
     public decimal DishPrice { get; set; }
     public int DishStatus { get; set; } // 0: Đang chờ, 1: Đã hoàn thành
+    public int OrderId { get; set; }
     public decimal Total => DishPrice * Quantity;
 }

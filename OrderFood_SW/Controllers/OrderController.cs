@@ -170,6 +170,8 @@ public class OrderController : Controller
         return RedirectToAction("Detail", new { orderId = order.OrderId });
     }
 
+    //Detail page actions handle
+    [Route("Order/Detail/{orderId}")]
     public IActionResult Detail(int orderId)
     {
         var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderId);
@@ -188,6 +190,7 @@ public class OrderController : Controller
                 Quantity = od.Quantity,
                 DishPrice = d.DishPrice,
                 DishStatus = od.DishStatus,
+                OrderId = od.OrderId,
             }).ToList();
 
         var viewModel = new OrderDetailViewModel
@@ -198,4 +201,118 @@ public class OrderController : Controller
 
         return View(viewModel);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateDishStatus(int OrderId, int DishId, int DishStatus)
+    {
+        var detail = await _db.OrderDetails
+            .FirstOrDefaultAsync(od => od.OrderId == OrderId && od.DishId == DishId);
+
+        if (detail != null)
+        {
+            detail.DishStatus = DishStatus;
+            await _db.SaveChangesAsync();
+        }
+        return RedirectToAction("Detail", new { id = OrderId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditDishQuantity(int OrderId, int DishId, int Quantity)
+    {
+        var detail = await _db.OrderDetails
+            .FirstOrDefaultAsync(od => od.OrderId == OrderId && od.DishId == DishId);
+
+        if (detail != null && Quantity > 0)
+        {
+            detail.Quantity = Quantity;
+            await _db.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Detail", new { id = OrderId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteDishFromOrder(int OrderId, int DishId)
+    {
+        var detail = await _db.OrderDetails
+            .FirstOrDefaultAsync(od => od.OrderId == OrderId && od.DishId == DishId);
+
+        if (detail != null)
+        {
+            _db.OrderDetails.Remove(detail);
+            await _db.SaveChangesAsync();
+        }
+
+        // Kiểm tra còn món nào trong đơn nữa không
+        var remainingItems = _db.OrderDetails
+            .Where(od => od.OrderId == OrderId)
+            .ToList();
+
+        if (!remainingItems.Any())
+        {
+            // Xóa cả đơn hàng nếu không còn món
+            var order = _db.Orders.FirstOrDefault(o => o.OrderId == OrderId);
+            if (order != null)
+            {
+                _db.Orders.Remove(order);
+                _db.SaveChanges();
+            }
+
+            // Redirect về danh sách đơn
+            return RedirectToAction("Index", "Order");
+        }
+
+        return RedirectToAction("Detail", new { id = OrderId });
+    }
+
+    [HttpPost]
+    public IActionResult ToggleDishStatus(int orderId, int dishId)
+    {
+        var orderDetail = _db.OrderDetails
+            .FirstOrDefault(od => od.OrderId == orderId && od.DishId == dishId);
+
+        if (orderDetail == null)
+        {
+            return NotFound();
+        }
+
+        // Toggle trạng thái: 0 <-> 1
+        orderDetail.DishStatus = (orderDetail.DishStatus == 0) ? 1 : 0;
+
+        _db.SaveChanges();
+
+        return RedirectToAction("Detail", new { orderId = orderId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ApproveOrder(int orderId)
+    {
+        var order = await _db.Orders
+            .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Dish)
+            .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+            return NotFound();
+
+        // Kiểm tra tất cả món đã được phục vụ
+        bool allServed = order.OrderDetails.All(od => od.DishStatus == 1);
+        if (!allServed)
+        {
+            TempData["Error"] = "Chỉ được duyệt đơn khi tất cả món đã được phục vụ.";
+            return RedirectToAction("Detail", new { orderId = orderId });
+        }
+
+        // Tính tổng tiền
+        decimal total = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice);
+        order.TotalAmount = total;
+
+        // Đổi trạng thái đơn hàng sang "2 = đã duyệt"
+        order.OrderStatus = 2;
+
+        await _db.SaveChangesAsync();
+        TempData["Success"] = "Đơn hàng đã được duyệt và tính tổng tiền thành công.";
+        return RedirectToAction("Detail", new { orderId = orderId });
+    }
+
 }
