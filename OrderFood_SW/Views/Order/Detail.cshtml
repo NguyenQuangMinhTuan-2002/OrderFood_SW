@@ -12,20 +12,33 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>Hình ảnh</th>
             <th>Món ăn</th>
             <th>Số lượng</th>
             <th>Đơn giá</th>
             <th>Tổng</th>
+            <th>Trạng thái</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.OrderDetails)
         {
             <tr>
+                <td>
+                    <img class="img-bordered" style="width: 50px; height: 40px"
+                         src="~/images/@item.ImageUrl" alt="NoPhoto">
+                </td>
                 <td>@item.DishName</td>
                 <td>@item.Quantity</td>
                 <td>@item.DishPrice.ToString("N0")</td>
                 <td>@item.Total.ToString("N0")</td>
+                @if (item.DishStatus == 0)
+                {
+                    <td>Đang chờ</td>
+                } else if (item.DishStatus == 1)
+                {
+                    <td>Đã phục vụ</td>
+                }
             </tr>
         }
     </tbody>

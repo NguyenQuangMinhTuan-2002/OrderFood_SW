@@ -27,6 +27,18 @@ public class OrderController : Controller
         return View(model);
     }
 
+    public IActionResult OrderList()
+    {
+        var orderList = _db.Orders.OrderBy(t => t.OrderTime).ToList();
+
+        var model = new OrderPageModel
+        {
+            FoundOrders = orderList
+        };
+
+        return View(model);
+    }
+
     public IActionResult Create(string searchKeyword, int page = 1, int? tableId = null)
     {
         if (tableId.HasValue)
@@ -164,17 +176,19 @@ public class OrderController : Controller
         if (order == null)
             return NotFound("Không tìm thấy đơn hàng");
 
-        var orderDetails = _db.OrderDetails
-            .Include(od => od.Dish)
-            .Where(od => od.OrderId == orderId)
-            .Select(od => new OrderDetailsWithDish
+        var orderDetails = (
+            from od in _db.OrderDetails
+            join d in _db.Dishes on od.DishId equals d.DishId
+            where od.OrderId == orderId
+            select new DetailsWithDish
             {
-                DishId = od.DishId,
-                DishName = od.Dish.DishName,
-                DishPrice = od.Dish.DishPrice,
-                Quantity = od.Quantity
-            })
-            .ToList();
+                DishId = d.DishId,
+                ImageUrl = d.ImageUrl ?? "/images/nophoto.png",
+                DishName = d.DishName,
+                Quantity = od.Quantity,
+                DishPrice = d.DishPrice,
+                DishStatus = od.DishStatus,
+            }).ToList();
 
         var viewModel = new OrderDetailViewModel
         {
