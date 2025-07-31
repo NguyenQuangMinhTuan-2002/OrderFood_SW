@@ -6,7 +6,7 @@ using OrderFood_SW.ViewModels;
 
 public class OrderController : Controller
 {
-    private const int PageSize = 5;
+    private const int PageSize = 4;
 
     private readonly DatabaseHelperEF _db;
 
@@ -39,6 +39,8 @@ public class OrderController : Controller
         return View(model);
     }
 
+    //-------------------------------------------------------------------------------------------------------------
+    // Trang tạo giỏ hàng Order
     public IActionResult Create(string searchKeyword, int page = 1, int? tableId = null)
     {
         if (tableId.HasValue)
@@ -130,7 +132,7 @@ public class OrderController : Controller
     }
 
     [HttpPost]
-    public IActionResult OrderInit(int tableId)
+    public async Task<IActionResult> OrderInitAsync(int tableId)
     {
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
@@ -164,13 +166,22 @@ public class OrderController : Controller
             _db.OrderDetails.Add(orderDetail);
         }
 
+        var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == order.TableId);
+        if (table != null)
+        {
+            table.Status = "Occupied";
+        }
+
+
         _db.SaveChanges();
         HttpContext.Session.Remove("Cart");
 
         return RedirectToAction("Detail", new { orderId = order.OrderId });
     }
 
-    //Detail page actions handle
+    //-----------------------------------------------------------------------------------------------------------------
+    // Trang chi tiết đơn hàng Order detail
+
     [Route("Order/Detail/{orderId}")]
     public IActionResult Detail(int orderId)
     {
@@ -310,9 +321,46 @@ public class OrderController : Controller
         // Đổi trạng thái đơn hàng sang "2 = đã duyệt"
         order.OrderStatus = 2;
 
+        // Cập nhật trạng thái bàn
+        var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
+        if (table != null)
+        {
+            table.Status = "Available";
+        }
+
         await _db.SaveChangesAsync();
         TempData["Success"] = "Đơn hàng đã được duyệt và tính tổng tiền thành công.";
         return RedirectToAction("Detail", new { orderId = orderId });
+    }
+
+    [HttpPost]
+    public IActionResult CancelOrder(int orderId)
+    {
+        var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderId);
+        if (order == null) return NotFound();
+
+        // Kiểm tra nếu có món nào đã được phục vụ
+        var hasServed = _db.OrderDetails
+            .Where(d => d.OrderId == orderId)
+            .Any(d => d.DishStatus == 1);
+
+        if (hasServed)
+        {
+            TempData["Error"] = "Không thể hủy đơn vì đã có món được phục vụ.";
+            return RedirectToAction("OrderDetail", new { orderId });
+        }
+
+        // Xóa tất cả chi tiết đơn
+        var orderDetails = _db.OrderDetails.Where(d => d.OrderId == orderId).ToList();
+        _db.OrderDetails.RemoveRange(orderDetails);
+
+        // Xóa đơn hàng
+        _db.Orders.Remove(order);
+
+        _db.SaveChanges();
+        TempData["Success"] = "Đã hủy đơn thành công.";
+
+        return RedirectToAction("OrderList");
     }
 
 }

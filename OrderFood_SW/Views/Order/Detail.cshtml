@@ -117,22 +117,34 @@
             </table>
         </div>
         <div class="text-center">
-            @if (Model.Order.OrderStatus == 1) // Đơn đang chờ
+            @if (Model.Order.OrderStatus == 1)
             {
-                <form method="post" asp-action="ApproveOrder" asp-controller="Order">
-                    <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
-                    <button type="submit" class="btn btn-success">Duyệt đơn</button>
-                </form>
+                @if (Model.OrderDetails.All(x => x.DishStatus == 1))
+                {
+                    <form method="post" asp-action="ApproveOrder" asp-controller="Order">
+                        <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
+                        <button type="submit" class="btn btn-success" style="margin: 0px 10px; width: 90px">Approve</button>
+                    </form>
+                }
+
+                @if (!Model.OrderDetails.Any(x => x.DishStatus == 1))
+                {
+                    <form method="post" asp-action="CancelOrder" asp-controller="Order">
+                        <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
+                        <button type="submit" class="btn btn-danger" style="margin: 0px 10px; width: 90px">Cancel</button>
+                    </form>
+                }
             }
             else
             {
-                <span class="text-success">Order approved</span>
+                <span class="text-center" style="color:forestgreen">Order approved</span>
             }
         </div>
     </div>
 </div>
+
 <div>
-    <a href="~/Order/OrderList" class="btn btn-primary">exit</a>
+    <a href="~/Order/OrderList" class="btn btn-default" style="width:100%; display:block"><i class="fa fa-arrow-left"></i> Exit</a>
 </div>
 
 @* <p class="text-right">

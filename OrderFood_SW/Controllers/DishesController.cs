@@ -109,6 +109,7 @@ namespace OrderFood_SW.Controllers
 
             // Remove the ImageFile from ModelState to prevent validation errors
             ModelState.Remove("ImageFile");
+            ModelState.Remove("OrderDetails");
 
             if (!ModelState.IsValid)
                 return View(dish);
