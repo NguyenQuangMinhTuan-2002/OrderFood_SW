@@ -50,7 +50,7 @@
                             <td>@item.Total.ToString("N0")</td>
                             @if (item.DishStatus == 0)
                             {
-                                <td>Pedding...</td>
+                                <td>Pending...</td>
                             }
                             else if (item.DishStatus == 1)
                             {
@@ -123,7 +123,7 @@
                 {
                     <form method="post" asp-action="ApproveOrder" asp-controller="Order">
                         <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
-                        <button type="submit" class="btn btn-success" style="margin: 0px 10px; width: 90px">Approve</button>
+                        <button type="submit" class="btn btn-success" style="width:100%">Approve</button>
                     </form>
                 }
 
@@ -131,7 +131,7 @@
                 {
                     <form method="post" asp-action="CancelOrder" asp-controller="Order">
                         <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
-                        <button type="submit" class="btn btn-danger" style="margin: 0px 10px; width: 90px">Cancel</button>
+                        <button type="submit" class="btn btn-danger" style="width:100%">Cancel</button>
                     </form>
                 }
             }
@@ -143,8 +143,9 @@
     </div>
 </div>
 
-<div>
-    <a href="~/Order/OrderList" class="btn btn-default" style="width:100%; display:block"><i class="fa fa-arrow-left"></i> Exit</a>
+<div style="display:flex">
+    <a href="~/Order/OrderList" class="btn btn-default" style="width:50%; display:block"><i class="fa fa-arrow-left"></i> Back To Order List</a>
+    <a href="~/Order/OrderHistory" class="btn btn-default" style="width:50%; display:block"><i class="fa fa-arrow-left"></i> Back To Order History</a>
 </div>
 
 @* <p class="text-right">

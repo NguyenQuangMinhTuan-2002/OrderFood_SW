@@ -1,7 +1,7 @@
 ﻿@model OrderFood_SW.ViewModels.OrderPageModel
 
 @{
-    ViewData["Title"] = "Order List";
+    ViewData["Title"] = "Order History";
 }
 
 <!-- Search Box -->
@@ -17,7 +17,6 @@
                     <tr class="bg-primary">
                         <th>Table ID</th>
                         <th>Order Time</th>
-                        <th>Order Status</th>
                         <th>Total Amount</th>
                         <th>Note</th>
                         <th style="width: 100px"></th>
@@ -26,15 +25,12 @@
                 <tbody>
                     @foreach (var item in Model.FoundOrders)
                     {
-                        if (item.OrderStatus == 1)
+                        if (item.OrderStatus == 2)
                         {
                             <tr>
                                 <td>@item.TableId</td>
                                 <td>@item.OrderTime.ToString("dd/MM/yyyy HH:mm")</td>
-                                <td>@item.OrderStatus</td>
-                                <td>
-                                    <p>Pending ...</p>
-                                </td>
+                                <td>@item.TotalAmount.ToString("N0")</td>
                                 <td>@item.note</td>
                                 <td>
                                     <a href="~/Order/Detail/@item.OrderId">Show Details</a>

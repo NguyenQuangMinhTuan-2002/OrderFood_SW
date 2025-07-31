@@ -2,44 +2,50 @@
 @{
     ViewBag.Title = "Order List table Available";
 }
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>TableId</th>
-            <th>TableNumber</th>
-            <th>Status</th>
-            <th>QRCode</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var table in Model.FoundTables)
-        {
-            <tr>
-                <td>@table.TableId</td>
-                <td>@table.TableNumber</td>
-                <td>@table.Status</td>
-                <td>@table.QRCode</td>
-                <td>@table.Description</td>
-                <td>
-                    @if (table.Status.Equals("Occupied") || table.Status.Equals("Reserved") || table.Status.Equals("maintenance"))
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr class="bg-primary">
+                        <th>TableId</th>
+                        <th>TableNumber</th>
+                        <th>Status</th>
+                        <th>QRCode</th>
+                        <th>Description</th>
+                        <th style="width:115px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var table in Model.FoundTables)
                     {
-                        <a href="#" class="btn disable" style="color: crimson ;font-size: 14px; padding-left: 8px">
-                            Out of order
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Order" asp-action="Create" asp-route-tableId="@table.TableId" class="btn btn-primary btn-sm">
-                            Create Order
-                        </a>
+                        <tr>
+                            <td>@table.TableId</td>
+                            <td>@table.TableNumber</td>
+                            <td>@table.Status</td>
+                            <td>@table.QRCode</td>
+                            <td>@table.Description</td>
+                            <td>
+                                @if (table.Status.Equals("Occupied") || table.Status.Equals("Reserved") || table.Status.Equals("maintenance"))
+                                {
+                                    <a href="#" class="btn disable" style="color: crimson ;font-size: 14px; padding-left: 8px">
+                                        Out of order
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Order" asp-action="Create" asp-route-tableId="@table.TableId" class="btn btn-primary btn-sm">
+                                        Create Order
+                                    </a>
 
-                        // đặt trước và hủy đặt trước bàn ở đây
+                                    // đặt trước và hủy đặt trước bàn ở đây
+                                }
+                            </td>
+                        </tr>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

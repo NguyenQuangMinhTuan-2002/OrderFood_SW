@@ -39,6 +39,20 @@ public class OrderController : Controller
         return View(model);
     }
 
+    public IActionResult OrderHistory()
+    {
+        var orderList = _db.Orders
+            .OrderByDescending(t => t.OrderTime)
+            .ToList();
+
+        var model = new OrderPageModel
+        {
+            FoundOrders = orderList
+        };
+
+        return View(model);
+    }
+
     //-------------------------------------------------------------------------------------------------------------
     // Trang tạo giỏ hàng Order
     public IActionResult Create(string searchKeyword, int page = 1, int? tableId = null)
