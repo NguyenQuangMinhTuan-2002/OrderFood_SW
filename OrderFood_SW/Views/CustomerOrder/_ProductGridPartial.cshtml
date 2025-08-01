@@ -1,0 +1,95 @@
+﻿@model List<Dish>
+
+<div class="products-grid">
+    @foreach (var item in Model)
+    {
+        <div class="product-card">
+            <img src="~/images/@item.ImageUrl" alt="Tasty Vegetable Salad" class="product-image">
+            <div class="product-info">
+                <div class="product-name">@item.DishName</div>
+                <div class="product-price">@item.DishPrice đ</div>
+                <div class="product-actions">
+                    <span class="veg-indicator veg">@item.CategoryId</span>
+                    <button class="add-btn">Add to Dish</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=160&fit=crop" alt="Tasty Vegetable Salad" class="product-image">
+        <div class="product-info">
+            <div class="product-name">Tasty Vegetable Salad</div>
+            <div class="product-price">$17.99</div>
+            <div class="product-actions">
+                <span class="veg-indicator veg">V</span>
+                <button class="add-btn">Add to Dish</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card selected">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=160&fit=crop" alt="Original Chess Meat Burger" class="product-image">
+        <div class="product-info">
+            <div class="product-name">Original Chess Meat Burger With Chips</div>
+            <div class="product-price">$23.99</div>
+            <div class="product-actions">
+                <span class="veg-indicator non-veg">N</span>
+                <div class="quantity-controls">
+                    <button class="qty-btn">-</button>
+                    <span class="qty-display">1</span>
+                    <button class="qty-btn">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1613769049987-b31b641f25b1?w=300&h=160&fit=crop" alt="Tacos Salsa With Chickens" class="product-image">
+        <div class="product-info">
+            <div class="product-name">Tacos Salsa With Chickens Grilled</div>
+            <div class="product-price">$16.99</div>
+            <div class="product-actions">
+                <span class="veg-indicator non-veg">N</span>
+                <button class="add-btn">Add to Dish</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&h=160&fit=crop" alt="Meat Sushi Maki" class="product-image">
+        <div class="product-info">
+            <div class="product-name">Meat Sushi Maki With Tuna, Strip And Other</div>
+            <div class="product-price">$9.99</div>
+            <div class="product-actions">
+                <span class="veg-indicator non-veg">N</span>
+                <button class="add-btn">Add to Dish</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1613769049987-b31b641f25b1?w=300&h=160&fit=crop" alt="Fresh Orange Juice" class="product-image">
+        <div class="product-info">
+            <div class="product-name">Fresh Orange Juice With Basil Seed On Sugar</div>
+            <div class="product-price">$12.99</div>
+            <div class="product-actions">
+                <span class="veg-indicator veg">V</span>
+                <button class="add-btn">Add to Dish</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="discount-badge">20% OFF</div>
+        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=160&fit=crop" alt="Original Chess Burger" class="product-image">
+        <div class="product-info">
+            <div class="product-name">Original Chess Burger With French Fries</div>
+            <div class="product-price">$10.39</div>
+            <div class="product-actions">
+                <span class="veg-indicator veg">V</span>
+                <button class="add-btn">Add to Dish</button>
+            </div>
+        </div>
+    </div> *@
+</div>

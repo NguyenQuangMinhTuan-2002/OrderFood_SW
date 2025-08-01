@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/custom-menu.css?v=1.0.1" />
+</head>
+<body>
+    <!-- Sidebar -->
+    @{
+        await Html.RenderPartialAsync("_CustomerSidebar");
+    }
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Area -->
+        @RenderBody()
+    </div>
+</body>
+</html>
