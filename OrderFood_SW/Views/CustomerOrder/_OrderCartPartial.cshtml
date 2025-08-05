@@ -1,70 +1,88 @@
-﻿<div class="order-panel">
+﻿@using OrderFood_SW.ViewModels
+@model List<OrderCartItem>
+@{
+    int currentTableId = ViewBag.TableId ?? 0;
+}
+
+<div class="order-panel" id="orderPanel">
+    <div class="order-panel-handle" id="orderPanelHandle"></div>
+
     <div class="table-info">
         <div>
-            <div class="table-number">Table 4</div>
+            <div class="table-number">@ViewBag.TableId</div>
             <div style="font-size: 12px; color: #64748b;">Round Table</div>
         </div>
+        <button class="action-btn">
+            <i class="fas fa-edit"></i>
+        </button>
     </div>
 
     <div class="order-items">
-        <div class="order-item">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=50&h=50&fit=crop" alt="Burger" class="order-item-image">
-            <div class="order-item-info">
-                <div class="order-item-name">Original Chess Meat Burger With Chips (Non Veg)</div>
-                <div class="order-item-price">$23.09 → $23.09</div>
-                <div class="order-item-qty">1X → $23.09</div>
+        @if (Model.Count == 0)
+        {
+            <div>
+                <H3 class="#">Your cart is empty</H3>
+                <br />
+                <p> add something to see more detail</p>
             </div>
-        </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="order-item">
+                    <img src="~/images/@item.ImageUrl" alt="Burger" class="order-item-image">
+                    <div class="order-item-info">
+                        <div class="order-item-name">@item.DishName <button style="width:21px; height: 22px" onclick="removeFromCart(@item.DishId)"><i class="fa fa-minus"></i></button></div>
+                        <div class="order-item-price">@item.Price <i class="fa fa-arrow-right"></i> @item.Total</div>
+                        <div class="order-item-qty">amount: @item.Quantity</div>
+                    </div>
+                </div>
+            }
 
-        <div class="order-item">
-            <img src="https://images.unsplash.com/photo-1613769049987-b31b641f25b1?w=50&h=50&fit=crop" alt="Orange Juice" class="order-item-image">
-            <div class="order-item-info">
-                <div class="order-item-name">Fresh Orange Juice With Basil Seed On Sugar (Non Veg)</div>
-                <div class="order-item-price">$12.99 → $12.99</div>
-                <div class="order-item-qty">1X → $12.99</div>
+            <div class="order-total">
+                <div class="total-row total-amount">
+                    <span>Total Amount</span>
+                    <span></span>
+                </div>
             </div>
-        </div>
 
-        <div class="order-item">
-            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=50&h=50&fit=crop" alt="Sushi" class="order-item-image">
-            <div class="order-item-info">
-                <div class="order-item-name">Meat Sushi Maki With Tuna, Strip And Other (Non Veg)</div>
-                <div class="order-item-price">$9.99 → $9.99</div>
-                <div class="order-item-qty">1X → $9.99</div>
-            </div>
-        </div>
+            <button class="place-order-btn">Place Order</button>
+        }
 
-        <div class="order-item">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=50&h=50&fit=crop" alt="Tacos" class="order-item-image">
-            <div class="order-item-info">
-                <div class="order-item-name">Tacos Salsa With Chickens Grilled</div>
-                <div class="order-item-price">$16.99 → $33.98</div>
-                <div class="order-item-qty">2X</div>
-            </div>
-        </div>
     </div>
-
-    <div class="order-total">
-        <div class="total-row total-amount">
-            <span>Total Amount</span>
-            <span>$63.71</span>
-        </div>
-    </div>
-
-    @* <div class="payment-methods">
-        <div class="payment-method">
-            <i class="fas fa-money-bill"></i>
-            <div>Cash</div>
-        </div>
-        <div class="payment-method">
-            <i class="fas fa-credit-card"></i>
-            <div>Credit/Debit Card</div>
-        </div>
-        <div class="payment-method">
-            <i class="fas fa-qrcode"></i>
-            <div>QR Code</div>
-        </div>
-    </div> *@
-
-    <button class="place-order-btn">Place Order</button>
 </div>
+
+
+<script>
+    function removeFromCart(dishId) {
+        fetch('/Order/RemoveFromCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'id=' + dishId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                //alert('Đã xóa khỏi giỏ hàng');
+                location.reload();
+            }
+        });
+    }
+    function removeAllCart() {
+        if (confirm("Are you sure want to delete all dish?")) {
+            fetch('/Order/RemoveAllCart', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    //alert("Đã xoá toàn bộ giỏ hàng");
+                    location.reload();
+                }
+            });
+        }
+    }
+</script>

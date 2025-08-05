@@ -2,135 +2,63 @@
 @{
     Layout = "_CustomerLayout";
 }
-
-<div class="content-area">
-    <!-- Product Area -->
-    <div class="product-area">
-        <div class="header" style="background-color:gainsboro; border-radius: 12px;">
-            <button class="action-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search Package here...">
-            </div>
-
-            <div class="header-actions">
-                <button class="action-btn">
-                    <i class="fas fa-sync-alt"></i>
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Content Area -->
+    <div class="content-area">
+        <!-- Product Area -->
+        <div class="product-area">
+            <!-- Header -->
+            <div class="header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
                 </button>
+
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search Package here...">
+                </div>
+
+                <div class="header-actions">
+                    <button class="action-btn">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </button>
+                </div>
             </div>
+            <!-- Categories -->
+            <div class="categories-wrapper">
+                <div class="categories">
+                    <div class="category-card active">
+                        <div class="category-name">All</div>
+                    </div>
+                    @foreach (var item in Model.DishCategories)
+                    {
+                        <div class="category-card">
+                            <div class="category-name">@item.CategoryName</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+            <!-- Products Grid -->
+            @Html.Partial("_ProductGridPartial", Model.FoundDishes)
         </div>
 
-        <!-- Categories -->
-        <div class="categories">
-            <div class="category-card active">
-                <div class="category-icon">
-                    <i class="fas fa-th"></i>
-                </div>
-                <div class="category-name">All</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <i class="fas fa-coffee"></i>
-                </div>
-                <div class="category-name">Breakfast</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <i class="fas fa-bowl-food"></i>
-                </div>
-                <div class="category-name">Soups</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <div class="category-name">Pasta</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <i class="fas fa-drumstick-bite"></i>
-                </div>
-                <div class="category-name">Main Course</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <i class="fas fa-hamburger"></i>
-                </div>
-                <div class="category-name">Burgers</div>
-            </div>
-        </div>
-
-        <!-- Products Grid -->
-        @Html.Partial("_ProductGridPartial", Model.FoundDishes)
+        <!-- Order Panel -->
+        @Html.Partial("_OrderCartPartial", Model.CartItems)
     </div>
-
-    <!-- Order Panel -->
-    @Html.Partial("_OrderCartPartial", null)
 </div>
 
+<!-- Mobile Cart Button -->
+<button class="mobile-cart-btn" id="mobileCartBtn">
+    <i class="fas fa-shopping-cart"></i>
+</button>
 
 <script>
-    // Add to cart functionality
-    document.querySelectorAll('.add-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const card = this.closest('.product-card');
-            card.classList.add('selected');
-
-            // Replace add button with quantity controls
-            this.parentElement.innerHTML = `
-                <span class="veg-indicator ${this.parentElement.querySelector('.veg-indicator').classList.contains('veg') ? 'veg' : 'non-veg'}">${this.parentElement.querySelector('.veg-indicator').textContent}</span>
-                <div class="quantity-controls">
-                    <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-                </div>
-            `;
-        });
-    });
-
-    // Quantity update functionality
-    function updateQuantity(btn, change) {
-        const qtyDisplay = btn.parentElement.querySelector('.qty-display');
-        let currentQty = parseInt(qtyDisplay.textContent);
-        const newQty = Math.max(0, currentQty + change);
-
-        if (newQty === 0) {
-            // Remove from cart
-            const card = btn.closest('.product-card');
-            card.classList.remove('selected');
-
-            // Restore add button
-            const actions = btn.closest('.product-actions');
-            const vegIndicator = actions.querySelector('.veg-indicator');
-            actions.innerHTML = `
-                <span class="veg-indicator ${vegIndicator.classList.contains('veg') ? 'veg' : 'non-veg'}">${vegIndicator.textContent}</span>
-                <button class="add-btn">Add to Dish</button>
-            `;
-
-            // Re-attach event listener
-            actions.querySelector('.add-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                const card = this.closest('.product-card');
-                card.classList.add('selected');
-
-                this.parentElement.innerHTML = `
-                    <span class="veg-indicator ${this.parentElement.querySelector('.veg-indicator').classList.contains('veg') ? 'veg' : 'non-veg'}">${this.parentElement.querySelector('.veg-indicator').textContent}</span>
-                    <div class="quantity-controls">
-                        <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                        <span class="qty-display">1</span>
-                        <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-                    </div>
-                `;
-            });
-        } else {
-            qtyDisplay.textContent = newQty;
-        }
-    }
-
     // Category selection
     document.querySelectorAll('.category-card').forEach(card => {
         card.addEventListener('click', function() {
@@ -138,21 +66,4 @@
             this.classList.add('active');
         });
     });
-
-    // Order type tabs
-    document.querySelectorAll('.order-type-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            document.querySelectorAll('.order-type-tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Place order functionality
-    document.querySelector('.place-order-btn').addEventListener('click', function() {
-        alert('Order placed successfully!');
-    });
-
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('active');
-    }
 </script>

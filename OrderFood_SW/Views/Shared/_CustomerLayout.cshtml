@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/themes/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/themes/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/themes/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/themes/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/themes/dist/css/skins/_all-skins.min.css">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="~/css/custom-menu.css?v=1.0.1" />
+    <link rel="stylesheet" href="~/css/custom-menu.css" asp-append-version="true" />
 </head>
 <body>
     <!-- Sidebar -->
@@ -19,5 +31,55 @@
         <!-- Content Area -->
         @RenderBody()
     </div>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileCartBtn = document.getElementById('mobileCartBtn');
+        const orderPanel = document.getElementById('orderPanel');
+        const orderPanelHandle = document.getElementById('orderPanelHandle');
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            mobileOverlay.classList.toggle('show');
+        });
+
+        // Close menu when clicking overlay
+        mobileOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('show');
+        });
+
+        // Mobile cart toggle
+        mobileCartBtn.addEventListener('click', function() {
+            orderPanel.classList.toggle('open');
+        });
+
+        // Close cart when dragging handle down
+        orderPanelHandle.addEventListener('click', function() {
+            orderPanel.classList.remove('open');
+        });
+
+        // Close mobile cart when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                if (!orderPanel.contains(e.target) && !mobileCartBtn.contains(e.target)) {
+                    orderPanel.classList.remove('open');
+                }
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('open');
+                mobileOverlay.classList.remove('show');
+                orderPanel.classList.remove('open');
+            }
+        });
+    </script>
 </body>
 </html>
