@@ -2,11 +2,10 @@
 @model List<OrderCartItem>
 @{
     int currentTableId = ViewBag.TableId ?? 0;
+    decimal totalAmount = Model?.Sum(x => x.Price * x.Quantity) ?? 0;
 }
-
-<div class="order-panel" id="orderPanel">
+<div class="order-panel" id="orderPanel" data-cart-container>
     <div class="order-panel-handle" id="orderPanelHandle"></div>
-
     <div class="table-info">
         <div>
             <div class="table-number">@ViewBag.TableId</div>
@@ -16,73 +15,205 @@
             <i class="fas fa-edit"></i>
         </button>
     </div>
-
     <div class="order-items">
-        @if (Model.Count == 0)
+        @if (Model == null || Model.Count == 0)
         {
-            <div>
+            <div class="empty-cart">
                 <H3 class="#">Your cart is empty</H3>
                 <br />
-                <p> add something to see more detail</p>
+                <p>Add something to see more detail</p>
             </div>
         }
         else
         {
             @foreach (var item in Model)
             {
-                <div class="order-item">
-                    <img src="~/images/@item.ImageUrl" alt="Burger" class="order-item-image">
+                <div class="order-item" data-item-id="@item.DishId">
+                    <img src="~/images/@item.ImageUrl" alt="@item.DishName" class="order-item-image">
                     <div class="order-item-info">
-                        <div class="order-item-name">@item.DishName <button style="width:21px; height: 22px" onclick="removeFromCart(@item.DishId)"><i class="fa fa-minus"></i></button></div>
-                        <div class="order-item-price">@item.Price <i class="fa fa-arrow-right"></i> @item.Total</div>
-                        <div class="order-item-qty">amount: @item.Quantity</div>
+                        <div class="order-item-name">
+                            @item.DishName
+                            <button class="remove-cart-item"
+                                    style="width:21px; height: 22px; margin-left: 10px;"
+                                    data-dish-id="@item.DishId"
+
+                                    title="Remove item">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="order-item-price">$@item.Price <i class="fa fa-arrow-right"></i> $@(item.Price* item.Quantity)</div>
+                        <div class="order-item-qty">
+                            <span>Amount: </span>
+                            <div class="cart-quantity-controls" style="display: inline-flex; align-items: center; gap: 8px;">
+                                <span class="quantity-display" style="min-width: 20px; text-align: center;">@item.Quantity</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }
-
             <div class="order-total">
                 <div class="total-row total-amount">
                     <span>Total Amount</span>
-                    <span></span>
+                    <span>$@totalAmount.ToString("F2")</span>
                 </div>
             </div>
-
-            <button class="place-order-btn">Place Order</button>
+            <div class="cart-actions" style="margin-top: 15px;">
+                <button class="place-order-btn" style="width: 100%; margin-bottom: 10px;">Place Order</button>
+                <button class="clear-cart-btn"
+                        style="width: 100%;height: 50px ; background: #dc3545; color: white; border: none; padding: 8px; border-radius: 10px;">
+                    Clear Cart
+                </button>
+            </div>
         }
-
     </div>
 </div>
 
-
 <script>
+    // Real-time cart functions - these replace your existing functions
     function removeFromCart(dishId) {
-        fetch('/Order/RemoveFromCart', {
+        fetch('/CustomerOrder/RemoveFromCart', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
             },
-            body: 'id=' + dishId
+            body: 'id=' + dishId + '&__RequestVerificationToken=' + document.querySelector('input[name="__RequestVerificationToken"]')?.value
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                //alert('Đã xóa khỏi giỏ hàng');
-                location.reload();
+                // Update cart display in real-time
+                updateCartDisplay();
+                showCartMessage('Item removed from cart', 'success');
+            } else {
+                showCartMessage('Failed to remove item', 'error');
             }
+        })
+        .catch(error => {
+            console.error('Error removing from cart:', error);
+            showCartMessage('Failed to remove item', 'error');
         });
     }
+
     function removeAllCart() {
-        if (confirm("Are you sure want to delete all dish?")) {
-            fetch('/Order/RemoveAllCart', {
-                method: 'POST'
+        if (confirm("Are you sure you want to delete all dishes?")) {
+            fetch('/CustomerOrder/RemoveAllCart', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    //alert("Đã xoá toàn bộ giỏ hàng");
-                    location.reload();
+                    // Update cart display in real-time
+                    updateCartDisplay();
+                    showCartMessage('Cart cleared successfully', 'success');
+                } else {
+                    showCartMessage('Failed to clear cart', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error clearing cart:', error);
+                showCartMessage('Failed to clear cart', 'error');
+            });
+        }
+    }
+
+    function updateCartDisplay() {
+        fetch('/CustomerOrder/GetCart', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            const cartContainer = document.querySelector('[data-cart-container]');
+            if (cartContainer) {
+                cartContainer.outerHTML = html;
+                // Re-bind event listeners after updating
+                bindCartEventListeners();
+            }
+        })
+        .catch(error => {
+            console.error('Error updating cart:', error);
+        });
+    }
+
+    function bindCartEventListeners() {
+        // Remove item buttons
+        document.querySelectorAll('.remove-cart-item').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dishId = this.getAttribute('data-dish-id');
+                removeFromCart(dishId);
+            });
+        });
+
+        // Clear cart button
+        const clearCartBtn = document.querySelector('.clear-cart-btn');
+        if (clearCartBtn) {
+            clearCartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                removeAllCart();
+            });
+        }
+
+        // Place order button
+        const placeOrderBtn = document.querySelector('.place-order-btn');
+        if (placeOrderBtn) {
+            placeOrderBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Your place order logic here
+                const tableId = @currentTableId;
+                if (tableId > 0) {
+                    if (confirm('Place order for Table ' + tableId + '?')) {
+                        window.location.href = '/CustomerOrder/OrderInitAsync?tableId=' + tableId;
+                    }
+                } else {
+                    alert('Please select a table first');
                 }
             });
         }
     }
+
+    function showCartMessage(message, type) {
+        // Create message element if it doesn't exist
+        let messagesContainer = document.getElementById('cart-messages');
+        if (!messagesContainer) {
+            messagesContainer = document.createElement('div');
+            messagesContainer.id = 'cart-messages';
+            messagesContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 1000;';
+            document.body.appendChild(messagesContainer);
+        }
+
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background-color: ${type === 'success' ? '#d4edda' : '#f8d7da'};
+            color: ${type === 'success' ? '#155724' : '#721c24'};
+            border: 1px solid ${type === 'success' ? '#c3e6cb' : '#f5c6cb'};
+            min-width: 200px;
+        `;
+        messageDiv.textContent = message;
+
+        messagesContainer.appendChild(messageDiv);
+
+        // Auto-remove message after 3 seconds
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 3000);
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        bindCartEventListeners();
+    });
+
+    // Also bind when this script runs (for AJAX-loaded content)
+    setTimeout(bindCartEventListeners, 100);
 </script>

@@ -58,29 +58,76 @@ namespace OrderFood_SW.Controllers
         [HttpPost]
         public IActionResult AddCart(int dishId, int Quantity)
         {
-            var dish = _db.Dishes.Find(dishId);
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
-            var existing = cart.FirstOrDefault(x => x.DishId == dishId);
-            if (existing != null)
-                existing.Quantity += Quantity;  // Add the selected quantity
-            else
-                cart.Add(new OrderCartItem
+            try
+            {
+                var dish = _db.Dishes.Find(dishId);
+                if (dish == null)
                 {
-                    DishId = dish.DishId,
-                    ImageUrl = dish.ImageUrl,
-                    DishName = dish.DishName,
-                    Price = dish.DishPrice,
-                    Quantity = Quantity
-                });
+                    return Json(new { success = false, message = "Dish not found!" });
+                }
 
-            HttpContext.Session.SetObject("Cart", cart);
-            return RedirectToAction("CreateOrder");
+                var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+                var existing = cart.FirstOrDefault(x => x.DishId == dishId);
+
+                if (existing != null)
+                    existing.Quantity += Quantity;
+                else
+                    cart.Add(new OrderCartItem
+                    {
+                        DishId = dish.DishId,
+                        ImageUrl = dish.ImageUrl,
+                        DishName = dish.DishName,
+                        Price = dish.DishPrice,
+                        Quantity = Quantity
+                    });
+
+                HttpContext.Session.SetObject("Cart", cart);
+
+                // Check if it's an AJAX request
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = $"Added {dish.DishName} to cart!",
+                        cartCount = cart.Sum(x => x.Quantity)
+                    });
+                }
+
+                // Fallback for non-AJAX requests
+                return RedirectToAction("CreateOrder");
+            }
+            catch (Exception ex)
+            {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = false, message = "Error adding to cart: " + ex.Message });
+                }
+
+                TempData["Error"] = "Error adding to cart: " + ex.Message;
+                return RedirectToAction("CreateOrder");
+            }
+        }
+
+        // Get cart count for counter updates
+        [HttpGet]
+        public IActionResult GetCartCount()
+        {
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+            return Json(new { count = cart.Sum(x => x.Quantity) });
         }
 
         public IActionResult GetCart()
         {
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+
+            // Return partial view for AJAX requests
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_OrderCartPartial", cart);
+            }
+
+            // Return full view for regular requests
             return PartialView("_CartPartial", cart);
         }
 
@@ -152,6 +199,35 @@ namespace OrderFood_SW.Controllers
             HttpContext.Session.Remove("Cart");
 
             return RedirectToAction("Detail", new { orderId = order.OrderId });
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCartQuantity(int dishId, int change)
+        {
+            try
+            {
+                var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+                var item = cart.FirstOrDefault(x => x.DishId == dishId);
+
+                if (item != null)
+                {
+                    item.Quantity += change;
+
+                    // Remove item if quantity becomes 0 or negative
+                    if (item.Quantity <= 0)
+                    {
+                        cart.Remove(item);
+                    }
+
+                    HttpContext.Session.SetObject("Cart", cart);
+                }
+
+                return Json(new { success = true, count = cart.Sum(x => x.Quantity) });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
     }
 }
