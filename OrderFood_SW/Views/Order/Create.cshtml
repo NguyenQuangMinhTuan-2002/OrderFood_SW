@@ -65,11 +65,21 @@
         </div>
 
         <hr />
-
+        @if (Context.Session.GetInt32("CurrentOrderId") != null)
+        {
+            <p class="text-center text-info"><i class="fa fa-info-circle"></i> you're adding dishes in order number': @Context.Session.GetInt32("CurrentOrderId")</p>
+        }
         <h3 class="text-center"><i class="fa fa-shopping-cart"></i> Cart | show dishes ready to order</h3>
+
         <div id="cart-container">
             @Html.Partial("_CartPartial", Model.CartItems)
         </div>
     </div>
 </div>
-
+@if (Context.Session.GetInt32("CurrentOrderId") == null)
+{
+    <div style="display:flex">
+        <a href="~/Order/OrderList" class="btn btn-default" style="width:50%; display:block"><i class="fa fa-arrow-left"></i> Back To Order List</a>
+        <a href="~/Order/Index" class="btn btn-default" style="width:50%; display:block"><i class="fa fa-arrow-left"></i> Back To Select Table</a>
+    </div>
+}

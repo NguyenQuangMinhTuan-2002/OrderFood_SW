@@ -156,42 +156,80 @@ public class OrderController : Controller
             return RedirectToAction("Create", new { tableId });
         }
 
-        var order = new Order
-        {
-            TableId = tableId,
-            OrderTime = DateTime.Now,
-            OrderStatus = 1,
-            TotalAmount = cart.Sum(x => x.Price * x.Quantity),
-            note = "n/a"
-        };
+        var existingOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
+        Order order;
 
-        _db.Orders.Add(order);
-        _db.SaveChanges();
-
-        foreach (var item in cart)
+        if (existingOrderId.HasValue)
         {
-            var orderDetail = new OrderDetail
+            order = _db.Orders.FirstOrDefault(o => o.OrderId == existingOrderId.Value);
+            if (order == null)
             {
-                OrderId = order.OrderId,
-                DishId = item.DishId,
-                Quantity = item.Quantity
+                TempData["Error"] = "Không tìm thấy đơn hàng cũ!";
+                return RedirectToAction("Index");
+            }
+        }
+        else
+        {
+            order = new Order
+            {
+                TableId = tableId,
+                OrderTime = DateTime.Now,
+                OrderStatus = 1,
+                TotalAmount = 0,
+                note = "n/a"
             };
-
-            _db.OrderDetails.Add(orderDetail);
+            _db.Orders.Add(order);
+            _db.SaveChanges();
         }
 
+        // Thêm món mới vào đơn
+        foreach (var item in cart)
+        {
+            var existingDetail = _db.OrderDetails
+                .FirstOrDefault(od => od.OrderId == order.OrderId && od.DishId == item.DishId);
+
+            if (existingDetail != null)
+            {
+                existingDetail.Quantity += item.Quantity;
+            }
+            else
+            {
+                var orderDetail = new OrderDetail
+                {
+                    OrderId = order.OrderId,
+                    DishId = item.DishId,
+                    Quantity = item.Quantity,
+                    DishStatus = 0
+                };
+                _db.OrderDetails.Add(orderDetail);
+            }
+        }
+
+        // Cập nhật tổng tiền
+        order.TotalAmount = _db.OrderDetails
+            .Where(od => od.OrderId == order.OrderId)
+            .Join(_db.Dishes,
+                  od => od.DishId,
+                  d => d.DishId,
+                  (od, d) => od.Quantity * d.DishPrice)
+            .Sum();
+
+        // Cập nhật trạng thái bàn nếu lần đầu
         var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == order.TableId);
         if (table != null)
         {
             table.Status = "Occupied";
         }
 
-
         _db.SaveChanges();
+
+        // Xoá giỏ hàng + xoá OrderId khỏi Session (để lần sau là đơn mới)
         HttpContext.Session.Remove("Cart");
+        HttpContext.Session.Remove("CurrentOrderId");
 
         return RedirectToAction("Detail", new { orderId = order.OrderId });
     }
+
 
     //-----------------------------------------------------------------------------------------------------------------
     // Trang chi tiết đơn hàng Order detail
@@ -375,6 +413,14 @@ public class OrderController : Controller
         TempData["Success"] = "Đã hủy đơn thành công.";
 
         return RedirectToAction("OrderList");
+    }
+
+    [HttpPost]
+    public IActionResult AddDishToExistingOrder(int orderId, int tableId)
+    {
+        HttpContext.Session.SetInt32("CurrentTableId", tableId);
+        HttpContext.Session.SetInt32("CurrentOrderId", orderId);
+        return RedirectToAction("Create");
     }
 
 }
