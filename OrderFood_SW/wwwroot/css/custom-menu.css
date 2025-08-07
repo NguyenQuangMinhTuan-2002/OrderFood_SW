@@ -239,92 +239,6 @@ body {
     }
 }
 
-/* Categories */
-/*.categories {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-    .categories {
-        gap: 10px;
-        margin-bottom: 20px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-        .categories::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .categories::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 2px;
-        }
-
-        .categories::-webkit-scrollbar-thumb {
-            background: #22c55e;
-            border-radius: 2px;
-        }
-}
-
-.category-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    min-width: 100px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-@media (max-width: 768px) {
-    .category-card {
-        padding: 15px 12px;
-        min-width: 80px;
-    }
-}
-
-.category-card.active {
-    background: #dcfce7;
-    border: 2px solid #22c55e;
-}
-
-.category-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.category-icon {
-    width: 40px;
-    height: 40px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    font-size: 20px;
-    color: #22c55e;
-}
-
-.category-name {
-    font-weight: 600;
-    color: #1e293b;
-    font-size: 14px;
-}
-
-.category-count {
-    font-size: 12px;
-    color: #64748b;
-}*/
-
 /* Products Grid */
 .products-grid {
     margin-top: 20px;
@@ -720,45 +634,7 @@ body {
         background: #16a34a;
     }
 
-/* Staff indicators */
-.staff-indicators {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-}
-
-@media (max-width: 768px) {
-    .staff-indicators {
-        gap: 8px;
-        margin-bottom: 15px;
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
-.staff-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: #f8fafc;
-    border-radius: 20px;
-    font-size: 12px;
-}
-
-.staff-avatar {
-    width: 24px;
-    height: 24px;
-    background: #fbbf24;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-}
-
-/*----------------------------------------------------------------------------------------------------*/
+/*---something---*/
 
 .categories-wrapper {
     overflow-x: auto;
@@ -793,7 +669,7 @@ body {
     }
 
 
-/* Áp dụng cho mọi thanh cuộn ngang trên toàn trang */
+/* scrollbar restyle */
 ::-webkit-scrollbar {
     height: 10px;
 }
@@ -814,5 +690,30 @@ body {
 }
 
 
+/* PC only toggle button: fixed to right center */
+@media (min-width: 768px) {
+    .desktop-toggle-btn {
+        display: inline-block;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 1000;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px 0 0 8px;
+        padding: 10px 10px;
+        cursor: pointer;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
 
-/* Custom scrollbar for categories */
+        .desktop-toggle-btn:hover {
+            background-color: #e2e6ea;
+            padding: 18px 22px;
+        }
+
+    .order-panel-hidden {
+        display: none !important;
+    }
+}
