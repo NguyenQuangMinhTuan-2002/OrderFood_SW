@@ -54,9 +54,27 @@
         });
 
         // Mobile cart toggle
-        mobileCartBtn.addEventListener('click', function() {
-            orderPanel.classList.toggle('open');
-        });
+        function bindCartToggle() {
+            const mobileCartBtn = document.getElementById('mobileCartBtn');
+            const orderPanel = document.getElementById('orderPanel');
+            if (mobileCartBtn && orderPanel) {
+                mobileCartBtn.addEventListener('click', function () {
+                    orderPanel.classList.toggle('open');
+                });
+            }
+        }
+
+        function bindOutsideClickToCloseCart() {
+            document.addEventListener('click', function outsideClickHandler(e) {
+                if (window.innerWidth <= 768) {
+                    const orderPanel = document.getElementById('orderPanel');
+                    const mobileCartBtn = document.getElementById('mobileCartBtn');
+                    if (orderPanel && !orderPanel.contains(e.target) && !mobileCartBtn.contains(e.target)) {
+                        orderPanel.classList.remove('open');
+                    }
+                }
+            });
+        }
 
         // Close cart when dragging handle down
         orderPanelHandle.addEventListener('click', function() {
@@ -66,7 +84,9 @@
         // Close mobile cart when clicking outside on mobile
         document.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
-                if (!orderPanel.contains(e.target) && !mobileCartBtn.contains(e.target)) {
+                const orderPanel = document.getElementById('orderPanel');
+                const mobileCartBtn = document.getElementById('mobileCartBtn');
+                if (orderPanel && !orderPanel.contains(e.target) && !mobileCartBtn.contains(e.target)) {
                     orderPanel.classList.remove('open');
                 }
             }

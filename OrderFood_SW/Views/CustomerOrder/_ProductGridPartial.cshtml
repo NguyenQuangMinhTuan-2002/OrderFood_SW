@@ -1,5 +1,8 @@
 ﻿@model List<Dish>
 <!-- Products Grid -->
+<div>
+    <h3 class="text-center mb-4">Available Dishes</h3>
+</div>
 <div class="products-grid">
     @foreach (var item in Model)
     {
@@ -10,7 +13,7 @@
                 <div class="product-description">@item.DishDescription</div>
                 <div class="product-price">$@item.DishPrice</div>
                 <div class="product-actions">
-                    <span class="veg-indicator veg">@item.CategoryId</span>
+                    <span class="veg-indicator veg">Category: @item.CategoryId</span>
 
                     <!-- Add to Cart Form -->
                     <form asp-action="AddCart" method="post" class="add-to-cart-form">
@@ -19,9 +22,9 @@
 
                         <div style="display: flex; gap: 20px">
                             <input class="form-control me-2" 
-                            style="width:60px; height:30px; 
-                            border: 5px double green; 
-                            border-radius: 15px; 
+                            style="width:60px; height:34px; 
+                            border: 4px double green; 
+                            border-radius: 16px; 
                             text-align:center"
                             type="number" value="1" min="1" name="Quantity" />
 

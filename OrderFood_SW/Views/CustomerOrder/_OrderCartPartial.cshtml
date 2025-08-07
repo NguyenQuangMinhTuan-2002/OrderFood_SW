@@ -1,20 +1,21 @@
 ﻿@using OrderFood_SW.ViewModels
 @model List<OrderCartItem>
 @{
-    int currentTableId = ViewBag.TableId ?? 0;
+    int currentTableId = Context.Session.GetInt32("CurrentTableId") ?? 0;
     decimal totalAmount = Model?.Sum(x => x.Price * x.Quantity) ?? 0;
 }
+
 <div class="order-panel" id="orderPanel" data-cart-container>
-    <div class="order-panel-handle" id="orderPanelHandle"></div>
     <div class="table-info">
         <div>
-            <div class="table-number">@ViewBag.TableId</div>
-            <div style="font-size: 12px; color: #64748b;">Round Table</div>
+            <div class="table-number">Current table number: @currentTableId</div>
+            <div style="font-size: 12px; color: #64748b;">#</div>
         </div>
         <button class="action-btn">
             <i class="fas fa-edit"></i>
         </button>
     </div>
+    <div class="order-panel-handle" id="orderPanelHandle"></div>
     <div class="order-items">
         @if (Model == null || Model.Count == 0)
         {
@@ -51,19 +52,38 @@
                     </div>
                 </div>
             }
-            <div class="order-total">
-                <div class="total-row total-amount">
-                    <span>Total Amount</span>
-                    <span>$@totalAmount.ToString("F2")</span>
-                </div>
-            </div>
-            <div class="cart-actions" style="margin-top: 15px;">
-                <button class="place-order-btn" style="width: 100%; margin-bottom: 10px;">Place Order</button>
-                <button class="clear-cart-btn"
-                        style="width: 100%;height: 50px ; background: #dc3545; color: white; border: none; padding: 8px; border-radius: 10px;">
-                    Clear Cart
+        }
+    </div>
+    <div class="order-total">
+        <div class="total-row total-amount">
+            <span>Total Amount</span>
+            <span>$@totalAmount.ToString("F2")</span>
+        </div>
+    </div>
+    <div class="cart-actions" style="margin-top: 15px;">
+        @if (Model == null || Model.Count == 0)
+        {
+            <button class="btn btn-secondary" style="width: 100%; height: 50px; margin-bottom: 10px; border-radius:10px">Place Order</button>
+            <button class="btn btn-secondary"
+                    style="width: 100%; height: 50px; color: black; border: none; padding: 8px; border-radius: 10px;">
+                Clear Cart
+            </button>
+        }
+        else
+        {
+            <form method="post" asp-controller="CustomerOrder" asp-action="CustomerOrderInit">
+                <input type="hidden" name="tableId" value="@currentTableId" />
+                <button type="submit" class="place-order-btn" style="width: 100%; margin-bottom: 10px;">
+                    <i class="fa fa-check-circle"></i> Confirm & Create Order
                 </button>
-            </div>
+            </form>
+            @* <button class="place-order-btn" style="width: 100%; margin-bottom: 10px;">
+                Place Order
+            </button> *@
+            <button class="clear-cart-btn"
+            style="width: 100%; height: 50px ; color: white; background: #dc3545; border: none; padding: 8px; border-radius: 10px;">
+                Clear Cart
+            </button>
         }
     </div>
 </div>
@@ -134,6 +154,8 @@
                 cartContainer.outerHTML = html;
                 // Re-bind event listeners after updating
                 bindCartEventListeners();
+                bindCartToggle();
+                bindOutsideClickToCloseCart();
             }
         })
         .catch(error => {
@@ -161,21 +183,21 @@
         }
 
         // Place order button
-        const placeOrderBtn = document.querySelector('.place-order-btn');
-        if (placeOrderBtn) {
-            placeOrderBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Your place order logic here
-                const tableId = @currentTableId;
-                if (tableId > 0) {
-                    if (confirm('Place order for Table ' + tableId + '?')) {
-                        window.location.href = '/CustomerOrder/OrderInitAsync?tableId=' + tableId;
-                    }
-                } else {
-                    alert('Please select a table first');
-                }
-            });
-        }
+        // const placeOrderBtn = document.querySelector('.place-order-btn');
+        // if (placeOrderBtn) {
+        //     placeOrderBtn.addEventListener('click', function(e) {
+        //         e.preventDefault();
+        //         Your place order logic here
+        //         const TableId = @currentTableId;
+        //         if (TableId > 0) {
+        //             if (confirm('Place order for Table ' + TableId + '?')) {
+        //                 window.location.href = '/CustomerOrder/CustomerOrderInitAsync?tableId=' + TableId;
+        //             }
+        //         } else {
+        //             alert('Please select a table first');
+        //         }
+        //     });
+        // }
     }
 
     function showCartMessage(message, type) {
@@ -212,6 +234,8 @@
     // Initialize when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
         bindCartEventListeners();
+        bindCartToggle();
+        bindOutsideClickToCloseCart();
     });
 
     // Also bind when this script runs (for AJAX-loaded content)

@@ -770,16 +770,17 @@ body {
 
 .categories {
     display: flex;
-    flex-direction: row;
-    gap: 12px; /* khoảng cách giữa các card */
-    padding: 10px 0px;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 20px 0px 10px 0px;
 }
 
 .category-card {
     min-width: 100px;
     padding: 8px 16px;
     background-color: #f0f0f0;
-    border-radius: 20px;
+    border-radius: 10px;
     text-align: center;
     flex-shrink: 0;
     cursor: pointer;
@@ -790,3 +791,28 @@ body {
         background-color: #22c55e;
         color: white;
     }
+
+
+/* Áp dụng cho mọi thanh cuộn ngang trên toàn trang */
+::-webkit-scrollbar {
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+/* Firefox */
+* {
+    scrollbar-color: rgba(0,0,0,0.15) transparent;
+    scrollbar-width: thin;
+}
+
+
+
+/* Custom scrollbar for categories */

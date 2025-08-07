@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
@@ -14,17 +15,19 @@ namespace OrderFood_SW.Controllers
         {
             _db = db;
         }
+
         public IActionResult Index()
         {
             return View();
         }
 
-
-        public IActionResult CreateOrder(string searchKeyword, int? tableId = null)
+        public IActionResult CreateOrder(string searchKeyword, int? tableId = null, int? categoryId = null)
         {
             if (tableId.HasValue)
             {
                 HttpContext.Session.SetInt32("CurrentTableId", tableId.Value);
+                ViewBag.TableId = tableId;
+
             }
 
             ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
@@ -37,10 +40,14 @@ namespace OrderFood_SW.Controllers
                 query = query.Where(d => d.DishName.Contains(searchKeyword));
             }
 
+            // 👇 Chỉ lọc nếu categoryId khác 0 và khác null
+            if (categoryId.HasValue && categoryId.Value != 0)
+            {
+                query = query.Where(d => d.CategoryId == categoryId.Value);
+            }
 
             var dishes = query.OrderBy(d => d.DishName).ToList();
             var categories = queryCategories.OrderBy(c => c.CategoryName).ToList();
-
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
             var model = new OrderPageModel
@@ -48,11 +55,14 @@ namespace OrderFood_SW.Controllers
                 SearchKeyword = searchKeyword,
                 FoundDishes = dishes,
                 DishCategories = categories,
-                CartItems = cart
+                CartItems = cart,
+                SelectedCategoryId = categoryId ?? 0
             };
 
             return View(model);
         }
+
+
 
         // Customer cart management **** **** **** ****
         [HttpPost]
@@ -154,7 +164,7 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OrderInitAsync(int tableId)
+        public async Task<IActionResult> CustomerOrderInitAsync(int tableId)
         {
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
