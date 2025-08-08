@@ -63,7 +63,6 @@ namespace OrderFood_SW.Controllers
         }
 
 
-
         // Customer cart management **** **** **** ****
         [HttpPost]
         public IActionResult AddCart(int dishId, int Quantity)
@@ -166,12 +165,20 @@ namespace OrderFood_SW.Controllers
         [HttpPost]
         public async Task<IActionResult> CustomerOrderInitAsync(int tableId)
         {
+            // 1. Kiểm tra giỏ hàng
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
             if (!cart.Any())
             {
                 TempData["Error"] = "Giỏ hàng trống!";
                 return RedirectToAction("Create", new { tableId });
+            }
+
+            // 2. Kiểm tra bàn tồn tại
+            var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == tableId);
+            if (table == null)
+            {
+                TempData["Error"] = "Bàn không tồn tại!";
+                return RedirectToAction("Create", new { tableId = 0 });
             }
 
             var order = new Order
@@ -184,7 +191,7 @@ namespace OrderFood_SW.Controllers
             };
 
             _db.Orders.Add(order);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             foreach (var item in cart)
             {
@@ -194,22 +201,18 @@ namespace OrderFood_SW.Controllers
                     DishId = item.DishId,
                     Quantity = item.Quantity
                 };
-
                 _db.OrderDetails.Add(orderDetail);
             }
 
-            var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == order.TableId);
-            if (table != null)
-            {
                 table.Status = "Occupied";
-            }
 
+            await _db.SaveChangesAsync();
 
-            _db.SaveChanges();
             HttpContext.Session.Remove("Cart");
 
             return RedirectToAction("Detail", new { orderId = order.OrderId });
         }
+
 
         [HttpPost]
         public IActionResult UpdateCartQuantity(int dishId, int change)

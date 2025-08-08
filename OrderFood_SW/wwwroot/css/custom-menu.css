@@ -714,6 +714,6 @@ body {
         }
 
     .order-panel-hidden {
-        display: none !important;
+        display: none;
     }
 }
