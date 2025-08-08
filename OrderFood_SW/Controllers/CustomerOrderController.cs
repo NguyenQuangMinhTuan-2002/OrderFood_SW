@@ -204,7 +204,7 @@ namespace OrderFood_SW.Controllers
                 _db.OrderDetails.Add(orderDetail);
             }
 
-                table.Status = "Occupied";
+            table.Status = "Occupied";
 
             await _db.SaveChangesAsync();
 
