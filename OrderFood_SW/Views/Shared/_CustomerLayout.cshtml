@@ -19,6 +19,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/custom-menu.css" asp-append-version="true" />
+
+    <script>
+        (function() {
+            // only apply on PC (>=992px)
+            if (window.innerWidth >= 992 && localStorage.getItem("pcCartHidden") === "1") {
+                document.documentElement.classList.add("pc-cart-hidden");
+            }
+        })();
+    </script>
+
+    <style>
+        /* instance hide order panel on PC */
+        .pc-cart-hidden .order-panel {
+            display: none !important;
+        }
+    </style>
+
+    <script src="~/js/Customer-order.js" defer></script>
+
 </head>
 <body>
     <!-- Sidebar -->

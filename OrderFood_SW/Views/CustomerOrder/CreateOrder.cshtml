@@ -3,6 +3,7 @@
     Layout = "_CustomerLayout";
 }
 
+<!-- Temp css for button -->
 <style>
     .inp1 {
         width: 100%;
@@ -64,7 +65,7 @@
                         <div class="category-name">All</div>
                     </div>
 
-                    <!-- Các category -->
+                    <!-- list category -->
                     @foreach (var item in Model.DishCategories)
                     {
                         <div class="category-card @(Model.SelectedCategoryId == item.CategoryId ? "active" : "")"
@@ -92,59 +93,3 @@
 <button class="mobile-cart-btn" id="mobileCartBtn">
     <i class="fas fa-shopping-cart"></i>
 </button>
-
-<script>
-    // Category selection
-    document.querySelectorAll('.category-card').forEach(card => {
-        card.addEventListener('click', function () {
-            // Remove active class from all
-            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
-            // Add active to clicked one
-            this.classList.add('active');
-
-            const categoryId = this.getAttribute('data-category-id');
-            const searchBox = document.getElementById('search-box');
-            const keyword = searchBox ? searchBox.value : '';
-
-            const url = new URL(window.location.origin + "/CustomerOrder/CreateOrder");
-            if (categoryId !== "0") {
-                url.searchParams.append("categoryId", categoryId);
-            }
-            if (keyword) {
-                url.searchParams.append("searchKeyword", keyword);
-            }
-
-            window.location.href = url.toString();
-        });
-    });
-
-    function initOrderPanelToggle() {
-        const toggleBtn = document.getElementById("toggleOrderPanelBtn");
-        const orderPanel = document.querySelector(".order-panel");
-
-        if (toggleBtn && orderPanel) {
-            // Đảm bảo xóa listener cũ trước (tránh đè)
-            const newBtn = toggleBtn.cloneNode(true);
-            toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
-
-            newBtn.addEventListener("click", function () {
-                orderPanel.classList.toggle("order-panel-hidden");
-
-                const icon = newBtn.querySelector("i");
-                if (orderPanel.classList.contains("order-panel-hidden")) {
-                    icon.classList.remove("fa-eye-slash");
-                    icon.classList.add("fa-eye");
-                } else {
-                    icon.classList.remove("fa-eye");
-                    icon.classList.add("fa-eye-slash");
-                }
-            });
-        }
-    }
-
-    // Gắn khi trang vừa load
-    document.addEventListener("DOMContentLoaded", function () {
-        initOrderPanelToggle();
-    });
-
-</script>

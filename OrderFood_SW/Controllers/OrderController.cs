@@ -399,19 +399,25 @@ public class OrderController : Controller
         if (hasServed)
         {
             TempData["Error"] = "Không thể hủy đơn vì đã có món được phục vụ.";
-            return RedirectToAction("OrderDetail", new { orderId });
+            return RedirectToAction("Detail", new { orderId }); // sửa ở đây
+        }
+
+        // Cập nhật trạng thái bàn về "Available"
+        var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
+        if (table != null)
+        {
+            table.Status = "Available";
         }
 
         // Xóa tất cả chi tiết đơn
         var orderDetails = _db.OrderDetails.Where(d => d.OrderId == orderId).ToList();
         _db.OrderDetails.RemoveRange(orderDetails);
 
-        // Xóa đơn hàng
         _db.Orders.Remove(order);
 
         _db.SaveChanges();
-        TempData["Success"] = "Đã hủy đơn thành công.";
 
+        TempData["Success"] = "Đã hủy đơn thành công.";
         return RedirectToAction("OrderList");
     }
 
