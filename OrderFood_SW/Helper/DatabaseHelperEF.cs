@@ -16,6 +16,8 @@ namespace OrderFood_SW.Helper
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<Users> Users { get; set; }
+
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
