@@ -20,6 +20,7 @@
                         <th>Order Status</th>
                         <th>Total Amount</th>
                         <th>Note</th>
+                        <th>User ID</th>
                         <th style="width: 100px"></th>
                     </tr>
                 </thead>
@@ -36,6 +37,16 @@
                                     <p>Pending ...</p>
                                 </td>
                                 <td>@item.note</td>
+                                <td>
+                                    @if (item.UserId == 1)
+                                    {
+                                        <p>Guess</p>
+                                    }
+                                    else
+                                    {
+                                        @item.UserId
+                                    }
+                                </td>
                                 <td>
                                     <a href="~/Order/Detail/@item.OrderId">Show Details</a>
                                 </td>

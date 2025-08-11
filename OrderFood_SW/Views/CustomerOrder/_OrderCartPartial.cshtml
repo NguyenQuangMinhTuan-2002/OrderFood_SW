@@ -3,6 +3,7 @@
 @{
     int currentTableId = Context.Session.GetInt32("CurrentTableId") ?? 0;
     decimal totalAmount = Model?.Sum(x => x.Price * x.Quantity) ?? 0;
+    int currentUserId = Context.Session.GetInt32("CurrentUserId") ?? 1; // Default to 1 if not set (guess user)
 }
 
 <div class="order-panel" id="orderPanel" data-cart-container>
@@ -73,6 +74,7 @@
         {
             <form method="post" asp-controller="CustomerOrder" asp-action="CustomerOrderInit">
                 <input type="hidden" name="tableId" value="@currentTableId" />
+                <input type="hidden" name="userId" value="@currentUserId" />
                 <button type="submit" class="place-order-btn" style="width: 100%; margin-bottom: 10px;">
                     <i class="fa fa-check-circle"></i> Confirm & Create Order
                 </button>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
@@ -176,7 +177,8 @@ public class OrderController : Controller
                 OrderTime = DateTime.Now,
                 OrderStatus = 1,
                 TotalAmount = 0,
-                note = "n/a"
+                note = "n/a",
+                UserId = 1 // for guess userId, can be changed in customer order
             };
             _db.Orders.Add(order);
             _db.SaveChanges();
@@ -399,7 +401,7 @@ public class OrderController : Controller
         if (hasServed)
         {
             TempData["Error"] = "Không thể hủy đơn vì đã có món được phục vụ.";
-            return RedirectToAction("Detail", new { orderId }); // sửa ở đây
+            return RedirectToAction("Detail", new { orderId });
         }
 
         // Cập nhật trạng thái bàn về "Available"
@@ -409,15 +411,13 @@ public class OrderController : Controller
             table.Status = "Available";
         }
 
-        // Xóa tất cả chi tiết đơn
-        var orderDetails = _db.OrderDetails.Where(d => d.OrderId == orderId).ToList();
-        _db.OrderDetails.RemoveRange(orderDetails);
-
-        _db.Orders.Remove(order);
+        // Cập nhật trạng thái đơn hàng thành -1 (hủy)
+        order.OrderStatus = -1;
 
         _db.SaveChanges();
 
         TempData["Success"] = "Đã hủy đơn thành công.";
+
         return RedirectToAction("OrderList");
     }
 

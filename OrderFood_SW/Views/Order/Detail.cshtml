@@ -133,6 +133,7 @@
                         <div class="col-md-6">
                             <form method="post" asp-action="CancelOrder" asp-controller="Order">
                                 <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
+                                <input type="hidden" name="tableId" value="@Model.Order.TableId" />
                                 <button type="submit" class="btn btn-danger" style="width:100%">Cancel</button>
                             </form>
                         </div>

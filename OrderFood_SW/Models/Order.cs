@@ -11,6 +11,7 @@ namespace OrderFood_SW.Models
         public int OrderStatus { get; set; }
         public decimal TotalAmount { get; set; }
         public string note { get; set; }
+        public int? UserId { get; set; } // Nullable to allow for orders without a user context
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }

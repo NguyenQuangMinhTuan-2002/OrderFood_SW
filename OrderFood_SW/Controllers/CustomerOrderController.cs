@@ -163,7 +163,7 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CustomerOrderInitAsync(int tableId)
+        public async Task<IActionResult> CustomerOrderInitAsync(int tableId, int? userId)
         {
             // 1. Kiểm tra giỏ hàng
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
@@ -186,8 +186,9 @@ namespace OrderFood_SW.Controllers
                 TableId = tableId,
                 OrderTime = DateTime.Now,
                 OrderStatus = 1,
-                TotalAmount = cart.Sum(x => x.Price * x.Quantity),
-                note = "n/a"
+                TotalAmount = 0, // Will be calculated later
+                note = "n/a",
+                UserId = userId ?? 1 // Default to 1 if userId is null
             };
 
             _db.Orders.Add(order);
