@@ -7,6 +7,7 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
+    [AuthorizeRole("Admin", "Staff", "Customer")]
     public class CustomerOrderController : Controller
     {
         private readonly DatabaseHelperEF _db;
@@ -46,7 +47,7 @@ namespace OrderFood_SW.Controllers
                 query = query.Where(d => d.CategoryId == categoryId.Value);
             }
 
-            var dishes = query.OrderBy(d => d.DishName).ToList();
+            var dishes = query.OrderBy(d => d.CategoryId).ToList();
             var categories = queryCategories.OrderBy(c => c.CategoryName).ToList();
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 

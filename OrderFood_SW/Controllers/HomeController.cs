@@ -1,11 +1,14 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
+using System.Diagnostics;
 
 namespace OrderFood_SW.Controllers
 {
-    public class HomeController : Controller
+    [AuthorizeRole("Admin", "Staff")]
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

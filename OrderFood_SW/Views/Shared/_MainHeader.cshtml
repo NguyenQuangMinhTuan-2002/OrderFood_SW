@@ -1,4 +1,7 @@
-﻿<header class="main-header fixed-header">
+﻿@{
+    
+}
+<header class="main-header fixed-header">
     <!-- Logo -->
     <a href="~/themes/index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -43,7 +46,12 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="~/themes/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Nguyen Tuan</span>
+                        <span class="hidden-xs">
+                            @if (!string.IsNullOrEmpty(ViewBag.FullName))
+                            {
+                                <span>Hello! @ViewBag.FullName</span>
+                            }
+                        </span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -51,8 +59,10 @@
                             <img src="~/themes/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                             <p>
-                                Nguyen Tuan - Web Developer
-                                <small>Member since jul. 2025</small>
+                                @if (!string.IsNullOrEmpty(ViewBag.FullName))
+                                {
+                                    <span>Xin chào, @ViewBag.FullName - @ViewBag.Role</span>
+                                }
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -61,7 +71,7 @@
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="~/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

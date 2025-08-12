@@ -1,5 +1,6 @@
 using OrderFood_SW.Helper;
 using Microsoft.EntityFrameworkCore;
+using OrderFood_SW.Helper.AccountHelper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseHelperEF>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new AuthorizeRoleAttribute());
+});
 
 // add builder Session
 builder.Services.AddDistributedMemoryCache();
@@ -33,6 +38,7 @@ app.UseRouting();
 
 // add middleware Session before Authorization
 app.UseSession();
+app.UseMiddleware<SessionAuthMiddleware>();
 
 app.UseAuthorization();
 

@@ -19,6 +19,7 @@
                         <th>Order Time</th>
                         <th>Total Amount</th>
                         <th>Note</th>
+                        <th>User</th>
                         <th style="width: 100px"></th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                                 <td>@item.OrderTime.ToString("dd/MM/yyyy HH:mm")</td>
                                 <td>@item.TotalAmount.ToString("N0")</td>
                                 <td>@item.note</td>
+                                <td>@item.UserId</td>
                                 <td>
                                     <a href="~/Order/Detail/@item.OrderId">Show Details</a>
                                 </td>

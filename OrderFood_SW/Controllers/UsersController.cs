@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OrderFood_SW.Controllers
 {
+    [AuthorizeRole("Staff", "Admin")]
     public class UsersController : Controller
     {
         private readonly DatabaseHelperEF _context;
@@ -80,11 +85,30 @@ namespace OrderFood_SW.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Hash password trước khi lưu
+                users.PasswordHash = ComputeSha256Hash(users.PasswordHash);
+
                 _context.Add(users);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(users);
+        }
+
+        // Hàm hash SHA256
+        private string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2")); // x2: hex format
+                }
+                return builder.ToString();
+            }
         }
 
         // GET: Users/Edit/5
@@ -119,6 +143,7 @@ namespace OrderFood_SW.Controllers
             {
                 try
                 {
+                    users.PasswordHash = ComputeSha256Hash(users.PasswordHash);
                     _context.Update(users);
                     await _context.SaveChangesAsync();
                 }

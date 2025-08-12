@@ -7,6 +7,7 @@ using OrderFood_SW.Models;
 
 namespace OrderFood_SW.Controllers
 {
+    [AuthorizeRole("Admin", "Staff")]
     public class CategoriesController : Controller
     {
         private readonly DatabaseHelperEF _db;

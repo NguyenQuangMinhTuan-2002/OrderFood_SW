@@ -73,6 +73,7 @@
         {
             <form method="post" asp-controller="CustomerOrder" asp-action="CustomerOrderInit">
                 <input type="hidden" name="tableId" value="@currentTableId" />
+                @* <input type="hidden" name="userId" value="@ViewBag.UserId" /> *@
                 <button type="submit" class="place-order-btn" style="width: 100%; margin-bottom: 10px;">
                     <i class="fa fa-check-circle"></i> Confirm & Create Order
                 </button>
