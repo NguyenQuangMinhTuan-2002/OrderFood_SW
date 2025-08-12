@@ -1,9 +1,13 @@
-﻿@{
-    
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var fullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
+    var role = HttpContextAccessor.HttpContext.Session.GetString("Role");
 }
+
 <header class="main-header fixed-header">
     <!-- Logo -->
-    <a href="~/themes/index2.html" class="logo">
+    <a href="~/home/Index" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>B</b>F</span>
         <!-- logo for regular state and mobile devices -->
@@ -47,11 +51,16 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="~/themes/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                         <span class="hidden-xs">
-                            @if (!string.IsNullOrEmpty(ViewBag.FullName))
+                            @if (!string.IsNullOrEmpty(fullName))
                             {
-                                <span>Hello! @ViewBag.FullName</span>
+                                <text>Hello! @fullName</text>
+                            }
+                            else
+                            {
+                                <text>Xin chào, Khách</text>
                             }
                         </span>
+
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -59,19 +68,17 @@
                             <img src="~/themes/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                             <p>
-                                @if (!string.IsNullOrEmpty(ViewBag.FullName))
+                                @if (!string.IsNullOrEmpty(fullName))
                                 {
-                                    <span>Xin chào, @ViewBag.FullName - @ViewBag.Role</span>
+                                    <text>Xin chào, @fullName - @role</text>
                                 }
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="~/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
+                            <div style="display:flex">
+                                <a style="width: 50%" href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a style="width: 50%" href="~/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

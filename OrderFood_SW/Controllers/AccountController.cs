@@ -22,42 +22,46 @@ namespace OrderFood_SW.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            // Nếu đã đăng nhập thì chuyển hướng luôn
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                ViewBag.Error = "Please input all info";
+                ViewBag.Error = "Please enter username and password.";
                 return View();
             }
 
-            // Hash mật khẩu nhập vào
             string passwordHash = HashPassword(password);
 
-            // Kiểm tra trong CSDL
-            var user = _db.Users.FirstOrDefault(u => u.Username == username && u.PasswordHash == passwordHash && u.IsActive);
+            var user = _db.Users
+                          .FirstOrDefault(u => u.Username == username
+                                            && u.PasswordHash == passwordHash
+                                            && u.IsActive);
 
-            if (user != null && (user.Role.Equals("Admin") || user.Role.Equals("Staff")))
+            if (user != null)
             {
-                // Lưu session
+                HttpContext.Session.SetInt32("UserId", user.UserId);
                 HttpContext.Session.SetString("Username", user.Username);
                 HttpContext.Session.SetString("FullName", user.FullName);
                 HttpContext.Session.SetString("Role", user.Role);
 
-                return RedirectToAction("Index", "Home"); // Hoặc Dashboard
-            }else if (user != null && user.Role.Equals("Customer"))
-            {
-                // Lưu session
-                HttpContext.Session.SetString("Username", user.Username);
-                HttpContext.Session.SetString("FullName", user.FullName);
-                HttpContext.Session.SetString("Role", user.Role);
-
-                return RedirectToAction("Index", "CustomerOrder"); // Hoặc Dashboard
+                // Chuyển hướng tùy role
+                if (user.Role == "Admin" || user.Role == "Staff")
+                    return RedirectToAction("Index", "Home");
+                else if (user.Role == "Customer")
+                    return RedirectToAction("Index", "CustomerOrder");
             }
-                ViewBag.Error = "User name or password are incorrect";
+
+            ViewBag.Error = "Invalid username or password.";
             return View();
         }
 
@@ -69,11 +73,9 @@ namespace OrderFood_SW.Controllers
 
         private string HashPassword(string password)
         {
-            using (var sha256 = SHA256.Create())
-            {
-                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
-            }
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return BitConverter.ToString(bytes).Replace("-", "").ToLower();
         }
     }
 }

@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-public class BaseController : Controller
+namespace OrderFood_SW.Controllers
 {
-    public override void OnActionExecuting(ActionExecutingContext context)
+    public class BaseController : Controller
     {
-        var fullName = HttpContext.Session.GetString("FullName");
-        var username = HttpContext.Session.GetString("Username");
-        var role = HttpContext.Session.GetString("Role");
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            // Dùng context.HttpContext để tránh NullReference trong một số trường hợp
+            var http = context.HttpContext;
 
-        ViewBag.FullName = fullName;
-        ViewBag.Username = username;
-        ViewBag.Role = role;
+            ViewBag.FullName = http.Session.GetString("FullName") ?? string.Empty;
+            ViewBag.Username = http.Session.GetString("Username") ?? string.Empty;
+            ViewBag.Role = http.Session.GetString("Role") ?? string.Empty;
 
-        base.OnActionExecuting(context);
+            base.OnActionExecuting(context);
+        }
     }
 }

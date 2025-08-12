@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Staff", "Admin")]
+    [AuthorizeRole("Staff")]
     public class UsersController : Controller
     {
         private readonly DatabaseHelperEF _context;

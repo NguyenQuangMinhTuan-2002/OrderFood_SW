@@ -168,6 +168,8 @@ namespace OrderFood_SW.Controllers
         {
             // 1. Kiểm tra giỏ hàng
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+            var UserId = HttpContext.Session.GetInt32("UserId");
+
             if (!cart.Any())
             {
                 TempData["Error"] = "Giỏ hàng trống!";
@@ -188,7 +190,8 @@ namespace OrderFood_SW.Controllers
                 OrderTime = DateTime.Now,
                 OrderStatus = 1,
                 TotalAmount = cart.Sum(x => x.Price * x.Quantity),
-                note = "n/a"
+                note = "n/a",
+                UserId = UserId
             };
 
             _db.Orders.Add(order);

@@ -1,8 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var fullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
+    var role = HttpContextAccessor.HttpContext.Session.GetString("Role");
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome back, @fullName</h1>
+    <p>Let's start your jobs as @role to serve our customer from now. Have a good day!</a>.</p>
 </div>
