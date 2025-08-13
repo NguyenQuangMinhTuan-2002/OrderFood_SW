@@ -1,0 +1,47 @@
+﻿@model List<OrderFood_SW.ViewModels.OrderHistoryViewModel>
+@{
+    Layout = "_CustomerLayout";
+}
+<h2>Lịch sử đơn hàng</h2>
+
+@if (!Model.Any())
+{
+    <p>Bạn chưa có đơn hàng nào.</p>
+}
+else
+{
+    foreach (var order in Model)
+    {
+        <div class="order-card">
+            <h4>Đơn hàng #@order.OrderId</h4>
+            <p><strong>Ngày đặt:</strong> @order.OrderTime.ToString("dd/MM/yyyy HH:mm")</p>
+            <p><strong>Trạng thái:</strong> @order.OrderStatus</p>
+            <p><strong>Tổng tiền:</strong> @order.TotalAmount.ToString("C")</p>
+            @if (!string.IsNullOrEmpty(order.Note))
+            {
+                <p><strong>Ghi chú:</strong> @order.Note</p>
+            }
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Món ăn</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detail in order.OrderDetails)
+                    {
+                        <tr>
+                            <td>@detail.DishName</td>
+                            <td>@detail.Quantity</td>
+                            <td>@detail.UnitPrice.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <hr />
+    }
+}

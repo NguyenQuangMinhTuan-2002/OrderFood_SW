@@ -178,7 +178,8 @@ public class OrderController : Controller
                 OrderTime = DateTime.Now,
                 OrderStatus = 1,
                 TotalAmount = 0,
-                note = "n/a"
+                note = "n/a",
+                UserId = 1,
             };
             _db.Orders.Add(order);
             _db.SaveChanges();
