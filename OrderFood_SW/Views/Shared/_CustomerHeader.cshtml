@@ -1,0 +1,46 @@
+﻿<!-- Temp css for button -->
+<style>
+    .inp1 {
+        width: 100%;
+        height: auto;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+
+    .inp2 {
+        width: 72px;
+        width: 100%;
+        height: auto;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+</style>
+
+<!-- Header -->
+<div class="header">
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="search-container">
+        <form id="form-search" asp-action="CreateOrder" method="post">
+            <div class="input-group">
+                <input id="search-box" type="text" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search" class="form-control inp1" />
+                <div class="input-group-btn">
+                    <button class="btn btn-default inp2" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="header-actions">
+        <button class="action-btn">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+        <button class="action-btn">
+            <i class="fas fa-expand-arrows-alt"></i>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Food Order Cart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <link href="~/css/customer-cart.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="nature-background">
+        <div class="floating-leaf leaf-1"></div>
+        <div class="floating-leaf leaf-2"></div>
+        <div class="floating-leaf leaf-3"></div>
+        <div class="floating-leaf leaf-4"></div>
+    </div>
+
+    <div class="top-header">
+        <div class="header-content">
+            <div class="restaurant-logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='23' fill='%234CAF50'/%3E%3Cpath d='M15 20 Q25 10 35 20 Q30 35 25 30 Q20 35 15 20' fill='%23fff'/%3E%3Ccircle cx='20' cy='22' r='2' fill='%234CAF50'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234CAF50'/%3E%3Cpath d='M20 28 Q25 32 30 28' stroke='%234CAF50' stroke-width='2' fill='none'/%3E%3C/svg%3E" alt="FreshFood Logo">
+                <div class="restaurant-info">
+                    <h2>FreshFood</h2>
+                    <p>Delicious Meals Delivered</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="cart-icon" onclick="toggleCartView()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="user-avatar" onclick="toggleUserDropdown()">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                            <div>
+                                <h4>John Doe</h4>
+                                <p>john.doe@email.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-history"></i>
+                            <span>Order History</span>
+                        </a>
+                        
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Order Process</span>
+                        </a>
+                        
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-qrcode"></i>
+                            <span>View QR</span>
+                        </a>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <a href="#" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-shopping-cart"></i> Your Order</h1>
+            <p>Review your delicious selections</p>
+        </div>
+        
+        <div class="cart-content" id="cartContent">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-utensils"></i> FreshFood</h3>
+                    <p>Delivering fresh, delicious meals to your doorstep since 2020. Quality food, fast delivery, exceptional service.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Flavor City, FC 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-FOOD</p>
+                    <p><i class="fas fa-envelope"></i> hello@freshfood.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="#"><i class="fas fa-home"></i> Home</a></p>
+                    <p><a href="#"><i class="fas fa-list"></i> Menu</a></p>
+                    <p><a href="#"><i class="fas fa-info-circle"></i> About Us</a></p>
+                    <p><a href="#"><i class="fas fa-headset"></i> Support</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 FreshFood. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/js/customer-cart.js"></script>
+</body>
+</html>

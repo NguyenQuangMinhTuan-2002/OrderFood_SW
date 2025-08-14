@@ -21,70 +21,67 @@
     }
 </style>
 
-<!-- Main Content -->
-<div class="main-content">
-    <!-- Content Area -->
-    <div class="content-area">
-        <!-- Product Area -->
-        <div class="product-area">
-            <!-- Header -->
-            <div class="header">
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
 
-                <div class="search-container">
-                    <form id="form-search" asp-action="CreateOrder" method="post">
-                        <div class="input-group">
-                            <input id="search-box" type="text" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search" class="form-control inp1" />
-                            <div class="input-group-btn">
-                                <button class="btn btn-default inp2" type="submit">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<!-- Product Area -->
+<div class="product-area">
+    <!-- Header -->
+    <div class="header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
 
-                <div class="header-actions">
-                    <button class="action-btn">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- Categories -->
-            <div class="categories-wrapper">
-                <div class="categories">
-                    <!-- All -->
-                    <div class="category-card @(Model.SelectedCategoryId == 0 ? "active" : "")"
-                         data-category-id="0">
-                        <div class="category-name">All</div>
+        <div class="search-container">
+            <form id="form-search" asp-action="CreateOrder" method="post">
+                <div class="input-group">
+                    <input id="search-box" type="text" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search" class="form-control inp1" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-default inp2" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
                     </div>
-
-                    <!-- list category -->
-                    @foreach (var item in Model.DishCategories)
-                    {
-                        <div class="category-card @(Model.SelectedCategoryId == item.CategoryId ? "active" : "")"
-                             data-category-id="@item.CategoryId">
-                            <div class="category-name">@item.CategoryName</div>
-                        </div>
-                    }
                 </div>
-            </div>
-
-            <!-- Products Grid -->
-            @Html.Partial("_ProductGridPartial", Model.FoundDishes)
+            </form>
         </div>
 
-        <!-- Order Panel -->
-        <!-- PC Toggle Cart Button -->
-        <button class="desktop-toggle-btn" id="toggleOrderPanelBtn">
-            <i class="fas fa-eye-slash"></i>
-        </button>
-        @Html.Partial("_OrderCartPartial", Model.CartItems)
+        <div class="header-actions">
+            <button class="action-btn">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+            <button class="action-btn">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Categories -->
+    <div class="categories-wrapper">
+        <div class="categories">
+            <!-- All -->
+            <div class="category-card @(Model.SelectedCategoryId == 0 ? "active" : "")"
+                 data-category-id="0">
+                <div class="category-name">All</div>
+            </div>
+
+            <!-- list category -->
+            @foreach (var item in Model.DishCategories)
+            {
+                <div class="category-card @(Model.SelectedCategoryId == item.CategoryId ? "active" : "")"
+                     data-category-id="@item.CategoryId">
+                    <div class="category-name">@item.CategoryName</div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    @Html.Partial("_ProductGridPartial", Model.FoundDishes)
+</div>
+
+<!-- Order Panel -->
+<!-- PC Toggle Cart Button -->
+<button class="desktop-toggle-btn" id="toggleOrderPanelBtn">
+    <i class="fas fa-eye-slash"></i>
+</button>
+@Html.Partial("_OrderCartPartial", Model.CartItems)
 
 <!-- Mobile Cart Button -->
 <button class="mobile-cart-btn" id="mobileCartBtn">
