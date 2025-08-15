@@ -63,8 +63,6 @@ namespace OrderFood_SW.Controllers
             return View(model);
         }
 
-
-        // Customer cart management **** **** **** ****
         [HttpPost]
         public IActionResult AddCart(int dishId, int Quantity)
         {
@@ -119,69 +117,24 @@ namespace OrderFood_SW.Controllers
             }
         }
 
-        // Get cart count for counter updates
-        [HttpGet]
-        public IActionResult GetCartCount()
-        {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            return Json(new { count = cart.Sum(x => x.Quantity) });
-        }
-
-        public IActionResult GetCart()
-        {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
-            // Return partial view for AJAX requests
-            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            {
-                return PartialView("_OrderCartPartial", cart);
-            }
-
-            // Return full view for regular requests
-            return PartialView("_CartPartial", cart);
-        }
-
-        [HttpPost]
-        public IActionResult RemoveFromCart(int id)
-        {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
-            var itemToRemove = cart.FirstOrDefault(x => x.DishId == id);
-            if (itemToRemove != null)
-            {
-                cart.Remove(itemToRemove);
-                HttpContext.Session.SetObject("Cart", cart);
-            }
-
-            return Json(new { success = true, count = cart.Count });
-        }
-
-        [HttpPost]
-        public IActionResult RemoveAllCart()
-        {
-            HttpContext.Session.Remove("Cart");
-            return Json(new { success = true });
-        }
 
         [HttpPost]
         public async Task<IActionResult> CustomerOrderInitAsync(int tableId)
         {
-            // 1. Kiểm tra giỏ hàng
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
             var UserId = HttpContext.Session.GetInt32("UserId");
 
             if (!cart.Any())
             {
                 TempData["Error"] = "Giỏ hàng trống!";
-                return RedirectToAction("Create", new { tableId });
+                return RedirectToAction("CreateOrder", new { tableId });
             }
 
-            // 2. Kiểm tra bàn tồn tại
             var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == tableId);
             if (table == null)
             {
                 TempData["Error"] = "Bàn không tồn tại!";
-                return RedirectToAction("Create", new { tableId = 0 });
+                return RedirectToAction("CreateOrder", new { tableId = 0 });
             }
 
             var order = new Order
@@ -199,52 +152,21 @@ namespace OrderFood_SW.Controllers
 
             foreach (var item in cart)
             {
-                var orderDetail = new OrderDetail
+                _db.OrderDetails.Add(new OrderDetail
                 {
                     OrderId = order.OrderId,
                     DishId = item.DishId,
                     Quantity = item.Quantity
-                };
-                _db.OrderDetails.Add(orderDetail);
+                });
             }
 
             table.Status = "Occupied";
-
             await _db.SaveChangesAsync();
 
             HttpContext.Session.Remove("Cart");
 
-            return RedirectToAction("Detail", new { orderId = order.OrderId });
+            return RedirectToAction("OrderHistory", "Customer");
         }
 
-
-        [HttpPost]
-        public IActionResult UpdateCartQuantity(int dishId, int change)
-        {
-            try
-            {
-                var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-                var item = cart.FirstOrDefault(x => x.DishId == dishId);
-
-                if (item != null)
-                {
-                    item.Quantity += change;
-
-                    // Remove item if quantity becomes 0 or negative
-                    if (item.Quantity <= 0)
-                    {
-                        cart.Remove(item);
-                    }
-
-                    HttpContext.Session.SetObject("Cart", cart);
-                }
-
-                return Json(new { success = true, count = cart.Sum(x => x.Quantity) });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-        }
     }
 }

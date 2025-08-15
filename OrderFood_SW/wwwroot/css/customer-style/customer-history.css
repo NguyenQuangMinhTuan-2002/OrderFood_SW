@@ -1,0 +1,398 @@
+﻿.main-content {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d5a3d;
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    color: #666;
+    font-size: 16px;
+}
+
+.filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .filter-group label {
+        font-weight: 500;
+        color: #555;
+        font-size: 14px;
+    }
+
+.filter-select, .filter-input {
+    padding: 10px 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+    .filter-select:focus, .filter-input:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+
+.filter-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+}
+
+    .filter-btn:hover {
+        background: #45a049;
+    }
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: slideUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+    .order-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .order-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .order-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .order-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .order-card:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .order-card:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+    .order-card:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        transform: translateY(-2px);
+    }
+
+.order-header {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.order-id {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.order-date {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-completed {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.status-processing {
+    background: #FFC107;
+    color: #333;
+}
+
+.status-cancelled {
+    background: #f44336;
+    color: white;
+}
+
+.status-delivered {
+    background: rgba(255,255,255,0.9);
+    color: #4CAF50;
+}
+
+.order-total {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.order-body {
+    padding: 20px;
+}
+
+.order-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.item-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.item-price-qty {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+}
+
+.item-quantity {
+    color: #666;
+    font-size: 14px;
+}
+
+.item-price {
+    color: #4CAF50;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.order-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.action-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background: #45a049;
+    }
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+    .btn-secondary:hover {
+        background: #e9ecef;
+    }
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.empty-icon {
+    font-size: 64px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.empty-title {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.empty-description {
+    color: #999;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .order-items {
+        grid-template-columns: 1fr;
+    }
+
+    .order-item {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+    }
+
+    .item-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .item-details {
+        flex: 1;
+        text-align: left;
+    }
+
+    .item-name {
+        font-size: 16px;
+    }
+
+    .item-description {
+        font-size: 14px;
+    }
+
+    .item-price-qty {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .item-quantity {
+        font-size: 14px;
+    }
+
+    .item-price {
+        font-size: 16px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .order-actions {
+        flex-direction: column;
+    }
+}

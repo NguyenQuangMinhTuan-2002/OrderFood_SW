@@ -1,46 +1,100 @@
-﻿<!-- Temp css for button -->
-<style>
-    .inp1 {
-        width: 100%;
-        height: auto;
-        border-bottom-left-radius: 10px;
-        border-top-left-radius: 10px;
-    }
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var fullname = Context.Session.GetString("FullName");
+    var email = Context.Session.GetString("Email");
+    var role = Context.Session.GetString("Role");
+}
 
-    .inp2 {
-        width: 72px;
-        width: 100%;
-        height: auto;
-        border-bottom-right-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-</style>
+<header class="top-header">
+    <div class="header-content">
+        <div class="restaurant-logo">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='23' fill='%234CAF50'/%3E%3Cpath d='M15 20 Q25 10 35 20 Q30 35 25 30 Q20 35 15 20' fill='%23fff'/%3E%3Ccircle cx='20' cy='22' r='2' fill='%234CAF50'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234CAF50'/%3E%3Cpath d='M20 28 Q25 32 30 28' stroke='%234CAF50' stroke-width='2' fill='none'/%3E%3C/svg%3E" alt="FreshFood Logo">
+            <div class="restaurant-info">
+                <h2>FreshFood</h2>
+                <p>Delicious Meals Delivered</p>
+            </div>
+        </div>
 
-<!-- Header -->
-<div class="header">
-    <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-    </button>
+        <div class="header-actions">
+            <button type="button" class="cart-icon" onclick="toggleCartView()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </button>
 
-    <div class="search-container">
-        <form id="form-search" asp-action="CreateOrder" method="post">
-            <div class="input-group">
-                <input id="search-box" type="text" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search" class="form-control inp1" />
-                <div class="input-group-btn">
-                    <button class="btn btn-default inp2" type="submit">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
+            <div class="user-menu">
+                <div class="user-avatar" onclick="toggleUserDropdown()">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="dropdown-header">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                        <div>
+                            <h4>@fullname</h4>
+                            <p>Role: @role</p>
+                            <p style="color: aquamarine" >@email</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+
+                    <a href="~/Customer/OrderHistory" class="dropdown-item">
+                        <i class="fas fa-history"></i>
+                        <span>Order History</span>
+                    </a>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-truck"></i>
+                        <span>Order Process</span>
+                    </a>
+
+                    <a href="~/CustomerOrder/Index" class="dropdown-item">
+                        <i class="fas fa-qrcode"></i>
+                        <span>View QR</span>
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a href="~/Account/Logout" class="dropdown-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+</header>
 
-    <div class="header-actions">
-        <button class="action-btn">
-            <i class="fas fa-sync-alt"></i>
-        </button>
-        <button class="action-btn">
-            <i class="fas fa-expand-arrows-alt"></i>
-        </button>
-    </div>
-</div>
+<script>
+    function toggleCartView() {
+        window.location.href = '/CustomerCart/Index';
+    }
+
+    function toggleUserDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        const avatar = document.querySelector('.user-avatar');
+
+        if (dropdown && avatar) {
+            dropdown.classList.toggle('show');
+            avatar.classList.toggle('active');
+        }
+    }
+
+        // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        const userMenu = document.querySelector('.user-menu');
+        const dropdown = document.getElementById('userDropdown');
+        const avatar = document.querySelector('.user-avatar');
+
+        if (userMenu && dropdown && avatar && !userMenu.contains(event.target)) {
+            dropdown.classList.remove('show');
+            avatar.classList.remove('active');
+        }
+    });
+</script>

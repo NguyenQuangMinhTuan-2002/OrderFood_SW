@@ -3,87 +3,134 @@
     Layout = "_CustomerLayout";
 }
 
-<!-- Temp css for button -->
-<style>
-    .inp1 {
-        width: 100%;
-        height: auto;
-        border-bottom-left-radius: 10px;
-        border-top-left-radius: 10px;
-    }
+<div class="container" style="padding-top: 5px;">
+    <div class="hero">
+        <h1>Satisfy Your Cravings</h1>
+        <p>Fresh, delicious food delivered right to your door</p>
+    </div>
 
-    .inp2 {
-        width: 72px;
-        width: 100%;
-        height: auto;
-        border-bottom-right-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-</style>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search for your favorite dish..." id="searchInput">
+    </div>
 
+    <!-- Hidden radio buttons for category filtering -->
+    <div class="category-filters">
+        <input type="radio" name="category" id="filter-all" class="category-filter" checked>
+        @foreach (var item in Model.DishCategories)
+        {
+            <input type="radio" name="category" id="filter-@item.CategoryId" class="category-filter">
+        }
+    </div>
 
-<!-- Product Area -->
-<div class="product-area">
-    <!-- Header -->
-    <div class="header">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
+    <div class="categories">
+        <button class="category-btn active" data-category-id="0">All</button>
+        @foreach (var item in Model.DishCategories)
+        {
+            <button class="category-btn" data-category-id="@item.CategoryId">@item.CategoryName</button>
+        }
+    </div>
 
-        <div class="search-container">
-            <form id="form-search" asp-action="CreateOrder" method="post">
-                <div class="input-group">
-                    <input id="search-box" type="text" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search" class="form-control inp1" />
-                    <div class="input-group-btn">
-                        <button class="btn btn-default inp2" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
+    <div class="menu-grid">
+        @foreach (var item in Model.FoundDishes)
+        {
+            <div class="menu-item" data-category="@item.CategoryId">
+                <div class="item-image"><img src="~/images/@item.ImageUrl"></div>
+                <div class="item-content">
+                    <h3 class="item-name">@item.DishName</h3>
+                    <p class="item-description">@item.DishDescription</p>
+                    <div class="item-footer">
+                        <span class="item-price">@item.DishPrice</span>
+                        <button class="add-to-cart" onclick="addToCart(this, @item.DishId, 1)">
+                            Add to Cart
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
-
-        <div class="header-actions">
-            <button class="action-btn">
-                <i class="fas fa-sync-alt"></i>
-            </button>
-            <button class="action-btn">
-                <i class="fas fa-expand-arrows-alt"></i>
-            </button>
-        </div>
-    </div>
-    <!-- Categories -->
-    <div class="categories-wrapper">
-        <div class="categories">
-            <!-- All -->
-            <div class="category-card @(Model.SelectedCategoryId == 0 ? "active" : "")"
-                 data-category-id="0">
-                <div class="category-name">All</div>
             </div>
-
-            <!-- list category -->
-            @foreach (var item in Model.DishCategories)
-            {
-                <div class="category-card @(Model.SelectedCategoryId == item.CategoryId ? "active" : "")"
-                     data-category-id="@item.CategoryId">
-                    <div class="category-name">@item.CategoryName</div>
-                </div>
-            }
-        </div>
+        }
     </div>
 
-    <!-- Products Grid -->
-    @Html.Partial("_ProductGridPartial", Model.FoundDishes)
 </div>
 
-<!-- Order Panel -->
-<!-- PC Toggle Cart Button -->
-<button class="desktop-toggle-btn" id="toggleOrderPanelBtn">
-    <i class="fas fa-eye-slash"></i>
-</button>
-@Html.Partial("_OrderCartPartial", Model.CartItems)
+<script>
+    // Simple search functionality
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const menuItems = document.querySelectorAll('.menu-item');
 
-<!-- Mobile Cart Button -->
-<button class="mobile-cart-btn" id="mobileCartBtn">
-    <i class="fas fa-shopping-cart"></i>
-</button>
+        menuItems.forEach(item => {
+                const itemName = item.querySelector('.item-name').textContent.toLowerCase();
+                const itemDescription = item.querySelector('.item-description').textContent.toLowerCase();
+
+                if (itemName.includes(searchTerm) || itemDescription.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Category button active state management
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Xóa active khỏi tất cả nút
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            // Thêm active vào nút được bấm
+            this.classList.add('active');
+
+            // Lấy categoryId của nút được chọn
+            const selectedCategoryId = parseInt(this.getAttribute('data-category-id'));
+
+            // Lọc menu-item
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const itemCategoryId = parseInt(item.getAttribute('data-category'));
+                if (selectedCategoryId === 0 || itemCategoryId === selectedCategoryId) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Reset ô tìm kiếm
+            document.getElementById('searchInput').value = '';
+        });
+    });
+
+        function addToCart(button, dishId, quantity) {
+        const formData = new URLSearchParams();
+        formData.append('dishId', dishId);
+        formData.append('Quantity', quantity);
+
+        fetch('/CustomerOrder/AddCart', {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData.toString()
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                // Cập nhật badge
+                const cartBadge = document.getElementById('cartBadge');
+                if (cartBadge) {
+                    cartBadge.textContent = data.cartCount;
+                    cartBadge.style.display = data.cartCount > 0 ? 'inline-block' : 'none';
+                }
+
+                // Đổi nút sang "Added"
+                button.textContent = 'Added';
+                button.classList.add('added');
+                button.disabled = true;
+
+                // Hiển thị thông báo
+                showToast(`✅ ${data.message}`);
+            } else {
+                showToast(`❌ ${data.message}`);
+            }
+        })
+        .catch(() => {
+            showToast('❌ Unable to add to cart!');
+        });
+    }
+</script>

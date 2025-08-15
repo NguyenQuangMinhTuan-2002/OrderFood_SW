@@ -19,8 +19,40 @@ namespace OrderFood_SW.Controllers
         public IActionResult Index()
         {
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId");
+            var tableId = HttpContext.Session.GetInt32("CurrentTableId");
+
+            if (tableId == null || tableId == 0)
+            {
+                // Nếu chưa có tableId, buộc quay về chọn món lại
+                TempData["Error"] = "Thiếu thông tin bàn, vui lòng chọn bàn trước khi đặt món.";
+                return RedirectToAction("Index", "CustomerOrder");
+            }
+
+            ViewBag.TableId = tableId;
             return View(cart);
+        }
+
+
+        // Get cart count for counter updates
+        [HttpGet]
+        public IActionResult GetCartCount()
+        {
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+            return Json(new { count = cart.Sum(x => x.Quantity) });
+        }
+
+        public IActionResult GetCart()
+        {
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+
+            // Return partial view for AJAX requests
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_OrderCartPartial", cart);
+            }
+
+            // Return full view for regular requests
+            return PartialView("_CartPartial", cart);
         }
 
         [HttpPost]
@@ -39,71 +71,40 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateCartQuantity(int dishId, int change)
+        public IActionResult RemoveAllCart()
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            var item = cart.FirstOrDefault(x => x.DishId == dishId);
-
-            if (item != null)
-            {
-                item.Quantity += change;
-                if (item.Quantity <= 0)
-                    cart.Remove(item);
-
-                HttpContext.Session.SetObject("Cart", cart);
-            }
-
-            return Json(new { success = true, count = cart.Sum(x => x.Quantity) });
+            HttpContext.Session.Remove("Cart");
+            return Json(new { success = true });
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(int tableId)
+        public IActionResult UpdateCartQuantity(int dishId, int change)
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            var userId = HttpContext.Session.GetInt32("UserId");
-
-            if (!cart.Any())
+            try
             {
-                TempData["Error"] = "Cart is empty!";
-                return RedirectToAction("Index");
-            }
+                var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+                var item = cart.FirstOrDefault(x => x.DishId == dishId);
 
-            var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == tableId);
-            if (table == null)
-            {
-                TempData["Error"] = "Table not found!";
-                return RedirectToAction("Index");
-            }
-
-            var order = new Order
-            {
-                TableId = tableId,
-                OrderTime = DateTime.Now,
-                OrderStatus = 1,
-                TotalAmount = cart.Sum(x => x.Price * x.Quantity),
-                note = "n/a",
-                UserId = userId
-            };
-
-            _db.Orders.Add(order);
-            await _db.SaveChangesAsync();
-
-            foreach (var item in cart)
-            {
-                _db.OrderDetails.Add(new OrderDetail
+                if (item != null)
                 {
-                    OrderId = order.OrderId,
-                    DishId = item.DishId,
-                    Quantity = item.Quantity
-                });
+                    item.Quantity += change;
+
+                    // Remove item if quantity becomes 0 or negative
+                    if (item.Quantity <= 0)
+                    {
+                        cart.Remove(item);
+                    }
+
+                    HttpContext.Session.SetObject("Cart", cart);
+                }
+
+                return Json(new { success = true, count = cart.Sum(x => x.Quantity) });
             }
-
-            table.Status = "Occupied";
-            await _db.SaveChangesAsync();
-
-            HttpContext.Session.Remove("Cart");
-
-            return RedirectToAction("Detail", "Order", new { orderId = order.OrderId });
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
     }
 }

@@ -391,19 +391,24 @@ public class OrderController : Controller
     [HttpPost]
     public IActionResult CancelOrder(int orderId)
     {
-        var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderId);
-        if (order == null) return NotFound();
+        var order = _db.Orders
+            .Include(o => o.OrderDetails)
+            .FirstOrDefault(o => o.OrderId == orderId);
+
+        if (order == null)
+            return NotFound();
 
         // Kiểm tra nếu có món nào đã được phục vụ
-        var hasServed = _db.OrderDetails
-            .Where(d => d.OrderId == orderId)
-            .Any(d => d.DishStatus == 1);
-
+        bool hasServed = order.OrderDetails.Any(d => d.DishStatus == 1);
         if (hasServed)
         {
             TempData["Error"] = "Không thể hủy đơn vì đã có món được phục vụ.";
-            return RedirectToAction("Detail", new { orderId }); // sửa ở đây
+            return RedirectToAction("Detail", new { orderId });
         }
+
+        // Cập nhật trạng thái đơn hàng sang -1 (bị hủy)
+        order.OrderStatus = -1;
+        order.TotalAmount = 0;
 
         // Cập nhật trạng thái bàn về "Available"
         var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
@@ -412,15 +417,9 @@ public class OrderController : Controller
             table.Status = "Available";
         }
 
-        // Xóa tất cả chi tiết đơn
-        var orderDetails = _db.OrderDetails.Where(d => d.OrderId == orderId).ToList();
-        _db.OrderDetails.RemoveRange(orderDetails);
-
-        _db.Orders.Remove(order);
-
         _db.SaveChanges();
 
-        TempData["Success"] = "Đã hủy đơn thành công.";
+        TempData["Success"] = "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).";
         return RedirectToAction("OrderList");
     }
 

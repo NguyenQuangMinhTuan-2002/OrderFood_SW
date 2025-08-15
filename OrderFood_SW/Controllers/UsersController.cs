@@ -81,7 +81,7 @@ namespace OrderFood_SW.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Username,PasswordHash,FullName,Role,IsActive")] Users users)
+        public async Task<IActionResult> Create([Bind("UserId,Username,PasswordHash,FullName,Email,Role,IsActive")] Users users)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +132,7 @@ namespace OrderFood_SW.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,PasswordHash,FullName,Role,IsActive")] Users users)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,PasswordHash,FullName,Email,Role,IsActive")] Users users)
         {
             if (id != users.UserId)
             {

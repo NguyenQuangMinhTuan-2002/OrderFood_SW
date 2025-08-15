@@ -49,5 +49,40 @@ namespace OrderFood_SW.Controllers
 
             return View(orders);
         }
+
+        [HttpPost]
+        public IActionResult CustomerCancelOrder(int orderId)
+        {
+            var order = _db.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefault(o => o.OrderId == orderId);
+
+            if (order == null)
+                return NotFound();
+
+            // Kiểm tra nếu có món nào đã được phục vụ
+            bool hasServed = order.OrderDetails.Any(d => d.DishStatus == 1);
+            if (hasServed)
+            {
+                TempData["Error"] = "Không thể hủy đơn vì đã có món được phục vụ.";
+                return RedirectToAction("OrderHistory", new { orderId });
+            }
+
+            // Cập nhật trạng thái đơn hàng sang -1 (bị hủy)
+            order.OrderStatus = -1;
+            order.TotalAmount = 0;
+
+            // Cập nhật trạng thái bàn về "Available"
+            var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
+            if (table != null)
+            {
+                table.Status = "Available";
+            }
+
+            _db.SaveChanges();
+
+            TempData["Success"] = "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).";
+            return RedirectToAction("CreateOrder", "CustomerOrder", new { tableId = order.TableId });
+        }
     }
 }

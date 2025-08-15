@@ -1,135 +1,238 @@
-﻿@{
-    Layout = null;
+﻿@using OrderFood_SW.ViewModels
+@model List<OrderCartItem>
+
+@{
+    Layout = "_CustomerLayout";
+
+    // Tính toán tổng
+    decimal subtotal = Model.Sum(item => item.Price * item.Quantity);
+    decimal taxRate = 0.08m;
+    decimal tax = subtotal * taxRate;
+    decimal deliveryFee = subtotal >= 50 ? 0 : 5; // miễn phí giao khi >= $50
+    decimal total = subtotal + tax + deliveryFee;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Food Order Cart</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <link href="~/css/customer-cart.css" rel="stylesheet" asp-append-version="true" />
-</head>
-<body>
-    <div class="nature-background">
-        <div class="floating-leaf leaf-1"></div>
-        <div class="floating-leaf leaf-2"></div>
-        <div class="floating-leaf leaf-3"></div>
-        <div class="floating-leaf leaf-4"></div>
+<link rel="stylesheet" href="~/css/customer-style/customer-cart.css" asp-append-version="true">
+
+<div class="container">
+    <div class="header" style="border-radius: 20px;">
+        <h1><i class="fas fa-shopping-cart"></i> Your Order At Table #@ViewBag.TableId</h1>
+        <p>Review your delicious selections</p>
     </div>
 
-    <div class="top-header">
-        <div class="header-content">
-            <div class="restaurant-logo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='23' fill='%234CAF50'/%3E%3Cpath d='M15 20 Q25 10 35 20 Q30 35 25 30 Q20 35 15 20' fill='%23fff'/%3E%3Ccircle cx='20' cy='22' r='2' fill='%234CAF50'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234CAF50'/%3E%3Cpath d='M20 28 Q25 32 30 28' stroke='%234CAF50' stroke-width='2' fill='none'/%3E%3C/svg%3E" alt="FreshFood Logo">
-                <div class="restaurant-info">
-                    <h2>FreshFood</h2>
-                    <p>Delicious Meals Delivered</p>
-                </div>
+    <div class="cart-content" id="cartContent">
+        @if (!Model.Any())
+        {
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Your cart is empty</h2>
+                <p style="margin-bottom: 10px">Add some delicious items to get started!</p>
+                <a href="/CustomerOrder/CreateOrder" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Items
+                </a>
             </div>
-            
-            <div class="header-actions">
-                <div class="cart-icon" onclick="toggleCartView()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge" id="cartBadge">0</span>
-                </div>
-                
-                <div class="user-menu">
-                    <div class="user-avatar" onclick="toggleUserDropdown()">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="cart-item" data-id="@item.DishId" data-price="@item.Price">
+                    <img src="~/images/@item.ImageUrl" alt="@item.DishName" class="item-image">
+                    <div class="item-details">
+                        <div class="item-name">@item.DishName</div>
+                        <div class="item-price">$@item.Price.ToString("0.00")</div>
                     </div>
-                    
-                    <div class="user-dropdown" id="userDropdown">
-                        <div class="dropdown-header">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
-                            <div>
-                                <h4>John Doe</h4>
-                                <p>john.doe@email.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="dropdown-divider"></div>
-                        
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-user"></i>
-                            <span>Profile</span>
-                        </a>
-                        
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-history"></i>
-                            <span>Order History</span>
-                        </a>
-                        
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-truck"></i>
-                            <span>Order Process</span>
-                        </a>
-                        
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-qrcode"></i>
-                            <span>View QR</span>
-                        </a>
-                        
-                        <div class="dropdown-divider"></div>
-                        
-                        <a href="#" class="dropdown-item logout">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </a>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(@item.DishId, -1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <div class="quantity-display">@item.Quantity</div>
+                        <button class="quantity-btn" onclick="updateQuantity(@item.DishId, 1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
+                    <button class="remove-btn" onclick="removeItem(@item.DishId)">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
                 </div>
-            </div>
-        </div>
-    </div>
+            }
 
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-shopping-cart"></i> Your Order</h1>
-            <p>Review your delicious selections</p>
-        </div>
-        
-        <div class="cart-content" id="cartContent">
-            <!-- Cart items will be populated by JavaScript -->
-        </div>
-        
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-utensils"></i> FreshFood</h3>
-                    <p>Delivering fresh, delicious meals to your doorstep since 2020. Quality food, fast delivery, exceptional service.</p>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotalValue">$@subtotal.ToString("0.00")</span>
                 </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Flavor City, FC 12345</p>
-                    <p><i class="fas fa-phone"></i> +1 (555) 123-FOOD</p>
-                    <p><i class="fas fa-envelope"></i> hello@freshfood.com</p>
+                <div class="summary-row">
+                    <span>Tax (8%):</span>
+                    <span id="taxValue">$@tax.ToString("0.00")</span>
                 </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <p><a href="#"><i class="fas fa-home"></i> Home</a></p>
-                    <p><a href="#"><i class="fas fa-list"></i> Menu</a></p>
-                    <p><a href="#"><i class="fas fa-info-circle"></i> About Us</a></p>
-                    <p><a href="#"><i class="fas fa-headset"></i> Support</a></p>
+                <div class="summary-row">
+                    <span>Delivery Fee:</span>
+                    <span id="deliveryValue">@(deliveryFee == 0 ? "FREE" : "$" + deliveryFee.ToString("0.00"))</span>
                 </div>
+                <div class="summary-row total-row">
+                    <span>Total:</span>
+                    <span id="totalValue">$@total.ToString("0.00")</span>
+                </div>
+                <form method="post" asp-controller="CustomerOrder" asp-action="CustomerOrderInit">
+                    <input type="hidden" name="tableId" value="@ViewBag.TableId" />
+                    <button type="submit" class="checkout-btn">
+                        <i class="fas fa-credit-card"></i> Proceed to Checkout
+                    </button>
+                </form>
             </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2025 FreshFood. All rights reserved.</p>
-                    <div class="footer-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        }
     </div>
+</div>
 
-    <script src="~/js/customer-cart.js"></script>
-</body>
-</html>
+<script>
+        // ---- Cấu hình khớp với View/Razor ----
+    const TAX_RATE = 0.08;                    // 8%
+    const FREE_SHIPPING_THRESHOLD = 50;       // miễn phí giao khi >= 50
+    const DELIVERY_FEE = 5;                   // phí mặc định khi < threshold
+
+    // ---- Utils ----
+    function $(sel, root = document) { return root.querySelector(sel); }
+    function $all(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
+
+    function fmtMoney(n) {
+        // Giữ đúng định dạng $xx.yy như View
+        return `$${Number(n).toFixed(2)}`;
+    }
+
+    function updateBadge(count) {
+        const badge = $('#cartBadge');
+        if (!badge) return;
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+
+    function recalcTotals() {
+        const items = $all('.cart-item[data-id]');
+        let subtotal = 0;
+
+        items.forEach(it => {
+            const price = parseFloat(it.getAttribute('data-price') || '0');
+            const qtyEl = $('.quantity-display', it);
+            const qty = qtyEl ? parseInt(qtyEl.textContent.trim(), 10) || 0 : 0;
+            subtotal += price * qty;
+        });
+
+        const tax = subtotal * TAX_RATE;
+        const delivery = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : (items.length ? DELIVERY_FEE : 0);
+        const total = subtotal + tax + delivery;
+
+        const subEl = $('#subtotalValue');
+        const taxEl = $('#taxValue');
+        const delEl = $('#deliveryValue');
+        const totEl = $('#totalValue');
+
+        if (subEl) subEl.textContent = fmtMoney(subtotal);
+        if (taxEl) taxEl.textContent = fmtMoney(tax);
+        if (delEl) delEl.textContent = (delivery === 0 ? 'FREE' : fmtMoney(delivery));
+        if (totEl) totEl.textContent = fmtMoney(total);
+    }
+
+    function showEmptyState() {
+        const cartContent = $('#cartContent');
+        if (!cartContent) return;
+        cartContent.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Your cart is empty</h2>
+                <p style="margin-bottom: 10px">Add some delicious items to get started!</p>
+                <a href="/CustomerOrder/CreateOrder" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Items
+                </a>
+            </div>
+        `;
+        // Tổng số = 0
+        updateBadge(0);
+    }
+
+    // ---- API calls ----
+    function updateQuantity(dishId, change) {
+        // Khóa tạm các nút của item để tránh double click
+        const itemEl = document.querySelector(`.cart-item[data-id="${dishId}"]`);
+        const buttons = itemEl ? $all('.quantity-btn', itemEl) : [];
+        buttons.forEach(b => b.disabled = true);
+
+        fetch(`/CustomerCart/UpdateCartQuantity?dishId=${dishId}&change=${change}`, {
+            method: 'POST'
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) throw new Error(data.message || 'Update failed');
+
+            // Cập nhật UI cục bộ
+            const qtyEl = itemEl ? $('.quantity-display', itemEl) : null;
+            if (qtyEl) {
+                const newQty = (parseInt(qtyEl.textContent.trim(), 10) || 0) + change;
+                if (newQty <= 0) {
+                    // Bị xóa trên server => xóa DOM
+                    itemEl.remove();
+                } else {
+                    qtyEl.textContent = newQty;
+                }
+            }
+
+            // Cập nhật badge từ count server trả về
+            updateBadge(data.count);
+
+            // Nếu không còn item nào -> empty state
+            const remain = document.querySelectorAll('.cart-item[data-id]').length;
+            if (remain === 0) {
+                showEmptyState();
+                return;
+            }
+
+            // Tính lại tổng
+            recalcTotals();
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Failed to update quantity.');
+        })
+        .finally(() => {
+            buttons.forEach(b => b.disabled = false);
+        });
+    }
+
+    function removeItem(dishId) {
+        // if (!confirm('Remove this item from your cart?')) return;
+
+        const itemEl = document.querySelector(`.cart-item[data-id="${dishId}"]`);
+        const rmBtn = itemEl ? $('.remove-btn', itemEl) : null;
+        if (rmBtn) rmBtn.disabled = true;
+
+        fetch(`/CustomerCart/RemoveFromCart?id=${dishId}`, {
+            method: 'POST'
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) throw new Error('Remove failed');
+            if (itemEl) itemEl.remove();
+
+            updateBadge(data.count);
+
+            const remain = document.querySelectorAll('.cart-item[data-id]').length;
+            if (remain === 0) {
+                showEmptyState();
+                return;
+            }
+
+            recalcTotals();
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Failed to remove item.');
+            if (rmBtn) rmBtn.disabled = false;
+        });
+    }
+
+    // Khởi động: đồng bộ tổng lần đầu (phòng khi server render lệch)
+    document.addEventListener('DOMContentLoaded', () => {
+        recalcTotals();
+    });
+
+</script>
