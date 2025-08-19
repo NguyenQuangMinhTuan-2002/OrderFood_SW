@@ -131,8 +131,8 @@ body {
     position: relative;
     background: #4CAF50;
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -336,7 +336,7 @@ body {
 .categories {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 8px;
     margin-bottom: 3rem;
     flex-wrap: wrap;
 }
@@ -345,7 +345,7 @@ body {
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid whitesmoke;
     color: cadetblue;
-    padding: 0.8rem 1.5rem;
+    padding: 10px 12px;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -424,8 +424,8 @@ body {
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
-        animation: shimmer 3s infinite;
+/*        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+        animation: shimmer 3s infinite;*/
     }
 
 @keyframes shimmer {

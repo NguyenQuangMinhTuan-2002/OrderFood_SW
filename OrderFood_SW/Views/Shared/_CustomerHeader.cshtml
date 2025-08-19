@@ -8,15 +8,15 @@
 <header class="top-header">
     <div class="header-content">
         <div class="restaurant-logo">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='23' fill='%234CAF50'/%3E%3Cpath d='M15 20 Q25 10 35 20 Q30 35 25 30 Q20 35 15 20' fill='%23fff'/%3E%3Ccircle cx='20' cy='22' r='2' fill='%234CAF50'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234CAF50'/%3E%3Cpath d='M20 28 Q25 32 30 28' stroke='%234CAF50' stroke-width='2' fill='none'/%3E%3C/svg%3E" alt="FreshFood Logo">
+            <img onclick="MenuView()" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='23' fill='%234CAF50'/%3E%3Cpath d='M15 20 Q25 10 35 20 Q30 35 25 30 Q20 35 15 20' fill='%23fff'/%3E%3Ccircle cx='20' cy='22' r='2' fill='%234CAF50'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234CAF50'/%3E%3Cpath d='M20 28 Q25 32 30 28' stroke='%234CAF50' stroke-width='2' fill='none'/%3E%3C/svg%3E" alt="FreshFood Logo">
             <div class="restaurant-info">
-                <h2>FreshFood</h2>
+                <h2 onclick="MenuView()">FreshFood</h2>
                 <p>Delicious Meals Delivered</p>
             </div>
         </div>
 
         <div class="header-actions">
-            <button type="button" class="cart-icon" onclick="toggleCartView()">
+            <button type="button" class="cart-icon" onclick="CartView()">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-badge" id="cartBadge">0</span>
             </button>
@@ -39,7 +39,7 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <a href="#" class="dropdown-item">
+                    <a href="~/Customer/Index" class="dropdown-item">
                         <i class="fas fa-user"></i>
                         <span>Profile</span>
                     </a>
@@ -72,8 +72,12 @@
 </header>
 
 <script>
-    function toggleCartView() {
+    function CartView() {
         window.location.href = '/CustomerCart/Index';
+    }
+
+    function MenuView() {
+        window.location.href = '/CustomerOrder/CreateOrder';
     }
 
     function toggleUserDropdown() {

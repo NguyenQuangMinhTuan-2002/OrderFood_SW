@@ -1,0 +1,252 @@
+﻿.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.profile-card, .info-card, .order-history-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.profile-card {
+    text-align: center;
+    height: fit-content;
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 48px;
+    color: white;
+    font-weight: bold;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.profile-username {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    width:100%;
+}
+
+.status-active {
+    background: #E8F5E8;
+    color: #4CAF50;
+}
+
+.status-inactive {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+.edit-profile-btn {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+    .edit-profile-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+    }
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    animation: slideUp 0.8s ease-out 0.1s both;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.info-item {
+    padding: 20px;
+    background: #F8F9FA;
+    border-radius: 12px;
+    border-left: 4px solid #4CAF50;
+}
+
+.info-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.order-history-card{
+        animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: #F8F9FA;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+    .order-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+.order-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.order-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #FF6B35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.order-details h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.order-details p {
+    font-size: 14px;
+    color: #666;
+}
+
+.order-status {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-completed {
+    background: #E8F5E8;
+    color: #4CAF50;
+}
+
+.status-cancelled {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+.order-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4CAF50;
+    margin-left: 15px;
+}
+
+.no-orders {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .order-left {
+        width: 100%;
+    }
+}

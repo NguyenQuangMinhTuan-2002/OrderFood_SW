@@ -20,6 +20,10 @@ namespace OrderFood_SW.Controllers
         {
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
             var tableId = HttpContext.Session.GetInt32("CurrentTableId");
+            var tableNumber = _db.Tables
+                .Where(t => t.TableId == tableId)
+                .Select(t => t.TableNumber)
+                .FirstOrDefault();
 
             if (tableId == null || tableId == 0)
             {
@@ -29,6 +33,7 @@ namespace OrderFood_SW.Controllers
             }
 
             ViewBag.TableId = tableId;
+            ViewBag.TableNumber = tableNumber;
             return View(cart);
         }
 

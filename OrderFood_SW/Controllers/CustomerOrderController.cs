@@ -19,7 +19,9 @@ namespace OrderFood_SW.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var query = _db.Tables
+                .ToList();
+            return View(query);
         }
 
         public IActionResult CreateOrder(string searchKeyword, int? tableId = null, int? categoryId = null)
@@ -28,7 +30,6 @@ namespace OrderFood_SW.Controllers
             {
                 HttpContext.Session.SetInt32("CurrentTableId", tableId.Value);
                 ViewBag.TableId = tableId;
-
             }
 
             ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;

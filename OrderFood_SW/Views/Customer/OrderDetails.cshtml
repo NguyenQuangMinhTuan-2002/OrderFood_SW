@@ -1,0 +1,148 @@
+﻿@model OrderDetailViewModel
+@{
+    Layout = "_CustomerLayout";
+}
+
+<link rel="stylesheet" href="~/css/customer-style/customer-details.css" asp-append-version="true">
+
+<div class="container">
+    <button class="back-button" onclick="history.back()">← Quay lại</button>
+
+    <div class="order-header">
+        <h1 class="order-title">Order Detail number #@Model.Order.OrderId</h1>
+
+        <div class="order-meta">
+            <div class="meta-item">
+                <span class="meta-label">Table:</span>
+                <span class="meta-value">Table Number: @Model.Order.TableId</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Order Time:</span>
+                <span class="meta-value">@Model.Order.OrderTime</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Order Status:</span>
+                @if (Model.Order.OrderStatus == 2)
+                {
+                    <span class="meta-value">Has Served</span>
+                } 
+                else if (Model.Order.OrderStatus == 1)
+                {
+                    <span class="meta-value" style="color: gold">Processing</span>
+                }
+                else if (Model.Order.OrderStatus == -1)
+                {
+                    <span class="meta-value" style="color: red">Cancelled</span>
+                }
+            </div>
+        </div>
+
+        <div class="total-amount">
+            <div class="total-label">Total Amount</div>
+            <div class="total-value">@Model.Order.TotalAmount</div>
+        </div>
+    </div>
+
+    <div class="order-items">
+        <h2 class="section-title">Product Details</h2>
+
+        <!-- Desktop Table View -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Món ăn</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>
+                            <div class="item-image food-item">
+                                🥬
+                            </div>
+                        </td>
+                        <td>
+                            <div class="item-name">@item.DishName</div>
+                        </td>
+                        <td>
+                            <div class="item-quantity">@item.Quantity</div>
+                        </td>
+                        <td class="item-price">@item.DishPrice</td>
+                        <td class="item-total">@item.Total</td>
+                        <td>
+                            @if (item.DishStatus == 1)
+                            {
+                                <div class="item-status">Has Served</div>
+                            } 
+                            else if (item.DishStatus == 0)
+                            {
+                                <div class="item-status" style="background-color:gold; color: black">Pending...</div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Mobile Card View -->
+        <div class="mobile-items">
+            @foreach (var item in Model.OrderDetails)
+            {
+                <div class="item-card">
+                    <div class="item-header">
+                        <div class="item-image food-item">🥬</div>
+                        <div>
+                            <div class="item-name">@item.DishName</div>
+                            <div class="item-status">@item.DishStatus</div>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Quantity:</span>
+                            <span class="detail-value">@item.Quantity</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Dish Price:</span>
+                            <span class="detail-value">@item.DishPrice</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Total:</span>
+                            <span class="detail-value" style="color: #4CAF50; font-weight: bold;">@item.Total</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="summary-section">
+            <div class="summary-row">
+                <span>Total Amount:</span>
+                @{
+                    decimal t = 0;
+                    foreach (var item in Model.OrderDetails)
+                    {
+                        if (item.DishStatus == 1)
+                        {
+                            t += (item.DishPrice * item.Quantity);
+                        }
+                    }
+                }
+                <span>@t</span>
+            </div>
+            <div class="summary-row">
+                <span>Thuế VAT (0%):</span>
+                <span>0 VND</span>
+            </div>
+            <div class="summary-row total">
+                <span>Sumary:</span>
+                <span>@t</span>
+            </div>
+        </div>
+    </div>
+</div>

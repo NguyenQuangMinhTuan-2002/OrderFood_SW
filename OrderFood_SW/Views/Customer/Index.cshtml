@@ -1,0 +1,110 @@
+﻿<!-- user profile info -->
+@using Microsoft.AspNetCore.Http
+@model List<OrderFood_SW.ViewModels.OrderHistoryViewModel>
+@{
+    Layout = "_CustomerLayout";
+
+    var userId = Context.Session.GetString("UserId");
+    var username = Context.Session.GetString("Username");
+    var fullname = Context.Session.GetString("FullName");
+    var email = Context.Session.GetString("Email");
+    var role = Context.Session.GetString("Role");
+    var isactive = Context.Session.GetString("IsActive") == "true";
+}
+<link href="~/css/customer-style/customer-profile.css" rel="stylesheet" />
+
+<div class="profile-container">
+    <!-- Left Profile Card -->
+    <div class="profile-card">
+        <div class="profile-avatar" id="profileAvatar">
+            US
+        </div>
+        <div class="profile-name" id="profileName">@fullname</div>
+        <div class="profile-username" id="profileUsername">#@username</div>
+        <div class="status-badge status-active" id="statusBadge">
+            ● Active Account
+        </div>
+        <button class="edit-profile-btn" onclick="editProfile()">
+            ✏️ Edit Profile
+        </button>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <!-- Account Information -->
+        <div class="info-card">
+            <h2 class="section-title">
+                <span class="icon">👤</span>
+                Account Information
+            </h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Full Name</div>
+                    <div class="info-value" id="infoFullName">@fullname</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Username</div>
+                    <div class="info-value" id="infoUsername">@username</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-value" id="infoEmail">@email</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Account Role</div>
+                    <div class="info-value" id="infoRole">@role</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Account Status</div>
+                    <div class="info-value" id="infoStatus">@isactive</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Member Since</div>
+                    <div class="info-value">August 2024</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order History -->
+        <div class="order-history-card">
+            <h2 class="section-title">
+                <span class="icon">🍽️</span>
+                Recent Orders
+            </h2>
+
+            @foreach (var item in Model)
+            {
+                <div class="order-item">
+                    <div class="order-left">
+                        <div class="order-icon">🍕</div>
+                        <div class="order-details">
+                            <h4>Order #@item.OrderId</h4>
+                            <p>@item.OrderTime</p>
+                        </div>
+                    </div>
+                    @if (item.OrderStatus.Equals("-1"))
+                    {
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div class="order-status status-cancelled">Cancelled</div>
+                            <div class="order-price">@item.TotalAmount</div>
+                        </div>
+                    }else if (item.OrderStatus.Equals("2"))
+                    {
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div class="order-status status-delivered" style="background-color: aquamarine">Delivered</div>
+                            <div class="order-price">@item.TotalAmount</div>
+                        </div>
+                    }
+                    else if (item.OrderStatus.Equals("1"))
+                    {
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div class="order-status status-processing" style="background-color: goldenrod">Processing</div>
+                            <div class="order-price">@item.TotalAmount</div>
+                        </div>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

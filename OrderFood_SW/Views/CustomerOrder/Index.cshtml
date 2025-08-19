@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<OrderFood_SW.Models.Table>
+@{
     Layout = "_CustomerLayout";
 }
 <link rel="stylesheet" href="~/css/customer-style/customer-table-select.css" asp-append-version="true">
@@ -17,77 +18,37 @@
     </div>
 
     <div class="tables-grid">
-        <a href="~/CustomerOrder/CreateOrder?tableId=1" class="table-card">
-            <div class="table-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <div class="table-number">Table 1</div>
-            <div class="table-status">Available</div>
-            <div class="qr-code">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="scan-text">Tap to order</div>
-        </a>
-
-        <a href="~/CustomerOrder/CreateOrder?tableId=2" class="table-card">
-            <div class="table-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <div class="table-number">Table 2</div>
-            <div class="table-status">Available</div>
-            <div class="qr-code">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="scan-text">Tap to order</div>
-        </a>
-
-        <a href="~/CustomerOrder/CreateOrder?tableId=3" class="table-card">
-            <div class="table-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <div class="table-number">Table 3</div>
-            <div class="table-status">Available</div>
-            <div class="qr-code">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="scan-text">Tap to order</div>
-        </a>
-
-        <a href="~/CustomerOrder/CreateOrder?tableId=4" class="table-card">
-            <div class="table-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <div class="table-number">Table 4</div>
-            <div class="table-status">Available</div>
-            <div class="qr-code">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="scan-text">Tap to order</div>
-        </a>
-
-        <a href="~/CustomerOrder/CreateOrder?tableId=5" class="table-card">
-            <div class="table-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <div class="table-number">Table 5</div>
-            <div class="table-status">Available</div>
-            <div class="qr-code">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="scan-text">Tap to order</div>
-        </a>
-
-        <a href="~/CustomerOrder/CreateOrder?tableId=6" class="table-card">
-            <div class="table-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <div class="table-number">Table 6</div>
-            <div class="table-status">Available</div>
-            <div class="qr-code">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <div class="scan-text">Tap to order</div>
-        </a>
+        @foreach (var item in Model)
+        {
+            if (item.Status.Equals("Occupied") || item.Status.Equals("Reserved") || item.Status.Equals("Maintenance"))
+            {
+                <a class="table-card">
+                    <div class="table-icon">
+                        <i class="fas fa-chair"></i>
+                    </div>
+                    <div class="table-number">Table @item.TableNumber</div>
+                    <div class="table-status" style="background-color: brown">@item.Status</div>
+                    <div class="qr-code">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="scan-text">Tap to order</div>
+                </a>
+            }
+            else
+            {
+                <a href="~/CustomerOrder/CreateOrder?tableId=@item.TableId" class="table-card">
+                    <div class="table-icon">
+                        <i class="fas fa-chair"></i>
+                    </div>
+                    <div class="table-number">Table @item.TableNumber</div>
+                    <div class="table-status">@item.Status</div>
+                    <div class="qr-code">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="scan-text">Tap to order</div>
+                </a>
+            }
+        }
     </div>
 
     <div class="footer-text">

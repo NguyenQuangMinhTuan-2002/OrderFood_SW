@@ -1,0 +1,367 @@
+﻿.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 0px;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    .back-button:hover {
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+.order-header {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+    animation: slideUp 0.8s ease-out;
+}
+
+.order-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.order-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.meta-label {
+    font-weight: 500;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.meta-value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.total-amount {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.total-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.total-value {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.order-items {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e8f5e8;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+    .items-table th {
+        background: #f8f9fa;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        color: #555;
+        border-bottom: 2px solid #e9ecef;
+        font-size: 14px;
+    }
+
+    .items-table td {
+        padding: 20px 15px;
+        border-bottom: 1px solid #e9ecef;
+        vertical-align: middle;
+    }
+
+.item-image {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.item-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.item-quantity {
+    background: #e8f5e8;
+    color: #4CAF50;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 40px;
+}
+
+.item-price {
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+}
+
+.item-total {
+    font-weight: bold;
+    color: #4CAF50;
+    text-align: right;
+    font-size: 16px;
+}
+
+.item-status {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e8f5e8;
+    color: #4CAF50;
+    text-align: center;
+}
+
+.summary-section {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 2px solid #e8f5e8;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+    .summary-row.total {
+        font-size: 20px;
+        font-weight: bold;
+        color: #4CAF50;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
+        margin-top: 10px;
+    }
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 2px solid #e9ecef;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .order-header {
+        padding: 20px;
+    }
+
+    .order-title {
+        font-size: 24px;
+    }
+
+    .order-meta {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .meta-value {
+        font-size: 14px;
+    }
+
+    .total-value {
+        font-size: 24px;
+    }
+
+    .order-items {
+        padding: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    /* Mobile table - convert to cards */
+    .items-table {
+        display: none;
+    }
+
+    .mobile-items {
+        display: block;
+    }
+
+    .item-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #4CAF50;
+    }
+
+    .item-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .item-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .detail-label {
+        font-weight: 500;
+        color: #666;
+    }
+
+    .detail-value {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .summary-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    .summary-row {
+        font-size: 14px;
+        padding: 8px 0;
+    }
+
+        .summary-row.total {
+            font-size: 18px;
+            padding-top: 12px;
+        }
+}
+
+@media (min-width: 769px) {
+    .mobile-items {
+        display: none;
+    }
+}
+
+.wine-item {
+    background: linear-gradient(135deg, #8e24aa, #7b1fa2);
+}
+
+.food-item {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+}
