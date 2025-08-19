@@ -51,6 +51,7 @@ namespace OrderFood_SW.Controllers
 
             return View(orders);
         }
+
         public IActionResult OrderHistory()
         {
             int userIdStr = (int)HttpContext.Session.GetInt32("UserId") ;
@@ -59,7 +60,42 @@ namespace OrderFood_SW.Controllers
 
             // Lấy danh sách đơn hàng của user
             var orders = _db.Orders
-                .Where(o => o.UserId == userId) // lọc theo khách hàng
+                .Where(o => o.UserId == userId && o.OrderStatus != 1) // lọc theo khách hàng
+                .OrderByDescending(o => o.OrderTime)
+                .Select(o => new OrderHistoryViewModel
+                {
+                    OrderId = o.OrderId,
+                    OrderTime = o.OrderTime,
+                    OrderStatus = o.OrderStatus.ToString(),
+                    TotalAmount = o.TotalAmount,
+                    Note = o.note,
+                    OrderDetails = _db.OrderDetails
+                        .Where(od => od.OrderId == o.OrderId)
+                        .Join(_db.Dishes,
+                            od => od.DishId,
+                            d => d.DishId,
+                            (od, d) => new OrderHistoryDetailViewModel
+                            {
+                                DishName = d.DishName,
+                                Quantity = od.Quantity,
+                                UnitPrice = d.DishPrice
+                            })
+                        .ToList()
+                })
+                .ToList();
+
+            return View(orders);
+        }
+
+        public IActionResult OrderProcessing()
+        {
+            int userIdStr = (int)HttpContext.Session.GetInt32("UserId");
+
+            int userId = userIdStr;
+
+            // Lấy danh sách đơn hàng của user
+            var orders = _db.Orders
+                .Where(o => o.UserId == userId && o.OrderStatus == 1)
                 .OrderByDescending(o => o.OrderTime)
                 .Select(o => new OrderHistoryViewModel
                 {
