@@ -57,7 +57,7 @@ namespace OrderFood_SW.Controllers
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products");
                 Directory.CreateDirectory(uploadFolder);
                 string filePath = Path.Combine(uploadFolder, fileName);
 
@@ -96,7 +96,7 @@ namespace OrderFood_SW.Controllers
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products");
                 Directory.CreateDirectory(uploadFolder);
                 string filePath = Path.Combine(uploadFolder, fileName);
 

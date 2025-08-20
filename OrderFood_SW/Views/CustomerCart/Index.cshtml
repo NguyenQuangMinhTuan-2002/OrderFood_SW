@@ -37,7 +37,7 @@
             @foreach (var item in Model)
             {
                 <div class="cart-item" data-id="@item.DishId" data-price="@item.Price">
-                    <img src="~/images/@item.ImageUrl" alt="@item.DishName" class="item-image">
+                    <img src="~/images/Products/@item.ImageUrl" alt="@item.DishName" class="item-image">
                     <div class="item-details">
                         <div class="item-name">@item.DishName</div>
                         <div class="item-price">$@item.Price.ToString("0.00")</div>

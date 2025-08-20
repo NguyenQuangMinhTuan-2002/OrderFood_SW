@@ -34,7 +34,7 @@
         @foreach (var item in Model.FoundDishes)
         {
             <div class="menu-item" data-category="@item.CategoryId">
-                <div class="item-image"><img src="~/images/@item.ImageUrl"></div>
+                <div class="item-image"><img src="~/images/Products/@item.ImageUrl"></div>
                 <div class="item-content">
                     <h3 class="item-name">@item.DishName</h3>
                     <p class="item-description">@item.DishDescription</p>
