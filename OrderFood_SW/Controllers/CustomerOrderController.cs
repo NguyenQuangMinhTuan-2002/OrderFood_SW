@@ -26,6 +26,18 @@ namespace OrderFood_SW.Controllers
 
         public IActionResult CreateOrder(string searchKeyword, int? tableId = null, int? categoryId = null)
         {
+            // Kiểm tra xem có đơn hàng cũ nào đang mở không
+            var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
+            if (currentOrderId.HasValue && currentOrderId.Value > 0)
+            {
+                var order = _db.Orders.FirstOrDefault(o => o.OrderId == currentOrderId.Value);
+                if (order == null || order.OrderStatus == 2 || order.OrderStatus == -1)
+                {
+                    HttpContext.Session.Remove("CurrentOrderId");
+                    HttpContext.Session.Remove("Cart");
+                }
+            }
+            // Kiểm tra xem có bàn nào đã được chọn không
             if (tableId.HasValue)
             {
                 HttpContext.Session.SetInt32("CurrentTableId", tableId.Value);
@@ -33,6 +45,7 @@ namespace OrderFood_SW.Controllers
             }
 
             ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
+            ViewBag.CurrentOrderId = HttpContext.Session.GetInt32("CurrentOrderId") ?? 0;
 
             var query = _db.Dishes.AsQueryable();
             var queryCategories = _db.Categories.AsQueryable();
@@ -42,7 +55,6 @@ namespace OrderFood_SW.Controllers
                 query = query.Where(d => d.DishName.Contains(searchKeyword));
             }
 
-            // 👇 Chỉ lọc nếu categoryId khác 0 và khác null
             if (categoryId.HasValue && categoryId.Value != 0)
             {
                 query = query.Where(d => d.CategoryId == categoryId.Value);
@@ -64,15 +76,30 @@ namespace OrderFood_SW.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         public IActionResult AddCart(int dishId, int Quantity)
         {
             try
             {
+                var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
+
+                // Nếu đang thêm vào đơn hàng cũ
+                if (currentOrderId.HasValue && currentOrderId.Value > 0)
+                {
+                    var existsInOrder = _db.OrderDetails
+                        .Any(od => od.OrderId == currentOrderId.Value && od.DishId == dishId);
+
+                    if (existsInOrder)
+                    {
+                        return Json(new { success = false, message = " This dish is already in order, call the waiter to add!" });
+                    }
+                }
+
                 var dish = _db.Dishes.Find(dishId);
                 if (dish == null)
                 {
-                    return Json(new { success = false, message = "Dish not found!" });
+                    return Json(new { success = false, message = " Dish not found!" });
                 }
 
                 var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
@@ -98,7 +125,7 @@ namespace OrderFood_SW.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = $"Added {dish.DishName} to cart!",
+                        message = $" Added {dish.DishName} to cart!",
                         cartCount = cart.Sum(x => x.Quantity)
                     });
                 }
@@ -123,7 +150,8 @@ namespace OrderFood_SW.Controllers
         public async Task<IActionResult> OrderInitAsync(int tableId)
         {
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            var UserId = HttpContext.Session.GetInt32("UserId");
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
 
             if (!cart.Any())
             {
@@ -131,6 +159,55 @@ namespace OrderFood_SW.Controllers
                 return RedirectToAction("CreateOrder", new { tableId });
             }
 
+            // 🔹 Nếu đang thêm vào đơn cũ
+            if (currentOrderId.HasValue && currentOrderId.Value > 0)
+            {
+                var order = await _db.Orders
+                    .Include(o => o.OrderDetails)
+                    .FirstOrDefaultAsync(o => o.OrderId == currentOrderId.Value && o.OrderStatus == 1);
+
+                if (order == null)
+                {
+                    HttpContext.Session.Remove("CurrentOrderId");
+                    HttpContext.Session.Remove("Cart");
+
+                    TempData["Error"] = "Đơn hàng không khả dụng để thêm!";
+                    return RedirectToAction("CreateOrder", new { tableId });
+                }
+
+                foreach (var item in cart)
+                {
+                    // 🔹 Kiểm tra nếu món đã tồn tại trong OrderDetail thì bỏ qua
+                    var existingDetail = order.OrderDetails
+                        .FirstOrDefault(od => od.DishId == item.DishId);
+
+                    if (existingDetail != null)
+                    {
+                        // 👉 Có thể chọn: bỏ qua hoặc báo cho user biết
+                        TempData["Warning"] = $"Món {item.DishId} đã có trong đơn hàng, không thể thêm trùng!";
+                        continue;
+                    }
+
+                    _db.OrderDetails.Add(new OrderDetail
+                    {
+                        OrderId = order.OrderId,
+                        DishId = item.DishId,
+                        Quantity = item.Quantity
+                    });
+                }
+
+                order.TotalAmount += cart
+                    .Where(x => !order.OrderDetails.Any(od => od.DishId == x.DishId))
+                    .Sum(x => x.Price * x.Quantity);
+
+                await _db.SaveChangesAsync();
+
+                HttpContext.Session.Remove("Cart");
+                TempData["Success"] = "Đã thêm món mới vào đơn hàng hiện tại!";
+                return RedirectToAction("OrderProcessing", "Customer");
+            }
+
+            // 🔹 Nếu là đơn mới
             var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == tableId);
             if (table == null)
             {
@@ -138,24 +215,24 @@ namespace OrderFood_SW.Controllers
                 return RedirectToAction("CreateOrder", new { tableId = 0 });
             }
 
-            var order = new Order
+            var newOrder = new Order
             {
                 TableId = tableId,
                 OrderTime = DateTime.Now,
                 OrderStatus = 1,
                 TotalAmount = cart.Sum(x => x.Price * x.Quantity),
                 note = "n/a",
-                UserId = UserId
+                UserId = userId
             };
 
-            _db.Orders.Add(order);
+            _db.Orders.Add(newOrder);
             await _db.SaveChangesAsync();
 
             foreach (var item in cart)
             {
                 _db.OrderDetails.Add(new OrderDetail
                 {
-                    OrderId = order.OrderId,
+                    OrderId = newOrder.OrderId,
                     DishId = item.DishId,
                     Quantity = item.Quantity
                 });
@@ -165,9 +242,10 @@ namespace OrderFood_SW.Controllers
             await _db.SaveChangesAsync();
 
             HttpContext.Session.Remove("Cart");
-
+            TempData["Success"] = "Đơn hàng mới đã được tạo!";
             return RedirectToAction("OrderProcessing", "Customer");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> ReOrder(int orderId)
@@ -220,5 +298,16 @@ namespace OrderFood_SW.Controllers
             TempData["Success"] = $"Đã thêm {oldOrder.OrderDetails.Count} món từ đơn #{oldOrder.OrderId} vào giỏ hàng!";
             return RedirectToAction("Index", "CustomerCart");
         }
+
+        [HttpGet]
+        public IActionResult AddMoreOrder(int orderId, int tableId)
+        {
+            // Lưu lại OrderId vào session để biết đang thêm vào đơn nào
+            HttpContext.Session.SetInt32("CurrentOrderId", orderId);
+            HttpContext.Session.SetInt32("CurrentTableId", tableId);
+
+            return RedirectToAction("CreateOrder", new { tableId });
+        }
+
     }
 }

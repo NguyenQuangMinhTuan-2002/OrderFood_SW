@@ -152,7 +152,12 @@
             @if (Model.Order.OrderStatus == 1)
             {
                 <div class="action-buttons">
-                    <button class="btn btn-primary">Add more dishes</button>
+                    <a asp-action="AddMoreOrder" asp-controller="CustomerOrder"
+                       asp-route-orderId="@Model.Order.OrderId"
+                       asp-route-tableId="@Model.Order.TableId"
+                       class="btn btn-primary">
+                        Add more dishes
+                    </a>
                 </div>
             }
         </div>

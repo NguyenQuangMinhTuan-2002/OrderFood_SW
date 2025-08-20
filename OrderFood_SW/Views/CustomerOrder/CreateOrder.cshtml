@@ -133,4 +133,14 @@
             showToast('❌ Unable to add to cart!');
         });
     }
+
+        function showToast(message) {
+        const toast = document.getElementById("toast-message");
+        toast.textContent = message;
+        toast.style.display = "block";
+
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000); // 3 giây tự ẩn
+    }
 </script>
