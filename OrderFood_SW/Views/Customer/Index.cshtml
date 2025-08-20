@@ -4,14 +4,14 @@
 @{
     Layout = "_CustomerLayout";
 
-    var userId = Context.Session.GetString("UserId");
+    var userId = Context.Session.GetInt32("UserId");
     var username = Context.Session.GetString("Username");
     var fullname = Context.Session.GetString("FullName");
     var email = Context.Session.GetString("Email");
     var role = Context.Session.GetString("Role");
     var isactive = Context.Session.GetString("IsActive") == "true";
 }
-<link href="~/css/customer-style/customer-profile.css" rel="stylesheet" />
+<link href="~/css/customer-style/customer-profile.css" rel="stylesheet" asp-append-version="true"/>
 
 <div class="profile-container">
     <!-- Left Profile Card -->
@@ -25,7 +25,7 @@
             ● Active Account
         </div>
         <button class="edit-profile-btn" onclick="editProfile()">
-            ✏️ Edit Profile
+            ✏️ <a href="~/Customer/Edit/@userId">Edit Profile</a>
         </button>
     </div>
 

@@ -4,6 +4,8 @@ using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace OrderFood_SW.Controllers
 {
@@ -220,6 +222,76 @@ namespace OrderFood_SW.Controllers
             };
 
             return View(vm);
+        }
+
+        private string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2")); // x2: hex format
+                }
+                return builder.ToString();
+            }
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var user = await _db.Users.FindAsync(id);
+            if (user == null) return NotFound();
+
+            var vm = new EditUserViewModel
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                FullName = user.FullName,
+                Email = user.Email,
+                Role = user.Role,
+                IsActive = user.IsActive
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditUserViewModel vm)
+        {
+            if (id != vm.UserId) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                var user = await _db.Users.FindAsync(id);
+                if (user == null) return NotFound();
+
+                user.Username = vm.Username;
+                user.FullName = vm.FullName;
+                user.Email = vm.Email;
+                user.Role = vm.Role;
+                user.IsActive = vm.IsActive;
+
+                // Nếu có nhập mật khẩu mới thì hash và update
+                if (!string.IsNullOrEmpty(vm.NewPassword))
+                {
+                    user.PasswordHash = ComputeSha256Hash(vm.NewPassword);
+                }
+
+                _db.Update(user);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(vm);
+        }
+
+        private bool UsersExists(int id)
+        {
+            return _db.Users.Any(e => e.UserId == id);
         }
     }
 }

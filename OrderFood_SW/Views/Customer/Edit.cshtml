@@ -1,0 +1,57 @@
+﻿@model OrderFood_SW.ViewModels.EditUserViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<link href="~/css/customer-style/customer-profile.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="edit-user-container">
+    <div class="edit-user-header">
+        <h1 class="edit-user-title">Edit User</h1>
+        <p class="edit-user-subtitle">Update user information</p>
+    </div>
+
+    <div class="edit-form-container">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="UserId" />
+            
+            <div class="form-group">
+                <label asp-for="Username">Username</label>
+                <input asp-for="Username" class="form-control" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="NewPassword">New Password</label>
+                <input asp-for="NewPassword" class="form-control" type="password" placeholder="Leave blank to keep current password" />
+                <div class="password-hint">Leave blank to keep current password</div>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="FullName">Full Name</label>
+                <input asp-for="FullName" class="form-control" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Role">Role</label>
+                <input asp-for="Role" class="form-control" />
+            </div>
+            
+            <div class="status-toggle">
+                <div class="form-check">
+                    <input class="form-check-input" asp-for="IsActive" />
+                    <label class="form-check-label">@Html.DisplayNameFor(m => m.IsActive)</label>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-save">Save Changes</button>
+                <a asp-action="Index" class="back-link">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
