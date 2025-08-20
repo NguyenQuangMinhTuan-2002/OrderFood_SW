@@ -12,6 +12,17 @@ body {
     padding: 20px;
 }
 
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* Natural Background Elements */
 .nature-background {
@@ -320,6 +331,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
     color: white;
+    animation: slideUp 0.6s ease-out;
 }
 
     .hero h1 {
@@ -339,6 +351,7 @@ body {
     gap: 8px;
     margin-bottom: 3rem;
     flex-wrap: wrap;
+    animation: slideUp 0.8s ease-out 0.2s both;
 }
 
 .category-btn {
@@ -377,6 +390,7 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     outline: none;
     transition: all 0.3s ease;
+    animation: slideUp 0.8s ease-out 0.1s both;
 }
 
     .search-input:focus {
@@ -389,6 +403,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
+    animation: slideUp 0.8s ease-out 0.2s both;
 }
 
 .menu-item {

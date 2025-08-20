@@ -52,16 +52,29 @@ namespace OrderFood_SW.Controllers
             return View(orders);
         }
 
-        public IActionResult OrderHistory()
+        public IActionResult OrderHistory(int page = 1)
         {
-            int userIdStr = (int)HttpContext.Session.GetInt32("UserId") ;
-
+            int userIdStr = (int)HttpContext.Session.GetInt32("UserId");
             int userId = userIdStr;
 
-            // Lấy danh sách đơn hàng của user
+            const int pageSize = 10;
+
+            // Lấy tổng số đơn hàng để tính pagination
+            var totalOrders = _db.Orders
+                .Where(o => o.UserId == userId && o.OrderStatus != 1)
+                .Count();
+
+            var totalPages = (int)Math.Ceiling((double)totalOrders / pageSize);
+
+            // Đảm bảo page không nhỏ hơn 1 và không lớn hơn totalPages
+            page = Math.Max(1, Math.Min(page, Math.Max(1, totalPages)));
+
+            // Lấy danh sách đơn hàng của user với pagination
             var orders = _db.Orders
                 .Where(o => o.UserId == userId && o.OrderStatus != 1) // lọc theo khách hàng
                 .OrderByDescending(o => o.OrderTime)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(o => new OrderHistoryViewModel
                 {
                     OrderId = o.OrderId,
@@ -83,6 +96,13 @@ namespace OrderFood_SW.Controllers
                         .ToList()
                 })
                 .ToList();
+
+            // Tạo pagination info để pass vào view
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.HasPreviousPage = page > 1;
+            ViewBag.HasNextPage = page < totalPages;
+            ViewBag.TotalOrders = totalOrders;
 
             return View(orders);
         }
@@ -201,6 +221,5 @@ namespace OrderFood_SW.Controllers
 
             return View(vm);
         }
-
     }
 }

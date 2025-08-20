@@ -120,3 +120,118 @@
         }
     </div>
 </div>
+
+<div class="pagination-container">
+    @{
+        var currentPage = (int)ViewBag.CurrentPage;
+        var totalOrders = (int)ViewBag.TotalOrders;
+        var totalPages = (int)ViewBag.TotalPages;
+        var hasPrevious = (bool)ViewBag.HasPreviousPage;
+        var hasNext = (bool)ViewBag.HasNextPage;
+
+        var startItem = (currentPage - 1) * 10 + 1;
+        var endItem = Math.Min(currentPage * 10, totalOrders);
+    }
+
+    <div class="pagination-info">
+        Showing @startItem to @endItem of @totalOrders orders
+    </div>
+
+    <ul class="pagination">
+        <li>
+            @if (hasPrevious)
+            {
+                <a href="@Url.Action("OrderHistory", new { page = currentPage - 1 })" class="prev">Previous</a>
+            }
+            @* else
+            {
+                <span class="prev disabled">Previous</span>
+            } *@
+        </li>
+
+        @{
+            // Smart pagination logic - shows max 7 page numbers + ellipsis
+            var maxVisiblePages = 5;
+            var halfVisible = maxVisiblePages / 2;
+
+            int start, end;
+            bool showStartEllipsis = false;
+            bool showEndEllipsis = false;
+
+            if (totalPages <= maxVisiblePages + 2)
+            {
+                // Show all pages if total is small
+                start = 1;
+                end = totalPages;
+            }
+            else if (currentPage <= halfVisible + 1)
+            {
+                // Near the beginning
+                start = 1;
+                end = maxVisiblePages;
+                showEndEllipsis = true;
+            }
+            else if (currentPage >= totalPages - halfVisible)
+            {
+                // Near the end
+                start = totalPages - maxVisiblePages + 1;
+                end = totalPages;
+                showStartEllipsis = true;
+            }
+            else
+            {
+                // In the middle
+                start = currentPage - halfVisible;
+                end = currentPage + halfVisible;
+                showStartEllipsis = true;
+                showEndEllipsis = true;
+            }
+        }
+
+        @* Always show first page if not in range *@
+        @if (showStartEllipsis && start > 1)
+        {
+            <li><a href="@Url.Action("OrderHistory", new { page = 1 })">1</a></li>
+            @if (start > 2)
+            {
+                <li><span class="disabled">...</span></li>
+            }
+        }
+
+        @* Show page numbers *@
+        @for (int i = start; i <= end; i++)
+        {
+            <li>
+                @if (i == currentPage)
+                {
+                    <span class="current">@i</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("OrderHistory", new { page = i })">@i</a>
+                }
+            </li>
+        }
+
+        @* Always show last page if not in range *@
+        @if (showEndEllipsis && end < totalPages)
+        {
+            @if (end < totalPages - 1)
+            {
+                <li><span class="disabled">...</span></li>
+            }
+            <li><a href="@Url.Action("OrderHistory", new { page = totalPages })">@totalPages</a></li>
+        }
+
+        <li>
+            @if (hasNext)
+            {
+                <a href="@Url.Action("OrderHistory", new { page = currentPage + 1 })" class="next">Next</a>
+            }
+            @* else
+            {
+                <span class="next disabled">Next</span>
+            } *@
+        </li>
+    </ul>
+</div>
