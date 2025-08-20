@@ -120,6 +120,10 @@
             }
         </div>
 
+        <div style="text-align:center">
+
+        </div>
+
         <div class="summary-section">
             <div class="summary-row">
                 <span>Total Amount:</span>
@@ -143,6 +147,14 @@
                 <span>Sumary:</span>
                 <span>@t</span>
             </div>
+
+            <!-- check status == 1 still can add dish -->
+            @if (Model.Order.OrderStatus == 1)
+            {
+                <div class="action-buttons">
+                    <button class="btn btn-primary">Add more dishes</button>
+                </div>
+            }
         </div>
     </div>
 </div>

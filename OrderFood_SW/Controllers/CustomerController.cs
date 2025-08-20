@@ -157,60 +157,6 @@ namespace OrderFood_SW.Controllers
             return RedirectToAction("CreateOrder", "CustomerOrder", new { tableId = order.TableId });
         }
 
-        [HttpPost]
-        public async Task<IActionResult>ReOrder(int orderId)
-        {
-            // Lấy order cũ
-            var oldOrder = await _db.Orders
-                .Include(o => o.OrderDetails)
-                .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
-            if (oldOrder == null)
-            {
-                TempData["Error"] = "Không tìm thấy đơn hàng cũ!";
-                return RedirectToAction("OrderHistory");
-            }
-
-            // Lấy giỏ hàng hiện tại từ session
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart")
-                       ?? new List<OrderCartItem>();
-
-            // Thêm/cộng dồn món từ order cũ vào giỏ hàng
-            foreach (var item in oldOrder.OrderDetails)
-            {
-                var dish = await _db.Dishes.FirstOrDefaultAsync(d => d.DishId == item.DishId);
-                if (dish != null)
-                {
-                    var existingItem = cart.FirstOrDefault(c => c.DishId == dish.DishId);
-                    if (existingItem != null)
-                    {
-                        // Nếu món đã có thì cộng thêm số lượng
-                        existingItem.Quantity += item.Quantity;
-                    }
-                    else
-                    {
-                        // Nếu món chưa có thì thêm mới
-                        cart.Add(new OrderCartItem
-                        {
-                            DishId = dish.DishId,
-                            DishName = dish.DishName,
-                            ImageUrl = dish.ImageUrl,
-                            Price = dish.DishPrice,
-                            Quantity = item.Quantity
-                        });
-                    }
-                }
-            }
-
-            // Lưu lại giỏ hàng vào session
-            HttpContext.Session.SetObject("Cart", cart);
-
-            TempData["Success"] = $"Đã thêm {oldOrder.OrderDetails.Count} món từ đơn #{oldOrder.OrderId} vào giỏ hàng!";
-            return RedirectToAction("Index", "CustomerCart");
-        }
-
-
-
         public async Task<IActionResult> OrderDetails(int orderId)
         {
             // Lấy order

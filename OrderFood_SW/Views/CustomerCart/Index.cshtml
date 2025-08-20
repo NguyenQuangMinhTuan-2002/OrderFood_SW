@@ -74,7 +74,7 @@
                     <span>Total:</span>
                     <span id="totalValue">$@total.ToString("0.00")</span>
                 </div>
-                <form method="post" asp-controller="CustomerOrder" asp-action="CustomerOrderInit">
+                <form method="post" asp-controller="CustomerOrder" asp-action="OrderInit">
                     <input type="hidden" name="tableId" value="@ViewBag.TableId" />
                     <button type="submit" class="checkout-btn">
                         <i class="fas fa-credit-card"></i> Proceed to Checkout

@@ -88,7 +88,7 @@
                             <a asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
                                 See more details
                             </a>
-                            <form method="post" asp-action="ReOrder" asp-controller="Customer">
+                            <form method="post" asp-action="ReOrder" asp-controller="CustomerOrder">
                                 <input type="hidden" name="orderId" value="@item.OrderId" />
                                 <input type="hidden" name="tableId" value="@tableId" />
                                 <button class="action-btn btn-primary">Re-Order</button>
