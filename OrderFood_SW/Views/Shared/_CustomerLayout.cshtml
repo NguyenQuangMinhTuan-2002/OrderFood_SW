@@ -28,3 +28,21 @@
     }
 </body>
 </html>
+
+<script>
+      function setCartBadge(count) {
+      const badge = document.getElementById('cartBadge');
+      if (!badge) return;
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+
+    function hydrateCartBadge() {
+      fetch('/CustomerCart/Count', { headers: { 'X-Requested-With': 'XMLHttpRequest' }})
+        .then(r => r.ok ? r.json() : { count: 0 })
+        .then(d => setCartBadge(d.count || 0))
+        .catch(() => setCartBadge(0));
+    }
+
+    document.addEventListener('DOMContentLoaded', hydrateCartBadge);
+</script>

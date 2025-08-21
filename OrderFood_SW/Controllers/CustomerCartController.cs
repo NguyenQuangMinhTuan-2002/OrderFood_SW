@@ -61,21 +61,6 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveFromCart(int id)
-        {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
-            var itemToRemove = cart.FirstOrDefault(x => x.DishId == id);
-            if (itemToRemove != null)
-            {
-                cart.Remove(itemToRemove);
-                HttpContext.Session.SetObject("Cart", cart);
-            }
-
-            return Json(new { success = true, count = cart.Count });
-        }
-
-        [HttpPost]
         public IActionResult RemoveAllCart()
         {
             HttpContext.Session.Remove("Cart");
@@ -83,33 +68,43 @@ namespace OrderFood_SW.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult Count()
+        {
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new();
+            int count = cart.Sum(x => x.Quantity);
+            return Json(new { count });
+        }
+
         [HttpPost]
         public IActionResult UpdateCartQuantity(int dishId, int change)
         {
-            try
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new();
+            var item = cart.FirstOrDefault(x => x.DishId == dishId);
+            if (item == null)
             {
-                var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-                var item = cart.FirstOrDefault(x => x.DishId == dishId);
-
-                if (item != null)
-                {
-                    item.Quantity += change;
-
-                    // Remove item if quantity becomes 0 or negative
-                    if (item.Quantity <= 0)
-                    {
-                        cart.Remove(item);
-                    }
-
-                    HttpContext.Session.SetObject("Cart", cart);
-                }
-
-                return Json(new { success = true, count = cart.Sum(x => x.Quantity) });
+                return Json(new { success = false, message = "Item not found", count = cart.Sum(x => x.Quantity) });
             }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
+
+            item.Quantity += change;
+            if (item.Quantity <= 0) cart.Remove(item);
+
+            HttpContext.Session.SetObject("Cart", cart);
+            int count = cart.Sum(x => x.Quantity);
+            return Json(new { success = true, count });
         }
+
+        [HttpPost]
+        public IActionResult RemoveFromCart(int id)
+        {
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new();
+            var item = cart.FirstOrDefault(x => x.DishId == id);
+            if (item != null) cart.Remove(item);
+
+            HttpContext.Session.SetObject("Cart", cart);
+            int count = cart.Sum(x => x.Quantity);
+            return Json(new { success = true, count });
+        }
+
     }
 }

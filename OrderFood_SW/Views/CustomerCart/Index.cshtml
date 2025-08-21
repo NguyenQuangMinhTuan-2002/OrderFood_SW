@@ -87,9 +87,9 @@
 
 <script>
         // ---- Cấu hình khớp với View/Razor ----
-    const TAX_RATE = 0.08;
-    const FREE_SHIPPING_THRESHOLD = 50;
-    const DELIVERY_FEE = 5;
+    const TAX_RATE = 0.08;                    // 8%
+    const FREE_SHIPPING_THRESHOLD = 50;       // miễn phí giao khi >= 50
+    const DELIVERY_FEE = 5;                   // phí mặc định khi < threshold
 
     // ---- Utils ----
     function $(sel, root = document) { return root.querySelector(sel); }
