@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIGFOOD Restaurant</title>
-    <link rel="stylesheet" href="~/css/user-login.css">
+    <link rel="stylesheet" href="~/css/user-login.css" asp-append-version="true">
 </head>
 <body>
     <div class="nature-background">
@@ -37,6 +37,15 @@
                 <p>One bite for better life</p>
             </div>
 
+            <div style="text-align: center; margin-bottom: 10px">
+                @if (ViewBag.Error != null)
+                {
+                    <div style="color: red">
+                        @ViewBag.Error
+                    </div>
+                }
+            </div>
+
             <form class="harmony-form" id="loginForm" method="post" asp-action="Login">
                 <div class="organic-field">
                     <div class="field-nature"></div>
@@ -62,7 +71,7 @@
                     </button>
                     <span class="gentle-error" id="passwordError"></span>
                 </div>
-
+                
                 <div class="mindful-options">
                     <label class="zen-checkbox">
                         <input type="checkbox" id="remember" name="remember">
@@ -74,7 +83,6 @@
                         </span>
                         <span class="checkbox-text">Keep me centered</span>
                     </label>
-                    <a href="#" class="healing-link">Restore access</a>
                 </div>
 
                 <button type="submit" class="harmony-button">

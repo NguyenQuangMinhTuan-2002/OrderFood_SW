@@ -24,8 +24,8 @@
         <div class="status-badge status-active" id="statusBadge">
             ● Active Account
         </div>
-        <button class="edit-profile-btn" onclick="editProfile()">
-            ✏️ <a href="~/Customer/Edit/@userId">Edit Profile</a>
+        <button class="edit-profile-btn" onclick="editProfile(@userId)">
+            ✏️ Edit Profile
         </button>
     </div>
 
@@ -108,3 +108,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    function editProfile(id) {
+        if (!id) return;
+        window.location.href = "/Customer/Edit/" + id;
+    }
+</script>
