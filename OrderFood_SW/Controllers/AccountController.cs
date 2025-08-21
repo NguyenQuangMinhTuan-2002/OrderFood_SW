@@ -54,6 +54,7 @@ namespace OrderFood_SW.Controllers
                 HttpContext.Session.SetString("FullName", user.FullName);
                 HttpContext.Session.SetString("Email", user.Email);
                 HttpContext.Session.SetString("Role", user.Role);
+                HttpContext.Session.SetInt32("IsActive", user.IsActive ? 1 : 0);
 
                 // Chuyển hướng tùy role
                 if (user.Role == "Admin" || user.Role == "Staff")

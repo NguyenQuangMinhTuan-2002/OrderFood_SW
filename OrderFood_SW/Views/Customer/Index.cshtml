@@ -9,7 +9,7 @@
     var fullname = Context.Session.GetString("FullName");
     var email = Context.Session.GetString("Email");
     var role = Context.Session.GetString("Role");
-    var isactive = Context.Session.GetString("IsActive") == "true";
+    var isactive = Context.Session.GetInt32("IsActive");
 }
 <link href="~/css/customer-style/customer-profile.css" rel="stylesheet" asp-append-version="true"/>
 
@@ -21,9 +21,18 @@
         </div>
         <div class="profile-name" id="profileName">@fullname</div>
         <div class="profile-username" id="profileUsername">#@username</div>
-        <div class="status-badge status-active" id="statusBadge">
-            ● Active Account
-        </div>
+        @if (isactive == 1)
+        {
+            <div class="status-badge status-active" id="statusBadge">
+                ● Active Account
+            </div>
+        }
+        else
+        {
+            <div class="status-badge status-inactive" id="statusBadge">
+                ● Inactive Account
+            </div>
+        }
         <button class="edit-profile-btn" onclick="editProfile(@userId)">
             ✏️ Edit Profile
         </button>
