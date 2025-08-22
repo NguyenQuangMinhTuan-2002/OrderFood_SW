@@ -23,7 +23,7 @@ namespace OrderFood_SW.Controllers
                 .ToList();
             return View(query);
         }
-        
+
         public IActionResult CreateOrder(int? tableId = null, int? categoryId = null)
         {
             if (tableId.HasValue)
@@ -31,15 +31,20 @@ namespace OrderFood_SW.Controllers
                 var table = _db.Tables.FirstOrDefault(t => t.TableId == tableId.Value);
                 if (table != null)
                 {
-                    // 🚨 Nếu bàn không khả dụng thì chặn
-                    if (table.Status != "Available")
+                    var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
+
+                    // 🔒 Nếu bàn không Available và không phải đang AddMoreOrder → block
+                    if (table.Status != "Available" && !currentOrderId.HasValue)
                     {
                         return RedirectToAction("AccessDenied", "Account");
                     }
 
-                    // Nếu bàn Available thì reset session
-                    HttpContext.Session.Remove("CurrentOrderId");
-                    HttpContext.Session.Remove("Cart");
+                    // ✅ Nếu bàn Available → reset session
+                    if (table.Status == "Available")
+                    {
+                        HttpContext.Session.Remove("CurrentOrderId");
+                        HttpContext.Session.Remove("Cart");
+                    }
 
                     HttpContext.Session.SetInt32("CurrentTableId", table.TableId);
                     ViewBag.TableId = table.TableId;
@@ -47,10 +52,10 @@ namespace OrderFood_SW.Controllers
             }
 
             // Nếu session CurrentOrderId đang trỏ tới order cũ mà đã closed thì reset
-            var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
-            if (currentOrderId.HasValue && currentOrderId.Value > 0)
+            var currentOrder = HttpContext.Session.GetInt32("CurrentOrderId");
+            if (currentOrder.HasValue && currentOrder.Value > 0)
             {
-                var order = _db.Orders.FirstOrDefault(o => o.OrderId == currentOrderId.Value);
+                var order = _db.Orders.FirstOrDefault(o => o.OrderId == currentOrder.Value);
                 if (order == null || order.OrderStatus == 2 || order.OrderStatus == -1)
                 {
                     HttpContext.Session.Remove("CurrentOrderId");
@@ -83,6 +88,7 @@ namespace OrderFood_SW.Controllers
 
             return View(model);
         }
+
 
 
         [HttpPost]
