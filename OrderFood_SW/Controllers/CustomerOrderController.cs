@@ -23,10 +23,30 @@ namespace OrderFood_SW.Controllers
                 .ToList();
             return View(query);
         }
-
-        public IActionResult CreateOrder(string searchKeyword, int? tableId = null, int? categoryId = null)
+        
+        public IActionResult CreateOrder(int? tableId = null, int? categoryId = null)
         {
-            // Kiểm tra xem có đơn hàng cũ nào đang mở không
+            if (tableId.HasValue)
+            {
+                var table = _db.Tables.FirstOrDefault(t => t.TableId == tableId.Value);
+                if (table != null)
+                {
+                    // 🚨 Nếu bàn không khả dụng thì chặn
+                    if (table.Status != "Available")
+                    {
+                        return RedirectToAction("AccessDenied", "Account");
+                    }
+
+                    // Nếu bàn Available thì reset session
+                    HttpContext.Session.Remove("CurrentOrderId");
+                    HttpContext.Session.Remove("Cart");
+
+                    HttpContext.Session.SetInt32("CurrentTableId", table.TableId);
+                    ViewBag.TableId = table.TableId;
+                }
+            }
+
+            // Nếu session CurrentOrderId đang trỏ tới order cũ mà đã closed thì reset
             var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
             if (currentOrderId.HasValue && currentOrderId.Value > 0)
             {
@@ -37,23 +57,12 @@ namespace OrderFood_SW.Controllers
                     HttpContext.Session.Remove("Cart");
                 }
             }
-            // Kiểm tra xem có bàn nào đã được chọn không
-            if (tableId.HasValue)
-            {
-                HttpContext.Session.SetInt32("CurrentTableId", tableId.Value);
-                ViewBag.TableId = tableId;
-            }
 
             ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
             ViewBag.CurrentOrderId = HttpContext.Session.GetInt32("CurrentOrderId") ?? 0;
 
             var query = _db.Dishes.AsQueryable();
             var queryCategories = _db.Categories.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchKeyword))
-            {
-                query = query.Where(d => d.DishName.Contains(searchKeyword));
-            }
 
             if (categoryId.HasValue && categoryId.Value != 0)
             {
@@ -66,7 +75,6 @@ namespace OrderFood_SW.Controllers
 
             var model = new OrderPageModel
             {
-                SearchKeyword = searchKeyword,
                 FoundDishes = dishes,
                 DishCategories = categories,
                 CartItems = cart,
@@ -84,60 +92,76 @@ namespace OrderFood_SW.Controllers
             {
                 var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
 
-                // Nếu đang thêm vào đơn hàng cũ
-                if (currentOrderId.HasValue && currentOrderId.Value > 0)
+                // 1) Đang thêm vào đơn hàng cũ -> chặn nếu đã có trong OrderDetails
+                if (currentOrderId is int orderId && orderId > 0)
                 {
-                    var existsInOrder = _db.OrderDetails
-                        .Any(od => od.OrderId == currentOrderId.Value && od.DishId == dishId);
+                    bool existsInOrder = _db.OrderDetails
+                        .Any(od => od.OrderId == orderId && od.DishId == dishId);
 
                     if (existsInOrder)
                     {
-                        return Json(new { success = false, message = " This dish is already in order, call the waiter to add!" });
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Món này đã có trong đơn hàng hiện tại. Hãy yêu cầu nhân viên chỉnh số lượng.",
+                            cartCount = GetCartCount()
+                        });
                     }
                 }
 
+                // 2) Kiểm tra món
                 var dish = _db.Dishes.Find(dishId);
                 if (dish == null)
                 {
-                    return Json(new { success = false, message = " Dish not found!" });
+                    return Json(new { success = false, message = "Dish not found!", cartCount = GetCartCount() });
                 }
 
+                // 3) Cart trong session
                 var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-                var existing = cart.FirstOrDefault(x => x.DishId == dishId);
 
-                if (existing != null)
-                    existing.Quantity += Quantity;
-                else
-                    cart.Add(new OrderCartItem
+                // HARD BLOCK: Không cho add trùng trong cart
+                bool existsInCart = cart.Any(x => x.DishId == dishId);
+                if (existsInCart)
+                {
+                    return Json(new
                     {
-                        DishId = dish.DishId,
-                        ImageUrl = dish.ImageUrl,
-                        DishName = dish.DishName,
-                        Price = dish.DishPrice,
-                        Quantity = Quantity
+                        success = false,
+                        message = "Món này đã có trong giỏ. Hãy chỉnh số lượng ở giỏ hàng.",
+                        cartCount = cart.Sum(x => x.Quantity)
                     });
+                }
+
+                // 4) Thêm mới vào cart (chỉ khi chưa có)
+                cart.Add(new OrderCartItem
+                {
+                    DishId = dish.DishId,
+                    ImageUrl = dish.ImageUrl,
+                    DishName = dish.DishName,
+                    Price = dish.DishPrice,
+                    Quantity = Quantity
+                });
 
                 HttpContext.Session.SetObject("Cart", cart);
 
-                // Check if it's an AJAX request
+                // AJAX
                 if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 {
                     return Json(new
                     {
                         success = true,
-                        message = $" Added {dish.DishName} to cart!",
+                        message = $"Added {dish.DishName} to cart!",
                         cartCount = cart.Sum(x => x.Quantity)
                     });
                 }
 
-                // Fallback for non-AJAX requests
+                // Non-AJAX
                 return RedirectToAction("CreateOrder");
             }
             catch (Exception ex)
             {
                 if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 {
-                    return Json(new { success = false, message = "Error adding to cart: " + ex.Message });
+                    return Json(new { success = false, message = "Error adding to cart: " + ex.Message, cartCount = GetCartCount() });
                 }
 
                 TempData["Error"] = "Error adding to cart: " + ex.Message;
@@ -145,6 +169,11 @@ namespace OrderFood_SW.Controllers
             }
         }
 
+        private int GetCartCount()
+        {
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
+            return cart.Sum(x => x.Quantity);
+        }
 
         [HttpPost]
         public async Task<IActionResult> OrderInitAsync(int tableId)
@@ -305,6 +334,8 @@ namespace OrderFood_SW.Controllers
             // Lưu lại OrderId vào session để biết đang thêm vào đơn nào
             HttpContext.Session.SetInt32("CurrentOrderId", orderId);
             HttpContext.Session.SetInt32("CurrentTableId", tableId);
+
+            HttpContext.Session.Remove("Cart");
 
             return RedirectToAction("CreateOrder", new { tableId });
         }

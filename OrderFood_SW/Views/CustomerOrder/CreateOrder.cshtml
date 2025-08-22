@@ -6,20 +6,10 @@
 <div class="container" style="padding-top: 5px;">
     <div class="hero">
         <h1>Satisfy Your Cravings</h1>
-        <p>Fresh, delicious food delivered right to your door</p>
     </div>
 
     <div class="search-bar">
         <input type="text" class="search-input" placeholder="Search for your favorite dish..." id="searchInput">
-    </div>
-
-    <!-- Hidden radio buttons for category filtering -->
-    <div class="category-filters">
-        <input type="radio" name="category" id="filter-all" class="category-filter" checked>
-        @foreach (var item in Model.DishCategories)
-        {
-            <input type="radio" name="category" id="filter-@item.CategoryId" class="category-filter">
-        }
     </div>
 
     <div class="categories">
@@ -33,6 +23,7 @@
     <div class="menu-grid">
         @foreach (var item in Model.FoundDishes)
         {
+            var inCart = Model.CartItems.Any(c => c.DishId == item.DishId);
             <div class="menu-item" data-category="@item.CategoryId">
                 <div class="item-image"><img src="~/images/Products/@item.ImageUrl"></div>
                 <div class="item-content">
@@ -40,15 +31,16 @@
                     <p class="item-description">@item.DishDescription</p>
                     <div class="item-footer">
                         <span class="item-price">@item.DishPrice</span>
-                        <button class="add-to-cart" onclick="addToCart(this, @item.DishId, 1)">
-                            Add to Cart
+                        <button class="add-to-cart @(inCart ? "added" : "")"
+                            onclick="addToCart(this, @item.DishId, 1)"
+                            @(inCart ? "disabled" : "")>
+                            @(inCart ? "Added" : "Add to Cart")
                         </button>
                     </div>
                 </div>
             </div>
         }
     </div>
-
 </div>
 
 <script>
@@ -69,7 +61,7 @@
             });
         });
 
-        // Category button active state management
+    // Category button active state management
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             // Xóa active khỏi tất cả nút
@@ -95,7 +87,7 @@
         });
     });
 
-        function addToCart(button, dishId, quantity) {
+    function addToCart(button, dishId, quantity) {
         const formData = new URLSearchParams();
         formData.append('dishId', dishId);
         formData.append('Quantity', quantity);
@@ -134,13 +126,27 @@
         });
     }
 
-        function showToast(message) {
-        const toast = document.getElementById("toast-message");
+    function showToast(message) {
+        let toast = document.getElementById("toast-message");
+        if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "toast-message";
+            // inline style tối thiểu, không đụng CSS của bạn
+            toast.style.position = "fixed";
+            toast.style.right = "20px";
+            toast.style.bottom = "20px";
+            toast.style.background = "rgba(0,0,0,.8)";
+            toast.style.color = "#fff";
+            toast.style.padding = "10px 14px";
+            toast.style.borderRadius = "8px";
+            toast.style.fontSize = "14px";
+            toast.style.zIndex = "9999";
+            toast.style.display = "none";
+            document.body.appendChild(toast);
+        }
         toast.textContent = message;
         toast.style.display = "block";
-
-        setTimeout(() => {
-            toast.style.display = "none";
-        }, 3000); // 3 giây tự ẩn
+        clearTimeout(toast._h);
+        toast._h = setTimeout(() => { toast.style.display = "none"; }, 2500);
     }
 </script>
