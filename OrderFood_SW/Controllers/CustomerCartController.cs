@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
@@ -6,7 +7,8 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff", "Customer")]
+    //[AuthorizeRole("Admin", "Staff", "Customer")]
+    [AllowAnonymous]
     public class CustomerCartController : Controller
     {
         private readonly DatabaseHelperEF _db;

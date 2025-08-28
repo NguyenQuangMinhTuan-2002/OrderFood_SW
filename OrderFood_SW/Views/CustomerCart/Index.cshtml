@@ -72,7 +72,7 @@
                 </div>
                 <div class="summary-row total-row">
                     <span>Total:</span>
-                    <span id="totalValue">$@total.ToString("0.00")</span>
+                    <span id="totalValue">@total.ToString("0.00")đ</span>
                 </div>
                 <form method="post" asp-controller="CustomerOrder" asp-action="OrderInit">
                     <input type="hidden" name="tableId" value="@ViewBag.TableId" />

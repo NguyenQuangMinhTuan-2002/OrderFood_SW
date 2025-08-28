@@ -7,37 +7,40 @@
 <link rel="stylesheet" href="~/css/customer-style/customer-history.css" asp-append-version="true">
 
 <div class="main-content" style="padding-top:5px">
-    <!-- Filter Section -->
-    @* <div class="filter-section">
-        <div class="filter-row">
-            <div class="filter-group">
-                <label for="status-filter">Trạng thái</label>
-                <select id="status-filter" class="filter-select">
-                    <option value="">Tất cả trạng thái</option>
-                    <option value="completed">Hoàn thành</option>
-                    <option value="processing">Đang xử lý</option>
-                    <option value="delivered">Đã giao</option>
-                    <option value="cancelled">Đã hủy</option>
-                </select>
-            </div>
+    <div class="filter-section">
+        <form method="get" asp-action="OrderHistory">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select name="status" class="filter-select">
+                        <option value="" selected="@(ViewBag.Status == "")">All</option>
+                        <option value="completed" selected="@(ViewBag.Status == "completed")">Approved</option>
+                        <option value="cancelled" selected="@(ViewBag.Status == "cancelled")">Cancelled</option>
 
-            <div class="filter-group">
-                <label for="date-from">Từ ngày</label>
-                <input type="date" id="date-from" class="filter-input">
-            </div>
+                    </select>
+                </div>
 
-            <div class="filter-group">
-                <label for="date-to">Đến ngày</label>
-                <input type="date" id="date-to" class="filter-input">
-            </div>
+                <div class="filter-group">
+                    <label>From date</label>
+                    <input type="date" name="fromDate" class="filter-input" value="@ViewBag.FromDate" />
+                </div>
 
-            <div class="filter-group">
-                <label for="search-order">Tìm kiếm đơn hàng</label>
-                <input type="text" id="search-order" class="filter-input" placeholder="Nhập mã đơn hàng...">
+                <div class="filter-group">
+                    <label>To date</label>
+                    <input type="date" name="toDate" class="filter-input" value="@ViewBag.ToDate" />
+                </div>
+
+                <div class="filter-group">
+                    <button type="submit" class="filter-btn btn-primary">Fill</button>
+                </div>
+
+                <div class="filter-group">
+                    <a style="text-decoration: none" href="@Url.Action("OrderHistory", "Customer")" class="filter-btn btn-secondary">Clear</a>
+                </div>
             </div>
-        </div>
-        <button class="filter-btn">Lọc kết quả</button>
-    </div> *@
+        </form>
+    </div>
+
 
     <!-- Orders Container -->
     <div class="orders-container">
@@ -70,7 +73,7 @@
                         @foreach (var detail in item.OrderDetails)
                         {
                             <div class="order-item">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23FF9800'/%3E%3Ctext x='30' y='32' text-anchor='middle' fill='white' font-family='Arial' font-size='10'%3EPizza%3C/text%3E%3Ctext x='30' y='44' text-anchor='middle' fill='white' font-family='Arial' font-size='10'%3EHải sản%3C/text%3E%3C/svg%3E" alt="Pizza hải sản" class="item-image">
+                                <img src="~/images/Products/@detail.ImageUrl" alt="pic" class="item-image">
                                 <div class="item-details">
                                     <div class="item-name">@detail.DishName</div>
                                     @* <div class="item-description">@detail.</div> *@

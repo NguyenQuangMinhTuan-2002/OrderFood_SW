@@ -1,8 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Http
 @{
-    var fullname = Context.Session.GetString("FullName");
-    var email = Context.Session.GetString("Email");
-    var role = Context.Session.GetString("Role");
+    var fullname = Context.Session.GetString("FullName") ?? "Guess";
+    var email = Context.Session.GetString("Email") ?? "Guess";
+    var role = Context.Session.GetString("Role") ?? "Customer";
+    var userId = Context.Session.GetInt32("UserId") ?? 1;
 }
 
 <header class="top-header">
@@ -22,55 +23,100 @@
             </button>
 
             <div class="user-menu">
-                <div class="user-avatar" onclick="toggleUserDropdown()">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
-                    <i class="fas fa-chevron-down dropdown-arrow"></i>
-                </div>
-
-                <div class="user-dropdown" id="userDropdown">
-                    <div class="dropdown-header">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
-                        <div>
-                            <h4>@fullname</h4>
-                            <p>Role: @role</p>
-                            <p style="color: aquamarine" >@email</p>
-                        </div>
+                @if (userId == 1)
+                {
+                    <div class="user-avatar" onclick="toggleUserDropdown()">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </div>
 
-                    <div class="dropdown-divider"></div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                            <div>
+                                <h4>@fullname</h4>
+                                <p>Role: @role</p>
+                                <p style="color: aquamarine">@email</p>
+                            </div>
+                        </div>
 
-                    <a href="~/CustomerOrder/CreateOrder" class="dropdown-item">
-                        <i class="fas fa-home"></i>
-                        <span>Menu</span>
-                    </a>
+                        <div class="dropdown-divider"></div>
 
-                    <a href="~/Customer/Index" class="dropdown-item">
-                        <i class="fas fa-user"></i>
-                        <span>Profile</span>
-                    </a>
+                        <a href="~/CustomerOrder/CreateOrder" class="dropdown-item">
+                            <i class="fas fa-home"></i>
+                            <span>Menu</span>
+                        </a>
 
-                    <a href="~/Customer/OrderHistory" class="dropdown-item">
-                        <i class="fas fa-history"></i>
-                        <span>Order History</span>
-                    </a>
+                        @* <a href="~/Customer/OrderDetails" class="dropdown-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Details</span>
+                        </a> *@
 
-                    <a href="~/Customer/OrderProcessing" class="dropdown-item">
-                        <i class="fas fa-truck"></i>
-                        <span>Order Process</span>
-                    </a>
+                        <a href="~/CustomerOrder/Index" class="dropdown-item">
+                            <i class="fas fa-qrcode"></i>
+                            <span>View QR</span>
+                        </a>
 
-                    <a href="~/CustomerOrder/Index" class="dropdown-item">
-                        <i class="fas fa-qrcode"></i>
-                        <span>View QR</span>
-                    </a>
+                        <div class="dropdown-divider"></div>
 
-                    <div class="dropdown-divider"></div>
+                        <a href="~/Account/Login" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>login</span>
+                        </a>
+                    </div>
+                } 
+                else
+                {
+                    <div class="user-avatar" onclick="toggleUserDropdown()">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
 
-                    <a href="~/Account/Logout" class="dropdown-item logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Logout</span>
-                    </a>
-                </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                            <div>
+                                <h4>@fullname</h4>
+                                <p>Role: @role</p>
+                                <p style="color: aquamarine">@email</p>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a href="~/CustomerOrder/CreateOrder" class="dropdown-item">
+                            <i class="fas fa-home"></i>
+                            <span>Menu</span>
+                        </a>
+
+                        <a href="~/Customer/Index" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+
+                        <a href="~/Customer/OrderHistory" class="dropdown-item">
+                            <i class="fas fa-history"></i>
+                            <span>Order History</span>
+                        </a>
+
+                        <a href="~/Customer/OrderProcessing" class="dropdown-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Order Process</span>
+                        </a>
+
+                        <a href="~/CustomerOrder/Index" class="dropdown-item">
+                            <i class="fas fa-qrcode"></i>
+                            <span>View QR</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a href="~/Account/Logout" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>

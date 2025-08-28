@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
@@ -7,7 +8,8 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff", "Customer")]
+    //[AuthorizeRole("Admin", "Staff", "Customer")]
+    [AllowAnonymous]
     public class CustomerOrderController : Controller
     {
         private readonly DatabaseHelperEF _db;
@@ -109,7 +111,7 @@ namespace OrderFood_SW.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "Món này đã có trong đơn hàng hiện tại. Hãy yêu cầu nhân viên chỉnh số lượng.",
+                            message = "This dish is already in current order, call waiter to edit quantity.",
                             cartCount = GetCartCount()
                         });
                     }
@@ -132,7 +134,7 @@ namespace OrderFood_SW.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Món này đã có trong giỏ. Hãy chỉnh số lượng ở giỏ hàng.",
+                        message = "this dish is already in cart, go to cart to edit quantity.",
                         cartCount = cart.Sum(x => x.Quantity)
                     });
                 }
@@ -185,12 +187,12 @@ namespace OrderFood_SW.Controllers
         public async Task<IActionResult> OrderInitAsync(int tableId)
         {
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            var userId = HttpContext.Session.GetInt32("UserId");
+            var userId = HttpContext.Session.GetInt32("UserId") ?? 1; // nếu null thì coi như Guest (id = 1)
             var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
 
             if (!cart.Any())
             {
-                TempData["Error"] = "Giỏ hàng trống!";
+                TempData["Error"] = "Empty cart!";
                 return RedirectToAction("CreateOrder", new { tableId });
             }
 
@@ -206,20 +208,18 @@ namespace OrderFood_SW.Controllers
                     HttpContext.Session.Remove("CurrentOrderId");
                     HttpContext.Session.Remove("Cart");
 
-                    TempData["Error"] = "Đơn hàng không khả dụng để thêm!";
+                    TempData["Error"] = "This order is not available to add!";
                     return RedirectToAction("CreateOrder", new { tableId });
                 }
 
                 foreach (var item in cart)
                 {
-                    // 🔹 Kiểm tra nếu món đã tồn tại trong OrderDetail thì bỏ qua
                     var existingDetail = order.OrderDetails
                         .FirstOrDefault(od => od.DishId == item.DishId);
 
                     if (existingDetail != null)
                     {
-                        // 👉 Có thể chọn: bỏ qua hoặc báo cho user biết
-                        TempData["Warning"] = $"Món {item.DishId} đã có trong đơn hàng, không thể thêm trùng!";
+                        TempData["Warning"] = $"{item.DishId} already in your order, can't add the same dish!";
                         continue;
                     }
 
@@ -238,7 +238,14 @@ namespace OrderFood_SW.Controllers
                 await _db.SaveChangesAsync();
 
                 HttpContext.Session.Remove("Cart");
-                TempData["Success"] = "Đã thêm món mới vào đơn hàng hiện tại!";
+
+                // 🔹 Nếu user là Guest (id = 1) → redirect thẳng vào OrderDetails
+                if (userId == 1)
+                {
+                    return RedirectToAction("OrderDetails", "Customer", new { orderId = order.OrderId });
+                }
+
+                TempData["Success"] = "added new dish to your order!";
                 return RedirectToAction("OrderProcessing", "Customer");
             }
 
@@ -246,7 +253,7 @@ namespace OrderFood_SW.Controllers
             var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == tableId);
             if (table == null)
             {
-                TempData["Error"] = "Bàn không tồn tại!";
+                TempData["Error"] = "table is unavailable!";
                 return RedirectToAction("CreateOrder", new { tableId = 0 });
             }
 
@@ -277,7 +284,15 @@ namespace OrderFood_SW.Controllers
             await _db.SaveChangesAsync();
 
             HttpContext.Session.Remove("Cart");
-            TempData["Success"] = "Đơn hàng mới đã được tạo!";
+
+            // 🔹 Nếu user là Guest (id = 1) → redirect thẳng vào OrderDetails
+            if (userId == 1)
+            {
+                HttpContext.Session.SetInt32("GuessOrderId", newOrder.OrderId);
+                return RedirectToAction("OrderDetails", "Customer", new { orderId = newOrder.OrderId });
+            }
+
+            TempData["Success"] = "new order has been added!";
             return RedirectToAction("OrderProcessing", "Customer");
         }
 
@@ -292,7 +307,7 @@ namespace OrderFood_SW.Controllers
 
             if (oldOrder == null)
             {
-                TempData["Error"] = "Không tìm thấy đơn hàng cũ!";
+                TempData["Error"] = "can't find your current order";
                 return RedirectToAction("OrderHistory");
             }
 
@@ -330,7 +345,7 @@ namespace OrderFood_SW.Controllers
             // Lưu lại giỏ hàng vào session
             HttpContext.Session.SetObject("Cart", cart);
 
-            TempData["Success"] = $"Đã thêm {oldOrder.OrderDetails.Count} món từ đơn #{oldOrder.OrderId} vào giỏ hàng!";
+            TempData["Success"] = $"added {oldOrder.OrderDetails.Count} from old order #{oldOrder.OrderId} to cart!";
             return RedirectToAction("Index", "CustomerCart");
         }
 

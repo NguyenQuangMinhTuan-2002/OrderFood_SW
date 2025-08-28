@@ -65,13 +65,13 @@
     background: #4CAF50;
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 11px 24px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: background 0.3s ease;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
     .filter-btn:hover {

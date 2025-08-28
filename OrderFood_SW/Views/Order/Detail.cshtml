@@ -43,7 +43,7 @@
                     @foreach (var item in Model.OrderDetails)
                     {
                         <tr>
-                            <td><img class="img-bordered" style="width: 50px; height: 40px" src="~/images/@item.ImageUrl" /></td>
+                            <td><img class="img-bordered" style="width: 50px; height: 40px" src="~/images/Products/@item.ImageUrl" /></td>
                             <td>@item.DishName</td>
                             <td>@item.Quantity</td>
                             <td>@item.DishPrice.ToString("N0")</td>
@@ -143,6 +143,16 @@
                                 <button type="submit" class="btn btn-primary" style="width:100%">Add Dish</button>
                             </form>
                         </div>
+                    </div>
+                }
+                else
+                {
+                    <div style="margin-bottom: 10px">
+                        <form asp-action="AddDishToExistingOrder" method="post">
+                            <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
+                            <input type="hidden" name="tableId" value="@Model.Order.TableId" />
+                            <button type="submit" class="btn btn-primary" style="width:100%">Add Dish</button>
+                        </form>
                     </div>
                 }
             }

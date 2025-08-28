@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace OrderFood_SW.Controllers
 {
+    [AllowAnonymous]
     public class CustomerController : Controller
     {
         private readonly DatabaseHelperEF _db;
@@ -54,26 +56,43 @@ namespace OrderFood_SW.Controllers
             return View(orders);
         }
 
-        public IActionResult OrderHistory(int page = 1)
+        public IActionResult OrderHistory(string status = "", DateTime? fromDate = null, DateTime? toDate = null, int page = 1)
         {
-            int userIdStr = (int)HttpContext.Session.GetInt32("UserId");
-            int userId = userIdStr;
-
+            int userId = (int)HttpContext.Session.GetInt32("UserId");
             const int pageSize = 10;
 
-            // Lấy tổng số đơn hàng để tính pagination
-            var totalOrders = _db.Orders
-                .Where(o => o.UserId == userId && o.OrderStatus != 1)
-                .Count();
+            // Query cơ bản
+            var query = _db.Orders
+                .Where(o => o.UserId == userId);
 
+            // --- Lọc theo trạng thái ---
+            if (!string.IsNullOrEmpty(status))
+            {
+                if (status == "completed") // Approved
+                    query = query.Where(o => o.OrderStatus == 2);
+                else if (status == "cancelled") // Cancelled
+                    query = query.Where(o => o.OrderStatus == -1);
+            }
+            else
+            {
+                // Nếu không chọn thì chỉ lấy Approved + Cancelled
+                query = query.Where(o => o.OrderStatus == 2 || o.OrderStatus == -1);
+            }
+
+            // --- Lọc theo ngày ---
+            if (fromDate.HasValue)
+                query = query.Where(o => o.OrderTime >= fromDate.Value);
+
+            if (toDate.HasValue)
+                query = query.Where(o => o.OrderTime <= toDate.Value);
+
+            // Tổng số đơn
+            var totalOrders = query.Count();
             var totalPages = (int)Math.Ceiling((double)totalOrders / pageSize);
-
-            // Đảm bảo page không nhỏ hơn 1 và không lớn hơn totalPages
             page = Math.Max(1, Math.Min(page, Math.Max(1, totalPages)));
 
-            // Lấy danh sách đơn hàng của user với pagination
-            var orders = _db.Orders
-                .Where(o => o.UserId == userId && o.OrderStatus != 1) // lọc theo khách hàng
+            // Lấy dữ liệu
+            var orders = query
                 .OrderByDescending(o => o.OrderTime)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -92,19 +111,25 @@ namespace OrderFood_SW.Controllers
                             (od, d) => new OrderHistoryDetailViewModel
                             {
                                 DishName = d.DishName,
+                                ImageUrl = d.ImageUrl,
                                 Quantity = od.Quantity,
-                                UnitPrice = d.DishPrice
+                                UnitPrice = d.DishPrice // Lấy giá tại thời điểm Order
                             })
                         .ToList()
                 })
                 .ToList();
 
-            // Tạo pagination info để pass vào view
+            // Pagination info
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.HasPreviousPage = page > 1;
             ViewBag.HasNextPage = page < totalPages;
             ViewBag.TotalOrders = totalOrders;
+
+            // Giữ lại filter để bind ra view
+            ViewBag.Status = status;
+            ViewBag.FromDate = fromDate?.ToString("yyyy-MM-dd");
+            ViewBag.ToDate = toDate?.ToString("yyyy-MM-dd");
 
             return View(orders);
         }
@@ -134,6 +159,7 @@ namespace OrderFood_SW.Controllers
                             (od, d) => new OrderHistoryDetailViewModel
                             {
                                 DishName = d.DishName,
+                                ImageUrl = d.ImageUrl,
                                 Quantity = od.Quantity,
                                 UnitPrice = d.DishPrice
                             })
@@ -274,6 +300,9 @@ namespace OrderFood_SW.Controllers
                 user.Email = vm.Email;
                 user.Role = vm.Role;
                 user.IsActive = vm.IsActive;
+
+                HttpContext.Session.SetString("FullName", vm.FullName);
+                HttpContext.Session.SetString("Email", vm.Email);
 
                 // Nếu có nhập mật khẩu mới thì hash và update
                 if (!string.IsNullOrEmpty(vm.NewPassword))

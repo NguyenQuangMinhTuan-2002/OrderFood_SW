@@ -20,13 +20,14 @@
                         <th>Total Amount</th>
                         <th>Note</th>
                         <th>User</th>
+                        <th>Status</th>
                         <th style="width: 100px"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.FoundOrders)
                     {
-                        if (item.OrderStatus == 2)
+                        if (item.OrderStatus == 2 || item.OrderStatus == -1)
                         {
                             <tr>
                                 <td>@item.TableId</td>
@@ -34,6 +35,16 @@
                                 <td>@item.TotalAmount.ToString("N0")</td>
                                 <td>@item.note</td>
                                 <td>@item.UserId</td>
+                                <td>
+                                    @if (item.OrderStatus == 2)
+                                    {
+                                        <span style="color: green">Has Served</span>
+                                    }
+                                    else if (item.OrderStatus == -1)
+                                    {
+                                        <span style="color: red">Cancelled</span>
+                                    }
+                                </td>
                                 <td>
                                     <a href="~/Order/Detail/@item.OrderId">Show Details</a>
                                 </td>

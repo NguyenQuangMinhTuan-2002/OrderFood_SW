@@ -13,10 +13,11 @@ public class SessionAuthMiddleware
         var path = context.Request.Path.Value?.ToLower();
 
         // Bỏ qua các trang không yêu cầu đăng nhập
-        if (path.Contains("/account/login") ||
-            path.Contains("/account/accessdenied") ||
+        if (path.Contains("/account") ||
+            path.Contains("/customer") ||
             path.Contains("/css") ||
-            path.Contains("/js"))
+            path.Contains("/js") ||
+            path.Contains("/images"))
         {
             await _next(context);
             return;
