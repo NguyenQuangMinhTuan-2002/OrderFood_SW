@@ -1,4 +1,6 @@
-﻿// login check middleware
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
 public class SessionAuthMiddleware
 {
     private readonly RequestDelegate _next;
@@ -10,26 +12,44 @@ public class SessionAuthMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        var path = context.Request.Path.Value?.ToLower();
+        var path = context.Request.Path.Value?.ToLower() ?? "";
 
-        // Bỏ qua các trang không yêu cầu đăng nhập
-        if (path.Contains("/account") ||
-            path.Contains("/customer") ||
-            path.Contains("/css") ||
-            path.Contains("/js") ||
-            path.Contains("/images"))
+        // (A) Public endpoints – cho qua luôn
+        if (path.StartsWith("/account") ||
+            path.StartsWith("/customer/qrcheck") ||
+            path.StartsWith("/guest/qrcheck") ||
+            path.StartsWith("/css") ||
+            path.StartsWith("/js") ||
+            path.StartsWith("/images"))
         {
             await _next(context);
             return;
         }
 
-        var username = context.Session.GetString("Username");
-        if (string.IsNullOrEmpty(username))
+        // (B) Đã login? → OK
+        var userId = context.Session.GetInt32("UserId");
+        if (userId != null)
         {
-            context.Response.Redirect("/Account/Login");
+            var role = context.Session.GetString("Role") ?? "Customer";
+            context.Session.SetString("Role", role);
+            context.Items["Role"] = role;
+            await _next(context);
             return;
         }
 
-        await _next(context);
+        // (C) Guest qua QR? → gán như Customer
+        var tableId = context.Session.GetInt32("CurrentTableId");
+        if (tableId != null)
+        {
+            // ép role "Customer" để đi chung luồng
+            context.Session.SetString("Role", "Customer");
+            context.Items["Role"] = "Customer";
+            await _next(context);
+            return;
+        }
+
+        // (D) Không có gì → login
+        context.Response.Redirect("/Account/Login");
     }
+
 }

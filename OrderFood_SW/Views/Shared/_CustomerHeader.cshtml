@@ -4,6 +4,8 @@
     var email = Context.Session.GetString("Email") ?? "Guess";
     var role = Context.Session.GetString("Role") ?? "Customer";
     var userId = Context.Session.GetInt32("UserId") ?? 1;
+
+    var currenttableId = Context.Session.GetInt32("CurrentTableId");
 }
 
 <header class="top-header">
@@ -47,15 +49,15 @@
                             <span>Menu</span>
                         </a>
 
-                        @* <a href="~/Customer/OrderDetails" class="dropdown-item">
+                        <a href="~/Guest/QRCheck?tableId=@currenttableId" class="dropdown-item">
                             <i class="fas fa-truck"></i>
                             <span>Details</span>
-                        </a> *@
+                        </a>
 
-                        <a href="~/CustomerOrder/Index" class="dropdown-item">
+                        @* <a href="~/CustomerOrder/Index" class="dropdown-item">
                             <i class="fas fa-qrcode"></i>
                             <span>View QR</span>
-                        </a>
+                        </a> *@
 
                         <div class="dropdown-divider"></div>
 

@@ -10,7 +10,7 @@ namespace OrderFood_SW.Models
         public DateTime OrderTime { get; set; }
         public int OrderStatus { get; set; }
         public decimal TotalAmount { get; set; }
-        public string note { get; set; }
+        public string? note { get; set; }
         public int ? UserId { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }

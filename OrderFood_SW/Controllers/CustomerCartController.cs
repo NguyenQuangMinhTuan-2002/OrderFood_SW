@@ -7,8 +7,7 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    //[AuthorizeRole("Admin", "Staff", "Customer")]
-    [AllowAnonymous]
+    [AuthorizeRole("Admin", "Staff", "Customer")]
     public class CustomerCartController : Controller
     {
         private readonly DatabaseHelperEF _db;

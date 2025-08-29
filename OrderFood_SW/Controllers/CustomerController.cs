@@ -58,7 +58,7 @@ namespace OrderFood_SW.Controllers
 
         public IActionResult OrderHistory(string status = "", DateTime? fromDate = null, DateTime? toDate = null, int page = 1)
         {
-            int userId = (int)HttpContext.Session.GetInt32("UserId");
+            int userId = HttpContext.Session.GetInt32("UserId") ?? 1;
             const int pageSize = 10;
 
             // Query cơ bản
@@ -111,7 +111,7 @@ namespace OrderFood_SW.Controllers
                             (od, d) => new OrderHistoryDetailViewModel
                             {
                                 DishName = d.DishName,
-                                ImageUrl = d.ImageUrl,
+                                ImageUrl = d.ImageUrl ?? "nophoto.png",
                                 Quantity = od.Quantity,
                                 UnitPrice = d.DishPrice // Lấy giá tại thời điểm Order
                             })
@@ -136,7 +136,7 @@ namespace OrderFood_SW.Controllers
 
         public IActionResult OrderProcessing()
         {
-            int userIdStr = (int)HttpContext.Session.GetInt32("UserId");
+            int userIdStr = HttpContext.Session.GetInt32("UserId") ?? 1;
 
             int userId = userIdStr;
 
@@ -159,7 +159,7 @@ namespace OrderFood_SW.Controllers
                             (od, d) => new OrderHistoryDetailViewModel
                             {
                                 DishName = d.DishName,
-                                ImageUrl = d.ImageUrl,
+                                ImageUrl = d.ImageUrl ?? "nophoto.png",
                                 Quantity = od.Quantity,
                                 UnitPrice = d.DishPrice
                             })
@@ -197,6 +197,7 @@ namespace OrderFood_SW.Controllers
             if (table != null)
             {
                 table.Status = "Available";
+                table.CurrentOrderId = null;
             }
 
             _db.SaveChanges();
@@ -232,7 +233,7 @@ namespace OrderFood_SW.Controllers
                     (od, d) => new DetailsWithDish
                     {
                         DishId = d.DishId,
-                        ImageUrl = d.ImageUrl,
+                        ImageUrl = d.ImageUrl ?? "nophoto.png",
                         DishName = d.DishName,
                         Quantity = od.Quantity,
                         DishPrice = d.DishPrice,

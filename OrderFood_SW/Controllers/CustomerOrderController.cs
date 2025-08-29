@@ -8,8 +8,7 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    //[AuthorizeRole("Admin", "Staff", "Customer")]
-    [AllowAnonymous]
+    [AuthorizeRole("Admin", "Staff", "Customer")]
     public class CustomerOrderController : Controller
     {
         private readonly DatabaseHelperEF _db;
@@ -36,10 +35,24 @@ namespace OrderFood_SW.Controllers
                     var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
 
                     // 🔒 Nếu bàn không Available và không phải đang AddMoreOrder → block
+                    var role = HttpContext.Session.GetString("Role");
+
+                    // 🔒 Nếu bàn đang Occupied
                     if (table.Status != "Available" && !currentOrderId.HasValue)
                     {
+                        if (role == "Customer" && HttpContext.Session.GetInt32("UserId") == 1)
+                        {
+                            // Guest qua QR → redirect thẳng OrderDetails
+                            if (table.CurrentOrderId.HasValue)
+                            {
+                                return RedirectToAction("OrderDetails", "Customer", new { orderId = table.CurrentOrderId.Value });
+                            }
+                        }
+
+                        // Người dùng thật (không phải guest) → chặn
                         return RedirectToAction("AccessDenied", "Account");
                     }
+
 
                     // ✅ Nếu bàn Available → reset session
                     if (table.Status == "Available")
@@ -91,8 +104,6 @@ namespace OrderFood_SW.Controllers
             return View(model);
         }
 
-
-
         [HttpPost]
         public IActionResult AddCart(int dishId, int Quantity)
         {
@@ -143,7 +154,7 @@ namespace OrderFood_SW.Controllers
                 cart.Add(new OrderCartItem
                 {
                     DishId = dish.DishId,
-                    ImageUrl = dish.ImageUrl,
+                    ImageUrl = dish.ImageUrl ?? "nophoto.png",
                     DishName = dish.DishName,
                     Price = dish.DishPrice,
                     Quantity = Quantity
@@ -281,6 +292,8 @@ namespace OrderFood_SW.Controllers
             }
 
             table.Status = "Occupied";
+            table.CurrentOrderId = newOrder.OrderId;
+
             await _db.SaveChangesAsync();
 
             HttpContext.Session.Remove("Cart");
@@ -334,7 +347,7 @@ namespace OrderFood_SW.Controllers
                         {
                             DishId = dish.DishId,
                             DishName = dish.DishName,
-                            ImageUrl = dish.ImageUrl,
+                            ImageUrl = dish.ImageUrl ?? "nophoto.png",
                             Price = dish.DishPrice,
                             Quantity = item.Quantity
                         });

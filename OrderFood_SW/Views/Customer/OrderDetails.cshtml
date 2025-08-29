@@ -1,12 +1,17 @@
 ﻿@model OrderDetailViewModel
 @{
     Layout = "_CustomerLayout";
+
+    var userId = Context.Session.GetInt32("UserId") ?? 1;
 }
 
 <link rel="stylesheet" href="~/css/customer-style/customer-details.css" asp-append-version="true">
 
 <div class="container">
-    <button class="back-button" onclick="history.back()">← Quay lại</button>
+    @if (userId != 1)
+    {
+        <button class="back-button" onclick="history.back()">← Quay lại</button>
+    }
 
     <div class="order-header">
         <h1 class="order-title">Order Detail number #@Model.Order.OrderId</h1>

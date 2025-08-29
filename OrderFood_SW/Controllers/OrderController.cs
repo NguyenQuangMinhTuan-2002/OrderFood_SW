@@ -222,6 +222,7 @@ public class OrderController : Controller
         if (table != null)
         {
             table.Status = "Occupied";
+            table.CurrentOrderId = order.OrderId;
         }
 
         _db.SaveChanges();
@@ -415,6 +416,7 @@ public class OrderController : Controller
         if (table != null)
         {
             table.Status = "Available";
+            table.CurrentOrderId = null;
         }
 
         _db.SaveChanges();

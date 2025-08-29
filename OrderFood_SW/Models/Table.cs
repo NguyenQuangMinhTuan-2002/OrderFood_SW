@@ -7,8 +7,11 @@ namespace OrderFood_SW.Models
         [Key]
         public int TableId { get; set; }
         public int TableNumber { get; set; }
-        public string QRCode { get; set; }
-        public string Status { get; set; }
-        public string Description { get; set; }
+        public string QRCode { get; set; } = "n/a";
+        public string Status { get; set; } = "n/a";
+        public string Description { get; set; } = "n/a";
+
+        // Temp field.
+        public int? CurrentOrderId { get; set; }
     }
 }
