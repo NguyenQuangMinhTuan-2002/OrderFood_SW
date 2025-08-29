@@ -12,5 +12,8 @@ namespace OrderFood_SW.ViewModels
         public List<Order> FoundOrders { get; set; } = new List<Order>();
         public List<Category> DishCategories { get; set; } = new List<Category>();
         public List<OrderCartItem> CartItems { get; set; } = new List<OrderCartItem>();
+
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
     }
 }

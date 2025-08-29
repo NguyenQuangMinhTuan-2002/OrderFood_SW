@@ -41,19 +41,27 @@ public class OrderController : Controller
         return View(model);
     }
 
-    public IActionResult OrderHistory()
+    public IActionResult OrderHistory(int page = 1, int pageSize = 20)
     {
+        var totalOrders = _db.Orders.Count();
+        var totalPages = (int)Math.Ceiling(totalOrders / (double)pageSize);
+
         var orderList = _db.Orders
             .OrderByDescending(t => t.OrderTime)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToList();
 
         var model = new OrderPageModel
         {
-            FoundOrders = orderList
+            FoundOrders = orderList,
+            CurrentPage = page,
+            TotalPages = totalPages
         };
 
         return View(model);
     }
+
 
     //-------------------------------------------------------------------------------------------------------------
     // Trang tạo giỏ hàng Order
