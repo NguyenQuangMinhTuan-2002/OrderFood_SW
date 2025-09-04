@@ -1,0 +1,211 @@
+﻿@model OrderFood_SW.ViewModels.OrderStatisticViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Serialize dữ liệu chart
+    var jsonApproved = System.Text.Json.JsonSerializer.Serialize(Model.WeeklyApproved);
+    var jsonCancelled = System.Text.Json.JsonSerializer.Serialize(Model.WeeklyCancelled);
+    var jsonPending = System.Text.Json.JsonSerializer.Serialize(Model.WeeklyPending);
+
+    var currentMonth = Context.Request.Query["month"].ToString();
+    var currentYear = Context.Request.Query["year"].ToString();
+
+    int selectedMonth = string.IsNullOrEmpty(currentMonth) ? DateTime.Now.Month : int.Parse(currentMonth);
+    int selectedYear = string.IsNullOrEmpty(currentYear) ? DateTime.Now.Year : int.Parse(currentYear);
+}
+
+<link href="~/css/ad-statistic-style/order.css" rel="stylesheet" asp-append-version="true" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<div class="dashboard">
+    <div class="header">
+        <h1>📊 Order Statistics</h1>
+        @if (ViewBag.Month == null && ViewBag.Year == null){
+            <p>@DateTime.Now.Month / @DateTime.Now.Year</p>
+        }
+        else if (ViewBag.Month == null)
+        {
+            <p>@DateTime.Now.Month / @ViewBag.Year</p>
+        }
+        else if (ViewBag.Year == null)
+        {
+            <p>@ViewBag.Month / @DateTime.Now.Year</p>
+        }
+        else
+        {
+            <p>@ViewBag.Month / @ViewBag.Year</p>
+        }
+    </div>
+
+    <!-- Dropdown chọn tháng / năm -->
+    <form asp-action="Order" method="get" class="flex gap-2 items-center">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-2">
+                <select name="month" class="form-control" style="width: 100%; border-radius: 5px">
+                    <option value="1" selected disabled>-- select month --</option>
+                    @for (int m = 1; m <= 12; m++)
+                    {
+                        <option value="@m">
+                            @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select name="year" class="form-control" style="width: 100%">
+                    <option value="@DateTime.Now.Year - 3" selected disabled>-- select year --</option>
+                    @for (int y = DateTime.Now.Year - 3; y <= DateTime.Now.Year + 1; y++)
+                    {
+                        <option value="@y">@y</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary" style="width: 100%">Lọc</button>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </form>
+
+    <div class="stats-container">
+        <div class="stat-card approved">
+            <div class="stat-icon">✓</div>
+            <div class="stat-number">@Model.Approved</div>
+            <div class="stat-label">Approved</div>
+        </div>
+
+        <div class="stat-card cancelled">
+            <div class="stat-icon">✕</div>
+            <div class="stat-number">@Model.Cancelled</div>
+            <div class="stat-label">Cancelled</div>
+        </div>
+
+        <div class="stat-card pending">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-number">@Model.Pending</div>
+            <div class="stat-label">Pending</div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-header">
+            <h2>Order Trends Over Time</h2>
+            <p>Monthly order statistics for 4 weeks</p>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="orderChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chartData = {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [
+            {
+                label: 'Approved Orders',
+                data: @Html.Raw(jsonApproved),
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                borderWidth: 4,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#10b981',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 12
+            },
+            {
+                label: 'Cancelled Orders',
+                data: @Html.Raw(jsonCancelled),
+                borderColor: '#ef4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderWidth: 4,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#ef4444',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 12
+            },
+            {
+                label: 'Pending Orders',
+                data: @Html.Raw(jsonPending),
+                borderColor: '#f59e0b',
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                borderWidth: 4,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#f59e0b',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 3,
+                pointRadius: 8,
+                pointHoverRadius: 12
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20,
+                        font: { size: 14, weight: '600' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: '#667eea',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + ' orders';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 12, weight: '500' }, color: '#6b7280' }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
+                    ticks: {
+                        font: { size: 12, weight: '500' },
+                        color: '#6b7280',
+                        callback: function(value) { return value + ' orders'; }
+                    }
+                }
+            },
+            animation: { duration: 2000, easing: 'easeInOutQuart' }
+        }
+    };
+
+    const ctx = document.getElementById('orderChart').getContext('2d');
+    new Chart(ctx, config);
+</script>

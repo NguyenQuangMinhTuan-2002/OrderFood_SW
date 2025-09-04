@@ -1,0 +1,184 @@
+﻿.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 40px;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    border-left: 5px solid;
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.approved {
+        border-left-color: #10b981;
+    }
+
+    .stat-card.cancelled {
+        border-left-color: #ef4444;
+    }
+
+    .stat-card.pending {
+        border-left-color: #f59e0b;
+    }
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 1.2rem;
+    color: #6b7280;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.approved .stat-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.cancelled .stat-icon {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.pending .stat-icon {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.chart-container {
+    padding: 40px;
+    background: white;
+    margin: 0 40px 40px;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.chart-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .chart-header h2 {
+        font-size: 1.8rem;
+        color: #374151;
+        margin-bottom: 10px;
+    }
+
+    .chart-header p {
+        color: #6b7280;
+        font-size: 1rem;
+    }
+
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+    .stat-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .stat-card:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .stat-card:nth-child(3) {
+        animation-delay: 0.1s;
+    }
+
+.chart-container {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .chart-container {
+        margin: 0 20px 20px;
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+}

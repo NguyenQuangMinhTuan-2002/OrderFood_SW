@@ -157,7 +157,7 @@
             @if (Model.Order.OrderStatus == 1)
             {
                 <div class="action-buttons">
-                    <a style="text-decoration: none" asp-action="AddMoreOrder" asp-controller="CustomerOrder"
+                    <a style="text-decoration: none; border-radius: 8px" asp-action="AddMoreOrder" asp-controller="CustomerOrder"
                        asp-route-orderId="@Model.Order.OrderId"
                        asp-route-tableId="@Model.Order.TableId"
                        class="btn btn-primary">

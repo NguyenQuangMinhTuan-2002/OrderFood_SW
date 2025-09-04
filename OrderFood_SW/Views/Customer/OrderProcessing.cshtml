@@ -70,7 +70,7 @@
                     else if (item.OrderStatus.Equals("1"))
                     {
                         <div class="order-actions">
-                            <a asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
+                                <a style="text-decoration: none" asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
                                 See more details
                             </a>
                             <form method="post" asp-action="CancelOrder" asp-controller="Customer">

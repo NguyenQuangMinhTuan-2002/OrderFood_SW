@@ -1,0 +1,136 @@
+﻿@model OrderFood_SW.ViewModels.RevenueViewModel
+@using System.Globalization
+@{
+    var viCulture = new CultureInfo("vi-VN");
+}
+@{
+    var jsonTopDishes = System.Text.Json.JsonSerializer.Serialize(Model.TopDishes);
+    var jsonShiftRevenue = System.Text.Json.JsonSerializer.Serialize(Model.ShiftRevenue);
+}
+
+<link href="~/css/ad-statistic-style/revenue.css" rel="stylesheet" asp-append-version="true"/>
+
+<div class="container">
+    <div class="header">
+        <h1>📊 Revenue Analytics Dashboard</h1>
+        <p>check & report</p>
+    </div>
+
+    <div class="dashboard">
+        <div class="time-selector">
+            <a asp-action="Revenue" asp-route-period="day" class="time-btn @(Model.Period == "day" ? "active" : "")">Daily</a>
+            <a asp-action="Revenue" asp-route-period="week" class="time-btn @(Model.Period == "week" ? "active" : "")">Weekly</a>
+            <a asp-action="Revenue" asp-route-period="month" class="time-btn @(Model.Period == "month" ? "active" : "")">Monthly</a>
+            <a asp-action="Revenue" asp-route-period="year" class="time-btn @(Model.Period == "year" ? "active" : "")">Yearly</a>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <div class="stat-value">@Model.TotalRevenue.ToString("C0", viCulture)</div>
+            </div>
+            <div class="stat-card">
+                <h3>Average Order Value</h3>
+                <div class="stat-value">@Model.AvgOrderValue.ToString("C0", viCulture)</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <div class="stat-value">@Model.TotalOrders</div>
+            </div>
+        </div>
+        <div class="stat-card" style="width: 100%; text-align: center">
+            <h3>Best Performing Dish</h3>
+            @if (Model.TopDishes.Any())
+            {
+                var best = Model.TopDishes.First();
+                <div class="stat-value">@best.DishName</div>
+                <div class="stat-change positive">Revenue: @best.Revenue.ToString("C0", viCulture)</div>
+            }
+            else
+            {
+                <div class="stat-value">N/A</div>
+            }
+        </div>
+
+        <br />
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3 class="chart-title">Top 5 Best-Selling Items</h3>
+                <div class="canvas-container">
+                    <canvas id="topDishChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Revenue by Shift</h3>
+                <div class="canvas-container">
+                    <canvas id="shiftChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shift-analysis" style="margin-bottom: 15px; margin-top: 0px">
+        @{
+            var total = Model.TotalRevenue > 0 ? Model.TotalRevenue : 1; // tránh chia 0
+            var morning = Model.ShiftRevenue.ContainsKey("Morning") ? Model.ShiftRevenue["Morning"] : 0;
+            var noon = Model.ShiftRevenue.ContainsKey("Noon") ? Model.ShiftRevenue["Noon"] : 0;
+            var evening = Model.ShiftRevenue.ContainsKey("Evening") ? Model.ShiftRevenue["Evening"] : 0;
+        }
+
+        <div class="shift-card morning">
+            <div class="shift-icon">🌅</div>
+            <div class="shift-title">Morning Shift</div>
+            <div class="shift-revenue">@morning.ToString("C0", viCulture)</div>
+            <div class="shift-percentage">@((morning / total * 100).ToString("0.0"))% of total</div>
+        </div>
+        <div class="shift-card noon">
+            <div class="shift-icon">☀️</div>
+            <div class="shift-title">Lunch Shift</div>
+            <div class="shift-revenue">@noon.ToString("C0", viCulture)</div>
+            <div class="shift-percentage">@((noon / total * 100).ToString("0.0"))% of total</div>
+        </div>
+        <div class="shift-card evening">
+            <div class="shift-icon">🌙</div>
+            <div class="shift-title">Evening Shift</div>
+            <div class="shift-revenue">@evening.ToString("C0", viCulture)</div>
+            <div class="shift-percentage">@((evening / total * 100).ToString("0.0"))% of total</div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script>
+    const topDishes = @Html.Raw(jsonTopDishes);
+    const shiftRevenue = @Html.Raw(jsonShiftRevenue);
+
+    // Top 5 dishes chart
+    new Chart(document.getElementById('topDishChart'), {
+        type: 'bar',
+        data: {
+            labels: topDishes.map(d => d.DishName),
+            datasets: [{
+                label: 'Revenue (đ)',
+                data: topDishes.map(d => d.Revenue),
+                backgroundColor: 'rgba(52, 152, 219, 0.6)',
+                borderColor: '#3498db',
+                borderWidth: 2
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    // Shift revenue chart
+    new Chart(document.getElementById('shiftChart'), {
+        type: 'pie',
+        data: {
+            labels: Object.keys(shiftRevenue),
+            datasets: [{
+                data: Object.values(shiftRevenue),
+                backgroundColor: ['#27ae60', '#f1c40f', '#e74c3c']
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+</script>
