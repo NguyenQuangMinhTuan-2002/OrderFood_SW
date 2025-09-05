@@ -12,7 +12,7 @@
 
     public class TopDishViewModel
     {
-        public string DishName { get; set; }
+        public string DishName { get; set; } = string.Empty;
         public int Quantity { get; set; }
         public decimal Revenue { get; set; }
     }

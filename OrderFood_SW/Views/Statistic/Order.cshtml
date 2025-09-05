@@ -17,89 +17,92 @@
 <link href="~/css/ad-statistic-style/order.css" rel="stylesheet" asp-append-version="true" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
-<div class="dashboard">
-    <div class="header">
-        <h1>📊 Order Statistics</h1>
-        @if (ViewBag.Month == null && ViewBag.Year == null){
-            <p>@DateTime.Now.Month / @DateTime.Now.Year</p>
-        }
-        else if (ViewBag.Month == null)
-        {
-            <p>@DateTime.Now.Month / @ViewBag.Year</p>
-        }
-        else if (ViewBag.Year == null)
-        {
-            <p>@ViewBag.Month / @DateTime.Now.Year</p>
-        }
-        else
-        {
-            <p>@ViewBag.Month / @ViewBag.Year</p>
-        }
-    </div>
+<div class="container">
+    <div class="dashboard">
+        <div class="header">
+            <h1>📊 Order Statistics</h1>
+            @if (ViewBag.Month == null && ViewBag.Year == null)
+            {
+                <p>@DateTime.Now.Month / @DateTime.Now.Year</p>
+            }
+            else if (ViewBag.Month == null)
+            {
+                <p>@DateTime.Now.Month / @ViewBag.Year</p>
+            }
+            else if (ViewBag.Year == null)
+            {
+                <p>@ViewBag.Month / @DateTime.Now.Year</p>
+            }
+            else
+            {
+                <p>@ViewBag.Month / @ViewBag.Year</p>
+            }
+        </div>
 
-    <!-- Dropdown chọn tháng / năm -->
-    <form asp-action="Order" method="get" class="flex gap-2 items-center">
-        <div class="row">
-            <div class="col-md-3"></div>
+        <!-- Dropdown chọn tháng / năm -->
+        <form asp-action="Order" method="get" class="flex gap-2 items-center">
+            <div class="row" style="margin: 30px 20px 0px">
+                <div class="col-md-3"></div>
 
-            <div class="col-md-2">
-                <select name="month" class="form-control" style="width: 100%; border-radius: 5px">
-                    <option value="1" selected disabled>-- select month --</option>
-                    @for (int m = 1; m <= 12; m++)
-                    {
-                        <option value="@m">
-                            @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
-                        </option>
-                    }
-                </select>
+                <div class="col-md-2">
+                    <select name="month" class="form-control" style="width: 100%; border-radius: 5px">
+                        <option value="1" selected disabled>-- select month --</option>
+                        @for (int m = 1; m <= 12; m++)
+                        {
+                            <option value="@m">
+                                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <select name="year" class="form-control" style="width: 100%">
+                        <option value="@DateTime.Now.Year - 3" selected disabled>-- select year --</option>
+                        @for (int y = DateTime.Now.Year - 3; y <= DateTime.Now.Year + 1; y++)
+                        {
+                            <option value="@y">@y</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary" style="width: 100%">Lọc</button>
+                </div>
+
+                <div class="col-md-3"></div>
+            </div>
+        </form>
+
+        <div class="stats-container">
+            <div class="stat-card approved">
+                <div class="stat-icon">✓</div>
+                <div class="stat-number">@Model.Approved</div>
+                <div class="stat-label">Approved</div>
             </div>
 
-            <div class="col-md-2">
-                <select name="year" class="form-control" style="width: 100%">
-                    <option value="@DateTime.Now.Year - 3" selected disabled>-- select year --</option>
-                    @for (int y = DateTime.Now.Year - 3; y <= DateTime.Now.Year + 1; y++)
-                    {
-                        <option value="@y">@y</option>
-                    }
-                </select>
+            <div class="stat-card cancelled">
+                <div class="stat-icon">✕</div>
+                <div class="stat-number">@Model.Cancelled</div>
+                <div class="stat-label">Cancelled</div>
             </div>
 
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary" style="width: 100%">Lọc</button>
+            <div class="stat-card pending">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-number">@Model.Pending</div>
+                <div class="stat-label">Pending</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2>Order Trends Over Time</h2>
+                <p>Monthly order statistics for 4 weeks</p>
             </div>
 
-            <div class="col-md-3"></div>
-        </div>
-    </form>
-
-    <div class="stats-container">
-        <div class="stat-card approved">
-            <div class="stat-icon">✓</div>
-            <div class="stat-number">@Model.Approved</div>
-            <div class="stat-label">Approved</div>
-        </div>
-
-        <div class="stat-card cancelled">
-            <div class="stat-icon">✕</div>
-            <div class="stat-number">@Model.Cancelled</div>
-            <div class="stat-label">Cancelled</div>
-        </div>
-
-        <div class="stat-card pending">
-            <div class="stat-icon">⏳</div>
-            <div class="stat-number">@Model.Pending</div>
-            <div class="stat-label">Pending</div>
-        </div>
-    </div>
-
-    <div class="chart-container">
-        <div class="chart-header">
-            <h2>Order Trends Over Time</h2>
-            <p>Monthly order statistics for 4 weeks</p>
-        </div>
-
-        <div class="chart-wrapper">
-            <canvas id="orderChart"></canvas>
+            <div class="chart-wrapper">
+                <canvas id="orderChart"></canvas>
+            </div>
         </div>
     </div>
 </div>

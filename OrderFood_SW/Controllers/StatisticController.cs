@@ -5,6 +5,7 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
+    [AuthorizeRole("Admin", "Staff")]
     public class StatisticController : Controller
     {
         private readonly DatabaseHelperEF _db;

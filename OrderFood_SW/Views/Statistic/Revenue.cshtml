@@ -7,16 +7,17 @@
     var jsonTopDishes = System.Text.Json.JsonSerializer.Serialize(Model.TopDishes);
     var jsonShiftRevenue = System.Text.Json.JsonSerializer.Serialize(Model.ShiftRevenue);
 }
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <link href="~/css/ad-statistic-style/revenue.css" rel="stylesheet" asp-append-version="true"/>
 
 <div class="container">
-    <div class="header">
-        <h1>📊 Revenue Analytics Dashboard</h1>
-        <p>check & report</p>
-    </div>
 
     <div class="dashboard">
+        <div class="header">
+            <h1>📊 Revenue Analytics Dashboard</h1>
+            <p>check & report</p>
+        </div>
+
         <div class="time-selector">
             <a asp-action="Revenue" asp-route-period="day" class="time-btn @(Model.Period == "day" ? "active" : "")">Daily</a>
             <a asp-action="Revenue" asp-route-period="week" class="time-btn @(Model.Period == "week" ? "active" : "")">Weekly</a>
@@ -38,7 +39,7 @@
                 <div class="stat-value">@Model.TotalOrders</div>
             </div>
         </div>
-        <div class="stat-card" style="width: 100%; text-align: center">
+        <div class="stat-card" style="text-align: center; margin: 0px 30px">
             <h3>Best Performing Dish</h3>
             @if (Model.TopDishes.Any())
             {
@@ -100,37 +101,296 @@
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <script>
+    // Pass data from server to JavaScript
     const topDishes = @Html.Raw(jsonTopDishes);
     const shiftRevenue = @Html.Raw(jsonShiftRevenue);
 
-    // Top 5 dishes chart
-    new Chart(document.getElementById('topDishChart'), {
-        type: 'bar',
-        data: {
-            labels: topDishes.map(d => d.DishName),
-            datasets: [{
-                label: 'Revenue (đ)',
-                data: topDishes.map(d => d.Revenue),
-                backgroundColor: 'rgba(52, 152, 219, 0.6)',
-                borderColor: '#3498db',
-                borderWidth: 2
-            }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } } }
+    // Make data available globally
+    window.topDishesData = topDishes;
+    window.shiftRevenueData = shiftRevenue;
+</script>
+<script>
+    // Revenue Dashboard Charts Script
+    // Make sure Chart.js is loaded before this script
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get data from server-side variables (from Razor page)
+        // These should be passed from your Razor page as shown in the original code
+        const topDishes = window.topDishesData || [];
+        const shiftRevenue = window.shiftRevenueData || {};
+
+        // Chart configuration options
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true,
+                        font: {
+                            size: 12,
+                            family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#ddd',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            if (context.chart.config.type === 'bar') {
+                                return context.dataset.label + ': ' +
+                                       new Intl.NumberFormat('vi-VN', {
+                                           style: 'currency',
+                                           currency: 'VND'
+                                       }).format(context.parsed.y);
+                            } else {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                return context.label + ': ' +
+                                       new Intl.NumberFormat('vi-VN', {
+                                           style: 'currency',
+                                           currency: 'VND'
+                                       }).format(context.parsed) + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            }
+        };
+
+        // Initialize Top Dishes Bar Chart
+        function initTopDishesChart() {
+            const ctx = document.getElementById('topDishChart');
+            if (!ctx) return;
+
+            // Prepare data for top 5 dishes
+            const chartData = topDishes.slice(0, 5); // Ensure only top 5
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.map(dish => dish.DishName || dish.dishName),
+                    datasets: [{
+                        label: 'Revenue (₫)',
+                        data: chartData.map(dish => dish.Revenue || dish.revenue),
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.8)',
+                            'rgba(46, 204, 113, 0.8)',
+                            'rgba(155, 89, 182, 0.8)',
+                            'rgba(241, 196, 15, 0.8)',
+                            'rgba(231, 76, 60, 0.8)'
+                        ],
+                        borderColor: [
+                            '#3498db',
+                            '#2ecc71',
+                            '#9b59b6',
+                            '#f1c40f',
+                            '#e74c3c'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    ...chartOptions,
+                    plugins: {
+                        ...chartOptions.plugins,
+                        legend: {
+                            display: false // Hide legend for bar chart
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                        minimumFractionDigits: 0
+                                    }).format(value);
+                                },
+                                font: {
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 0,
+                                font: {
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize Shift Revenue Pie Chart
+        function initShiftChart() {
+            const ctx = document.getElementById('shiftChart');
+            if (!ctx) return;
+
+            const labels = Object.keys(shiftRevenue);
+            const data = Object.values(shiftRevenue);
+
+            // Color mapping for different shifts
+            const shiftColors = {
+                'Morning': '#27ae60',
+                'Noon': '#f1c40f',
+                'Evening': '#e74c3c',
+                'Afternoon': '#3498db', // Additional shift if needed
+                'Night': '#9b59b6'       // Additional shift if needed
+            };
+
+            const backgroundColor = labels.map(label =>
+                shiftColors[label] || `hsl(${Math.random() * 360}, 70%, 50%)`
+            );
+
+            const borderColor = backgroundColor.map(color =>
+                color.replace('0.8', '1')
+            );
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColor,
+                        borderColor: borderColor,
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    ...chartOptions,
+                    plugins: {
+                        ...chartOptions.plugins,
+                        legend: {
+                            ...chartOptions.plugins.legend,
+                            display: true,
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize charts with error handling
+        try {
+            if (typeof Chart !== 'undefined') {
+                initTopDishesChart();
+                initShiftChart();
+            } else {
+                console.error('Chart.js is not loaded. Please include Chart.js library.');
+            }
+        } catch (error) {
+            console.error('Error initializing charts:', error);
+        }
+
+        // Utility function to update charts when data changes (for AJAX updates)
+        window.updateCharts = function(newTopDishes, newShiftRevenue) {
+            window.topDishesData = newTopDishes;
+            window.shiftRevenueData = newShiftRevenue;
+
+            // Destroy existing charts
+            Chart.helpers.each(Chart.instances, function(instance) {
+                instance.destroy();
+            });
+
+            // Reinitialize charts
+            initTopDishesChart();
+            initShiftChart();
+        };
     });
 
-    // Shift revenue chart
-    new Chart(document.getElementById('shiftChart'), {
-        type: 'pie',
-        data: {
-            labels: Object.keys(shiftRevenue),
-            datasets: [{
-                data: Object.values(shiftRevenue),
-                backgroundColor: ['#27ae60', '#f1c40f', '#e74c3c']
-            }]
-        },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-    });
+    // Alternative initialization if you're passing data directly from Razor
+    // This should be called from your Razor page after the data is serialized
+    function initializeChartsWithData(topDishesJson, shiftRevenueJson) {
+        try {
+            console.log('Raw JSON data:', topDishesJson, shiftRevenueJson);
+            window.topDishesData = typeof topDishesJson === 'string' ? JSON.parse(topDishesJson) : topDishesJson;
+            window.shiftRevenueData = typeof shiftRevenueJson === 'string' ? JSON.parse(shiftRevenueJson) : shiftRevenueJson;
+
+            console.log('Parsed data:', window.topDishesData, window.shiftRevenueData);
+
+            // Reinitialize charts with new data
+            if (typeof Chart !== 'undefined') {
+                // Destroy existing charts
+                Chart.helpers.each(Chart.instances, function(instance) {
+                    instance.destroy();
+                });
+
+                // Wait a bit for DOM cleanup
+                setTimeout(() => {
+                    initTopDishesChart();
+                    initShiftChart();
+                }, 100);
+            }
+        } catch (error) {
+            console.error('Error parsing chart data:', error);
+            // Fallback to sample data for development
+            window.topDishesData = [
+                { DishName: "Bạch tuộc nướng", Revenue: 75000 },
+                { DishName: "Coca / Pepsi", Revenue: 45000 },
+                { DishName: "Bún riêu cua", Revenue: 35000 }
+            ];
+            window.shiftRevenueData = {
+                "Morning": 150000,
+                "Noon": 300000,
+                "Evening": 250000
+            };
+
+            // Initialize with fallback data
+            initTopDishesChart();
+            initShiftChart();
+        }
+    }
+
+    // Chart.js global configuration
+    if (typeof Chart !== 'undefined') {
+        Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        Chart.defaults.color = '#333';
+        Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.1)';
+
+        // Register custom plugins
+        Chart.register({
+            id: 'customHover',
+            beforeDraw: function(chart) {
+                if (chart.config.type === 'bar') {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.globalCompositeOperation = 'destination-over';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    ctx.fillRect(0, 0, chart.width, chart.height);
+                    ctx.restore();
+                }
+            }
+        });
+    }
 </script>
