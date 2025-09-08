@@ -183,7 +183,10 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: chartData.map(dish => dish.DishName || dish.dishName),
+                    labels: chartData.map(dish => {
+                        const name = dish.DishName || dish.dishName;
+                        return name.length > 15 ? name.substring(0, 15) + "..." : name;
+                    }),
                     datasets: [{
                         label: 'Revenue (₫)',
                         data: chartData.map(dish => dish.Revenue || dish.revenue),
@@ -212,6 +215,19 @@
                         ...chartOptions.plugins,
                         legend: {
                             display: false // Hide legend for bar chart
+                        },
+                        tooltip: {
+                            callbacks: {
+                                // tiêu đề tooltip = tên món đầy đủ
+                                title: function(context) {
+                                    return chartData[context[0].dataIndex].DishName
+                                           || chartData[context[0].dataIndex].dishName;
+                                },
+                                label: function(context) {
+                                    const revenue = context.raw.toLocaleString("vi-VN") + " ₫";
+                                    return "Revenue (đ): " + revenue;
+                                }
+                            }
                         }
                     },
                     scales: {
