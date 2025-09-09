@@ -1,29 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrderFood_SW.Helper;
-using OrderFood_SW.Models;
+using OrderFood_SW.Services;
 using OrderFood_SW.ViewModels;
 
 [AuthorizeRole("Admin", "Staff")]
 public class OrderController : Controller
 {
     private const int PageSize = 4;
+    private readonly OrderService _service;
 
-    private readonly DatabaseHelperEF _db;
-
-    public OrderController(DatabaseHelperEF db)
+    public OrderController(OrderService service)
     {
-        _db = db;
+        _service = service;
     }
 
     public IActionResult Index()
     {
-        var tableList = _db.Tables.OrderBy(t => t.TableNumber).ToList();
-
         var model = new OrderPageModel
         {
-            FoundTables = tableList
+            FoundTables = _service.GetAllTables()
         };
 
         return View(model);
@@ -31,11 +26,9 @@ public class OrderController : Controller
 
     public IActionResult OrderList()
     {
-        var orderList = _db.Orders.OrderBy(t => t.OrderTime).ToList();
-
         var model = new OrderPageModel
         {
-            FoundOrders = orderList
+            FoundOrders = _service.GetAllOrders()
         };
 
         return View(model);
@@ -43,18 +36,11 @@ public class OrderController : Controller
 
     public IActionResult OrderHistory(int page = 1, int pageSize = 20)
     {
-        var totalOrders = _db.Orders.Count();
-        var totalPages = (int)Math.Ceiling(totalOrders / (double)pageSize);
-
-        var orderList = _db.Orders
-            .OrderByDescending(t => t.OrderTime)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
+        var (orders, totalPages) = _service.GetPagedOrders(page, pageSize);
 
         var model = new OrderPageModel
         {
-            FoundOrders = orderList,
+            FoundOrders = orders,
             CurrentPage = page,
             TotalPages = totalPages
         };
@@ -68,27 +54,12 @@ public class OrderController : Controller
     public IActionResult Create(string searchKeyword, int page = 1, int? tableId = null)
     {
         if (tableId.HasValue)
-        {
             HttpContext.Session.SetInt32("CurrentTableId", tableId.Value);
-        }
 
-        int offset = (page - 1) * PageSize;
-        ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
+        int tableIdFromSession = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
+        ViewBag.TableId = tableIdFromSession;
 
-        var query = _db.Dishes.AsQueryable();
-
-        if (!string.IsNullOrEmpty(searchKeyword))
-        {
-            query = query.Where(d => d.DishName.Contains(searchKeyword));
-        }
-
-        int totalItems = query.Count();
-        int totalPages = (int)Math.Ceiling((double)totalItems / PageSize);
-
-        var dishes = query.OrderBy(d => d.DishName)
-                          .Skip(offset)
-                          .Take(PageSize)
-                          .ToList();
+        var (dishes, totalPages) = _service.GetPagedDishes(searchKeyword, page, PageSize);
 
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
@@ -108,12 +79,14 @@ public class OrderController : Controller
     [HttpPost]
     public IActionResult AddCart(int dishId, int quantity)
     {
-        var dish = _db.Dishes.Find(dishId);
+        var dish = _service.GetById(dishId);
+        if (dish == null) return NotFound();
+
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
         var existing = cart.FirstOrDefault(x => x.DishId == dishId);
         if (existing != null)
-            existing.Quantity++;
+            existing.Quantity += quantity;  // ✅ sửa thành cộng thêm số lượng
         else
             cart.Add(new OrderCartItem
             {
@@ -126,6 +99,7 @@ public class OrderController : Controller
         HttpContext.Session.SetObject("Cart", cart);
         return RedirectToAction("Create");
     }
+
 
     public IActionResult GetCart()
     {
@@ -159,7 +133,6 @@ public class OrderController : Controller
     public async Task<IActionResult> OrderInitAsync(int tableId)
     {
         var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
         if (!cart.Any())
         {
             TempData["Error"] = "Giỏ hàng trống!";
@@ -167,81 +140,22 @@ public class OrderController : Controller
         }
 
         var existingOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
-        Order order;
 
-        if (existingOrderId.HasValue)
+        try
         {
-            order = _db.Orders.FirstOrDefault(o => o.OrderId == existingOrderId.Value);
-            if (order == null)
-            {
-                TempData["Error"] = "Không tìm thấy đơn hàng cũ!";
-                return RedirectToAction("Index");
-            }
+            var order = await _service.InitOrderAsync(tableId, cart, existingOrderId);
+
+            HttpContext.Session.Remove("Cart");
+            HttpContext.Session.Remove("CurrentOrderId");
+
+            return RedirectToAction("Detail", new { orderId = order.OrderId });
         }
-        else
+        catch (Exception ex)
         {
-            order = new Order
-            {
-                TableId = tableId,
-                OrderTime = DateTime.Now,
-                OrderStatus = 1,
-                TotalAmount = 0,
-                note = "n/a",
-                UserId = 1,
-            };
-            _db.Orders.Add(order);
-            _db.SaveChanges();
+            TempData["Error"] = ex.Message;
+            return RedirectToAction("Index");
         }
-
-        // Thêm món mới vào đơn
-        foreach (var item in cart)
-        {
-            var existingDetail = _db.OrderDetails
-                .FirstOrDefault(od => od.OrderId == order.OrderId && od.DishId == item.DishId);
-
-            if (existingDetail != null)
-            {
-                existingDetail.Quantity += item.Quantity;
-            }
-            else
-            {
-                var orderDetail = new OrderDetail
-                {
-                    OrderId = order.OrderId,
-                    DishId = item.DishId,
-                    Quantity = item.Quantity,
-                    DishStatus = 0
-                };
-                _db.OrderDetails.Add(orderDetail);
-            }
-        }
-
-        // Cập nhật tổng tiền
-        order.TotalAmount = _db.OrderDetails
-            .Where(od => od.OrderId == order.OrderId)
-            .Join(_db.Dishes,
-                  od => od.DishId,
-                  d => d.DishId,
-                  (od, d) => od.Quantity * d.DishPrice)
-            .Sum();
-
-        // Cập nhật trạng thái bàn nếu lần đầu
-        var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == order.TableId);
-        if (table != null)
-        {
-            table.Status = "Occupied";
-            table.CurrentOrderId = order.OrderId;
-        }
-
-        _db.SaveChanges();
-
-        // Xoá giỏ hàng + xoá OrderId khỏi Session (để lần sau là đơn mới)
-        HttpContext.Session.Remove("Cart");
-        HttpContext.Session.Remove("CurrentOrderId");
-
-        return RedirectToAction("Detail", new { orderId = order.OrderId });
     }
-
 
     //-----------------------------------------------------------------------------------------------------------------
     // Trang chi tiết đơn hàng Order detail
@@ -249,187 +163,81 @@ public class OrderController : Controller
     [Route("Order/Detail/{orderId}")]
     public IActionResult Detail(int orderId)
     {
-        var order = _db.Orders.FirstOrDefault(o => o.OrderId == orderId);
-        if (order == null)
-            return NotFound("Không tìm thấy đơn hàng");
-
-        var orderDetails = (
-            from od in _db.OrderDetails
-            join d in _db.Dishes on od.DishId equals d.DishId
-            where od.OrderId == orderId
-            select new DetailsWithDish
-            {
-                DishId = d.DishId,
-                ImageUrl = d.ImageUrl ?? "/images/nophoto.png",
-                DishName = d.DishName,
-                Quantity = od.Quantity,
-                DishPrice = d.DishPrice,
-                DishStatus = od.DishStatus,
-                OrderId = od.OrderId,
-            }).ToList();
-
-        var viewModel = new OrderDetailViewModel
+        try
         {
-            Order = order,
-            OrderDetails = orderDetails
-        };
-
-        return View(viewModel);
+            var viewModel = _service.GetOrderDetailViewModel(orderId);
+            return View(viewModel);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdateDishStatus(int OrderId, int DishId, int DishStatus)
+    public async Task<IActionResult> UpdateDishStatus(int orderId, int dishId, int dishStatus)
     {
-        var detail = await _db.OrderDetails
-            .FirstOrDefaultAsync(od => od.OrderId == OrderId && od.DishId == DishId);
-
-        if (detail != null)
-        {
-            detail.DishStatus = DishStatus;
-            await _db.SaveChangesAsync();
-        }
-        return RedirectToAction("Detail", new { id = OrderId });
+        await _service.UpdateDishStatusAsync(orderId, dishId, dishStatus);
+        return RedirectToAction("Detail", new { orderId });
     }
 
     [HttpPost]
-    public async Task<IActionResult> EditDishQuantity(int OrderId, int DishId, int Quantity)
+    public async Task<IActionResult> EditDishQuantity(int orderId, int dishId, int quantity)
     {
-        var detail = await _db.OrderDetails
-            .FirstOrDefaultAsync(od => od.OrderId == OrderId && od.DishId == DishId);
-
-        if (detail != null && Quantity > 0)
-        {
-            detail.Quantity = Quantity;
-            await _db.SaveChangesAsync();
-        }
-
-        return RedirectToAction("Detail", new { id = OrderId });
+        await _service.UpdateDishQuantityAsync(orderId, dishId, quantity);
+        return RedirectToAction("Detail", new { orderId });
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteDishFromOrder(int OrderId, int DishId)
+    public async Task<IActionResult> DeleteDishFromOrder(int orderId, int dishId)
     {
-        var detail = await _db.OrderDetails
-            .FirstOrDefaultAsync(od => od.OrderId == OrderId && od.DishId == DishId);
+        bool orderDeleted = await _service.DeleteDishFromOrderAsync(orderId, dishId);
 
-        if (detail != null)
-        {
-            _db.OrderDetails.Remove(detail);
-            await _db.SaveChangesAsync();
-        }
+        if (orderDeleted)
+            return RedirectToAction("Index"); // đơn hàng bị xóa toàn bộ
 
-        // Kiểm tra còn món nào trong đơn nữa không
-        var remainingItems = _db.OrderDetails
-            .Where(od => od.OrderId == OrderId)
-            .ToList();
-
-        if (!remainingItems.Any())
-        {
-            // Xóa cả đơn hàng nếu không còn món
-            var order = _db.Orders.FirstOrDefault(o => o.OrderId == OrderId);
-            if (order != null)
-            {
-                _db.Orders.Remove(order);
-                _db.SaveChanges();
-            }
-
-            // Redirect về danh sách đơn
-            return RedirectToAction("Index", "Order");
-        }
-
-        return RedirectToAction("Detail", new { id = OrderId });
+        return RedirectToAction("Detail", new { orderId });
     }
 
     [HttpPost]
-    public IActionResult ToggleDishStatus(int orderId, int dishId)
+    public async Task<IActionResult> ToggleDishStatus(int orderId, int dishId)
     {
-        var orderDetail = _db.OrderDetails
-            .FirstOrDefault(od => od.OrderId == orderId && od.DishId == dishId);
+        var success = await _service.ToggleDishStatusAsync(orderId, dishId);
 
-        if (orderDetail == null)
-        {
+        if (!success)
             return NotFound();
-        }
 
-        // Toggle trạng thái: 0 <-> 1
-        orderDetail.DishStatus = (orderDetail.DishStatus == 0) ? 1 : 0;
-
-        _db.SaveChanges();
-
-        return RedirectToAction("Detail", new { orderId = orderId });
+        return RedirectToAction("Detail", new { orderId });
     }
 
     [HttpPost]
     public async Task<IActionResult> ApproveOrder(int orderId)
     {
-        var order = await _db.Orders
-            .Include(o => o.OrderDetails)
-            .ThenInclude(od => od.Dish)
-            .FirstOrDefaultAsync(o => o.OrderId == orderId);
+        var result = await _service.ApproveOrderAsync(orderId);
 
-        if (order == null)
-            return NotFound();
-
-        // Kiểm tra tất cả món đã được phục vụ
-        bool allServed = order.OrderDetails.All(od => od.DishStatus == 1);
-        if (!allServed)
+        if (!result.Success)
         {
-            TempData["Error"] = "Chỉ được duyệt đơn khi tất cả món đã được phục vụ.";
-            return RedirectToAction("Detail", new { orderId = orderId });
+            TempData["Error"] = result.Message;
+            return RedirectToAction("Detail", new { orderId });
         }
 
-        // Tính tổng tiền
-        decimal total = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice);
-        order.TotalAmount = total;
-
-        // Đổi trạng thái đơn hàng sang "2 = đã duyệt"
-        order.OrderStatus = 2;
-
-        // Cập nhật trạng thái bàn
-        var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
-        if (table != null)
-        {
-            table.Status = "Available";
-        }
-
-        await _db.SaveChangesAsync();
-        TempData["Success"] = "Đơn hàng đã được duyệt và tính tổng tiền thành công.";
-        return RedirectToAction("Detail", new { orderId = orderId });
+        TempData["Success"] = result.Message;
+        return RedirectToAction("Detail", new { orderId });
     }
+
 
     [HttpPost]
     public IActionResult CancelOrder(int orderId)
     {
-        var order = _db.Orders
-            .Include(o => o.OrderDetails)
-            .FirstOrDefault(o => o.OrderId == orderId);
+        var result = _service.CancelOrder(orderId);
 
-        if (order == null)
-            return NotFound();
-
-        // Kiểm tra nếu có món nào đã được phục vụ
-        bool hasServed = order.OrderDetails.Any(d => d.DishStatus == 1);
-        if (hasServed)
+        if (!result.Success)
         {
-            TempData["Error"] = "Không thể hủy đơn vì đã có món được phục vụ.";
+            TempData["Error"] = result.Message;
             return RedirectToAction("Detail", new { orderId });
         }
 
-        // Cập nhật trạng thái đơn hàng sang -1 (bị hủy)
-        order.OrderStatus = -1;
-        order.TotalAmount = 0;
-
-        // Cập nhật trạng thái bàn về "Available"
-        var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
-        if (table != null)
-        {
-            table.Status = "Available";
-            table.CurrentOrderId = null;
-        }
-
-        _db.SaveChanges();
-
-        TempData["Success"] = "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).";
+        TempData["Success"] = result.Message;
         return RedirectToAction("OrderList");
     }
 

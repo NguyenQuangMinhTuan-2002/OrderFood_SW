@@ -1,38 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OrderFood_SW.Helper;
-using System.Security.Cryptography;
-using System.Text;
+using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly DatabaseHelperEF _db;
+        private readonly AccountService _service;
 
-        public AccountController(DatabaseHelperEF db)
+        public AccountController(AccountService service)
         {
-            _db = db;
+            _service = service;
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+        public IActionResult AccessDenied() => View();
 
         [HttpGet]
         public IActionResult Login()
         {
-            // Nếu đã đăng nhập thì chuyển hướng luôn
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
-            {
                 return RedirectToAction("Index", "Home");
-            }
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -40,12 +33,7 @@ namespace OrderFood_SW.Controllers
                 return View();
             }
 
-            string passwordHash = HashPassword(password);
-
-            var user = _db.Users
-                          .FirstOrDefault(u => u.Username == username
-                                            && u.PasswordHash == passwordHash
-                                            && u.IsActive);
+            var user = await _service.AuthenticateAsync(username, password);
 
             if (user != null)
             {
@@ -56,7 +44,6 @@ namespace OrderFood_SW.Controllers
                 HttpContext.Session.SetString("Role", user.Role);
                 HttpContext.Session.SetInt32("IsActive", user.IsActive ? 1 : 0);
 
-                // Chuyển hướng tùy role
                 if (user.Role == "Admin" || user.Role == "Staff")
                     return RedirectToAction("Index", "Home");
                 else if (user.Role == "Customer")
@@ -71,13 +58,6 @@ namespace OrderFood_SW.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
-        }
-
-        private string HashPassword(string password)
-        {
-            using var sha256 = SHA256.Create();
-            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return BitConverter.ToString(bytes).Replace("-", "").ToLower();
         }
     }
 }

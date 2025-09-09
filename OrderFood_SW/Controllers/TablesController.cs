@@ -1,129 +1,83 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
-
-// Updated EF
+using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
     [AuthorizeRole("Admin", "Staff")]
     public class TablesController : Controller
     {
-        private readonly DatabaseHelperEF _db;
+        private readonly TableService _service;
 
-        public TablesController(DatabaseHelperEF db)
+        public TablesController(TableService service)
         {
-            _db = db;
+            _service = service;
         }
 
         // GET: /Tables
         public async Task<IActionResult> Index(string keyword = "", int page = 1)
         {
             int pageSize = 8;
-            int skip = (page - 1) * pageSize;
-
-            var query = _db.Tables.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                query = query.Where(c =>
-                    c.TableNumber.Equals(keyword) ||
-                    c.Description.Contains(keyword));
-            }
-
-            int totalRows = await query.CountAsync();
-            var Tables = await query
-                .OrderBy(c => c.TableId)
-                .Skip(skip)
-                .Take(pageSize)
-                .ToListAsync();
+            var (tables, totalRows) = await _service.GetPagedAsync(keyword, page, pageSize);
 
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             ViewBag.CurrentPage = page;
             ViewBag.Keyword = keyword;
 
-            return View(Tables);
+            return View(tables);
         }
 
-        // GET: /Tables/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
-        // POST: /Tables/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Table Table)
+        public async Task<IActionResult> Create(Table table)
         {
             if (!ModelState.IsValid)
-                return View(Table);
+                return View(table);
 
-            _db.Tables.Add(Table);
-            await _db.SaveChangesAsync();
+            await _service.AddAsync(table);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: /Tables/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var Table = await _db.Tables.FindAsync(id);
-            if (Table == null)
-                return NotFound();
-
-            return View(Table);
+            var table = await _service.GetByIdAsync(id);
+            if (table == null) return NotFound();
+            return View(table);
         }
 
-        // POST: /Tables/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Table Table)
+        public async Task<IActionResult> Edit(int id, Table table)
         {
-            if (id != Table.TableId)
-                return NotFound();
+            if (id != table.TableId) return NotFound();
+            if (!ModelState.IsValid) return View(table);
 
-            if (!ModelState.IsValid)
-                return View(Table);
-
-            _db.Update(Table);
-            await _db.SaveChangesAsync();
+            await _service.UpdateAsync(table);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: /Tables/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var Table = await _db.Tables.FindAsync(id);
-            if (Table == null)
-                return NotFound();
-
-            return View(Table);
+            var table = await _service.GetByIdAsync(id);
+            if (table == null) return NotFound();
+            return View(table);
         }
 
-        // GET: /Tables/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var Table = await _db.Tables.FindAsync(id);
-            if (Table == null)
-                return NotFound();
-
-            return View(Table);
+            var table = await _service.GetByIdAsync(id);
+            if (table == null) return NotFound();
+            return View(table);
         }
 
-        // POST: /Tables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Table = await _db.Tables.FindAsync(id);
-            if (Table != null)
-            {
-                _db.Tables.Remove(Table);
-                await _db.SaveChangesAsync();
-            }
-
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

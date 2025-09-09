@@ -1,44 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OrderFood_SW.Helper;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrderFood_SW.Models;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using OrderFood_SW.Services;
+using OrderFood_SW.Helper;
 
 namespace OrderFood_SW.Controllers
 {
     [AuthorizeRole("Admin", "Staff")]
     public class DishesController : Controller
     {
-        private readonly DatabaseHelperEF _db;
+        private readonly DishService _service;
 
-        public DishesController(DatabaseHelperEF db)
+        public DishesController(DishService service)
         {
-            _db = db;
+            _service = service;
         }
 
         public async Task<IActionResult> Index(string keyword = "", int page = 1)
         {
             int pageSize = 8;
-            int offset = (page - 1) * pageSize;
+            var (dishes, totalRows) = await _service.GetPagedAsync(keyword, page, pageSize);
 
-            var query = _db.Dishes.AsQueryable();
-
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                query = query.Where(d => d.DishName.Contains(keyword) ||
-                                         d.DishDescription.Contains(keyword) ||
-                                         d.DishPrice.ToString().Contains(keyword)
-                );
-            }
-            int totalRows = await query.CountAsync();
-            var dishes = await query.OrderBy(d => d.DishId)
-                                    .Skip(offset)
-                                    .Take(pageSize)
-                                    .ToListAsync();
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             ViewBag.CurrentPage = page;
             ViewBag.Keyword = keyword;
@@ -46,108 +27,68 @@ namespace OrderFood_SW.Controllers
             return View(dishes);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(Dish dish, IFormFile ImageFile)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Dish dish, IFormFile? ImageFile)
         {
-            if (ImageFile != null && ImageFile.Length > 0)
-            {
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products");
-                Directory.CreateDirectory(uploadFolder);
-                string filePath = Path.Combine(uploadFolder, fileName);
+            var imageName = await _service.SaveImageAsync(ImageFile);
+            if (imageName != null) dish.ImageUrl = imageName;
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await ImageFile.CopyToAsync(stream);
-                }
-
-                dish.ImageUrl = fileName;
-            }
-            // Remove the ImageFile from ModelState to prevent validation errors
             ModelState.Remove("ImageFile");
             ModelState.Remove("OrderDetails");
 
-            if (!ModelState.IsValid)
-            {
-                return View(dish);
-            }
+            if (!ModelState.IsValid) return View(dish);
 
-            _db.Dishes.Add(dish);
-            await _db.SaveChangesAsync();
-
+            await _service.AddAsync(dish);
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var dish = await _db.Dishes.FindAsync(id);
+            var dish = await _service.GetByIdAsync(id);
             if (dish == null) return NotFound();
             return View(dish);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Dish dish, IFormFile ImageFile, string OldImageUrl)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Dish dish, IFormFile? ImageFile, string OldImageUrl)
         {
-            if (ImageFile != null && ImageFile.Length > 0)
-            {
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products");
-                Directory.CreateDirectory(uploadFolder);
-                string filePath = Path.Combine(uploadFolder, fileName);
+            if (id != dish.DishId) return NotFound();
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await ImageFile.CopyToAsync(stream);
-                }
+            var imageName = await _service.SaveImageAsync(ImageFile);
+            dish.ImageUrl = imageName ?? OldImageUrl;
 
-                dish.ImageUrl = fileName;
-            }
-            else
-            {
-                dish.ImageUrl = OldImageUrl;
-            }
-
-            // Remove the ImageFile from ModelState to prevent validation errors
             ModelState.Remove("ImageFile");
             ModelState.Remove("OrderDetails");
 
-            if (!ModelState.IsValid)
-                return View(dish);
+            if (!ModelState.IsValid) return View(dish);
 
-            _db.Dishes.Update(dish);
-            await _db.SaveChangesAsync();
-
+            await _service.UpdateAsync(dish);
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var dish = await _db.Dishes.FindAsync(id);
+            var dish = await _service.GetByIdAsync(id);
             if (dish == null) return NotFound();
             return View(dish);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var dish = await _db.Dishes.FindAsync(id);
+            var dish = await _service.GetByIdAsync(id);
             if (dish == null) return NotFound();
             return View(dish);
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dish = await _db.Dishes.FindAsync(id);
-            if (dish == null) return NotFound();
-
-            _db.Dishes.Remove(dish);
-            await _db.SaveChangesAsync();
-
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

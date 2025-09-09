@@ -1,5 +1,7 @@
 using OrderFood_SW.Helper;
 using Microsoft.EntityFrameworkCore;
+using OrderFood_SW.Repositories;
+using OrderFood_SW.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,22 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Scan all Repository
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<CategoryRepository>() // select 1 class root to get assembly
+    .AddClasses(classes => classes.Where(c => c.Name.EndsWith("Repository")))
+    .AsSelf() // self sign-up (can replace .AsImplementedInterfaces() if use interface)
+    .WithScopedLifetime()
+);
+
+// Scan all Service
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<CategoryService>()
+    .AddClasses(classes => classes.Where(c => c.Name.EndsWith("Service")))
+    .AsSelf()
+    .WithScopedLifetime()
+);
 
 var app = builder.Build();
 

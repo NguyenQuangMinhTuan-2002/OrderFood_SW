@@ -1,49 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
     [AuthorizeRole("Staff")]
     public class UsersController : Controller
     {
-        private readonly DatabaseHelperEF _context;
+        private readonly UserService _service;
 
-        public UsersController(DatabaseHelperEF context)
+        public UsersController(UserService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: Users
         public async Task<IActionResult> Index(string keyword = "", int page = 1)
         {
             int pageSize = 8;
-            int skip = (page - 1) * pageSize;
-
-            var query = _context.Users.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                query = query.Where(c =>
-                    c.FullName.Equals(keyword));
-            }
-
-            int totalRows = await query.CountAsync();
-            var users = await query
-                .OrderBy(c => c.UserId)
-                .Skip(skip)
-                .Take(pageSize)
-                .ToListAsync();
+            var (users, totalRows) = await _service.GetPagedAsync(keyword, page, pageSize);
 
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             ViewBag.CurrentPage = page;
@@ -52,153 +27,56 @@ namespace OrderFood_SW.Controllers
             return View(users);
         }
 
-        // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var users = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            return View(users);
+            var user = await _service.GetByIdAsync(id);
+            if (user == null) return NotFound();
+            return View(user);
         }
 
-        // GET: Users/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Username,PasswordHash,FullName,Email,Role,IsActive")] Users users)
+        public async Task<IActionResult> Create(Users user)
         {
-            if (ModelState.IsValid)
-            {
-                // Hash password trước khi lưu
-                users.PasswordHash = ComputeSha256Hash(users.PasswordHash);
-
-                _context.Add(users);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(users);
+            if (!ModelState.IsValid) return View(user);
+            await _service.AddAsync(user);
+            return RedirectToAction(nameof(Index));
         }
 
-        // Hàm hash SHA256
-        private string ComputeSha256Hash(string rawData)
+        public async Task<IActionResult> Edit(int id)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2")); // x2: hex format
-                }
-                return builder.ToString();
-            }
+            var user = await _service.GetByIdAsync(id);
+            if (user == null) return NotFound();
+            return View(user);
         }
 
-        // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var users = await _context.Users.FindAsync(id);
-            if (users == null)
-            {
-                return NotFound();
-            }
-            return View(users);
-        }
-
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,PasswordHash,FullName,Email,Role,IsActive")] Users users)
+        public async Task<IActionResult> Edit(int id, Users user)
         {
-            if (id != users.UserId)
-            {
-                return NotFound();
-            }
+            if (id != user.UserId) return NotFound();
+            if (!ModelState.IsValid) return View(user);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    users.PasswordHash = ComputeSha256Hash(users.PasswordHash);
-                    _context.Update(users);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsersExists(users.UserId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(users);
+            await _service.UpdateAsync(user);
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var users = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            return View(users);
+            var user = await _service.GetByIdAsync(id);
+            if (user == null) return NotFound();
+            return View(user);
         }
 
-        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var users = await _context.Users.FindAsync(id);
-            if (users != null)
-            {
-                _context.Users.Remove(users);
-            }
-
-            await _context.SaveChangesAsync();
+            var user = await _service.GetByIdAsync(id);
+            if (user != null) await _service.DeleteAsync(user);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool UsersExists(int id)
-        {
-            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

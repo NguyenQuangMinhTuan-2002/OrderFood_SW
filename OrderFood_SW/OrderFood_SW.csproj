@@ -6091,6 +6091,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Optivem.Framework.Infrastructure.FluentValidation" Version="1.0.23" />
+    <PackageReference Include="Scrutor" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>
