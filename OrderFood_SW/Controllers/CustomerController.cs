@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace OrderFood_SW.Controllers
 {
@@ -64,60 +61,6 @@ namespace OrderFood_SW.Controllers
             // Query cơ bản
             var query = _db.Orders
                 .Where(o => o.UserId == userId);
-
-            // --- Lọc theo trạng thái ---
-            if (!string.IsNullOrEmpty(status))
-            {
-                if (status == "completed") // Approved
-                    query = query.Where(o => o.OrderStatus == 2);
-                else if (status == "cancelled") // Cancelled
-                    query = query.Where(o => o.OrderStatus == -1);
-            }
-            else
-            {
-                // Nếu không chọn thì chỉ lấy Approved + Cancelled
-                query = query.Where(o => o.OrderStatus == 2 || o.OrderStatus == -1);
-            }
-
-            // --- Lọc theo ngày ---
-            if (fromDate.HasValue)
-                query = query.Where(o => o.OrderTime >= fromDate.Value);
-
-            if (toDate.HasValue)
-                query = query.Where(o => o.OrderTime <= toDate.Value);
-
-            // Tổng số đơn
-            var totalOrders = query.Count();
-            var totalPages = (int)Math.Ceiling((double)totalOrders / pageSize);
-            page = Math.Max(1, Math.Min(page, Math.Max(1, totalPages)));
-
-            // Lấy dữ liệu
-            var orders = query
-                .OrderByDescending(o => o.OrderTime)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .Select(o => new OrderHistoryViewModel
-                {
-                    OrderId = o.OrderId,
-                    OrderTime = o.OrderTime,
-                    OrderStatus = o.OrderStatus.ToString(),
-                    TotalAmount = o.TotalAmount,
-                    Note = o.note,
-                    OrderDetails = _db.OrderDetails
-                        .Where(od => od.OrderId == o.OrderId)
-                        .Join(_db.Dishes,
-                            od => od.DishId,
-                            d => d.DishId,
-                            (od, d) => new OrderHistoryDetailViewModel
-                            {
-                                DishName = d.DishName,
-                                ImageUrl = d.ImageUrl ?? "nophoto.png",
-                                Quantity = od.Quantity,
-                                UnitPrice = d.DishPrice // Lấy giá tại thời điểm Order
-                            })
-                        .ToList()
-                })
-                .ToList();
 
             // Pagination info
             ViewBag.CurrentPage = page;
@@ -188,18 +131,6 @@ namespace OrderFood_SW.Controllers
                 return RedirectToAction("OrderHistory", new { orderId });
             }
 
-            // Cập nhật trạng thái đơn hàng sang -1 (bị hủy)
-            order.OrderStatus = -1;
-            order.TotalAmount = 0;
-
-            // Cập nhật trạng thái bàn về "Available"
-            var table = _db.Tables.FirstOrDefault(t => t.TableId == order.TableId);
-            if (table != null)
-            {
-                table.Status = "Available";
-                table.CurrentOrderId = null;
-            }
-
             _db.SaveChanges();
 
             TempData["Success"] = "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).";
@@ -217,39 +148,6 @@ namespace OrderFood_SW.Controllers
                 TempData["Error"] = "Không tìm thấy đơn hàng.";
                 return RedirectToAction("OrderHistory");
             }
-
-            // Lấy tên bàn (join thủ công)
-            var table = await _db.Tables
-                .FirstOrDefaultAsync(t => t.TableId == order.TableId);
-
-            ViewBag.TableNumber = table;
-
-            // Lấy chi tiết order + join với Dish
-            var orderDetails = await _db.OrderDetails
-                .Where(od => od.OrderId == orderId)
-                .Join(_db.Dishes,
-                    od => od.DishId,
-                    d => d.DishId,
-                    (od, d) => new DetailsWithDish
-                    {
-                        DishId = d.DishId,
-                        ImageUrl = d.ImageUrl ?? "nophoto.png",
-                        DishName = d.DishName,
-                        Quantity = od.Quantity,
-                        DishPrice = d.DishPrice,
-                        DishStatus = od.DishStatus, // 0: chưa phục vụ, 1: đã phục vụ
-                        OrderId = od.OrderId
-                    })
-                .ToListAsync();
-
-            var vm = new OrderDetailViewModel
-            {
-                Order = order,
-                OrderDetails = orderDetails
-            };
-
-            return View(vm);
-        }
 
         private string ComputeSha256Hash(string rawData)
         {
@@ -304,15 +202,6 @@ namespace OrderFood_SW.Controllers
 
                 HttpContext.Session.SetString("FullName", vm.FullName);
                 HttpContext.Session.SetString("Email", vm.Email);
-
-                // Nếu có nhập mật khẩu mới thì hash và update
-                if (!string.IsNullOrEmpty(vm.NewPassword))
-                {
-                    user.PasswordHash = ComputeSha256Hash(vm.NewPassword);
-                }
-
-                _db.Update(user);
-                await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }

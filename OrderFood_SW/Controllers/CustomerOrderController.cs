@@ -1,60 +1,52 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
+using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
     [AuthorizeRole("Admin", "Staff", "Customer")]
     public class CustomerOrderController : Controller
     {
-        private readonly DatabaseHelperEF _db;
+        private readonly CustomerOrderService _service;
 
-        public CustomerOrderController(DatabaseHelperEF db)
+        public CustomerOrderController(CustomerOrderService service)
         {
-            _db = db;
+            _service = service;
         }
 
-        public IActionResult Index()
+        // Index -> show tables
+        public async Task<IActionResult> Index()
         {
-            var query = _db.Tables
-                .ToList();
+            var query = await _service.GetAllTablesAsync();
             return View(query);
         }
 
-        public IActionResult CreateOrder(int? tableId = null, int? categoryId = null)
+        // CreateOrder -> read-only page composition
+        public async Task<IActionResult> CreateOrder(int? tableId = null, int? categoryId = null)
         {
             if (tableId.HasValue)
             {
-                var table = _db.Tables.FirstOrDefault(t => t.TableId == tableId.Value);
+                var table = await _service.GetTableByIdAsync(tableId.Value);
                 if (table != null)
                 {
                     var currentOrderId = HttpContext.Session.GetInt32("CurrentOrderId");
-
-                    // 🔒 Nếu bàn không Available và không phải đang AddMoreOrder → block
                     var role = HttpContext.Session.GetString("Role");
 
-                    // 🔒 Nếu bàn đang Occupied
                     if (table.Status != "Available" && !currentOrderId.HasValue)
                     {
                         if (role == "Customer" && HttpContext.Session.GetInt32("UserId") == 1)
                         {
-                            // Guest qua QR → redirect thẳng OrderDetails
                             if (table.CurrentOrderId.HasValue)
                             {
                                 return RedirectToAction("OrderDetails", "Customer", new { orderId = table.CurrentOrderId.Value });
                             }
                         }
 
-                        // Người dùng thật (không phải guest) → chặn
                         return RedirectToAction("AccessDenied", "Account");
                     }
 
-
-                    // ✅ Nếu bàn Available → reset session
                     if (table.Status == "Available")
                     {
                         HttpContext.Session.Remove("CurrentOrderId");
@@ -70,7 +62,7 @@ namespace OrderFood_SW.Controllers
             var currentOrder = HttpContext.Session.GetInt32("CurrentOrderId");
             if (currentOrder.HasValue && currentOrder.Value > 0)
             {
-                var order = _db.Orders.FirstOrDefault(o => o.OrderId == currentOrder.Value);
+                var order = await _service.GetOrderWithDetailsAsync(currentOrder.Value);
                 if (order == null || order.OrderStatus == 2 || order.OrderStatus == -1)
                 {
                     HttpContext.Session.Remove("CurrentOrderId");
@@ -81,16 +73,8 @@ namespace OrderFood_SW.Controllers
             ViewBag.TableId = HttpContext.Session.GetInt32("CurrentTableId") ?? 0;
             ViewBag.CurrentOrderId = HttpContext.Session.GetInt32("CurrentOrderId") ?? 0;
 
-            var query = _db.Dishes.AsQueryable();
-            var queryCategories = _db.Categories.AsQueryable();
-
-            if (categoryId.HasValue && categoryId.Value != 0)
-            {
-                query = query.Where(d => d.CategoryId == categoryId.Value);
-            }
-
-            var dishes = query.OrderBy(d => d.CategoryId).ToList();
-            var categories = queryCategories.OrderBy(c => c.CategoryName).ToList();
+            var dishes = await _service.GetDishesAsync(categoryId);
+            var categories = await _service.GetCategoriesAsync();
             var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
             var model = new OrderPageModel
@@ -105,7 +89,7 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCart(int dishId, int Quantity)
+        public async Task<IActionResult> AddCart(int dishId, int Quantity)
         {
             try
             {
@@ -114,8 +98,7 @@ namespace OrderFood_SW.Controllers
                 // 1) Đang thêm vào đơn hàng cũ -> chặn nếu đã có trong OrderDetails
                 if (currentOrderId is int orderId && orderId > 0)
                 {
-                    bool existsInOrder = _db.OrderDetails
-                        .Any(od => od.OrderId == orderId && od.DishId == dishId);
+                    bool existsInOrder = await _service.OrderHasDishAsync(orderId, dishId);
 
                     if (existsInOrder)
                     {
@@ -129,7 +112,7 @@ namespace OrderFood_SW.Controllers
                 }
 
                 // 2) Kiểm tra món
-                var dish = _db.Dishes.Find(dishId);
+                var dish = await _service.GetDishByIdAsync(dishId);
                 if (dish == null)
                 {
                     return Json(new { success = false, message = "Dish not found!", cartCount = GetCartCount() });
@@ -210,11 +193,10 @@ namespace OrderFood_SW.Controllers
             // 🔹 Nếu đang thêm vào đơn cũ
             if (currentOrderId.HasValue && currentOrderId.Value > 0)
             {
-                var order = await _db.Orders
-                    .Include(o => o.OrderDetails)
-                    .FirstOrDefaultAsync(o => o.OrderId == currentOrderId.Value && o.OrderStatus == 1);
+                var order = await _service.GetOrderWithDetailsAsync(currentOrderId.Value);
 
-                if (order == null)
+                // original logic required order.OrderStatus == 1 when fetching; mimic validation here
+                if (order == null || order.OrderStatus != 1)
                 {
                     HttpContext.Session.Remove("CurrentOrderId");
                     HttpContext.Session.Remove("Cart");
@@ -223,30 +205,7 @@ namespace OrderFood_SW.Controllers
                     return RedirectToAction("CreateOrder", new { tableId });
                 }
 
-                foreach (var item in cart)
-                {
-                    var existingDetail = order.OrderDetails
-                        .FirstOrDefault(od => od.DishId == item.DishId);
-
-                    if (existingDetail != null)
-                    {
-                        TempData["Warning"] = $"{item.DishId} already in your order, can't add the same dish!";
-                        continue;
-                    }
-
-                    _db.OrderDetails.Add(new OrderDetail
-                    {
-                        OrderId = order.OrderId,
-                        DishId = item.DishId,
-                        Quantity = item.Quantity
-                    });
-                }
-
-                order.TotalAmount += cart
-                    .Where(x => !order.OrderDetails.Any(od => od.DishId == x.DishId))
-                    .Sum(x => x.Price * x.Quantity);
-
-                await _db.SaveChangesAsync();
+                var existedDishIds = await _service.AddCartItemsToExistingOrderAsync(order, cart);
 
                 HttpContext.Session.Remove("Cart");
 
@@ -256,45 +215,27 @@ namespace OrderFood_SW.Controllers
                     return RedirectToAction("OrderDetails", "Customer", new { orderId = order.OrderId });
                 }
 
+                if (existedDishIds.Any())
+                {
+                    // Preserve original behavior of warning per existing dish (keeps last message but lists IDs)
+                    TempData["Warning"] = string.Join("; ", existedDishIds.Select(id => $"{id} already in your order, can't add the same dish!"));
+                }
+
                 TempData["Success"] = "added new dish to your order!";
                 return RedirectToAction("OrderProcessing", "Customer");
             }
 
             // 🔹 Nếu là đơn mới
-            var table = await _db.Tables.FirstOrDefaultAsync(t => t.TableId == tableId);
-            if (table == null)
+            Order newOrder;
+            try
+            {
+                newOrder = await _service.CreateNewOrderFromCartAsync(tableId, cart, userId);
+            }
+            catch (InvalidOperationException)
             {
                 TempData["Error"] = "table is unavailable!";
                 return RedirectToAction("CreateOrder", new { tableId = 0 });
             }
-
-            var newOrder = new Order
-            {
-                TableId = tableId,
-                OrderTime = DateTime.Now,
-                OrderStatus = 1,
-                TotalAmount = cart.Sum(x => x.Price * x.Quantity),
-                note = "n/a",
-                UserId = userId
-            };
-
-            _db.Orders.Add(newOrder);
-            await _db.SaveChangesAsync();
-
-            foreach (var item in cart)
-            {
-                _db.OrderDetails.Add(new OrderDetail
-                {
-                    OrderId = newOrder.OrderId,
-                    DishId = item.DishId,
-                    Quantity = item.Quantity
-                });
-            }
-
-            table.Status = "Occupied";
-            table.CurrentOrderId = newOrder.OrderId;
-
-            await _db.SaveChangesAsync();
 
             HttpContext.Session.Remove("Cart");
 
@@ -309,14 +250,11 @@ namespace OrderFood_SW.Controllers
             return RedirectToAction("OrderProcessing", "Customer");
         }
 
-
         [HttpPost]
         public async Task<IActionResult> ReOrder(int orderId)
         {
             // Lấy order cũ
-            var oldOrder = await _db.Orders
-                .Include(o => o.OrderDetails)
-                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+            var oldOrder = await _service.GetOrderWithDetailsAsync(orderId);
 
             if (oldOrder == null)
             {
@@ -325,35 +263,10 @@ namespace OrderFood_SW.Controllers
             }
 
             // Lấy giỏ hàng hiện tại từ session
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart")
-                       ?? new List<OrderCartItem>();
+            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
 
-            // Thêm/cộng dồn món từ order cũ vào giỏ hàng
-            foreach (var item in oldOrder.OrderDetails)
-            {
-                var dish = await _db.Dishes.FirstOrDefaultAsync(d => d.DishId == item.DishId);
-                if (dish != null)
-                {
-                    var existingItem = cart.FirstOrDefault(c => c.DishId == dish.DishId);
-                    if (existingItem != null)
-                    {
-                        // Nếu món đã có thì cộng thêm số lượng
-                        existingItem.Quantity += item.Quantity;
-                    }
-                    else
-                    {
-                        // Nếu món chưa có thì thêm mới
-                        cart.Add(new OrderCartItem
-                        {
-                            DishId = dish.DishId,
-                            DishName = dish.DishName,
-                            ImageUrl = dish.ImageUrl ?? "nophoto.png",
-                            Price = dish.DishPrice,
-                            Quantity = item.Quantity
-                        });
-                    }
-                }
-            }
+            // Thêm/cộng dồn món từ order cũ vào giỏ hàng (in-memory)
+            await _service.ReOrderToCartAsync(oldOrder, cart);
 
             // Lưu lại giỏ hàng vào session
             HttpContext.Session.SetObject("Cart", cart);
@@ -373,6 +286,5 @@ namespace OrderFood_SW.Controllers
 
             return RedirectToAction("CreateOrder", new { tableId });
         }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.ViewModels;
@@ -28,7 +26,6 @@ namespace OrderFood_SW.Controllers
 
             if (tableId == null || tableId == 0)
             {
-                // Nếu chưa có tableId, buộc quay về chọn món lại
                 TempData["Error"] = "Thiếu thông tin bàn, vui lòng chọn bàn trước khi đặt món.";
                 return RedirectToAction("Index", "CustomerOrder");
             }
@@ -38,8 +35,6 @@ namespace OrderFood_SW.Controllers
             return View(cart);
         }
 
-
-        // Get cart count for counter updates
         [HttpGet]
         public IActionResult GetCartCount()
         {
@@ -53,11 +48,8 @@ namespace OrderFood_SW.Controllers
 
             // Return partial view for AJAX requests
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            {
                 return PartialView("_OrderCartPartial", cart);
-            }
 
-            // Return full view for regular requests
             return PartialView("_CartPartial", cart);
         }
 
@@ -67,7 +59,6 @@ namespace OrderFood_SW.Controllers
             HttpContext.Session.Remove("Cart");
             return Json(new { success = true });
         }
-
 
         [HttpGet]
         public IActionResult Count()
@@ -106,6 +97,5 @@ namespace OrderFood_SW.Controllers
             int count = cart.Sum(x => x.Quantity);
             return Json(new { success = true, count });
         }
-
     }
 }
