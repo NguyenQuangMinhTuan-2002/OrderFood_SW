@@ -1,28 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrderFood_SW.Helper;
-using OrderFood_SW.Models;
-using OrderFood_SW.ViewModels;
+using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
     [AuthorizeRole("Admin", "Staff", "Customer")]
     public class CustomerCartController : Controller
     {
-        private readonly DatabaseHelperEF _db;
+        private readonly CartService _cartService;
 
-        public CustomerCartController(DatabaseHelperEF db)
+        public CustomerCartController(CartService cartService)
         {
-            _db = db;
+            _cartService = cartService;
         }
 
         public IActionResult Index()
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            var tableId = HttpContext.Session.GetInt32("CurrentTableId");
-            var tableNumber = _db.Tables
-                .Where(t => t.TableId == tableId)
-                .Select(t => t.TableNumber)
-                .FirstOrDefault();
+            var cart = _cartService.GetCart();
+            var (tableId, tableNumber) = _cartService.GetCurrentTable();
 
             if (tableId == null || tableId == 0)
             {
@@ -38,15 +33,13 @@ namespace OrderFood_SW.Controllers
         [HttpGet]
         public IActionResult GetCartCount()
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-            return Json(new { count = cart.Sum(x => x.Quantity) });
+            int count = _cartService.GetCartCount();
+            return Json(new { count });
         }
 
         public IActionResult GetCart()
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new List<OrderCartItem>();
-
-            // Return partial view for AJAX requests
+            var cart = _cartService.GetCart();
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 return PartialView("_OrderCartPartial", cart);
 
@@ -56,46 +49,29 @@ namespace OrderFood_SW.Controllers
         [HttpPost]
         public IActionResult RemoveAllCart()
         {
-            HttpContext.Session.Remove("Cart");
+            _cartService.ClearCart();
             return Json(new { success = true });
         }
 
         [HttpGet]
         public IActionResult Count()
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new();
-            int count = cart.Sum(x => x.Quantity);
+            int count = _cartService.GetCartCount();
             return Json(new { count });
         }
 
         [HttpPost]
         public IActionResult UpdateCartQuantity(int dishId, int change)
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new();
-            var item = cart.FirstOrDefault(x => x.DishId == dishId);
-            if (item == null)
-            {
-                return Json(new { success = false, message = "Item not found", count = cart.Sum(x => x.Quantity) });
-            }
-
-            item.Quantity += change;
-            if (item.Quantity <= 0) cart.Remove(item);
-
-            HttpContext.Session.SetObject("Cart", cart);
-            int count = cart.Sum(x => x.Quantity);
-            return Json(new { success = true, count });
+            var result = _cartService.UpdateQuantity(dishId, change);
+            return Json(new { success = result.Success, message = result.Message, count = result.Count });
         }
 
         [HttpPost]
         public IActionResult RemoveFromCart(int id)
         {
-            var cart = HttpContext.Session.GetObject<List<OrderCartItem>>("Cart") ?? new();
-            var item = cart.FirstOrDefault(x => x.DishId == id);
-            if (item != null) cart.Remove(item);
-
-            HttpContext.Session.SetObject("Cart", cart);
-            int count = cart.Sum(x => x.Quantity);
-            return Json(new { success = true, count });
+            var result = _cartService.RemoveFromCart(id);
+            return Json(new { success = result.Success, count = result.Count });
         }
     }
 }

@@ -13,6 +13,10 @@ namespace OrderFood_SW.Models
         public string? note { get; set; }
         public int ? UserId { get; set; }
 
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
+
+        // Navigation property
+        public virtual Table? Table { get; set; }
     }
 }

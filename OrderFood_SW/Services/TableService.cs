@@ -15,8 +15,8 @@ namespace OrderFood_SW.Services
         public Task<(List<Table> Tables, int TotalRows)> GetPagedAsync(string keyword, int page, int pageSize) =>
             _repo.GetPagedAsync(keyword, page, pageSize);
 
-        public Task<Table?> GetByIdAsync(int id) =>
-            _repo.GetByIdAsync(id);
+        public async Task<Table?> GetByIdAsync(int id) =>
+            await _repo.GetByIdAsync(id);
 
         public Task AddAsync(Table table) =>
             _repo.AddAsync(table);

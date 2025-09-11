@@ -13,5 +13,8 @@ namespace OrderFood_SW.Models
 
         // Temp field.
         public int? CurrentOrderId { get; set; }
+
+        // Navigation property
+        public virtual ICollection<Order>? Orders { get; set; }
     }
 }
