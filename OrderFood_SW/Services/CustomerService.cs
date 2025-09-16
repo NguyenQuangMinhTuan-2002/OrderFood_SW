@@ -92,6 +92,7 @@ namespace OrderFood_SW.Services
                 Email = user.Email,
                 Role = user.Role,
                 IsActive = user.IsActive,
+                ImageAvat = user.ImageAvat,
                 NewPassword = user.PasswordHash
             };
         }
@@ -106,6 +107,7 @@ namespace OrderFood_SW.Services
             user.FullName = vm.FullName;
             user.Email = vm.Email;
             user.Role = vm.Role;
+            user.ImageAvat = vm.ImageAvat;
             user.IsActive = vm.IsActive;
 
             if (!string.IsNullOrEmpty(vm.NewPassword))
@@ -135,6 +137,38 @@ namespace OrderFood_SW.Services
         public Task<bool> UserExistsAsync(int id)
         {
             return _repo.ExistsAsync(id);
+        }
+
+        public async Task<string?> SaveImageAsync(IFormFile? file)
+        {
+            if (file == null || file.Length == 0) return null;
+
+            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Users");
+            if (!Directory.Exists(uploadDir))
+            {
+                Directory.CreateDirectory(uploadDir);
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadDir, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return fileName;
+        }
+
+        public void DeleteImage(string? fileName)
+        {
+            if (string.IsNullOrEmpty(fileName) || fileName == "nophoto1.png") return;
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Users", fileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }

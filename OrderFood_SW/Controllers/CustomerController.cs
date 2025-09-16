@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrderFood_SW.Models;
 using OrderFood_SW.Services;
 using OrderFood_SW.ViewModels;
 
@@ -101,9 +102,26 @@ namespace OrderFood_SW.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, EditUserViewModel vm)
+        public async Task<IActionResult> Edit(int id, EditUserViewModel vm, IFormFile? ImageFile, string OldImageUrl)
         {
             if (id != vm.UserId) return NotFound();
+
+            var imageName = await _service.SaveImageAsync(ImageFile);
+
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                // xóa ảnh cũ nếu có ảnh mới
+                if (!string.IsNullOrEmpty(OldImageUrl) && OldImageUrl != "nophoto1.png")
+                {
+                    _service.DeleteImage(OldImageUrl);
+                }
+                vm.ImageAvat = imageName;
+            }
+            else
+            {
+                vm.ImageAvat = OldImageUrl;
+            }
+            ModelState.Remove("ImageFile");
 
             if (ModelState.IsValid)
             {
@@ -117,6 +135,7 @@ namespace OrderFood_SW.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            await _service.UpdateUserAsync(vm);
             return View(vm);
         }
 

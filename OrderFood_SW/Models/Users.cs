@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrderFood_SW.Models
 {
@@ -13,5 +14,11 @@ namespace OrderFood_SW.Models
         public string ImageAvat { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public Boolean IsActive { get; set; }
+
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+
+        [NotMapped]
+        public string? NewPassword { get; set; }    
     }
 }

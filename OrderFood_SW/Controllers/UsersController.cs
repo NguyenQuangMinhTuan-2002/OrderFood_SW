@@ -40,7 +40,17 @@ namespace OrderFood_SW.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Users user)
         {
-            if (!ModelState.IsValid) return View(user);
+            if (user.ImageFile != null)
+            {
+                var fileName = await _service.SaveImageAsync(user.ImageFile);
+                user.ImageAvat = fileName ?? "nophoto1.png";
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
             await _service.AddAsync(user);
             return RedirectToAction(nameof(Index));
         }
@@ -54,10 +64,32 @@ namespace OrderFood_SW.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Users user)
+        public async Task<IActionResult> Edit(int id, Users user, IFormFile? ImageFile, string OldImageUrl)
         {
             if (id != user.UserId) return NotFound();
-            if (!ModelState.IsValid) return View(user);
+
+            var imageName = await _service.SaveImageAsync(ImageFile);
+
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                // xóa ảnh cũ nếu có ảnh mới
+                if (!string.IsNullOrEmpty(OldImageUrl) && OldImageUrl != "nophoto1.png")
+                {
+                    _service.DeleteImage(OldImageUrl);
+                }
+                user.ImageAvat = imageName;
+            }
+            else
+            {
+                user.ImageAvat = OldImageUrl;
+            }
+
+            ModelState.Remove("ImageFile");
+
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
 
             await _service.UpdateAsync(user);
             return RedirectToAction(nameof(Index));

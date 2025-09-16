@@ -28,12 +28,12 @@
                     <tr class="bg-primary">
                         <th>User ID</th>
                         <th>User Name</th>
-                        <th>Password Hash</th>
+                        <th>Pass Hash</th>
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Role</th>
-                        @* <th>ImageAvat</th> *@
-                        <th>Is Avtive ?</th>
+                        <th>ImageAvat</th>
+                        <th>Is Avtive</th>
                         <th style="width:95px"></th>
                     </tr>
                 </thead>
@@ -43,13 +43,11 @@
                         <tr>
                             <td>@table.UserId</td>
                             <td>@table.Username</td>
-                            <td>@table.PasswordHash</td>
+                            <td>*** *** ***</td>
                             <td>@table.FullName</td>
                             <td>@table.Email</td>
                             <td>@table.Role</td>
-                            @* <td>
-                                <img src="~/images/Users/" style="width:50px; height:50px; object-fit:cover; border-radius:50%;" />
-                            </td> *@
+                            <td>@table.ImageAvat</td>
                             <td>@table.IsActive</td>
                             <td>
                                 <a href="~/Users/Details/@table.UserId" class="btn btn-xs btn-success"><i class="fa fa-folder"></i></a>

@@ -4,7 +4,7 @@
     var email = Context.Session.GetString("Email") ?? "Guess";
     var role = Context.Session.GetString("Role") ?? "Customer";
     var userId = Context.Session.GetInt32("UserId") ?? 1;
-
+    var imageAvatar = Context.Session.GetString("ImageAvat") ?? "nophoto1.png";
     var currenttableId = Context.Session.GetInt32("CurrentTableId");
 }
 
@@ -70,13 +70,13 @@
                 else
                 {
                     <div class="user-avatar" onclick="toggleUserDropdown()">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                        <img src="~/images/Users/@imageAvatar" alt="User Avatar">
                         <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </div>
 
                     <div class="user-dropdown" id="userDropdown">
                         <div class="dropdown-header">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%234CAF50'/%3E%3Ccircle cx='20' cy='15' r='6' fill='%23fff'/%3E%3Cpath d='M8 32 Q8 26 20 26 Q32 26 32 32' fill='%23fff'/%3E%3C/svg%3E" alt="User Avatar">
+                            <img src="~/images/Users/@imageAvatar" alt="User Avatar">
                             <div>
                                 <h4>@fullname</h4>
                                 <p>Role: @role</p>

@@ -41,21 +41,36 @@ namespace OrderFood_SW.Services
             }
         }
 
-        public async Task<string?> SaveImageAsync(IFormFile? imageFile)
+        public async Task<string?> SaveImageAsync(IFormFile? file)
         {
-            if (imageFile == null || imageFile.Length == 0) return null;
+            if (file == null || file.Length == 0) return null;
 
-            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-            string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products");
-            Directory.CreateDirectory(uploadFolder);
-            string filePath = Path.Combine(uploadFolder, fileName);
+            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products");
+            if (!Directory.Exists(uploadDir))
+            {
+                Directory.CreateDirectory(uploadDir);
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadDir, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await imageFile.CopyToAsync(stream);
+                await file.CopyToAsync(stream);
             }
 
             return fileName;
+        }
+
+        public void DeleteImage(string? fileName)
+        {
+            if (string.IsNullOrEmpty(fileName) || fileName == "nophoto1.png") return;
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Products", fileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }

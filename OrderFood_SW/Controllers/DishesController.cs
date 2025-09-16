@@ -59,7 +59,20 @@ namespace OrderFood_SW.Controllers
             if (id != dish.DishId) return NotFound();
 
             var imageName = await _service.SaveImageAsync(ImageFile);
-            dish.ImageUrl = imageName ?? OldImageUrl;
+
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                // xóa ảnh cũ nếu có ảnh mới
+                if (!string.IsNullOrEmpty(OldImageUrl) && OldImageUrl != "nophoto1.png")
+                {
+                    _service.DeleteImage(OldImageUrl);
+                }
+                dish.ImageUrl = imageName;
+            }
+            else
+            {
+                dish.ImageUrl = OldImageUrl;
+            }
 
             ModelState.Remove("ImageFile");
             ModelState.Remove("OrderDetails");

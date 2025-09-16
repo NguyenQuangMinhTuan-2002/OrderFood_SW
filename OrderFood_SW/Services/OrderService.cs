@@ -150,6 +150,8 @@ namespace OrderFood_SW.Services
 
             // Tính tổng tiền
             decimal total = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice);
+            double tax = 0.1;
+            total += total * (decimal)tax;
             order.TotalAmount = total;
 
             // Đổi trạng thái đơn hàng sang "2 = đã duyệt"

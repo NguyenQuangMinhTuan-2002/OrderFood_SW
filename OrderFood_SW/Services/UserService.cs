@@ -21,10 +21,26 @@ namespace OrderFood_SW.Services
             await _repo.AddAsync(user);
         }
 
-        public async Task UpdateAsync(Users user)
+        public async Task<Users?> UpdateAsync(Users vm)
         {
-            user.PasswordHash = HashPassword(user.PasswordHash);
+            var user = await _repo.GetByIdAsync(vm.UserId);
+            if (user == null) return null;
+
+            user.UserId = vm.UserId;
+            user.Username = vm.Username;
+            user.FullName = vm.FullName;
+            user.Email = vm.Email;
+            user.Role = vm.Role;
+            user.ImageAvat = vm.ImageAvat;
+            user.IsActive = vm.IsActive;
+
+            if (!string.IsNullOrEmpty(vm.NewPassword))
+            {
+                user.PasswordHash = HashPassword(vm.NewPassword);
+            }
+
             await _repo.UpdateAsync(user);
+            return user;
         }
 
         public Task DeleteAsync(Users user) => _repo.DeleteAsync(user);
@@ -34,6 +50,38 @@ namespace OrderFood_SW.Services
             using var sha = SHA256.Create();
             var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(raw));
             return string.Concat(bytes.Select(b => b.ToString("x2")));
+        }
+
+        public async Task<string?> SaveImageAsync(IFormFile? file)
+        {
+            if (file == null || file.Length == 0) return null;
+
+            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Users");
+            if (!Directory.Exists(uploadDir))
+            {
+                Directory.CreateDirectory(uploadDir);
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadDir, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return fileName;
+        }
+
+        public void DeleteImage(string? fileName)
+        {
+            if (string.IsNullOrEmpty(fileName) || fileName == "nophoto1.png") return;
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Users", fileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }

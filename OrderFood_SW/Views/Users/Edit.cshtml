@@ -14,8 +14,9 @@
                         <strong>Edit User Information</strong>
                     </div>
                     <div class="panel-body">
-                        <form asp-action="Edit" class="form-horizontal" role="form">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <form asp-action="Edit" enctype="multipart/form-data" class="form-horizontal" role="form">
+                            <input type="hidden" name="OldImageUrl" value="@Model.ImageAvat" />
+                            <div asp-validation-summary="All" class="text-danger"></div>
 
                             <div class="form-group">
                                 <label asp-for="UserId" class="col-sm-3 control-label"></label>
@@ -34,10 +35,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="PasswordHash" class="col-sm-3 control-label"></label>
+                                <label asp-for="NewPassword" class="col-sm-3 control-label"></label>
                                 <div class="col-sm-9">
-                                    <input asp-for="PasswordHash" class="form-control" />
-                                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                                    <input asp-for="NewPassword" class="form-control" type="password" placeholder="Enter new password" />
+                                    <div class="password-hint">* Leave blank to keep current password</div>
                                 </div>
                             </div>
 
@@ -71,6 +72,22 @@
                                     <label class="form-check-label" style="margin-top:6px">
                                         <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                                     </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Image Avatar</label>
+                                <div class="col-sm-9">
+                                    <img style="width:200px; height: 150px" src="~/images/Users/@Model.ImageAvat" alt="No photo" />
+                                </div>
+                            </div>
+
+                            <!-- Upload New Image -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Upload new</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="ImageFile" class="form-control" />
+                                    <span asp-validation-for="ImageAvat" class="text-danger"></span>
                                 </div>
                             </div>
 

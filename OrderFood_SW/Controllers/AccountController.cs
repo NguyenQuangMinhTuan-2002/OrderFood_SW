@@ -43,6 +43,7 @@ namespace OrderFood_SW.Controllers
                 HttpContext.Session.SetString("Email", user.Email);
                 HttpContext.Session.SetString("Role", user.Role);
                 HttpContext.Session.SetInt32("IsActive", user.IsActive ? 1 : 0);
+                HttpContext.Session.SetString("ImageAvat", user.ImageAvat ?? "nophoto1.png");
 
                 if (user.Role == "Admin" || user.Role == "Staff")
                     return RedirectToAction("Index", "Home");

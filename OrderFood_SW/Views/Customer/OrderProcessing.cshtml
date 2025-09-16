@@ -22,74 +22,81 @@
     }
     else
     {
-    <!-- Orders Container -->
-    <div class="orders-container">
-        @foreach (var item in Model)
-        {
-            <div class="order-card">
-                <div class="order-header">
-                    <div class="order-info">
-                        <div class="order-id">#@item.OrderId</div>
-                        <div class="order-date">@item.OrderTime</div>
+        <!-- Orders Container -->
+        <div class="orders-container">
+            @foreach (var item in Model)
+            {
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-id">#@item.OrderId</div>
+                            <div class="order-date">@item.OrderTime</div>
+                        </div>
+                        <div class="order-status">
+                            <span class="status-badge status-processing">Pending...</span>
+                            @{
+                                double v = 0;
+                                foreach (var detail in item.OrderDetails)
+                                {
+                                    v += (double)(detail.UnitPrice * detail.Quantity);
+                                }
+                            }
+                            <div class="order-total">@v</div>
+                        </div>
                     </div>
-                    <div class="order-status">
-                        <span class="status-badge status-processing">Pending...</span>
-                        <div class="order-total">@item.TotalAmount</div>
-                    </div>
-                </div>
-                <div class="order-body">
-                    <div class="order-items">
-                        @foreach (var detail in item.OrderDetails)
+                    <div class="order-body">
+                        <div class="order-items">
+                            @foreach (var detail in item.OrderDetails)
+                            {
+                                <div class="order-item">
+                                    <img src="~/images/Products/@detail.ImageUrl" class="item-image">
+                                    <div class="item-details">
+                                        <div class="item-name">@detail.DishName</div>
+                                        @* <div class="item-description">@detail.</div> *@
+                                    </div>
+                                    <div class="item-price-qty">
+                                        <span class="item-quantity">@detail.Quantity</span>
+                                        <span class="item-price">@detail.UnitPrice</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        @if (item.OrderStatus.Equals("2"))
                         {
-                            <div class="order-item">
-                                <img src="~/images/Products/@detail.ImageUrl" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-name">@detail.DishName</div>
-                                    @* <div class="item-description">@detail.</div> *@
-                                </div>
-                                <div class="item-price-qty">
-                                    <span class="item-quantity">@detail.Quantity</span>
-                                    <span class="item-price">@detail.UnitPrice</span>
-                                </div>
+                            <div class="order-actions">
+                                <a asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
+                                    See more details
+                                </a>
+                                <form method="post" asp-action="ReOrder" asp-controller="Customer">
+                                    <input type="hidden" name="orderId" value="@item.OrderId" />
+                                    <input type="hidden" name="tableId" value="@tableId" />
+                                    <button class="action-btn btn-primary">Re-Order</button>
+                                </form>
+                            </div>
+                        }
+                        else if (item.OrderStatus.Equals("1"))
+                        {
+                            <div class="order-actions">
+                                <a style="text-decoration: none" asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
+                                    See more details
+                                </a>
+                                <form method="post" asp-action="CancelOrder" asp-controller="Customer">
+                                    <input type="hidden" name="orderId" value="@item.OrderId" />
+                                    <button type="submit" class="action-btn btn-secondary">Cancel</button>
+                                </form>
+                            </div>
+                        }
+                        else if (item.OrderStatus.Equals("-1"))
+                        {
+                            <div class="order-actions">
+                                <a asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
+                                    See more details
+                                </a>
                             </div>
                         }
                     </div>
-                    @if (item.OrderStatus.Equals("2"))
-                    {
-                        <div class="order-actions">
-                            <a asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
-                                See more details
-                            </a>
-                            <form method="post" asp-action="ReOrder" asp-controller="Customer">
-                                <input type="hidden" name="orderId" value="@item.OrderId" />
-                                <input type="hidden" name="tableId" value="@tableId" />
-                                <button class="action-btn btn-primary">Re-Order</button>
-                            </form>
-                        </div>
-                    }
-                    else if (item.OrderStatus.Equals("1"))
-                    {
-                        <div class="order-actions">
-                                <a style="text-decoration: none" asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
-                                See more details
-                            </a>
-                            <form method="post" asp-action="CancelOrder" asp-controller="Customer">
-                                <input type="hidden" name="orderId" value="@item.OrderId" />
-                                <button type="submit" class="action-btn btn-secondary">Cancel</button>
-                            </form>
-                        </div>
-                    }
-                    else if (item.OrderStatus.Equals("-1"))
-                    {
-                        <div class="order-actions">
-                            <a asp-action="OrderDetails" asp-controller="Customer" asp-route-orderId="@item.OrderId" class="action-btn btn-secondary">
-                                See more details
-                            </a>
-                        </div>
-                    }
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
     }
 </div>

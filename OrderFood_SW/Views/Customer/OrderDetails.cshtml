@@ -30,7 +30,7 @@
                 @if (Model.Order.OrderStatus == 2)
                 {
                     <span class="meta-value">Has Served</span>
-                } 
+                }
                 else if (Model.Order.OrderStatus == 1)
                 {
                     <span class="meta-value" style="color: gold">Processing</span>
@@ -43,8 +43,16 @@
         </div>
 
         <div class="total-amount">
-            <div class="total-label">Total Amount</div>
-            <div class="total-value">@Model.Order.TotalAmount</div>
+            <!-- fix -->
+            <div class="total-label">Total Amount (Expected)</div>
+            @{
+                double v = 0;
+                foreach (var item in Model.OrderDetails)
+                {
+                    v += (double)(item.DishPrice * item.Quantity);
+                }
+            }
+            <div class="total-value">@v</div>
         </div>
     </div>
 
@@ -84,7 +92,7 @@
                             @if (item.DishStatus == 1)
                             {
                                 <div class="item-status">Has Served</div>
-                            } 
+                            }
                             else if (item.DishStatus == 0)
                             {
                                 <div class="item-status" style="background-color:gold; color: black">Pending...</div>
@@ -126,7 +134,6 @@
         </div>
 
         <div style="text-align:center">
-
         </div>
 
         <div class="summary-section">
@@ -145,12 +152,21 @@
                 <span>@t</span>
             </div>
             <div class="summary-row">
-                <span>Thuế VAT (0%):</span>
-                <span>0 VND</span>
+                <span>Thuế VAT (10%):</span>
+                @{
+                    double x = 0.1;
+                    double s = 0;
+                    s = (double)t * x;
+                }
+                <span>@s VND</span>
             </div>
             <div class="summary-row total">
                 <span>Sumary:</span>
-                <span>@t</span>
+                @{
+                    double sum = 0;
+                    sum = (double)t + s;
+                }
+                <span>@sum</span>
             </div>
 
             <!-- check status == 1 still can add dish -->
