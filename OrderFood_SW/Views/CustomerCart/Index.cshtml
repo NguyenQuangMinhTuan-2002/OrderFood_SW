@@ -60,19 +60,19 @@
             <div class="cart-summary">
                 <div class="summary-row">
                     <span>Subtotal:</span>
-                    <span id="subtotalValue">$@subtotal.ToString("0.00")</span>
+                    <span id="subtotalValue">đ @subtotal.ToString("0.00")</span>
                 </div>
                 <div class="summary-row">
-                    <span>Tax (8%):</span>
-                    <span id="taxValue">$@tax.ToString("0.00")</span>
+                    <span>Tax (10%):</span>
+                    <span id="taxValue">đ @tax.ToString("0.00")</span>
                 </div>
                 <div class="summary-row">
                     <span>Delivery Fee:</span>
-                    <span id="deliveryValue">@(deliveryFee == 0 ? "FREE" : "$" + deliveryFee.ToString("0.00"))</span>
+                    <span id="deliveryValue">@(deliveryFee == 0 ? "FREE" : "đ" + deliveryFee.ToString("0.00"))</span>
                 </div>
                 <div class="summary-row total-row">
                     <span>Total:</span>
-                    <span id="totalValue">@total.ToString("0.00")đ</span>
+                    <span id="totalValue">đ @total.ToString("0.00")</span>
                 </div>
                 <form method="post" asp-controller="CustomerOrder" asp-action="OrderInit">
                     <input type="hidden" name="tableId" value="@ViewBag.TableId" />
@@ -87,7 +87,7 @@
 
 <script>
         // ---- Cấu hình khớp với View/Razor ----
-    const TAX_RATE = 0.08;                    // 8%
+    const TAX_RATE = 0.1;                    // 10%
     const FREE_SHIPPING_THRESHOLD = 50;       // miễn phí giao khi >= 50
     const DELIVERY_FEE = 5;                   // phí mặc định khi < threshold
 

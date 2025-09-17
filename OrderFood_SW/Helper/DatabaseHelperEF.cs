@@ -36,6 +36,10 @@ namespace OrderFood_SW.Helper
                 .HasOne(od => od.Dish)
                 .WithMany(d => d.OrderDetails)
                 .HasForeignKey(od => od.DishId);
+
+            modelBuilder.Entity<OrderDetail>()
+                .Property(od => od.OrderDetailId)
+                .ValueGeneratedOnAdd();
         }
 
     }

@@ -25,6 +25,21 @@
             <a asp-action="Revenue" asp-route-period="year" class="time-btn @(Model.Period == "year" ? "active" : "")">Yearly</a>
         </div>
 
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3 class="chart-title">Top 5 Best-Selling Items</h3>
+                <div class="canvas-container">
+                    <canvas id="topDishChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Revenue by Shift</h3>
+                <div class="canvas-container">
+                    <canvas id="shiftChart"></canvas>
+                </div>
+            </div>
+        </div>
+
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>Total Revenue</h3>
@@ -55,7 +70,7 @@
 
         <br />
 
-        <div class="charts-container">
+        @* <div class="charts-container">
             <div class="chart-card">
                 <h3 class="chart-title">Top 5 Best-Selling Items</h3>
                 <div class="canvas-container">
@@ -68,7 +83,7 @@
                     <canvas id="shiftChart"></canvas>
                 </div>
             </div>
-        </div>
+        </div> *@
     </div>
 
     <div class="shift-analysis" style="margin-bottom: 15px; margin-top: 0px">

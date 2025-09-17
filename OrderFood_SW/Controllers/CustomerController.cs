@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
 using OrderFood_SW.Services;
 using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    [AllowAnonymous]
+    [AuthorizeRole("Admin", "Staff", "Customer")]
     public class CustomerController : Controller
     {
         private readonly CustomerService _service;

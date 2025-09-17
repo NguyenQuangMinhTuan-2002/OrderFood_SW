@@ -15,7 +15,7 @@
                     <th>Quantity</th>
                     <th>Unit Price</th>
                     <th>Total Price</th>
-                    <th style="width:50px"></th>
+                    <th style="width: 77px ;color: darkgray">Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,8 @@
                         <td>@item.Price</td>
                         <td>@item.Total</td>
                         <td>
-                            <button onclick="removeFromCart(@item.DishId)" class="btn btn-xs btn-danger"><i class="fa fa-minus"></i></button>
+                            <button style="margin-right: 10px" onclick="removeFromCart(@item.DishId)" class="btn btn-xs btn-danger"><i class="fa fa-minus"></i></button>
+                            <button onclick="#" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></button>
                         </td>
                     </tr>
                 }
