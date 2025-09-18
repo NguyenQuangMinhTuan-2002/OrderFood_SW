@@ -4,7 +4,7 @@ namespace OrderFood_SW.ViewModels
 {
     public class OrderPageModel
     {
-        public string SearchKeyword { get; set; }
+        public string SearchKeyword { get; set; } = string.Empty;
         public int SelectedCategoryId { get; set; } = 0;
 
         public List<Dish> FoundDishes { get; set; } = new List<Dish>();

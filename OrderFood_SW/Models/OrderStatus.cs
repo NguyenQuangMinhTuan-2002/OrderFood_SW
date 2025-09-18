@@ -6,6 +6,6 @@ namespace OrderFood_SW.Models
     {
         [Key]
         public int Status { get; set; }
-        public string StatusDescription { get; set; }
+        public string StatusDescription { get; set; } = string.Empty;
     }
 }
