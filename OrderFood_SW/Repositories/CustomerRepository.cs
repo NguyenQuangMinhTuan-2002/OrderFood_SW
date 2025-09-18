@@ -178,10 +178,7 @@ namespace OrderFood_SW.Repositories
         {
             return await _db.OrderDetails
             .Where(od => od.OrderId == orderId)
-            .Join(_db.Dishes,
-                od => od.DishId,
-                d => d.DishId,
-                (od, d) => new DetailsWithDish
+            .Join(_db.Dishes,od => od.DishId,d => d.DishId,(od, d) => new DetailsWithDish
                 {
                     DishId = d.DishId,
                     ImageUrl = d.ImageUrl ?? "nophoto.png",
@@ -189,7 +186,8 @@ namespace OrderFood_SW.Repositories
                     Quantity = od.Quantity,
                     DishPrice = d.DishPrice,
                     DishStatus = od.DishStatus,
-                    OrderId = od.OrderId
+                    OrderId = od.OrderId,
+                    Note = od.Note ?? ""
                 })
             .ToListAsync();
         }

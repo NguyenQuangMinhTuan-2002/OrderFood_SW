@@ -51,7 +51,14 @@
                                 <div class="order-item">
                                     <img src="~/images/Products/@detail.ImageUrl" class="item-image">
                                     <div class="item-details">
-                                        <div class="item-name">@detail.DishName</div>
+                                        @{
+                                            var note = item.Note;
+                                            if (note.Equals("n/a"))
+                                            {
+                                                note = "";
+                                            }
+                                        }
+                                        <div class="item-name">@detail.DishName (@note)</div>
                                         @* <div class="item-description">@detail.</div> *@
                                     </div>
                                     <div class="item-price-qty">

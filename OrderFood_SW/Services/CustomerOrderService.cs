@@ -84,7 +84,8 @@ namespace OrderFood_SW.Services
                 {
                     OrderId = newOrder.OrderId,
                     DishId = item.DishId,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    Note = item.Note ?? "n/a"
                 });
             }
 
@@ -120,7 +121,8 @@ namespace OrderFood_SW.Services
                         DishName = dish.DishName,
                         ImageUrl = dish.ImageUrl ?? "nophoto.png",
                         Price = dish.DishPrice,
-                        Quantity = item.Quantity
+                        Quantity = item.Quantity,
+                        Note = item.Note ?? "n/a"
                     });
                 }
             }
