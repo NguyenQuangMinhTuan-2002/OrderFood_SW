@@ -35,10 +35,10 @@ namespace OrderFood_SW.Services
             return cart.Sum(x => x.Quantity);
         }
 
-        public (bool Success, string Message, int Count) UpdateQuantity(int dishId, int change)
+        public (bool Success, string Message, int Count) UpdateQuantity(string cartItemId, int change)
         {
             var cart = GetCart();
-            var item = cart.FirstOrDefault(x => x.DishId == dishId);
+            var item = cart.FirstOrDefault(x => x.CartItemId == cartItemId);
             if (item == null)
                 return (false, "Item not found", cart.Sum(x => x.Quantity));
 
@@ -49,10 +49,11 @@ namespace OrderFood_SW.Services
             return (true, "Quantity updated", cart.Sum(x => x.Quantity));
         }
 
-        public (bool Success, int Count) RemoveFromCart(int dishId)
+
+        public (bool Success, int Count) RemoveFromCart(string Id)
         {
             var cart = GetCart();
-            var item = cart.FirstOrDefault(x => x.DishId == dishId);
+            var item = cart.FirstOrDefault(x => x.CartItemId == Id);
             if (item != null) cart.Remove(item);
 
             SaveCart(cart);

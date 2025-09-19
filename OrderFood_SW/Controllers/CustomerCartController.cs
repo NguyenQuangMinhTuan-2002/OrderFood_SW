@@ -61,14 +61,15 @@ namespace OrderFood_SW.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateCartQuantity(int dishId, int change)
+        public IActionResult UpdateCartQuantity(string id, int change)
         {
-            var result = _cartService.UpdateQuantity(dishId, change);
+            var result = _cartService.UpdateQuantity(id, change);
             return Json(new { success = result.Success, message = result.Message, count = result.Count });
         }
 
+
         [HttpPost]
-        public IActionResult RemoveFromCart(int id)
+        public IActionResult RemoveFromCart(string id)
         {
             var result = _cartService.RemoveFromCart(id);
             return Json(new { success = result.Success, count = result.Count });

@@ -2,7 +2,7 @@
 {
     public class OrderCartItem
     {
-        public int OrderDetailId { get; set; }
+        public string CartItemId { get; set; } = Guid.NewGuid().ToString(); // Unique identifier for the cart item
 
         public int DishId { get; set; }
         public string ImageUrl { get; set; } = string.Empty;

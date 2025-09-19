@@ -136,6 +136,7 @@ namespace OrderFood_SW.Controllers
                 // 4) Thêm mới vào cart (chỉ khi chưa có)
                 cart.Add(new OrderCartItem
                 {
+                    CartItemId = Guid.NewGuid().ToString(),
                     DishId = dish.DishId,
                     ImageUrl = dish.ImageUrl ?? "nophoto.png",
                     DishName = dish.DishName,

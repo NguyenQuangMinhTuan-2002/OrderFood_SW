@@ -36,22 +36,25 @@
         {
             @foreach (var item in Model)
             {
-                <div class="cart-item" data-id="@item.DishId" data-price="@item.Price">
+                <div class="cart-item" data-id="@item.CartItemId" data-price="@item.Price">
                     <img src="~/images/Products/@item.ImageUrl" alt="@item.DishName" class="item-image">
                     <div class="item-details">
                         <div class="item-name">@item.DishName</div>
                         <div class="item-price">$@item.Price.ToString("0.00")</div>
                     </div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="updateQuantity(@item.DishId, -1)">
+                        <button class="quantity-btn" onclick="updateQuantity('@item.CartItemId', -1)">
                             <i class="fas fa-minus"></i>
                         </button>
                         <div class="quantity-display">@item.Quantity</div>
-                        <button class="quantity-btn" onclick="updateQuantity(@item.DishId, 1)">
+                        <button class="quantity-btn" onclick="updateQuantity('@item.CartItemId', 1)">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <button class="remove-btn" onclick="removeItem(@item.DishId)">
+                    @* <button class="add-note-btn" onclick="showNoteModal(@item.OrderDetailId)">
+                            <i class="fas fa-sticky-note"></i> Add Note
+                        </button> *@
+                    <button class="remove-btn" onclick="removeItem('@item.CartItemId')">
                         <i class="fas fa-trash"></i> Remove
                     </button>
                 </div>
@@ -151,42 +154,36 @@
     }
 
     // ---- API calls ----
-    function updateQuantity(dishId, change) {
-        // Khóa tạm các nút của item để tránh double click
-        const itemEl = document.querySelector(`.cart-item[data-id="${dishId}"]`);
+        function updateQuantity(cartItemId, change) {
+        const itemEl = document.querySelector(`.cart-item[data-id="${cartItemId}"]`);
         const buttons = itemEl ? $all('.quantity-btn', itemEl) : [];
         buttons.forEach(b => b.disabled = true);
 
-        fetch(`/CustomerCart/UpdateCartQuantity?dishId=${dishId}&change=${change}`, {
+        fetch(`/CustomerCart/UpdateCartQuantity?id=${encodeURIComponent(cartItemId)}&change=${change}`, {
             method: 'POST'
         })
         .then(r => r.json())
         .then(data => {
             if (!data.success) throw new Error(data.message || 'Update failed');
 
-            // Cập nhật UI cục bộ
             const qtyEl = itemEl ? $('.quantity-display', itemEl) : null;
             if (qtyEl) {
                 const newQty = (parseInt(qtyEl.textContent.trim(), 10) || 0) + change;
                 if (newQty <= 0) {
-                    // Bị xóa trên server => xóa DOM
                     itemEl.remove();
                 } else {
                     qtyEl.textContent = newQty;
                 }
             }
 
-            // Cập nhật badge từ count server trả về
             updateBadge(data.count);
 
-            // Nếu không còn item nào -> empty state
             const remain = document.querySelectorAll('.cart-item[data-id]').length;
             if (remain === 0) {
                 showEmptyState();
                 return;
             }
 
-            // Tính lại tổng
             recalcTotals();
         })
         .catch(err => {
@@ -198,14 +195,15 @@
         });
     }
 
-    function removeItem(dishId) {
+
+    function removeItem(CartItemId) {
         // if (!confirm('Remove this item from your cart?')) return;
 
-        const itemEl = document.querySelector(`.cart-item[data-id="${dishId}"]`);
+        const itemEl = document.querySelector(`.cart-item[data-id="${CartItemId}"]`);
         const rmBtn = itemEl ? $('.remove-btn', itemEl) : null;
         if (rmBtn) rmBtn.disabled = true;
 
-        fetch(`/CustomerCart/RemoveFromCart?id=${dishId}`, {
+        fetch(`/CustomerCart/RemoveFromCart?id=${CartItemId}`, {
             method: 'POST'
         })
         .then(r => r.json())
