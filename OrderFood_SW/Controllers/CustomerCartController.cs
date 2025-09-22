@@ -74,5 +74,12 @@ namespace OrderFood_SW.Controllers
             var result = _cartService.RemoveFromCart(id);
             return Json(new { success = result.Success, count = result.Count });
         }
+
+        [HttpPost]
+        public IActionResult UpdateNote(string id, string note)
+        {
+            var result = _cartService.UpdateNote(id, note);
+            return Json(new { success = result.Success, message = result.Message });
+        }
     }
 }

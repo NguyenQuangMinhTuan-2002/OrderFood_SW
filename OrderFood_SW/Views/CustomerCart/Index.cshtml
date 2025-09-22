@@ -40,6 +40,7 @@
                     <img src="~/images/Products/@item.ImageUrl" alt="@item.DishName" class="item-image">
                     <div class="item-details">
                         <div class="item-name">@item.DishName</div>
+                        <div class="item-note">Note: @item.Note</div>
                         <div class="item-price">$@item.Price.ToString("0.00")</div>
                     </div>
                     <div class="quantity-controls">
@@ -51,12 +52,14 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    @* <button class="add-note-btn" onclick="showNoteModal(@item.OrderDetailId)">
+                    <div style="display:flex; gap: 10px">
+                        <button class="add-note-btn" onclick="showNoteModal('@item.CartItemId')">
                             <i class="fas fa-sticky-note"></i> Add Note
-                        </button> *@
-                    <button class="remove-btn" onclick="removeItem('@item.CartItemId')">
-                        <i class="fas fa-trash"></i> Remove
-                    </button>
+                        </button>
+                        <button class="remove-btn" onclick="removeItem('@item.CartItemId')">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
                 </div>
             }
 
@@ -88,11 +91,99 @@
     </div>
 </div>
 
+
+<!-- Note Modal -->
+<div id="noteModal" class="note-modal">
+    <div class="note-modal-content">
+        <h3><i class="fas fa-sticky-note"></i> Add Special Instructions</h3>
+        <textarea id="noteInput" class="note-input" placeholder="Enter any special instructions for this dish (e.g., no onions, extra cheese, well done, etc.)"></textarea>
+        <div class="note-modal-buttons">
+            <button class="note-modal-btn note-cancel-btn" onclick="closeNoteModal()">Cancel</button>
+            <button class="note-modal-btn note-save-btn" onclick="saveNote()">Save Note</button>
+            <button class="note-modal-btn note-save-btn" onclick="savenewNote()">Save As New</button>
+        </div>
+    </div>
+</div>
+
 <script>
-        // ---- Cấu hình khớp với View/Razor ----
+    // ---- Cấu hình khớp với View/Razor ----
     const TAX_RATE = 0.1;                    // 10%
     const FREE_SHIPPING_THRESHOLD = 50;       // miễn phí giao khi >= 50
     const DELIVERY_FEE = 5;                   // phí mặc định khi < threshold
+
+    function showNoteModal(CartItemId) {
+        currentDishForNote = CartItemId;
+        const modal = document.getElementById('noteModal');
+        const input = document.getElementById('noteInput');
+        input.value = '';
+        modal.style.display = 'block';
+        input.focus();
+    }
+
+        let currentDishForNote = null;
+
+    function saveNote() {
+        const input = document.getElementById('noteInput');
+        const note = input.value.trim();
+        if (!currentDishForNote) return;
+
+        fetch(`/CustomerCart/UpdateNote?id=${encodeURIComponent(currentDishForNote)}&note=${encodeURIComponent(note)}`, {
+            method: 'POST'
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) throw new Error(data.message || 'Save note failed');
+
+            // Cập nhật UI: hiển thị note ngay trên item
+            const itemEl = document.querySelector(`.cart-item[data-id="${currentDishForNote}"]`);
+            if (itemEl) {
+                let noteEl = itemEl.querySelector('.item-note');
+                if (!noteEl) {
+                    noteEl = document.createElement('div');
+                    noteEl.className = 'item-note';
+                    itemEl.appendChild(noteEl);
+                }
+                noteEl.textContent = "Note: " + note;
+            }
+
+            closeNoteModal();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Failed to save note.");
+        });
+    }
+
+
+    function savenewNote() {}
+
+    function createItemWithNote(originalDishId, note) {
+        const dish = dishData[originalDishId];
+        const newId = nextItemId++;
+        // Create new cart item HTML
+        const newItemHtml = ``;
+    }
+
+    // close modal
+    function closeNoteModal() {
+        const modal = document.getElementById('noteModal');
+        modal.style.display = 'none';
+        currentDishForNote = null;
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('noteModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeNoteModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeNoteModal();
+        }
+    });
 
     // ---- Utils ----
     function $(sel, root = document) { return root.querySelector(sel); }

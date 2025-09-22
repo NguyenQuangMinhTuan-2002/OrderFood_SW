@@ -71,5 +71,18 @@ namespace OrderFood_SW.Services
             var tableNumber = _cartRepo.GetTableNumberById(tableId);
             return (tableId, tableNumber);
         }
+
+        public (bool Success, string Message) UpdateNote(string id, string note)
+        {
+            var cart = GetCart();
+            var item = cart.FirstOrDefault(x => x.CartItemId == id);
+            if (item == null)
+                return (false, "Item not found");
+
+            item.Note = note;
+            SaveCart(cart);
+
+            return (true, "Note updated");
+        }
     }
 }

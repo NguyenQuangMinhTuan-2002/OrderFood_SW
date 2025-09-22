@@ -106,7 +106,8 @@ namespace OrderFood_SW.Repositories
                     Quantity = od.Quantity,
                     DishPrice = d.DishPrice,
                     DishStatus = od.DishStatus,
-                    OrderId = od.OrderId
+                    OrderId = od.OrderId,
+                    Note = od.Note ?? "n/a"
                 }).ToList();
         }
         public async Task UpdateDishStatusAsync(int orderId, int dishId, int dishStatus)

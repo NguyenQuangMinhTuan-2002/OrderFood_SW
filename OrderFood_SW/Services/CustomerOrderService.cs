@@ -1,4 +1,5 @@
-﻿using OrderFood_SW.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using OrderFood_SW.Models;
 using OrderFood_SW.Repositories;
 using OrderFood_SW.ViewModels;
 
@@ -38,11 +39,17 @@ namespace OrderFood_SW.Services
                     continue;
                 }
 
+                if (item.Note.Equals(""))
+                {
+                    item.Note = "n/a";
+                }
+
                 _repo.AddOrderDetail(new OrderDetail
                 {
                     OrderId = order.OrderId,
                     DishId = item.DishId,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    Note = string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note
                 });
             }
 
@@ -85,7 +92,7 @@ namespace OrderFood_SW.Services
                     OrderId = newOrder.OrderId,
                     DishId = item.DishId,
                     Quantity = item.Quantity,
-                    Note = item.Note ?? "n/a"
+                    Note = string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note
                 });
             }
 
