@@ -97,7 +97,8 @@ namespace OrderFood_SW.Repositories
                                 DishName = d.DishName,
                                 ImageUrl = d.ImageUrl ?? "nophoto.png",
                                 Quantity = od.Quantity,
-                                UnitPrice = d.DishPrice
+                                UnitPrice = d.DishPrice,
+                                Note = od.Note ?? "n/a"
                             })
                         .ToList()
                 })
@@ -128,7 +129,8 @@ namespace OrderFood_SW.Repositories
                                 DishName = d.DishName,
                                 ImageUrl = d.ImageUrl ?? "nophoto.png",
                                 Quantity = od.Quantity,
-                                UnitPrice = d.DishPrice
+                                UnitPrice = d.DishPrice,
+                                Note = od.Note ?? "n/a"
                             })
                         .ToList()
                 })

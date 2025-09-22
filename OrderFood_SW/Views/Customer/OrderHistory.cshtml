@@ -76,10 +76,10 @@
                                 <img src="~/images/Products/@detail.ImageUrl" alt="pic" class="item-image">
                                 <div class="item-details">
                                     @{
-                                        var note = item.Note;
+                                        var note = detail.Note;
                                         if (note.Equals("n/a"))
                                         {
-                                            note = "normal";
+                                            note = "no note";
                                         }
                                     }
                                     <div class="item-name">@detail.DishName (@note)</div>

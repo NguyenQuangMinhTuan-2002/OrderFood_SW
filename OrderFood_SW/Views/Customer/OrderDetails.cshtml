@@ -84,7 +84,14 @@
                         <td>
                             <div class="item-name">@item.DishName</div>
                         </td>
-                        <td>@item.Note</td>
+                        @{
+                            var note = item.Note;
+                            if (note.Equals("n/a"))
+                            {
+                                note = "no note";
+                            }
+                        }
+                        <td>@note</td>
                         <td>
                             <div class="item-quantity">@item.Quantity</div>
                         </td>
