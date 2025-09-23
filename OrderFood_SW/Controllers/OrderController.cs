@@ -182,36 +182,6 @@ public class OrderController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdateOrderNote(int orderId, string note)
-    {
-        var ok = await _service.UpdateOrderNoteAsync(orderId, note);
-        if (!ok)
-        {
-            TempData["Error"] = "Không cập nhật được ghi chú đơn hàng.";
-        }
-        else
-        {
-            TempData["Success"] = "Đã cập nhật ghi chú đơn hàng.";
-        }
-        return RedirectToAction("Detail", new { orderId });
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> UpdateOrderDetailNote(int orderId, int orderDetailId, string note)
-    {
-        var ok = await _service.UpdateOrderDetailNoteAsync(orderDetailId, note);
-        if (!ok)
-        {
-            TempData["Error"] = "Không cập nhật được ghi chú món.";
-        }
-        else
-        {
-            TempData["Success"] = "Đã cập nhật ghi chú món.";
-        }
-        return RedirectToAction("Detail", new { orderId });
-    }
-
-    [HttpPost]
     public async Task<IActionResult> EditDishQuantity(int orderId, int dishId, int quantity)
     {
         await _service.UpdateDishQuantityAsync(orderId, dishId, quantity);
@@ -279,4 +249,45 @@ public class OrderController : Controller
         return RedirectToAction("Create");
     }
 
+    // --- Notes & Duplicate APIs ---
+    [HttpPost]
+    public async Task<IActionResult> UpdateOrderNote(int orderId, string note)
+    {
+        var result = await _service.UpdateOrderNoteAsync(orderId, note);
+        if (!result.Success)
+            TempData["Error"] = result.Message;
+        else
+            TempData["Success"] = result.Message;
+
+        return RedirectToAction("Detail", new { orderId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateOrderDetailNote(int orderId, int orderDetailId, string note, bool saveAsNew = false)
+    {
+        (bool Success, string Message) result;
+        if (saveAsNew)
+            result = await _service.DuplicateOrderDetailWithNoteAsync(orderDetailId, note);
+        else
+            result = await _service.UpdateOrderDetailNoteAsync(orderDetailId, note);
+
+        if (!result.Success)
+            TempData["Error"] = result.Message;
+        else
+            TempData["Success"] = result.Message;
+
+        return RedirectToAction("Detail", new { orderId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveAsNewDetail(int orderId, int orderDetailId, string note)
+    {
+        var result = await _service.DuplicateOrderDetailWithNoteAsync(orderDetailId, note);
+        if (!result.Success)
+            TempData["Error"] = result.Message;
+        else
+            TempData["Success"] = result.Message;
+
+        return RedirectToAction("Detail", new { orderId });
+    }
 }

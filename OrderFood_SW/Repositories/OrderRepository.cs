@@ -208,11 +208,12 @@ namespace OrderFood_SW.Repositories
             await _db.SaveChangesAsync();
         }
 
+        // --- Notes & Duplicate APIs ---
         public async Task<bool> UpdateOrderNoteAsync(int orderId, string note)
         {
             var order = await _db.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
             if (order == null) return false;
-            order.note = note;
+            order.note = note ?? string.Empty;
             await _db.SaveChangesAsync();
             return true;
         }
@@ -221,9 +222,28 @@ namespace OrderFood_SW.Repositories
         {
             var detail = await _db.OrderDetails.FirstOrDefaultAsync(od => od.OrderDetailId == orderDetailId);
             if (detail == null) return false;
-            detail.Note = note;
+            detail.Note = note ?? string.Empty;
             await _db.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<(bool Success, string Message)> DuplicateOrderDetailWithNoteAsync(int orderDetailId, string note)
+        {
+            var detail = await _db.OrderDetails.Include(d => d.Dish).FirstOrDefaultAsync(od => od.OrderDetailId == orderDetailId);
+            if (detail == null) return (false, "Order detail not found");
+
+            var newDetail = new OrderFood_SW.Models.OrderDetail
+            {
+                OrderId = detail.OrderId,
+                DishId = detail.DishId,
+                Quantity = detail.Quantity,
+                DishStatus = 0,
+                Note = note ?? string.Empty
+            };
+
+            _db.OrderDetails.Add(newDetail);
+            await _db.SaveChangesAsync();
+            return (true, "Item duplicated with new note");
         }
     }
 }

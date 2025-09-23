@@ -195,14 +195,22 @@ namespace OrderFood_SW.Services
             return (true, "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).");
         }
 
-        public async Task<bool> UpdateOrderNoteAsync(int orderId, string note)
+        // --- Notes & Duplicate APIs ---
+        public async Task<(bool Success, string Message)> UpdateOrderNoteAsync(int orderId, string note)
         {
-            return await _repo.UpdateOrderNoteAsync(orderId, note);
+            var ok = await _repo.UpdateOrderNoteAsync(orderId, note);
+            return ok ? (true, "Cập nhật ghi chú đơn hàng thành công.") : (false, "Không tìm thấy đơn hàng.");
         }
 
-        public async Task<bool> UpdateOrderDetailNoteAsync(int orderDetailId, string note)
+        public async Task<(bool Success, string Message)> UpdateOrderDetailNoteAsync(int orderDetailId, string note)
         {
-            return await _repo.UpdateOrderDetailNoteAsync(orderDetailId, note);
+            var ok = await _repo.UpdateOrderDetailNoteAsync(orderDetailId, note);
+            return ok ? (true, "Cập nhật ghi chú món thành công.") : (false, "Không tìm thấy món trong đơn hàng.");
+        }
+
+        public async Task<(bool Success, string Message)> DuplicateOrderDetailWithNoteAsync(int orderDetailId, string note)
+        {
+            return await _repo.DuplicateOrderDetailWithNoteAsync(orderDetailId, note);
         }
     }
 }
