@@ -49,7 +49,20 @@ namespace OrderFood_SW.Repositories
 
 
         public void AddOrder(Order order) => _db.Orders.Add(order);
-        public void AddOrderDetail(OrderDetail detail) => _db.OrderDetails.Add(detail);
+        public void AddOrderDetail(OrderDetail detail)
+        {
+            var newDetail = new OrderDetail
+            {
+                OrderId = detail.OrderId,
+                DishId = detail.DishId,
+                Quantity = detail.Quantity,
+                Note = detail.Note,
+                DishStatus = detail.DishStatus
+            };
+
+            _db.OrderDetails.Add(newDetail);
+        }
+
         public void AddOrderDetails(IEnumerable<OrderDetail> details) => _db.OrderDetails.AddRange(details);
 
 

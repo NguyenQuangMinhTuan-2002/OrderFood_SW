@@ -25,7 +25,7 @@ namespace OrderFood_SW.Helper
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<OrderDetail>()
-                .HasKey(od => new { od.OrderId, od.DishId });
+                .HasKey(od => od.OrderDetailId);
 
             modelBuilder.Entity<OrderDetail>()
                 .HasOne(od => od.Order)

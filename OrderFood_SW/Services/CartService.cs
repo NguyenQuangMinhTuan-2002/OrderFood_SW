@@ -84,5 +84,30 @@ namespace OrderFood_SW.Services
 
             return (true, "Note updated");
         }
+
+        public (bool Success, string Message) DuplicateItemWithNote(string id, string note)
+        {
+            var cart = GetCart();
+            var item = cart.FirstOrDefault(x => x.CartItemId == id);
+            if (item == null)
+                return (false, "Item not found");
+
+            var newItem = new OrderCartItem
+            {
+                CartItemId = Guid.NewGuid().ToString(),
+                DishId = item.DishId,
+                ImageUrl = item.ImageUrl,
+                DishName = item.DishName,
+                Price = item.Price,
+                Quantity = item.Quantity, // giữ nguyên số lượng
+                Note = note               // gán note mới
+            };
+
+            cart.Add(newItem);
+            SaveCart(cart);
+
+            return (true, "Item duplicated with new note");
+        }
+
     }
 }

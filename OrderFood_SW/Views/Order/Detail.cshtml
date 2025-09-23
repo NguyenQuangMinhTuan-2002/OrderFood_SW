@@ -12,6 +12,9 @@
             </div>
             <div class="col-md-6 text-center">
                 <p><strong>Ghi chú:</strong> @Model.Order.note</p>
+                <button class="btn btn-xs btn-link" data-toggle="modal" data-target="#orderNoteModal">
+                    <i class="fa fa-edit"></i> Edit note
+                </button>
                 @if (Model.Order.OrderStatus == 1)
                 {
                     <p><strong>Trạng thái:</strong> Pending ...</p>
@@ -31,6 +34,7 @@
                         <th>Dish</th>
                         <th>Amount</th>
                         <th>Price</th>
+                        <th>Note</th>
                         <th>Total</th>
                         <th>Status</th>
                         @if (Model.Order.OrderStatus == 1)
@@ -47,6 +51,12 @@
                             <td>@item.DishName</td>
                             <td>@item.Quantity</td>
                             <td>@item.DishPrice.ToString("N0")</td>
+                            <td>
+                                @item.Note
+                                <button class="btn btn-xs btn-link" data-toggle="modal" data-target="#detailNoteModal-@item.OrderDetailId">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
                             <td>@item.Total.ToString("N0")</td>
                             @if (item.DishStatus == 0)
                             {
@@ -69,7 +79,7 @@
 
                                             <form style="margin: 0px 5px" asp-action="DeleteDishFromOrder" method="post" style="display:inline">
                                                 <input type="hidden" name="OrderId" value="@item.OrderId" />
-                                                <input type="hidden" name="DishId" value="@item.DishId" />
+                                                <input type="hidden" name="OrderDetailId" value="@item.OrderDetailId" />
                                                 <button type="submit" class="btn btn-sm btn-danger">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -79,7 +89,7 @@
                                         {
                                             <form style="margin: 0px 5px" asp-action="ToggleDishStatus" asp-controller="Order" method="post">
                                                 <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
-                                                <input type="hidden" name="dishId" value="@item.DishId" />
+                                                <input type="hidden" name="OrderDetailId" value="@item.OrderDetailId" />
                                                 <button type="submit" class="btn btn-sm @(item.DishStatus == 1 ? "btn-info" : "btn-success")">
                                                     <i class="fa fa-check"></i>
                                                 </button>
@@ -107,6 +117,28 @@
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-primary">Lưu</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Modal edit note for detail -->
+                        <div class="modal fade" id="detailNoteModal-@item.OrderDetailId" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <form asp-action="UpdateOrderDetailNote" method="post">
+                                    <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
+                                    <input type="hidden" name="orderDetailId" value="@item.OrderDetailId" />
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Edit note: @item.DishName</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea name="note" class="form-control" rows="3">@item.Note</textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </form>
@@ -184,3 +216,25 @@
         </a>
     </div>
 </div>
+
+<!-- Modal edit note for order -->
+<div class="modal fade" id="orderNoteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form asp-action="UpdateOrderNote" method="post">
+            <input type="hidden" name="orderId" value="@Model.Order.OrderId" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit order note</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="note" class="form-control" rows="3">@Model.Order.note</textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+ </div>

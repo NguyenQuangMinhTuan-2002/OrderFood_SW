@@ -127,14 +127,14 @@ namespace OrderFood_SW.Services
             await _repo.UpdateDishQuantityAsync(orderId, dishId, quantity);
         }
 
-        public async Task<bool> DeleteDishFromOrderAsync(int orderId, int dishId)
+        public async Task<bool> DeleteDishFromOrderAsync(int orderId, int Id)
         {
-            return await _repo.DeleteDishFromOrderAsync(orderId, dishId);
+            return await _repo.DeleteDishFromOrderAsync(orderId, Id);
         }
 
-        public async Task<bool> ToggleDishStatusAsync(int orderId, int dishId)
+        public async Task<bool> ToggleDishStatusAsync(int orderId, int Id)
         {
-            return await _repo.ToggleDishStatusAsync(orderId, dishId);
+            return await _repo.ToggleDishStatusAsync(orderId, Id);
         }
 
         public async Task<(bool Success, string Message)> ApproveOrderAsync(int orderId)
@@ -193,6 +193,16 @@ namespace OrderFood_SW.Services
 
             _repo.SaveChanges();
             return (true, "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).");
+        }
+
+        public async Task<bool> UpdateOrderNoteAsync(int orderId, string note)
+        {
+            return await _repo.UpdateOrderNoteAsync(orderId, note);
+        }
+
+        public async Task<bool> UpdateOrderDetailNoteAsync(int orderDetailId, string note)
+        {
+            return await _repo.UpdateOrderDetailNoteAsync(orderDetailId, note);
         }
     }
 }

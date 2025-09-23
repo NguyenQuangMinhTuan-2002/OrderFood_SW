@@ -10,7 +10,7 @@ public class OrderDetailViewModel
 
 public class DetailsWithDish
 {
-    [Key]
+    public int OrderDetailId { get; set; }
     public int DishId { get; set; }
     public string ImageUrl { get; set; } = string.Empty;
     public string DishName { get; set; } = string.Empty;

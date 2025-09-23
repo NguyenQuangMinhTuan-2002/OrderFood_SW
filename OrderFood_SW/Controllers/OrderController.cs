@@ -182,6 +182,36 @@ public class OrderController : Controller
     }
 
     [HttpPost]
+    public async Task<IActionResult> UpdateOrderNote(int orderId, string note)
+    {
+        var ok = await _service.UpdateOrderNoteAsync(orderId, note);
+        if (!ok)
+        {
+            TempData["Error"] = "Không cập nhật được ghi chú đơn hàng.";
+        }
+        else
+        {
+            TempData["Success"] = "Đã cập nhật ghi chú đơn hàng.";
+        }
+        return RedirectToAction("Detail", new { orderId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateOrderDetailNote(int orderId, int orderDetailId, string note)
+    {
+        var ok = await _service.UpdateOrderDetailNoteAsync(orderDetailId, note);
+        if (!ok)
+        {
+            TempData["Error"] = "Không cập nhật được ghi chú món.";
+        }
+        else
+        {
+            TempData["Success"] = "Đã cập nhật ghi chú món.";
+        }
+        return RedirectToAction("Detail", new { orderId });
+    }
+
+    [HttpPost]
     public async Task<IActionResult> EditDishQuantity(int orderId, int dishId, int quantity)
     {
         await _service.UpdateDishQuantityAsync(orderId, dishId, quantity);
@@ -189,9 +219,9 @@ public class OrderController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteDishFromOrder(int orderId, int dishId)
+    public async Task<IActionResult> DeleteDishFromOrder(int orderId, int OrderDetailId)
     {
-        bool orderDeleted = await _service.DeleteDishFromOrderAsync(orderId, dishId);
+        bool orderDeleted = await _service.DeleteDishFromOrderAsync(orderId, OrderDetailId);
 
         if (orderDeleted)
             return RedirectToAction("Index"); // đơn hàng bị xóa toàn bộ
@@ -200,9 +230,9 @@ public class OrderController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> ToggleDishStatus(int orderId, int dishId)
+    public async Task<IActionResult> ToggleDishStatus(int orderId, int OrderDetailId)
     {
-        var success = await _service.ToggleDishStatusAsync(orderId, dishId);
+        var success = await _service.ToggleDishStatusAsync(orderId, OrderDetailId);
 
         if (!success)
             return NotFound();

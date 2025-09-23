@@ -100,6 +100,7 @@ namespace OrderFood_SW.Repositories
                 where od.OrderId == orderId
                 select new DetailsWithDish
                 {
+                    OrderDetailId = od.OrderDetailId,
                     DishId = d.DishId,
                     ImageUrl = d.ImageUrl ?? "/images/nophoto.png",
                     DishName = d.DishName,
@@ -134,10 +135,10 @@ namespace OrderFood_SW.Repositories
             }
         }
 
-        public async Task<bool> DeleteDishFromOrderAsync(int orderId, int dishId)
+        public async Task<bool> DeleteDishFromOrderAsync(int orderId, int Id)
         {
             var detail = await _db.OrderDetails
-                .FirstOrDefaultAsync(od => od.OrderId == orderId && od.DishId == dishId);
+                .FirstOrDefaultAsync(od => od.OrderId == orderId && od.OrderDetailId == Id);
 
             if (detail == null) return false;
 
@@ -161,10 +162,10 @@ namespace OrderFood_SW.Repositories
             return false; // chỉ xóa 1 món
         }
 
-        public async Task<bool> ToggleDishStatusAsync(int orderId, int dishId)
+        public async Task<bool> ToggleDishStatusAsync(int orderId, int Id)
         {
             var orderDetail = await _db.OrderDetails
-                .FirstOrDefaultAsync(od => od.OrderId == orderId && od.DishId == dishId);
+                .FirstOrDefaultAsync(od => od.OrderId == orderId && od.OrderDetailId == Id);
 
             if (orderDetail == null) return false;
 
@@ -205,6 +206,24 @@ namespace OrderFood_SW.Repositories
         public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateOrderNoteAsync(int orderId, string note)
+        {
+            var order = await _db.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order == null) return false;
+            order.note = note;
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateOrderDetailNoteAsync(int orderDetailId, string note)
+        {
+            var detail = await _db.OrderDetails.FirstOrDefaultAsync(od => od.OrderDetailId == orderDetailId);
+            if (detail == null) return false;
+            detail.Note = note;
+            await _db.SaveChangesAsync();
+            return true;
         }
     }
 }

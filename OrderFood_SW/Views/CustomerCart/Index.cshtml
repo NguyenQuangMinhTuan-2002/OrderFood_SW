@@ -97,6 +97,11 @@
     <div class="note-modal-content">
         <h3><i class="fas fa-sticky-note"></i> Add Special Instructions</h3>
         <textarea id="noteInput" class="note-input" placeholder="Enter any special instructions for this dish (e.g., no onions, extra cheese, well done, etc.)"></textarea>
+        <form id="saveAsNewForm" method="post" asp-controller="CustomerCart" asp-action="SaveAsNew">
+            <input type="hidden" name="id" id="saveAsNewId" />
+            <input type="hidden" name="note" id="saveAsNewNote" />
+        </form>
+
         <div class="note-modal-buttons">
             <button class="note-modal-btn note-cancel-btn" onclick="closeNoteModal()">Cancel</button>
             <button class="note-modal-btn note-save-btn" onclick="saveNote()">Save Note</button>
@@ -155,7 +160,18 @@
     }
 
 
-    function savenewNote() {}
+    function savenewNote() {
+        const input = document.getElementById('noteInput');
+        const note = input.value.trim();
+        if (!currentDishForNote) return;
+
+        // Gán dữ liệu vào form ẩn
+        document.getElementById('saveAsNewId').value = currentDishForNote;
+        document.getElementById('saveAsNewNote').value = note;
+
+        // Submit form (POST -> SaveAsNew -> Redirect -> Index)
+        document.getElementById('saveAsNewForm').submit();
+    }
 
     function createItemWithNote(originalDishId, note) {
         const dish = dishData[originalDishId];

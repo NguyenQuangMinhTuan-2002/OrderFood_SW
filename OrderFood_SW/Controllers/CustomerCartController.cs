@@ -81,5 +81,19 @@ namespace OrderFood_SW.Controllers
             var result = _cartService.UpdateNote(id, note);
             return Json(new { success = result.Success, message = result.Message });
         }
+
+        [HttpPost]
+        public IActionResult SaveAsNew(string id, string note)
+        {
+            var result = _cartService.DuplicateItemWithNote(id, note);
+
+            if (!result.Success)
+            {
+                TempData["Error"] = result.Message;
+            }
+
+            // Load lại trang giỏ hàng
+            return RedirectToAction("Index");
+        }
     }
 }
