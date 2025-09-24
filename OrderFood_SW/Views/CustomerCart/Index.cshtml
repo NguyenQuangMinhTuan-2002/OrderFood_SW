@@ -6,7 +6,7 @@
 
     // Tính toán tổng
     decimal subtotal = Model.Sum(item => item.Price * item.Quantity);
-    decimal taxRate = 0.08m;
+    decimal taxRate = ViewBag.TaxRate ?? 0.08m;
     decimal tax = subtotal * taxRate;
     decimal deliveryFee = subtotal >= 50 ? 0 : 5; // miễn phí giao khi >= $50
     decimal total = subtotal + tax + deliveryFee;
@@ -112,7 +112,7 @@
 
 <script>
     // ---- Cấu hình khớp với View/Razor ----
-    const TAX_RATE = 0.1;                    // 10%
+    const TAX_RATE = @(ViewBag.TaxRate ?? 0.1);                    // Dynamic tax rate
     const FREE_SHIPPING_THRESHOLD = 50;       // miễn phí giao khi >= 50
     const DELIVERY_FEE = 5;                   // phí mặc định khi < threshold
 

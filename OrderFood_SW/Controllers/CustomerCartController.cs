@@ -8,10 +8,12 @@ namespace OrderFood_SW.Controllers
     public class CustomerCartController : Controller
     {
         private readonly CartService _cartService;
+        private readonly TaxRateService _taxRateService;
 
-        public CustomerCartController(CartService cartService)
+        public CustomerCartController(CartService cartService, TaxRateService taxRateService)
         {
             _cartService = cartService;
+            _taxRateService = taxRateService;
         }
 
         public IActionResult Index()
@@ -27,6 +29,7 @@ namespace OrderFood_SW.Controllers
 
             ViewBag.TableId = tableId;
             ViewBag.TableNumber = tableNumber;
+            ViewBag.TaxRate = _taxRateService.GetCurrentTaxRate();
             return View(cart);
         }
 

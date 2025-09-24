@@ -20,6 +20,8 @@ namespace OrderFood_SW.Helper
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
+        public DbSet<TaxRate> TaxRates { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
