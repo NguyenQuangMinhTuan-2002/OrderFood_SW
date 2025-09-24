@@ -33,6 +33,11 @@ namespace OrderFood_SW.Repositories
             return _db.Orders.Count();
         }
 
+        public int CountPendingOrders()
+        {
+            return _db.Orders.Count(o => o.OrderStatus == 1);
+        }
+
         public List<Order> GetPagedOrders(int page, int pageSize)
         {
             return _db.Orders

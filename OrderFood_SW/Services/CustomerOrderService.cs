@@ -23,8 +23,7 @@ namespace OrderFood_SW.Services
 
         /// <summary>
         /// Add cart items into an existing order. Returns list of DishIds that were already present (not added).
-        /// Behavior intentionally mirrors original controller logic: it checks existing items in order.OrderDetails and only adds new ones.
-        /// Totals are updated similarly to original implementation.
+        /// Allows same dish with different notes to be added as separate items.
         /// </summary>
         public async Task<List<int>> AddCartItemsToExistingOrderAsync(Order order, List<OrderCartItem> cart)
         {
@@ -32,18 +31,20 @@ namespace OrderFood_SW.Services
 
             foreach (var item in cart)
             {
-                var existingDetail = order.OrderDetails.FirstOrDefault(od => od.DishId == item.DishId);
+                // Check if exact same dish with same note already exists
+                var existingDetail = order.OrderDetails.FirstOrDefault(od => 
+                    od.DishId == item.DishId && 
+                    od.Note == (string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note));
+                
                 if (existingDetail != null)
                 {
+                    // Same dish with same note - just increase quantity
+                    existingDetail.Quantity += item.Quantity;
                     existedDishIds.Add(item.DishId);
                     continue;
                 }
 
-                if (item.Note.Equals(""))
-                {
-                    item.Note = "n/a";
-                }
-
+                // Different note or new dish - add as new detail
                 _repo.AddOrderDetail(new OrderDetail
                 {
                     OrderId = order.OrderId,
@@ -53,9 +54,9 @@ namespace OrderFood_SW.Services
                 });
             }
 
-            // Mirror original: add only sum of those not present in order.OrderDetails (original used the tracked navigation collection)
+            // Update total amount for all new items (including duplicates with different notes)
             order.TotalAmount += cart
-                .Where(x => !order.OrderDetails.Any(od => od.DishId == x.DishId))
+                .Where(x => !existedDishIds.Contains(x.DishId))
                 .Sum(x => x.Price * x.Quantity);
 
             await _repo.SaveChangesAsync();
@@ -107,6 +108,7 @@ namespace OrderFood_SW.Services
 
         /// <summary>
         /// Copy items from an old order into provided cart (in-memory). Does not persist anything.
+        /// Handles same dish with different notes as separate cart items.
         /// </summary>
         public async Task ReOrderToCartAsync(Order oldOrder, List<OrderCartItem> cart)
         {
@@ -115,15 +117,22 @@ namespace OrderFood_SW.Services
                 var dish = await _repo.GetDishByIdAsync(item.DishId);
                 if (dish == null) continue;
 
-                var existingItem = cart.FirstOrDefault(c => c.DishId == dish.DishId);
+                // Check for exact match (same dish AND same note)
+                var existingItem = cart.FirstOrDefault(c => 
+                    c.DishId == dish.DishId && 
+                    c.Note == (item.Note ?? "n/a"));
+                
                 if (existingItem != null)
                 {
+                    // Same dish with same note - increase quantity
                     existingItem.Quantity += item.Quantity;
                 }
                 else
                 {
+                    // Different note or new dish - add as new cart item
                     cart.Add(new OrderCartItem
                     {
+                        CartItemId = Guid.NewGuid().ToString(), // Generate new ID for cart item
                         DishId = dish.DishId,
                         DishName = dish.DishName,
                         ImageUrl = dish.ImageUrl ?? "nophoto.png",

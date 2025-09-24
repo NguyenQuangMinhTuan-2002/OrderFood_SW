@@ -34,6 +34,13 @@ public class OrderController : Controller
         return View(model);
     }
 
+    [HttpGet]
+    public IActionResult GetPendingOrdersCount()
+    {
+        var count = _service.GetPendingOrdersCount();
+        return Json(new { count = count });
+    }
+
     public IActionResult OrderHistory(int page = 1, int pageSize = 20)
     {
         var (orders, totalPages) = _service.GetPagedOrders(page, pageSize);

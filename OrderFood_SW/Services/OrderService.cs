@@ -25,6 +25,11 @@ namespace OrderFood_SW.Services
             return _repo.GetAllOrders();
         }
 
+        public int GetPendingOrdersCount()
+        {
+            return _repo.CountPendingOrders();
+        }
+
         public (List<Order> Orders, int TotalPages) GetPagedOrders(int page, int pageSize)
         {
             int totalOrders = _repo.CountOrders();
