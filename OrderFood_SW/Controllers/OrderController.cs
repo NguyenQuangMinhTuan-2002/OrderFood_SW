@@ -41,6 +41,24 @@ public class OrderController : Controller
         return Json(new { count = count });
     }
 
+    [HttpGet]
+    public IActionResult DebugOrders()
+    {
+        var allOrders = _service.GetAllOrders();
+        var debugInfo = allOrders.Select(o => new { 
+            OrderId = o.OrderId, 
+            OrderStatus = o.OrderStatus, 
+            OrderTime = o.OrderTime.ToString("yyyy-MM-dd HH:mm:ss"),
+            TableId = o.TableId
+        }).ToList();
+        
+        return Json(new { 
+            totalOrders = allOrders.Count,
+            pendingOrders = allOrders.Count(o => o.OrderStatus == 1),
+            orders = debugInfo
+        });
+    }
+
     public IActionResult OrderHistory(int page = 1, int pageSize = 20)
     {
         var (orders, totalPages) = _service.GetPagedOrders(page, pageSize);

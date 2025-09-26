@@ -35,7 +35,22 @@ namespace OrderFood_SW.Repositories
 
         public int CountPendingOrders()
         {
-            return _db.Orders.Count(o => o.OrderStatus == 1);
+            try
+            {
+                var count = _db.Orders.Count(o => o.OrderStatus == 1);
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] CountPendingOrders: {count} at {DateTime.Now}");
+                
+                // Debug: Log all orders and their status
+                var allOrders = _db.Orders.Select(o => new { o.OrderId, o.OrderStatus, o.OrderTime }).ToList();
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] All orders: {string.Join(", ", allOrders.Select(o => $"ID:{o.OrderId} Status:{o.OrderStatus} Time:{o.OrderTime:HH:mm:ss}"))}");
+                
+                return count;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[ERROR] CountPendingOrders failed: {ex.Message}");
+                return 0;
+            }
         }
 
         public List<Order> GetPagedOrders(int page, int pageSize)

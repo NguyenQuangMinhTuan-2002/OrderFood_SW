@@ -162,15 +162,4 @@
     </div>
 </div>
 
-<script>
-    // Auto refresh unread count every 30 seconds
-    setInterval(function() {
-        $.get('@Url.Action("GetUnreadCount", "Notification")', function(data) {
-            if (data.count > 0) {
-                $('.notifications-menu .label').text(data.count);
-            } else {
-                $('.notifications-menu .label').text('0');
-            }
-        });
-    }, 30000);
-</script>
+<!-- Auto refresh disabled to prevent badge conflicts -->
