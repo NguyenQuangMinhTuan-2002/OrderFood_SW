@@ -129,15 +129,15 @@ namespace OrderFood_SW.Services
             }
         }
 
-        public (bool Success, string Message) MarkAsRead(int id)
+        public (bool Success, string Message) MarkAsRead(int notificationId, int userId)
         {
             try
             {
-                var notification = _repo.GetNotificationById(id);
+                var notification = _repo.GetNotificationById(notificationId);
                 if (notification == null)
                     return (false, "Không tìm thấy thông báo.");
 
-                _repo.MarkAsRead(id);
+                _repo.MarkAsRead(notificationId, userId);
                 _repo.SaveChanges();
 
                 return (true, "Thông báo đã được đánh dấu là đã đọc.");
@@ -147,6 +147,7 @@ namespace OrderFood_SW.Services
                 return (false, $"Lỗi khi đánh dấu thông báo: {ex.Message}");
             }
         }
+
 
         public (bool Success, string Message) MarkAllAsRead()
         {

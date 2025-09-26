@@ -84,15 +84,34 @@ namespace OrderFood_SW.Repositories
             }
         }
 
-        public void MarkAsRead(int id)
+        public void MarkAsRead(int notificationId, int userId)
         {
-            var notification = _db.Notifications.FirstOrDefault(n => n.Id == id);
-            if (notification != null)
+            // Kiểm tra xem đã đọc chưa
+            var alreadyRead = _db.NotificationReads
+                .FirstOrDefault(r => r.NotificationId == notificationId && r.UserId == userId);
+
+            if (alreadyRead == null)
             {
-                notification.IsRead = true;
-                _db.Notifications.Update(notification);
+                // Thêm vào bảng NotificationReads
+                var read = new NotificationReads
+                {
+                    NotificationId = notificationId,
+                    UserId = userId,
+                    ReadDate = DateTime.Now
+                };
+                _db.NotificationReads.Add(read);
+
+                // Cập nhật trạng thái IsRead trong bảng Notifications
+                var notification = _db.Notifications.FirstOrDefault(n => n.Id == notificationId);
+                if (notification != null)
+                {
+                    notification.IsRead = true;
+                    notification.UpdatedDate = DateTime.Now;
+                    _db.Notifications.Update(notification);
+                }
             }
         }
+
 
         public void MarkAllAsRead()
         {

@@ -223,21 +223,19 @@ namespace OrderFood_SW.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Đánh dấu là đã đọc nếu chưa đọc
-            if (!notification.IsRead)
+            // Lấy userId từ session thay vì từ parameter
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId.HasValue)
             {
-                _service.MarkAsRead(id);
+                var result = _service.MarkAsRead(id, userId.Value);
+
+                if (result.Success)
+                    TempData["SuccessMessage"] = result.Message;
+                else
+                    TempData["ErrorMessage"] = result.Message;
             }
 
             return View(notification);
-        }
-
-        // Đánh dấu thông báo là đã đọc
-        [HttpPost]
-        public IActionResult MarkAsRead(int id)
-        {
-            var result = _service.MarkAsRead(id);
-            return Json(new { success = result.Success, message = result.Message });
         }
 
         // Đánh dấu tất cả thông báo là đã đọc
