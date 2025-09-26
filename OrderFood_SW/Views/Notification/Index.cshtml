@@ -1,0 +1,176 @@
+@model IEnumerable<OrderFood_SW.Models.Notification>
+@{
+    ViewData["Title"] = "Thông báo";
+    var role = ViewBag.Role as string;
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            <i class="fa fa-bell"></i> Quản lý thông báo
+        </h3>
+        @if (role == "Staff")
+        {
+            <div class="box-tools pull-right">
+                <a href="~/Notification/Create" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Tạo thông báo mới
+                </a>
+            </div>
+        }
+    </div>
+    <div class="box-body">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> Thành công!</h4>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Lỗi!</h4>
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr class="bg-primary">
+                            <th>Tiêu đề</th>
+                            <th>Người gửi</th>
+                            <th>Loại</th>
+                            <th>Độ ưu tiên</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th style="width:120px">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var notification in Model)
+                        {
+                            <tr class="@(notification.IsRead ? "" : "bg-warning")">
+                                <td>
+                                    <strong>@notification.Title</strong>
+                                    @if (!notification.IsRead)
+                                    {
+                                        <span class="label label-danger">Mới</span>
+                                    }
+                                </td>
+                                <td>@notification.SenderName</td>
+                                <td>
+                                    <span class="label label-@(notification.Type == "Warning" ? "warning" : notification.Type == "Error" ? "danger" : "info")">
+                                        @notification.Type
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="label label-@(notification.Priority == "Urgent" ? "danger" : notification.Priority == "High" ? "warning" : "default")">
+                                        @notification.Priority
+                                    </span>
+                                </td>
+                                <td>@notification.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    @if (notification.IsRead)
+                                    {
+                                        <span class="label label-success">Đã đọc</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-warning">Chưa đọc</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="~/Notification/Details/@notification.Id" class="btn btn-xs btn-info" title="Xem chi tiết">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    @if (role == "Staff")
+                                    {
+                                        <a href="~/Notification/Edit/@notification.Id" class="btn btn-xs btn-warning" title="Chỉnh sửa">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="~/Notification/Delete/@notification.Id" class="btn btn-xs btn-danger" title="Xóa">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="container" style="margin-top: auto; padding-bottom: 20px;">
+                    <div class="text-center">
+                        <ul class="pagination">
+                            <!-- First Page -->
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", new { page = 1 })">Đầu</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="disabled"><a href="#">Đầu</a></li>
+                            }
+
+                            <!-- Page Numbers -->
+                            @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                            {
+                                if (i == ViewBag.CurrentPage)
+                                {
+                                    <li class="active"><a href="#">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", new { page = i })">@i</a></li>
+                                }
+                            }
+
+                            <!-- Last Page -->
+                            @if (ViewBag.CurrentPage < (int)ViewBag.TotalPages)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", new { page = ViewBag.TotalPages })">Cuối</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="disabled"><a href="#">Cuối</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
+                Chưa có thông báo nào.
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    // Auto refresh unread count every 30 seconds
+    setInterval(function() {
+        $.get('@Url.Action("GetUnreadCount", "Notification")', function(data) {
+            if (data.count > 0) {
+                $('.notifications-menu .label').text(data.count);
+            } else {
+                $('.notifications-menu .label').text('0');
+            }
+        });
+    }, 30000);
+</script>

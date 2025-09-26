@@ -1,11 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @inject OrderFood_SW.Services.OrderService OrderService
+@inject OrderFood_SW.Services.NotificationService NotificationService
 @{
     var fullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
     var role = HttpContextAccessor.HttpContext.Session.GetString("Role");
     var imageAvatar = HttpContextAccessor.HttpContext.Session.GetString("ImageAvat");
     var pendingOrdersCount = OrderService.GetPendingOrdersCount();
+    var unreadNotificationCount = NotificationService.GetUnreadNotificationCount();
+    var recentNotifications = NotificationService.GetRecentNotifications(5);
 }
 
 <header class="main-header fixed-header">
@@ -47,6 +50,47 @@
                             </ul>
                         </li>
                         <li class="footer"><a href="~/Order/OrderList">View all</a></li>
+                    </ul>
+                </li>
+                
+                <!-- System Notifications -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-danger">@unreadNotificationCount</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have @unreadNotificationCount mail unread</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                @if (recentNotifications != null && recentNotifications.Any())
+                                {
+                                    @foreach (var notification in recentNotifications.Take(3))
+                                    {
+                                        <li>
+                                            <a href="~/Notification/Details/@notification.Id">
+                                                <i class="fa fa-@(notification.Type == "Warning" ? "warning" : notification.Type == "Error" ? "exclamation-triangle" : "info-circle") text-@(notification.Type == "Warning" ? "yellow" : notification.Type == "Error" ? "red" : "blue")"></i> 
+                                                @notification.Title
+                                                @if (!notification.IsRead)
+                                                {
+                                                    <span class="label label-danger pull-right">Mới</span>
+                                                }
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-info-circle text-blue"></i> Chưa có thông báo nào
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="~/Notification/Index">Xem tất cả thông báo</a></li>
                     </ul>
                 </li>
                 <!-- User Account: style can be found in dropdown.less -->

@@ -39,6 +39,10 @@ builder.Services.Scan(scan => scan
     .WithScopedLifetime()
 );
 
+// Manual registration for Notification services (backup)
+builder.Services.AddScoped<OrderFood_SW.Repositories.NotificationRepository>();
+builder.Services.AddScoped<OrderFood_SW.Services.NotificationService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

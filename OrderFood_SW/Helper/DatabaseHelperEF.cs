@@ -22,6 +22,10 @@ namespace OrderFood_SW.Helper
 
         public DbSet<TaxRate> TaxRates { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<NotificationReads> NotificationReads { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,6 +46,52 @@ namespace OrderFood_SW.Helper
             modelBuilder.Entity<OrderDetail>()
                 .Property(od => od.OrderDetailId)
                 .ValueGeneratedOnAdd();
+
+            // Configure Notification entity
+            modelBuilder.Entity<Notification>()
+                .HasKey(n => n.Id);
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.Title)
+                .HasMaxLength(200)
+                .IsRequired();
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.Content)
+                .HasMaxLength(1000)
+                .IsRequired();
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.SenderId)
+                .IsRequired();
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.SenderName)
+                .IsRequired();
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.CreatedDate)
+                .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.IsRead)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.IsActive)
+                .HasDefaultValue(true);
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.Priority)
+                .HasDefaultValue("Normal");
+
+            modelBuilder.Entity<Notification>()
+                .Property(n => n.Type)
+                .HasDefaultValue("General");
         }
 
     }
