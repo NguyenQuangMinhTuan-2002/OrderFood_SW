@@ -1,7 +1,9 @@
 @model IEnumerable<OrderFood_SW.Models.Notification>
+@inject OrderFood_SW.Services.NotificationService NotificationService
 @{
     ViewData["Title"] = "Thông báo";
     var role = ViewBag.Role as string;
+    var userId = ViewBag.UserId as int?;
 }
 
 <div class="box box-primary">
@@ -55,10 +57,11 @@
                     <tbody>
                         @foreach (var notification in Model)
                         {
-                            <tr class="@(notification.IsRead ? "" : "bg-warning")">
+                            var isRead = userId.HasValue ? NotificationService.IsNotificationReadByUser(notification.Id, userId.Value) : false;
+                            <tr class="@(isRead ? "" : "bg-warning")">
                                 <td>
                                     <strong>@notification.Title</strong>
-                                    @if (!notification.IsRead)
+                                    @if (!isRead)
                                     {
                                         <span class="label label-danger">Mới</span>
                                     }
@@ -76,7 +79,7 @@
                                 </td>
                                 <td>@notification.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
                                 <td>
-                                    @if (notification.IsRead)
+                                    @if (isRead)
                                     {
                                         <span class="label label-success">Đã đọc</span>
                                     }

@@ -25,8 +25,6 @@ namespace OrderFood_SW.Models
         
         public DateTime? UpdatedDate { get; set; }
         
-        public bool IsRead { get; set; } = false;
-        
         public bool IsActive { get; set; } = true;
         
         public string Priority { get; set; } = "Normal"; // Low, Normal, High, Urgent

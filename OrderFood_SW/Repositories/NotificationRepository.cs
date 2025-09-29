@@ -42,15 +42,19 @@ namespace OrderFood_SW.Repositories
             return _db.Notifications.FirstOrDefault(n => n.Id == id);
         }
 
-        public int GetUnreadNotificationCount()
-        {
-            return _db.Notifications.Count(n => !n.IsRead && n.IsActive);
-        }
-
-        public List<Notification> GetUnreadNotifications()
+        public int GetUnreadNotificationCount(int userId)
         {
             return _db.Notifications
-                      .Where(n => !n.IsRead && n.IsActive)
+                .Where(n => n.IsActive)
+                .Where(n => !_db.NotificationReads.Any(r => r.NotificationId == n.Id && r.UserId == userId))
+                .Count();
+        }
+
+        public List<Notification> GetUnreadNotifications(int userId)
+        {
+            return _db.Notifications
+                      .Where(n => n.IsActive)
+                      .Where(n => !_db.NotificationReads.Any(r => r.NotificationId == n.Id && r.UserId == userId))
                       .OrderByDescending(n => n.CreatedDate)
                       .ToList();
         }
@@ -100,27 +104,27 @@ namespace OrderFood_SW.Repositories
                     ReadDate = DateTime.Now
                 };
                 _db.NotificationReads.Add(read);
-
-                // Cập nhật trạng thái IsRead trong bảng Notifications
-                var notification = _db.Notifications.FirstOrDefault(n => n.Id == notificationId);
-                if (notification != null)
-                {
-                    notification.IsRead = true;
-                    notification.UpdatedDate = DateTime.Now;
-                    _db.Notifications.Update(notification);
-                }
             }
         }
 
 
-        public void MarkAllAsRead()
+        public void MarkAllAsRead(int userId)
         {
-            var unreadNotifications = _db.Notifications.Where(n => !n.IsRead && n.IsActive);
+            var unreadNotifications = _db.Notifications
+                .Where(n => n.IsActive)
+                .Where(n => !_db.NotificationReads.Any(r => r.NotificationId == n.Id && r.UserId == userId))
+                .ToList();
+
             foreach (var notification in unreadNotifications)
             {
-                notification.IsRead = true;
+                var read = new NotificationReads
+                {
+                    NotificationId = notification.Id,
+                    UserId = userId,
+                    ReadDate = DateTime.Now
+                };
+                _db.NotificationReads.Add(read);
             }
-            _db.Notifications.UpdateRange(unreadNotifications);
         }
 
         public List<Notification> GetPagedNotifications(int page, int pageSize)
@@ -136,6 +140,12 @@ namespace OrderFood_SW.Repositories
         public int GetTotalNotificationCount()
         {
             return _db.Notifications.Count(n => n.IsActive);
+        }
+
+        public bool IsNotificationReadByUser(int notificationId, int userId)
+        {
+            return _db.NotificationReads
+                .Any(r => r.NotificationId == notificationId && r.UserId == userId);
         }
 
         public void SaveChanges()

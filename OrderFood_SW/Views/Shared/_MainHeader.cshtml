@@ -3,11 +3,12 @@
 @inject OrderFood_SW.Services.OrderService OrderService
 @inject OrderFood_SW.Services.NotificationService NotificationService
 @{
-    var fullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
-    var role = HttpContextAccessor.HttpContext.Session.GetString("Role");
-    var imageAvatar = HttpContextAccessor.HttpContext.Session.GetString("ImageAvat");
+    var fullName = HttpContextAccessor.HttpContext?.Session?.GetString("FullName");
+    var role = HttpContextAccessor.HttpContext?.Session?.GetString("Role");
+    var imageAvatar = HttpContextAccessor.HttpContext?.Session?.GetString("ImageAvat");
+    var userId = HttpContextAccessor.HttpContext?.Session?.GetInt32("UserId");
     var pendingOrdersCount = OrderService.GetPendingOrdersCount();
-    var unreadNotificationCount = NotificationService.GetUnreadNotificationCount();
+    var unreadNotificationCount = userId.HasValue ? NotificationService.GetUnreadNotificationCount(userId.Value) : 0;
     var recentNotifications = NotificationService.GetRecentNotifications(5);
 }
 
@@ -72,7 +73,7 @@
                                             <a href="~/Notification/Details/@notification.Id">
                                                 <i class="fa fa-@(notification.Type == "Warning" ? "warning" : notification.Type == "Error" ? "exclamation-triangle" : "info-circle") text-@(notification.Type == "Warning" ? "yellow" : notification.Type == "Error" ? "red" : "blue")"></i> 
                                                 @notification.Title
-                                                @if (!notification.IsRead)
+                                                @if (userId.HasValue && !NotificationService.IsNotificationReadByUser(notification.Id, userId.Value))
                                                 {
                                                     <span class="label label-danger pull-right">Mới</span>
                                                 }

@@ -20,6 +20,7 @@ namespace OrderFood_SW.Controllers
         public IActionResult Index(int page = 1)
         {
             var role = HttpContext.Session.GetString("Role");
+            var userId = HttpContext.Session.GetInt32("UserId");
             List<Notification> notifications;
 
             if (role == "Admin")
@@ -30,7 +31,6 @@ namespace OrderFood_SW.Controllers
             else
             {
                 // Staff chỉ xem thông báo của mình
-                var userId = HttpContext.Session.GetInt32("UserId");
                 notifications = _service.GetNotificationsBySender(userId?.ToString() ?? "");
             }
 
@@ -39,6 +39,7 @@ namespace OrderFood_SW.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.Role = role;
+            ViewBag.UserId = userId;
 
             return View(pagedNotifications);
         }
@@ -78,8 +79,8 @@ namespace OrderFood_SW.Controllers
                 }
 
                 // Set SenderId và SenderName từ session
-                notification.SenderId = userId.ToString();
-                notification.SenderName = fullName;
+                notification.SenderId = userId.ToString() ?? "";
+                notification.SenderName = fullName ?? "";
 
                 // Validate model sau khi set SenderId và SenderName
                 if (!ModelState.IsValid)
@@ -91,8 +92,8 @@ namespace OrderFood_SW.Controllers
                 var result = _service.CreateNotification(
                     notification.Title,
                     notification.Content,
-                    userId.ToString(),
-                    fullName,
+                    userId.ToString() ?? "",
+                    fullName ?? "",
                     notification.Priority,
                     notification.Type
                 );
@@ -235,6 +236,7 @@ namespace OrderFood_SW.Controllers
                     TempData["ErrorMessage"] = result.Message;
             }
 
+            ViewBag.UserId = userId;
             return View(notification);
         }
 
@@ -242,7 +244,13 @@ namespace OrderFood_SW.Controllers
         [HttpPost]
         public IActionResult MarkAllAsRead()
         {
-            var result = _service.MarkAllAsRead();
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy thông tin người dùng." });
+            }
+
+            var result = _service.MarkAllAsRead(userId.Value);
             return Json(new { success = result.Success, message = result.Message });
         }
 
@@ -250,7 +258,13 @@ namespace OrderFood_SW.Controllers
         [HttpGet]
         public IActionResult GetUnreadCount()
         {
-            var count = _service.GetUnreadNotificationCount();
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Json(new { count = 0 });
+            }
+
+            var count = _service.GetUnreadNotificationCount(userId.Value);
             return Json(new { count = count });
         }
 
@@ -258,7 +272,13 @@ namespace OrderFood_SW.Controllers
         [HttpGet]
         public IActionResult GetUnreadNotifications()
         {
-            var notifications = _service.GetUnreadNotifications();
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Json(new List<Notification>());
+            }
+
+            var notifications = _service.GetUnreadNotifications(userId.Value);
             return Json(notifications);
         }
 
@@ -268,6 +288,20 @@ namespace OrderFood_SW.Controllers
         {
             var notifications = _service.GetRecentNotifications(count);
             return Json(notifications);
+        }
+
+        // Kiểm tra xem notification đã được đọc bởi user chưa
+        [HttpGet]
+        public IActionResult IsNotificationRead(int notificationId)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Json(new { isRead = false });
+            }
+
+            var isRead = _service.IsNotificationReadByUser(notificationId, userId.Value);
+            return Json(new { isRead = isRead });
         }
 
         // Test action để kiểm tra hệ thống

@@ -32,14 +32,14 @@ namespace OrderFood_SW.Services
             return _repo.GetNotificationById(id);
         }
 
-        public int GetUnreadNotificationCount()
+        public int GetUnreadNotificationCount(int userId)
         {
-            return _repo.GetUnreadNotificationCount();
+            return _repo.GetUnreadNotificationCount(userId);
         }
 
-        public List<Notification> GetUnreadNotifications()
+        public List<Notification> GetUnreadNotifications(int userId)
         {
-            return _repo.GetUnreadNotifications();
+            return _repo.GetUnreadNotifications(userId);
         }
 
         public (bool Success, string Message) CreateNotification(string title, string content, string senderId, string senderName, string priority = "Normal", string type = "General")
@@ -68,7 +68,6 @@ namespace OrderFood_SW.Services
                     Priority = priority ?? "Normal",
                     Type = type ?? "General",
                     CreatedDate = DateTime.Now,
-                    IsRead = false,
                     IsActive = true
                 };
 
@@ -149,11 +148,11 @@ namespace OrderFood_SW.Services
         }
 
 
-        public (bool Success, string Message) MarkAllAsRead()
+        public (bool Success, string Message) MarkAllAsRead(int userId)
         {
             try
             {
-                _repo.MarkAllAsRead();
+                _repo.MarkAllAsRead(userId);
                 _repo.SaveChanges();
 
                 return (true, "Tất cả thông báo đã được đánh dấu là đã đọc.");
@@ -195,6 +194,11 @@ namespace OrderFood_SW.Services
             return _repo.GetAllNotifications()
                        .Where(n => n.Type == type)
                        .ToList();
+        }
+
+        public bool IsNotificationReadByUser(int notificationId, int userId)
+        {
+            return _repo.IsNotificationReadByUser(notificationId, userId);
         }
     }
 }

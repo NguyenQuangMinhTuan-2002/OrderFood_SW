@@ -77,9 +77,9 @@ namespace OrderFood_SW.Helper
                 .Property(n => n.CreatedDate)
                 .HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<Notification>()
-                .Property(n => n.IsRead)
-                .HasDefaultValue(false);
+            //modelBuilder.Entity<Notification>()
+            //    .Property(n => n.IsRead)
+            //    .HasDefaultValue(false);
 
             modelBuilder.Entity<Notification>()
                 .Property(n => n.IsActive)

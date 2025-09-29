@@ -1,6 +1,9 @@
 @model OrderFood_SW.Models.Notification
+@inject OrderFood_SW.Services.NotificationService NotificationService
 @{
     ViewData["Title"] = "Chi tiết thông báo";
+    var userId = ViewBag.UserId as int?;
+    var isRead = userId.HasValue ? NotificationService.IsNotificationReadByUser(Model.Id, userId.Value) : false;
 }
 
 <div class="box box-primary">
@@ -51,7 +54,7 @@
                     <tr>
                         <th>Trạng thái:</th>
                         <td>
-                            @if (Model.IsRead)
+                            @if (isRead)
                             {
                                 <span class="label label-success">Đã đọc</span>
                             }
