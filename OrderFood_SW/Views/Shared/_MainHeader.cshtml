@@ -9,7 +9,7 @@
     var userId = HttpContextAccessor.HttpContext?.Session?.GetInt32("UserId");
     var pendingOrdersCount = OrderService.GetPendingOrdersCount();
     var unreadNotificationCount = userId.HasValue ? NotificationService.GetUnreadNotificationCount(userId.Value) : 0;
-    var recentNotifications = NotificationService.GetRecentNotifications(5);
+    var recentUnreadNotifications = userId.HasValue ? NotificationService.GetUnreadNotifications(userId.Value).Take(3).ToList() : new List<OrderFood_SW.Models.Notification>();
 }
 
 <header class="main-header fixed-header">
@@ -61,22 +61,19 @@
                         <span class="label label-danger">@unreadNotificationCount</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have @unreadNotificationCount mail unread</li>
+                        <li class="header">You have @unreadNotificationCount unread notifications</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                @if (recentNotifications != null && recentNotifications.Any())
+                                @if (recentUnreadNotifications != null && recentUnreadNotifications.Any())
                                 {
-                                    @foreach (var notification in recentNotifications.Take(3))
+                                    @foreach (var notification in recentUnreadNotifications)
                                     {
                                         <li>
                                             <a href="~/Notification/Details/@notification.Id">
                                                 <i class="fa fa-@(notification.Type == "Warning" ? "warning" : notification.Type == "Error" ? "exclamation-triangle" : "info-circle") text-@(notification.Type == "Warning" ? "yellow" : notification.Type == "Error" ? "red" : "blue")"></i> 
                                                 @notification.Title
-                                                @if (userId.HasValue && !NotificationService.IsNotificationReadByUser(notification.Id, userId.Value))
-                                                {
-                                                    <span class="label label-danger pull-right">Mới</span>
-                                                }
+                                                <span class="label label-danger pull-right">New</span>
                                             </a>
                                         </li>
                                     }
@@ -85,13 +82,13 @@
                                 {
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-info-circle text-blue"></i> Chưa có thông báo nào
+                                            <i class="fa fa-info-circle text-blue"></i> No announcements yet
                                         </a>
                                     </li>
                                 }
                             </ul>
                         </li>
-                        <li class="footer"><a href="~/Notification/Index">Xem tất cả thông báo</a></li>
+                        <li class="footer"><a href="~/Notification/Index">View all notifications</a></li>
                     </ul>
                 </li>
                 <!-- User Account: style can be found in dropdown.less -->
@@ -105,7 +102,7 @@
                             }
                             else
                             {
-                                <text>Xin chào, Khách</text>
+                                <text>Hello! Guess</text>
                             }
                         </span>
 

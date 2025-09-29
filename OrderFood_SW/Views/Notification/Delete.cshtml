@@ -1,33 +1,33 @@
 @model OrderFood_SW.Models.Notification
 @{
-    ViewData["Title"] = "Xóa thông báo";
+    ViewData["Title"] = "Delete notification";
 }
 
 <div class="box box-danger">
     <div class="box-header with-border">
         <h3 class="box-title">
-            <i class="fa fa-trash"></i> Xác nhận xóa thông báo
+            <i class="fa fa-trash"></i> Confirm delete notification
         </h3>
     </div>
     <div class="box-body">
         <div class="alert alert-warning">
-            <h4><i class="icon fa fa-warning"></i> Cảnh báo!</h4>
-            Bạn có chắc chắn muốn xóa thông báo này không? Hành động này không thể hoàn tác.
+            <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+            Are you sure you want to delete this notification? This action cannot be undone.
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-bordered">
                     <tr>
-                        <th style="width: 150px;">Tiêu đề:</th>
+                        <th style="width: 150px;">Title:</th>
                         <td><strong>@Model.Title</strong></td>
                     </tr>
                     <tr>
-                        <th>Người gửi:</th>
+                        <th>Sender:</th>
                         <td>@Model.SenderName</td>
                     </tr>
                     <tr>
-                        <th>Loại:</th>
+                        <th>Type:</th>
                         <td>
                             <span class="label label-@(Model.Type == "Warning" ? "warning" : Model.Type == "Error" ? "danger" : "info")">
                                 @Model.Type
@@ -35,7 +35,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Độ ưu tiên:</th>
+                        <th>Priority:</th>
                         <td>
                             <span class="label label-@(Model.Priority == "Urgent" ? "danger" : Model.Priority == "High" ? "warning" : "default")">
                                 @Model.Priority
@@ -43,11 +43,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Ngày tạo:</th>
+                        <th>Create Date:</th>
                         <td>@Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
                     </tr>
                     <tr>
-                        <th>Nội dung:</th>
+                        <th>Content:</th>
                         <td>@Model.Content</td>
                     </tr>
                 </table>
@@ -58,10 +58,10 @@
             <input asp-for="Id" type="hidden" />
             <div class="form-group">
                 <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-trash"></i> Xác nhận xóa
+                    <i class="fa fa-trash"></i> Confirm
                 </button>
                 <a href="~/Notification/Index" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i> Quay lại
+                    <i class="fa fa-arrow-left"></i> Back
                 </a>
             </div>
         </form>

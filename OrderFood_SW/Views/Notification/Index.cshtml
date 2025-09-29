@@ -1,7 +1,7 @@
 @model IEnumerable<OrderFood_SW.Models.Notification>
 @inject OrderFood_SW.Services.NotificationService NotificationService
 @{
-    ViewData["Title"] = "Thông báo";
+    ViewData["Title"] = "Notification";
     var role = ViewBag.Role as string;
     var userId = ViewBag.UserId as int?;
 }
@@ -9,13 +9,13 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">
-            <i class="fa fa-bell"></i> Quản lý thông báo
+            <i class="fa fa-bell"></i> Notification management
         </h3>
         @if (role == "Staff")
         {
             <div class="box-tools pull-right">
                 <a href="~/Notification/Create" class="btn btn-primary">
-                    <i class="fa fa-plus"></i> Tạo thông báo mới
+                    <i class="fa fa-plus"></i> Create new notification
                 </a>
             </div>
         }
@@ -25,7 +25,7 @@
         {
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Thành công!</h4>
+                <h4><i class="icon fa fa-check"></i> success!</h4>
                 @TempData["SuccessMessage"]
             </div>
         }
@@ -34,7 +34,7 @@
         {
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-ban"></i> Lỗi!</h4>
+                <h4><i class="icon fa fa-ban"></i> error!</h4>
                 @TempData["ErrorMessage"]
             </div>
         }
@@ -45,13 +45,13 @@
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr class="bg-primary">
-                            <th>Tiêu đề</th>
-                            <th>Người gửi</th>
-                            <th>Loại</th>
-                            <th>Độ ưu tiên</th>
-                            <th>Ngày tạo</th>
-                            <th>Trạng thái</th>
-                            <th style="width:120px">Thao tác</th>
+                            <th>Title</th>
+                            <th>Sender</th>
+                            <th>Type</th>
+                            <th>Priority</th>
+                            <th>Create Date</th>
+                            <th>Status</th>
+                            <th style="width:120px">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@
                                     <strong>@notification.Title</strong>
                                     @if (!isRead)
                                     {
-                                        <span class="label label-danger">Mới</span>
+                                        <span class="label label-danger">New</span>
                                     }
                                 </td>
                                 <td>@notification.SenderName</td>
@@ -81,11 +81,11 @@
                                 <td>
                                     @if (isRead)
                                     {
-                                        <span class="label label-success">Đã đọc</span>
+                                        <span class="label label-success">Readed</span>
                                     }
                                     else
                                     {
-                                        <span class="label label-warning">Chưa đọc</span>
+                                        <span class="label label-warning">Unread</span>
                                     }
                                 </td>
                                 <td>
@@ -119,12 +119,12 @@
                             @if (ViewBag.CurrentPage > 1)
                             {
                                 <li>
-                                    <a href="@Url.Action("Index", new { page = 1 })">Đầu</a>
+                                    <a href="@Url.Action("Index", new { page = 1 })">First</a>
                                 </li>
                             }
                             else
                             {
-                                <li class="disabled"><a href="#">Đầu</a></li>
+                                <li class="disabled"><a href="#">First</a></li>
                             }
 
                             <!-- Page Numbers -->
@@ -144,12 +144,12 @@
                             @if (ViewBag.CurrentPage < (int)ViewBag.TotalPages)
                             {
                                 <li>
-                                    <a href="@Url.Action("Index", new { page = ViewBag.TotalPages })">Cuối</a>
+                                    <a href="@Url.Action("Index", new { page = ViewBag.TotalPages })">Last</a>
                                 </li>
                             }
                             else
                             {
-                                <li class="disabled"><a href="#">Cuối</a></li>
+                                <li class="disabled"><a href="#">Last</a></li>
                             }
                         </ul>
                     </div>
@@ -159,8 +159,8 @@
         else
         {
             <div class="alert alert-info">
-                <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
-                Chưa có thông báo nào.
+                <h4><i class="icon fa fa-info"></i> Notification!</h4>
+                No announcement yet.
             </div>
         }
     </div>

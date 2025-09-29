@@ -1,7 +1,7 @@
 @model OrderFood_SW.Models.Notification
 @inject OrderFood_SW.Services.NotificationService NotificationService
 @{
-    ViewData["Title"] = "Chi tiết thông báo";
+    ViewData["Title"] = "Notification Details";
     var userId = ViewBag.UserId as int?;
     var isRead = userId.HasValue ? NotificationService.IsNotificationReadByUser(Model.Id, userId.Value) : false;
 }
@@ -9,7 +9,7 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">
-            <i class="fa fa-eye"></i> Chi tiết thông báo
+            <i class="fa fa-eye"></i> Notification Details
         </h3>
     </div>
     <div class="box-body">
@@ -17,15 +17,15 @@
             <div class="col-md-12">
                 <table class="table table-bordered">
                     <tr>
-                        <th style="width: 150px;">Tiêu đề:</th>
+                        <th style="width: 150px;">Title:</th>
                         <td><strong>@Model.Title</strong></td>
                     </tr>
                     <tr>
-                        <th>Người gửi:</th>
+                        <th>Sender:</th>
                         <td>@Model.SenderName</td>
                     </tr>
                     <tr>
-                        <th>Loại:</th>
+                        <th>Type:</th>
                         <td>
                             <span class="label label-@(Model.Type == "Warning" ? "warning" : Model.Type == "Error" ? "danger" : "info")">
                                 @Model.Type
@@ -33,7 +33,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Độ ưu tiên:</th>
+                        <th>Priority:</th>
                         <td>
                             <span class="label label-@(Model.Priority == "Urgent" ? "danger" : Model.Priority == "High" ? "warning" : "default")">
                                 @Model.Priority
@@ -41,31 +41,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Ngày tạo:</th>
+                        <th>Create Date:</th>
                         <td>@Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
                     </tr>
                     @if (Model.UpdatedDate.HasValue)
                     {
                         <tr>
-                            <th>Ngày cập nhật:</th>
+                            <th>Update Date:</th>
                             <td>@Model.UpdatedDate.Value.ToString("dd/MM/yyyy HH:mm")</td>
                         </tr>
                     }
                     <tr>
-                        <th>Trạng thái:</th>
+                        <th>Status:</th>
                         <td>
                             @if (isRead)
                             {
-                                <span class="label label-success">Đã đọc</span>
+                                <span class="label label-success">Readed</span>
                             }
                             else
                             {
-                                <span class="label label-warning">Chưa đọc</span>
+                                <span class="label label-warning">Unread</span>
                             }
                         </td>
                     </tr>
                     <tr>
-                        <th>Nội dung:</th>
+                        <th>Content:</th>
                         <td>
                             <div style="white-space: pre-wrap; background-color: #f9f9f9; padding: 10px; border-radius: 4px;">
                                 @Model.Content
@@ -78,15 +78,15 @@
 
         <div class="form-group">
             <a href="~/Notification/Index" class="btn btn-default">
-                <i class="fa fa-arrow-left"></i> Quay lại
+                <i class="fa fa-arrow-left"></i> Back
             </a>
             @if (ViewBag.Role == "Staff")
             {
                 <a href="~/Notification/Edit/@Model.Id" class="btn btn-warning">
-                    <i class="fa fa-edit"></i> Chỉnh sửa
+                    <i class="fa fa-edit"></i> Edit
                 </a>
                 <a href="~/Notification/Delete/@Model.Id" class="btn btn-danger">
-                    <i class="fa fa-trash"></i> Xóa
+                    <i class="fa fa-trash"></i> Delete
                 </a>
             }
         </div>
