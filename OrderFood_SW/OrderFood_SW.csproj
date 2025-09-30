@@ -6097,7 +6097,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\Sites\" />
     <Folder Include="wwwroot\images\Users\" />
-    <Folder Include="wwwroot\js\customer-script\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
     <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />

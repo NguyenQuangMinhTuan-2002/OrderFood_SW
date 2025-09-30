@@ -1,0 +1,383 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website Documentation</title>
+    <!-- link css -->
+    <link href="~/css/documentation.css" rel="stylesheet" asp-append-version="true" />
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍽️ Restaurant Website Documentation</h1>
+            <p class="subtitle">Complete guide for managing your restaurant's online presence</p>
+        </header>
+
+        <div style="text-align: center">
+            <p>
+                ◀ <a href="~/Home/Index" style="color: black">Back to Admin</a>
+            </p>
+        </div>
+
+        <nav>
+            <button class="menu-toggle" id="menuToggle">☰ Menu</button>
+            <ul id="menuList" class="hidden">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#menu">Menu Setup</a></li>
+                <li><a href="#reservations">Reservations</a></li>
+                <li><a href="#contact">Contact Info</a></li>
+                <li><a href="#seo">SEO Guide</a></li>
+            </ul>
+        </nav>
+
+        <section id="overview">
+            <h2>📖 Overview</h2>
+            <p>This documentation provides comprehensive guidance for managing your restaurant website. Whether you're updating menu items, managing reservations, or optimizing for search engines, you'll find all the information you need here.</p>
+
+            <div class="info-box">
+                <strong>Quick Start:</strong> If you're new to managing the website, start with the Features section to understand what's available, then move on to the specific areas you need to update.
+            </div>
+
+            <h3>Website Structure</h3>
+            <ul>
+                <li><strong>Home Page:</strong> Landing page with hero section and featured items</li>
+                <li><strong>Menu Page:</strong> Complete menu with categories and pricing</li>
+                <li><strong>About Page:</strong> Restaurant story, chef profiles, and values</li>
+                <li><strong>Reservations:</strong> Online booking system</li>
+                <li><strong>Contact:</strong> Location, hours, and contact form</li>
+                <li><strong>Gallery:</strong> Photos of dishes, ambiance, and events</li>
+            </ul>
+        </section>
+
+        <section id="features">
+            <h2>✨ Key Features</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📱 Responsive Design</h3>
+                    <p>Fully optimized for mobile, tablet, and desktop devices</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🍴 Digital Menu</h3>
+                    <p>Easy-to-update menu with photos and dietary information</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📅 Online Booking</h3>
+                    <p>Integrated reservation system with email confirmations</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Photo Gallery</h3>
+                    <p>Showcase your dishes and restaurant atmosphere</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 SEO Optimized</h3>
+                    <p>Built-in search engine optimization for local discovery</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Analytics</h3>
+                    <p>Track visitor behavior and popular menu items</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu">
+            <h2>🍽️ Menu Management</h2>
+
+            <h3>Adding Menu Items</h3>
+            <p>To add a new menu item, follow these steps:</p>
+            <ol>
+                <li>Navigate to the admin panel</li>
+                <li>Select "Menu" from the sidebar</li>
+                <li>Click "Add New Item"</li>
+                <li>Fill in the required fields</li>
+                <li>Upload a high-quality image (recommended: 800x600px)</li>
+                <li>Click "Publish"</li>
+            </ol>
+
+            <h3>Menu Item Fields</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item Name</td>
+                        <td>Name of the dish</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>Brief description (max 200 characters)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>Item price</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td>Appetizers, Mains, Desserts, Drinks</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Image</td>
+                        <td>High-quality photo of the dish</td>
+                        <td>Recommended</td>
+                    </tr>
+                    <tr>
+                        <td>Dietary Info</td>
+                        <td>Vegan, Gluten-free, Spicy, etc.</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Allergens</td>
+                        <td>List of potential allergens</td>
+                        <td>Recommended</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="success-box">
+                <strong>Best Practice:</strong> Include detailed allergen information and dietary tags to help customers make informed choices.
+            </div>
+        </section>
+
+        <section id="reservations">
+            <h2>📅 Reservation System</h2>
+
+            <h3>Managing Bookings</h3>
+            <p>The reservation system allows customers to book tables online. You can manage all bookings from the admin dashboard.</p>
+
+            <h3>Reservation Settings</h3>
+            <ul>
+                <li><strong>Maximum Party Size:</strong> Set the maximum number of guests per reservation (default: 12)</li>
+                <li><strong>Time Slots:</strong> Configure available booking times</li>
+                <li><strong>Advance Booking:</strong> Set how far in advance customers can book (e.g., 30 days)</li>
+                <li><strong>Buffer Time:</strong> Add buffer time between reservations (recommended: 15 minutes)</li>
+                <li><strong>Cancellation Policy:</strong> Display your cancellation requirements</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Important:</strong> Always confirm reservations within 24 hours. Set up email notifications to avoid missing bookings.
+            </div>
+
+            <h3>Email Notifications</h3>
+            <p>The system sends automatic emails for:</p>
+            <ul>
+                <li>Booking confirmation to customer</li>
+                <li>Booking notification to restaurant</li>
+                <li>Reminder 24 hours before reservation</li>
+                <li>Cancellation confirmation</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>📞 Contact Information</h2>
+
+            <h3>Essential Information to Display</h3>
+
+            <div class="info-box">
+                <strong>Address:</strong><br>
+                123 Main Street<br>
+                City, State 12345<br><br>
+
+                <strong>Phone:</strong> (555) 123-4567<br>
+                <strong>Email:</strong> info@yourrestaurant.com<br><br>
+
+                <strong>Hours:</strong><br>
+                Monday - Thursday: 11:00 AM - 10:00 PM<br>
+                Friday - Saturday: 11:00 AM - 11:00 PM<br>
+                Sunday: 12:00 PM - 9:00 PM
+            </div>
+
+            <h3>Map Integration</h3>
+            <p>Include an embedded Google Map for easy directions:</p>
+            <pre><code>&lt;iframe src="YOUR_GOOGLE_MAPS_EMBED_URL"&gt;&lt;/iframe&gt;</code></pre>
+
+            <h3>Social Media Links</h3>
+            <p>Connect your social media accounts:</p>
+            <ul>
+                <li>Instagram - Great for food photos</li>
+                <li>Facebook - Events and community engagement</li>
+                <li>Twitter - Quick updates and promotions</li>
+                <li>TripAdvisor - Customer reviews</li>
+            </ul>
+        </section>
+
+        <section id="seo">
+            <h2>🔍 SEO Optimization Guide</h2>
+
+            <h3>Local SEO Checklist</h3>
+            <ul>
+                <li>✓ Claim your Google Business Profile</li>
+                <li>✓ Add restaurant to Yelp, TripAdvisor, and OpenTable</li>
+                <li>✓ Use location-based keywords in content</li>
+                <li>✓ Include city/neighborhood name in page titles</li>
+                <li>✓ Add schema markup for restaurant information</li>
+                <li>✓ Encourage customer reviews</li>
+                <li>✓ Maintain consistent NAP (Name, Address, Phone) across all platforms</li>
+            </ul>
+
+            <h3>Content Tips</h3>
+            <div class="success-box">
+                <strong>Keyword Strategy:</strong> Focus on terms like "[cuisine type] restaurant in [city]", "best [dish] near me", and "[neighborhood] dining"
+            </div>
+
+            <h3>Image Optimization</h3>
+            <ul>
+                <li>Use descriptive file names (e.g., "grilled-salmon-dinner.jpg")</li>
+                <li>Add alt text to all images</li>
+                <li>Compress images for faster loading</li>
+                <li>Recommended size: 800-1200px wide, under 200KB</li>
+            </ul>
+
+            <h3>Page Speed</h3>
+            <p>Fast loading times improve user experience and SEO rankings:</p>
+            <ul>
+                <li>Optimize and compress all images</li>
+                <li>Enable browser caching</li>
+                <li>Minimize CSS and JavaScript files</li>
+                <li>Use a Content Delivery Network (CDN)</li>
+            </ul>
+        </section>
+
+        <section id="updates">
+            <h2>🔄 Regular Maintenance</h2>
+
+            <h3>Weekly Tasks</h3>
+            <ul>
+                <li>Check and respond to reservation requests</li>
+                <li>Update special menu items or promotions</li>
+                <li>Review and respond to customer messages</li>
+                <li>Check website for broken links or errors</li>
+            </ul>
+
+            <h3>Monthly Tasks</h3>
+            <ul>
+                <li>Review analytics and visitor statistics</li>
+                <li>Update seasonal menu items</li>
+                <li>Refresh gallery with new photos</li>
+                <li>Check mobile responsiveness</li>
+                <li>Update business hours if changed</li>
+            </ul>
+
+            <h3>Quarterly Tasks</h3>
+            <ul>
+                <li>Full menu review and updates</li>
+                <li>SEO audit and keyword optimization</li>
+                <li>Backup all content and data</li>
+                <li>Review and update security measures</li>
+            </ul>
+        </section>
+
+        <section id="support">
+            <h2>💡 Support & Resources</h2>
+
+            <h3>Common Issues</h3>
+
+            <div class="info-box">
+                <strong>Menu items not displaying:</strong><br>
+                Check that items are published and assigned to correct categories. Clear browser cache and refresh.
+            </div>
+
+            <div class="info-box">
+                <strong>Reservation form not working:</strong><br>
+                Verify email settings in admin panel. Check spam folder for notifications.
+            </div>
+
+            <div class="info-box">
+                <strong>Images loading slowly:</strong><br>
+                Compress images using tools like TinyPNG or ImageOptim. Recommended max size: 200KB per image.
+            </div>
+
+            <h3>Useful Resources</h3>
+            <ul>
+                <li><strong>Google Business Profile:</strong> Manage your listing and reviews</li>
+                <li><strong>Canva:</strong> Create social media graphics and promotional materials</li>
+                <li><strong>Grammarly:</strong> Proofread menu descriptions and content</li>
+                <li><strong>Google Analytics:</strong> Track website performance and visitor behavior</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p><strong>Restaurant Website Documentation</strong></p>
+            <p>Last updated: September 2025</p>
+            <p>For technical support, contact your web developer or hosting provider.</p>
+        </footer>
+
+        <button class="back-to-top" id="backToTop" title="Back to top">↑</button>
+    </div>
+
+    <script>
+        const backToTop = document.getElementById('backToTop');
+        const menuToggle = document.getElementById('menuToggle');
+        const menuList = document.getElementById('menuList');
+
+        // Back to top functionality
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            menuList.classList.toggle('hidden');
+            if (menuList.classList.contains('hidden')) {
+                menuToggle.textContent = '☰ Menu';
+            } else {
+                menuToggle.textContent = '✕ Close';
+            }
+        });
+
+        // Auto-hide menu on mobile when clicking a link
+        const menuLinks = menuList.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    menuList.classList.add('hidden');
+                    menuToggle.textContent = '☰ Menu';
+                }
+            });
+        });
+
+        // Show menu on desktop, hide on mobile on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                menuList.classList.remove('hidden');
+            } else {
+                menuList.classList.add('hidden');
+                menuToggle.textContent = '☰ Menu';
+            }
+        });
+
+        // Initialize menu state
+        if (window.innerWidth <= 768) {
+            menuList.classList.add('hidden');
+        } else {
+            menuList.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

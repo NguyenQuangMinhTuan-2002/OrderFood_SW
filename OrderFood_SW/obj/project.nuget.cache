@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iHA0ZvZ4LIY=",
+  "dgSpecHash": "TEcg5R8aaQQ=",
   "success": true,
   "projectFilePath": "D:\\workspace\\C#\\SW_Web\\OrderFood_SW\\OrderFood_SW\\OrderFood_SW.csproj",
   "expectedPackageFiles": [
@@ -131,6 +131,7 @@
     "C:\\Users\\tuano\\.nuget\\packages\\optivem.framework.core.common\\1.0.23\\optivem.framework.core.common.1.0.23.nupkg.sha512",
     "C:\\Users\\tuano\\.nuget\\packages\\optivem.framework.core.domain\\1.0.23\\optivem.framework.core.domain.1.0.23.nupkg.sha512",
     "C:\\Users\\tuano\\.nuget\\packages\\optivem.framework.infrastructure.fluentvalidation\\1.0.23\\optivem.framework.infrastructure.fluentvalidation.1.0.23.nupkg.sha512",
+    "C:\\Users\\tuano\\.nuget\\packages\\scrutor\\6.1.0\\scrutor.6.1.0.nupkg.sha512",
     "C:\\Users\\tuano\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\tuano\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\tuano\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",

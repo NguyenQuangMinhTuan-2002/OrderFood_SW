@@ -22,6 +22,11 @@ namespace OrderFood_SW.Controllers
             return View();
         }
 
+        public IActionResult Documentation()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

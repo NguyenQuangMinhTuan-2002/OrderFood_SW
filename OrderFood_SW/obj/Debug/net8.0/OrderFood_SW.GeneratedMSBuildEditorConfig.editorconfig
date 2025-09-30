@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/CustomerCart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJDYXJ0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/CustomerOrder/CreateOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJPcmRlclxDcmVhdGVPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,12 +68,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJPcmRlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/CustomerOrder/_OrderCartPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJPcmRlclxfT3JkZXJDYXJ0UGFydGlhbC5jc2h0bWw=
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Customer/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/CustomerOrder/_ProductGridPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJPcmRlclxfUHJvZHVjdEdyaWRQYXJ0aWFsLmNzaHRtbA==
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Customer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Customer/OrderDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcT3JkZXJEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Customer/OrderHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcT3JkZXJIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Customer/OrderProcessing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcT3JkZXJQcm9jZXNzaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Customer/QRCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUVJDaGVjay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Dishes/Create.cshtml]
@@ -92,12 +112,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzaGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Home/Documentation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEb2N1bWVudGF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Notification/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Notification/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Notification/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Notification/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Notification/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Order/Create.cshtml]
@@ -136,12 +180,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckZvb3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Shared/_CustomerLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckxheW91dC5jc2h0bWw=
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Shared/_CustomerHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckhlYWRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Shared/_CustomerSidebar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lclNpZGViYXIuY3NodG1s
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Shared/_CustomerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Shared/_MainFooter.cshtml]
@@ -158,6 +202,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Statistic/Order.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdGlzdGljXE9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Statistic/Revenue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdGlzdGljXFJldmVudWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Tables/Create.cshtml]
@@ -178,6 +230,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Tables/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/TaxRate/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4UmF0ZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/TaxRate/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4UmF0ZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/TaxRate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4UmF0ZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Users/Create.cshtml]

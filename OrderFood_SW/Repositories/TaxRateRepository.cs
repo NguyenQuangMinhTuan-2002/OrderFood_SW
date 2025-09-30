@@ -16,6 +16,7 @@ namespace OrderFood_SW.Repositories
         public List<TaxRate> GetAllTaxRates()
         {
             return _db.TaxRates
+                .AsNoTracking()
                 .OrderByDescending(tr => tr.CreatedDate)
                 .ToList();
         }
@@ -23,12 +24,13 @@ namespace OrderFood_SW.Repositories
         public TaxRate? GetActiveTaxRate()
         {
             return _db.TaxRates
+                .AsNoTracking()
                 .FirstOrDefault(tr => tr.IsActive);
         }
 
         public TaxRate? GetById(int id)
         {
-            return _db.TaxRates.FirstOrDefault(tr => tr.Id == id);
+            return _db.TaxRates.AsNoTracking().FirstOrDefault(tr => tr.Id == id);
         }
 
         public void Add(TaxRate taxRate)
@@ -38,8 +40,22 @@ namespace OrderFood_SW.Repositories
 
         public void Update(TaxRate taxRate)
         {
-            taxRate.UpdatedDate = DateTime.Now;
-            _db.TaxRates.Update(taxRate);
+            // Use AsNoTracking to avoid tracking conflicts
+            var existingTaxRate = _db.TaxRates.AsNoTracking().FirstOrDefault(tr => tr.Id == taxRate.Id);
+            if (existingTaxRate != null)
+            {
+                // Detach any existing tracked entities
+                var trackedEntity = _db.ChangeTracker.Entries<TaxRate>()
+                    .FirstOrDefault(e => e.Entity.Id == taxRate.Id);
+                if (trackedEntity != null)
+                {
+                    trackedEntity.State = EntityState.Detached;
+                }
+
+                // Update the entity
+                taxRate.UpdatedDate = DateTime.Now;
+                _db.TaxRates.Update(taxRate);
+            }
         }
 
         public void Delete(int id)
@@ -53,22 +69,14 @@ namespace OrderFood_SW.Repositories
 
         public async Task SetActiveTaxRateAsync(int id)
         {
-            // Deactivate all tax rates first
-            var allTaxRates = await _db.TaxRates.ToListAsync();
-            foreach (var tr in allTaxRates)
-            {
-                tr.IsActive = false;
-            }
+            // Deactivate all tax rates first using raw SQL to avoid tracking issues
+            await _db.Database.ExecuteSqlRawAsync("UPDATE TaxRates SET IsActive = 0, UpdatedDate = GETDATE()");
 
-            // Activate the selected one
-            var selectedTaxRate = await _db.TaxRates.FirstOrDefaultAsync(tr => tr.Id == id);
-            if (selectedTaxRate != null)
+            // Activate the selected one using raw SQL
+            if (id > 0)
             {
-                selectedTaxRate.IsActive = true;
-                selectedTaxRate.UpdatedDate = DateTime.Now;
+                await _db.Database.ExecuteSqlRawAsync("UPDATE TaxRates SET IsActive = 1, UpdatedDate = GETDATE() WHERE Id = {0}", id);
             }
-
-            await _db.SaveChangesAsync();
         }
 
         public void SaveChanges()

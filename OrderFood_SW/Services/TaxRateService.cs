@@ -44,7 +44,7 @@ namespace OrderFood_SW.Services
                 }
 
                 _repo.Add(taxRate);
-                _repo.SaveChanges();
+                await _repo.SaveChangesAsync();
                 return (true, "Tax rate created successfully.");
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace OrderFood_SW.Services
                 }
 
                 _repo.Update(taxRate);
-                _repo.SaveChanges();
+                await _repo.SaveChangesAsync();
                 return (true, "Tax rate updated successfully.");
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace OrderFood_SW.Services
                     return (false, "Cannot delete active tax rate. Please activate another rate first.");
 
                 _repo.Delete(id);
-                _repo.SaveChanges();
+                await _repo.SaveChangesAsync();
                 return (true, "Tax rate deleted successfully.");
             }
             catch (Exception ex)

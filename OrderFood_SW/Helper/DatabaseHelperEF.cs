@@ -92,6 +92,36 @@ namespace OrderFood_SW.Helper
             modelBuilder.Entity<Notification>()
                 .Property(n => n.Type)
                 .HasDefaultValue("General");
+
+            // Configure TaxRate entity
+            modelBuilder.Entity<TaxRate>()
+                .HasKey(tr => tr.Id);
+
+            modelBuilder.Entity<TaxRate>()
+                .Property(tr => tr.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<TaxRate>()
+                .Property(tr => tr.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<TaxRate>()
+                .Property(tr => tr.Description)
+                .HasMaxLength(500);
+
+            modelBuilder.Entity<TaxRate>()
+                .Property(tr => tr.Rate)
+                .HasPrecision(5, 4)
+                .IsRequired();
+
+            modelBuilder.Entity<TaxRate>()
+                .Property(tr => tr.IsActive)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<TaxRate>()
+                .Property(tr => tr.CreatedDate)
+                .HasDefaultValueSql("GETDATE()");
         }
 
     }

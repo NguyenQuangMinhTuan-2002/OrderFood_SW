@@ -25,7 +25,6 @@ D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\staticwebasset
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\staticwebassets.development.json
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\OrderFood_SW.dll
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\refint\OrderFood_SW.dll
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\OrderFood_SW.pdb
@@ -302,3 +301,5 @@ D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\bin\Debug\net8.0\Optivem.Framew
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\bin\Debug\net8.0\Optivem.Framework.Infrastructure.FluentValidation.dll
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\bin\Debug\net8.0\bundleconfig.json
+D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\bin\Debug\net8.0\Scrutor.dll
+D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
