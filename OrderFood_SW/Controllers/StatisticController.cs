@@ -29,7 +29,7 @@ namespace OrderFood_SW.Controllers
             return View(model);
         }
 
-        public IActionResult Employee()
+        public async Task<IActionResult> Employee()
         {
             return View();
         }
