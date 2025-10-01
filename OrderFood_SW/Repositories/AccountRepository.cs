@@ -16,5 +16,10 @@ namespace OrderFood_SW.Repositories
                                        && u.PasswordHash == passwordHash
                                        && u.IsActive);
         }
+
+        public async Task<bool> UsernameExistsAsync(string username)
+        {
+            return await _db.Users.AnyAsync(u => u.Username == username);
+        }
     }
 }

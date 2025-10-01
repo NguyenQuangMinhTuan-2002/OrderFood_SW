@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewData["Title"] = "Đăng nhập";
+    ViewData["Title"] = "Đăng ký";
 }
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIGFOOD Restaurant</title>
+    <title>BIGFOOD Restaurant - Đăng ký</title>
     <link rel="stylesheet" href="~/css/user-login.css" asp-append-version="true">
 </head>
 <body>
@@ -34,7 +34,7 @@
                     <div class="zen-glow"></div>
                 </div>
                 <h1>BIGFOOD Restaurant</h1>
-                <p>One bite for better life</p>
+                <p>Đăng ký tài khoản khách hàng</p>
             </div>
 
             <div style="text-align: center; margin-bottom: 10px">
@@ -52,7 +52,27 @@
                 }
             </div>
 
-            <form class="harmony-form" id="loginForm" method="post" asp-action="Login">
+            <form class="harmony-form" id="registerForm" method="post" asp-action="Register">
+                <div class="organic-field">
+                    <div class="field-nature"></div>
+                    <input type="text" name="fullName" required />
+                    <label>Họ và tên:</label>
+                    <div class="growth-indicator">
+                        <div class="leaf-sprout"></div>
+                    </div>
+                    <span class="gentle-error" id="fullNameError"></span>
+                </div>
+
+                <div class="organic-field">
+                    <div class="field-nature"></div>
+                    <input type="email" name="email" required />
+                    <label>Email:</label>
+                    <div class="growth-indicator">
+                        <div class="leaf-sprout"></div>
+                    </div>
+                    <span class="gentle-error" id="emailError"></span>
+                </div>
+
                 <div class="organic-field">
                     <div class="field-nature"></div>
                     <input type="text" name="username" required />
@@ -60,7 +80,7 @@
                     <div class="growth-indicator">
                         <div class="leaf-sprout"></div>
                     </div>
-                    <span class="gentle-error" id="username"></span>
+                    <span class="gentle-error" id="usernameError"></span>
                 </div>
 
                 <div class="organic-field">
@@ -70,9 +90,16 @@
                     <span class="gentle-error" id="passwordError"></span>
                 </div>
 
+                <div class="organic-field">
+                    <div class="field-nature"></div>
+                    <input style="padding: 18px 20px" type="password" name="confirmPassword" required />
+                    <label>Xác nhận mật khẩu:</label>
+                    <span class="gentle-error" id="confirmPasswordError"></span>
+                </div>
+
                 <button type="submit" class="harmony-button">
                     <div class="button-earth"></div>
-                    <span class="button-text">Enter Restaurant</span>
+                    <span class="button-text">Đăng ký</span>
                     <div class="button-growth">
                         <div class="growing-circle circle-1"></div>
                         <div class="growing-circle circle-2"></div>
@@ -83,8 +110,8 @@
             </form>
 
             <div class="nurture-signup">
-                <span>Chưa có tài khoản? </span>
-                <a href="@Url.Action("Register")" class="growth-link">Register now</a>
+                <span>Đã có tài khoản? </span>
+                <a href="@Url.Action("Login")" class="growth-link">Đăng nhập ngay</a>
             </div>
 
             <div class="harmony-success" id="successMessage">
@@ -98,13 +125,12 @@
                         </svg>
                     </div>
                 </div>
-                <h3>Welcome Home</h3>
-                <p>Your sanctuary awaits...</p>
+                <h3>Chào mừng bạn!</h3>
+                <p>Tài khoản đã được tạo thành công...</p>
             </div>
         </div>
     </div>
 
-  @*   <script src="../../shared/js/form-utils.js"></script>*@
     <script src="~/js/Login.js"></script>
 </body>
 </html>

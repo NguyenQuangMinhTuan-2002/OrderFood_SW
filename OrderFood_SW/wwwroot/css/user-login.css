@@ -11,12 +11,12 @@ body {
     background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 50%, #f8f8f8 100%);
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 20px;
     line-height: 1.6;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
 }
 
 /* Natural Background Elements */
@@ -85,6 +85,7 @@ body {
     max-width: 440px;
     position: relative;
     z-index: 1;
+    margin: 40px 0;
 }
 
 .wellness-card {
@@ -803,6 +804,20 @@ body {
     font-size: 14px;
 }
 
+/* Registration Form Specific Styles */
+#registerForm .wellness-card {
+    min-height: auto;
+    padding: 48px 40px 60px 40px;
+}
+
+#registerForm .organic-field {
+    margin-bottom: 28px;
+}
+
+#registerForm .harmony-button {
+    margin-bottom: 24px;
+}
+
 /* Mobile Responsive */
 @media (max-width: 480px) {
     body {
@@ -812,6 +827,10 @@ body {
     .wellness-card {
         padding: 36px 28px;
         border-radius: 24px;
+    }
+
+    #registerForm .wellness-card {
+        padding: 36px 28px 50px 28px;
     }
 
     .mindful-header h1 {

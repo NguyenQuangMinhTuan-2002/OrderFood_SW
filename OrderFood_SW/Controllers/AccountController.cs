@@ -55,6 +55,52 @@ namespace OrderFood_SW.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+                return RedirectToAction("Index", "Home");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(string username, string password, string confirmPassword, string fullName, string email)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || 
+                string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email))
+            {
+                ViewBag.Error = "Vui lòng điền đầy đủ thông tin.";
+                return View();
+            }
+
+            if (password != confirmPassword)
+            {
+                ViewBag.Error = "Mật khẩu xác nhận không khớp.";
+                return View();
+            }
+
+            if (password.Length < 6)
+            {
+                ViewBag.Error = "Mật khẩu phải có ít nhất 6 ký tự.";
+                return View();
+            }
+
+            var success = await _service.RegisterCustomerAsync(username, password, fullName, email);
+            
+            if (success)
+            {
+                ViewBag.Success = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.";
+                return View("Login");
+            }
+            else
+            {
+                ViewBag.Error = "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.";
+                return View();
+            }
+        }
+
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
