@@ -15,6 +15,7 @@ namespace OrderFood_SW.Controllers
         }
 
         // http://localhost:7000/Guest/QRCheck?tableId=1
+        // http://localhost:19443/Guest/QRCheck?tableId=1
         public IActionResult QRCheck(int tableId)
         {
             var (action, routeValues, error) = _service.HandleQRCheck(tableId);

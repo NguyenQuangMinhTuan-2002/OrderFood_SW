@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Models;
@@ -17,25 +18,58 @@ namespace OrderFood_SW.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() => View();
+
+        public IActionResult Documentation() => View();
+
+        public IActionResult Privacy() => View();
+
+        [Route("Home/Error")]
+        public IActionResult Error(int? statusCode = null)
         {
-            return View();
+            var exFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            var currentStatusCode = statusCode ?? HttpContext.Response.StatusCode;
+            
+            var model = new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                StatusCode = currentStatusCode,
+                Path = exFeature?.Path ?? HttpContext.Request.Path,
+                StackTrace = exFeature?.Error.StackTrace
+            };
+
+            // If there's an exception, use its message, otherwise use status code message
+            if (exFeature?.Error != null)
+            {
+                model.Message = exFeature.Error.Message;
+                _logger.LogError(exFeature.Error, "Unhandled exception occurred at path {Path}", model.Path);
+            }
+            else
+            {
+                model.Message = model.GetStatusCodeMessage();
+                _logger.LogWarning("Status code {StatusCode} at path {Path}", currentStatusCode, model.Path);
+            }
+
+            return View(model);
         }
 
-        public IActionResult Documentation()
+        [Route("Home/StatusCode")]
+        public IActionResult StatusCodeHandler(int code)
         {
-            return View();
+            // Redirect to unified Error page with status code
+            return RedirectToAction("Error", new { statusCode = code });
         }
 
-        public IActionResult Privacy()
+        public IActionResult Crash()
         {
-            return View();
+            int x = 0;
+            int y = 10 / x; // DivideByZeroException
+            return Content(y.ToString());
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Crash2()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            throw new InvalidOperationException("Error test Serilog!");
         }
     }
 }

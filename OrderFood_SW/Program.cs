@@ -1,11 +1,22 @@
-using OrderFood_SW.Helper;
 using Microsoft.EntityFrameworkCore;
+using OrderFood_SW.Helper;
 using OrderFood_SW.Repositories;
 using OrderFood_SW.Services;
+using Serilog;
+using Serilog.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// -------------------- Serilog config --------------------
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .Enrich.WithExceptionDetails()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+// -------------------- Services --------------------
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseHelperEF>(options =>
@@ -13,60 +24,64 @@ builder.Services.AddDbContext<DatabaseHelperEF>(options =>
 
 builder.Services.AddHttpContextAccessor();
 
-// add builder Session
 builder.Services.AddDistributedMemoryCache();
-
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Timeout session after 30 minutes of inactivity
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
 // Scan all Repository
 builder.Services.Scan(scan => scan
-    .FromAssemblyOf<CategoryRepository>() // select 1 class root to get assembly
-    .AddClasses(classes => classes.Where(c => c.Name.EndsWith("Repository")))
-    .AsSelf() // self sign-up (can replace .AsImplementedInterfaces() if use interface)
+    .FromAssemblyOf<CategoryRepository>()
+    .AddClasses(c => c.Where(t => t.Name.EndsWith("Repository")))
+    .AsSelf()
     .WithScopedLifetime()
 );
 
 // Scan all Service
 builder.Services.Scan(scan => scan
     .FromAssemblyOf<CategoryService>()
-    .AddClasses(classes => classes.Where(c => c.Name.EndsWith("Service")))
+    .AddClasses(c => c.Where(t => t.Name.EndsWith("Service")))
     .AsSelf()
     .WithScopedLifetime()
 );
 
-// Manual registration for Notification services (backup)
-builder.Services.AddScoped<OrderFood_SW.Repositories.NotificationRepository>();
-builder.Services.AddScoped<OrderFood_SW.Services.NotificationService>();
+// Manual fallback
+builder.Services.AddScoped<NotificationRepository>();
+builder.Services.AddScoped<NotificationService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-}
+app.UseSerilogRequestLogging();
 
-// allow serving static files
+// -------------------- Middleware pipeline --------------------
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseDeveloperExceptionPage();
+//}
+//else
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//    app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
+//    app.UseHsts();
+//}
+
+app.UseExceptionHandler("/Home/Error");
+app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+app.UseHsts();
+
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-// enable HSTS
 app.UseRouting();
 
-// add middleware Session before Authorization
 app.UseSession();
-
-// Custom middleware for session-based authentication
 app.UseMiddleware<SessionAuthMiddleware>();
 
-// Use authentication and authorization
 app.UseAuthentication();
-
-// Ensure that the session is available before authorization
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -74,3 +89,4 @@ app.MapControllerRoute(
     pattern: "{controller=CustomerOrder}/{action=Index}/{id?}");
 
 app.Run();
+
