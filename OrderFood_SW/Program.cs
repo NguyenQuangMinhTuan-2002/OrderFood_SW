@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
+using OrderFood_SW.Hubs;
 using OrderFood_SW.Repositories;
 using OrderFood_SW.Services;
 using Serilog;
 using Serilog.Exceptions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,22 +58,19 @@ var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
 // -------------------- Middleware pipeline --------------------
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseDeveloperExceptionPage();
-//}
-//else
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//    app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
-//    app.UseHsts();
-//}
-
-app.UseExceptionHandler("/Home/Error");
-app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
-app.UseHsts();
-
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -88,5 +87,17 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=CustomerOrder}/{action=Index}/{id?}");
 
-app.Run();
+try
+{
+    Log.Information("Starting OrderFood_SW web host...");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
