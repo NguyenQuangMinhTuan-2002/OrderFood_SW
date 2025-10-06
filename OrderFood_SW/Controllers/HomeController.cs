@@ -60,6 +60,12 @@ namespace OrderFood_SW.Controllers
             return RedirectToAction("Error", new { statusCode = code });
         }
 
+
+
+
+
+
+        // Action to intentionally cause a crash for testing error handling
         public IActionResult Crash()
         {
             int x = 0;
@@ -70,6 +76,13 @@ namespace OrderFood_SW.Controllers
         public IActionResult Crash2()
         {
             throw new InvalidOperationException("Error test Serilog!");
+        }
+
+        public IActionResult Test()
+        {
+            HttpContext.Session.SetString("UserId", "12345");
+            HttpContext.Session.SetInt32("CartCount", 7);
+            return Ok("Session set!");
         }
     }
 }

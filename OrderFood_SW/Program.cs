@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
-using OrderFood_SW.Hubs;
 using OrderFood_SW.Repositories;
 using OrderFood_SW.Services;
 using Serilog;
@@ -17,6 +16,13 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+// -------------------- Redis Cache config --------------------
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+    options.InstanceName = "MyApp_";
+});
 
 // -------------------- Services --------------------
 builder.Services.AddControllersWithViews();
