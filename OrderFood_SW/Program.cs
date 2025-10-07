@@ -1,3 +1,5 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.EntityFrameworkCore;
 using OrderFood_SW.Helper;
 using OrderFood_SW.Repositories;
@@ -16,6 +18,18 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+// -------------------- Firebase config --------------------
+var firebasePath = Path.Combine(builder.Environment.ContentRootPath, "Config", "Firebase-key.json");
+if (File.Exists(firebasePath))
+{
+    FirebaseApp.Create(new AppOptions
+    {
+        Credential = GoogleCredential.FromFile(firebasePath)
+    });
+}
+
+builder.Services.AddSingleton<FirebaseMessagingService>();
 
 // -------------------- Redis Cache config --------------------
 builder.Services.AddStackExchangeRedisCache(options =>
