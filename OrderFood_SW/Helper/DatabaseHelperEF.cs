@@ -26,6 +26,8 @@ namespace OrderFood_SW.Helper
 
         public DbSet<NotificationReads> NotificationReads { get; set; }
 
+        public DbSet<DeviceToken> deviceTokens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

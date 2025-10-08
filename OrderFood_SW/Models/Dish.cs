@@ -13,6 +13,8 @@ namespace OrderFood_SW.Models
         public string? ImageUrl { get; set; }
         public int CategoryId { get; set; }
         public bool IsAvailable { get; set; }
+        [Range(0, double.MaxValue, ErrorMessage = "Tax amount must be a positive number")]
+        public decimal? TaxAmount { get; set; }
 
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
