@@ -9,6 +9,7 @@
         public string DishName { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public decimal TaxRate { get; set; } = 0.1m; // Default tax rate of 10%
         public string Note { get; set; } = string.Empty;
         public decimal Total => Price * Quantity;
     }

@@ -51,13 +51,19 @@ namespace OrderFood_SW.Repositories
         public void AddOrder(Order order) => _db.Orders.Add(order);
         public void AddOrderDetail(OrderDetail detail)
         {
+            // Always fetch Dish to get correct TaxRate and DishPrice
+            var dish = _db.Dishes.FirstOrDefault(d => d.DishId == detail.DishId);
+            decimal taxRate = dish?.TaxRate ?? 0.1m;
+            decimal price = dish?.DishPrice ?? 0m;
             var newDetail = new OrderDetail
             {
                 OrderId = detail.OrderId,
                 DishId = detail.DishId,
                 Quantity = detail.Quantity,
                 Note = detail.Note,
-                DishStatus = detail.DishStatus
+                DishStatus = detail.DishStatus,
+                TaxRate = taxRate,
+                TaxAmount = price * detail.Quantity * taxRate
             };
 
             _db.OrderDetails.Add(newDetail);

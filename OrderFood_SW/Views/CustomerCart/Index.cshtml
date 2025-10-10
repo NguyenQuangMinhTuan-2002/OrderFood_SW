@@ -6,10 +6,8 @@
 
     // Tính toán tổng
     decimal subtotal = Model.Sum(item => item.Price * item.Quantity);
-    decimal taxRate = ViewBag.TaxRate ?? 0.08m;
-    decimal tax = subtotal * taxRate;
-    decimal deliveryFee = subtotal >= 50 ? 0 : 5; // miễn phí giao khi >= $50
-    decimal total = subtotal + tax + deliveryFee;
+    decimal tax = Model.Sum(item => item.Price * item.Quantity * item.TaxRate);
+    decimal total = subtotal + tax;
 }
 
 <link rel="stylesheet" href="~/css/customer-style/customer-cart.css" asp-append-version="true">
@@ -41,7 +39,16 @@
                     <div class="item-details">
                         <div class="item-name">@item.DishName</div>
                         <div class="item-note">Note: @item.Note</div>
-                        <div class="item-price">$@item.Price.ToString("0.00")</div>
+                        <div class="item-price" style="display:flex">
+                            @{
+                                decimal taxPercent = item.TaxRate * 100;
+                                decimal priceUnit = item.Price;
+                                string formattedtaxPercent = taxPercent.ToString("0") + "%";
+                                string formattedPriceUnit = priceUnit.ToString("0") + "đ";
+                            }
+                            <div>@formattedPriceUnit</div>
+                            <div style="color: orange">+Tax:@formattedtaxPercent</div>
+                        </div>
                     </div>
                     <div class="quantity-controls">
                         <button class="quantity-btn" onclick="updateQuantity('@item.CartItemId', -1)">
@@ -64,21 +71,22 @@
             }
 
             <div class="cart-summary">
+                @{
+                    string formattedSubtotal = subtotal.ToString("0") + "đ";
+                    string formattedTax = tax.ToString("0") + "đ";
+                    string formattedTotal = total.ToString("0") + "đ";
+                }
                 <div class="summary-row">
                     <span>Subtotal:</span>
-                    <span id="subtotalValue">đ @subtotal.ToString("0.00")</span>
+                    <span id="subtotalValue">@formattedSubtotal</span>
                 </div>
                 <div class="summary-row">
-                    <span>Tax (10%):</span>
-                    <span id="taxValue">đ @tax.ToString("0.00")</span>
-                </div>
-                <div class="summary-row">
-                    <span>Delivery Fee:</span>
-                    <span id="deliveryValue">@(deliveryFee == 0 ? "FREE" : "đ" + deliveryFee.ToString("0.00"))</span>
+                    <span>Tax Amount:</span>
+                    <span id="taxValue">@formattedTax</span>
                 </div>
                 <div class="summary-row total-row">
                     <span>Total:</span>
-                    <span id="totalValue">đ @total.ToString("0.00")</span>
+                    <span id="totalValue">@formattedTotal</span>
                 </div>
                 <form method="post" asp-controller="CustomerOrder" asp-action="OrderInit">
                     <input type="hidden" name="tableId" value="@ViewBag.TableId" />
@@ -112,10 +120,6 @@
 
 <script>
     // ---- Cấu hình khớp với View/Razor ----
-    const TAX_RATE = @(ViewBag.TaxRate ?? 0.1);                    // Dynamic tax rate
-    const FREE_SHIPPING_THRESHOLD = 50;       // miễn phí giao khi >= 50
-    const DELIVERY_FEE = 5;                   // phí mặc định khi < threshold
-
     function showNoteModal(CartItemId) {
         currentDishForNote = CartItemId;
         const modal = document.getElementById('noteModal');
@@ -217,31 +221,37 @@
         badge.style.display = count > 0 ? 'inline-block' : 'none';
     }
 
-    function recalcTotals() {
+        function recalcTotals() {
         const items = $all('.cart-item[data-id]');
         let subtotal = 0;
+        let tax = 0;
 
         items.forEach(it => {
             const price = parseFloat(it.getAttribute('data-price') || '0');
             const qtyEl = $('.quantity-display', it);
             const qty = qtyEl ? parseInt(qtyEl.textContent.trim(), 10) || 0 : 0;
+
+            // ✅ Lấy taxRate đúng từ HTML
+            // Ta sẽ đọc từ span có màu orange trong item
+            const taxText = $('.item-price div:last-child', it)?.textContent || "";
+            const match = taxText.match(/([\d.,]+)/);
+            const taxRate = match ? parseFloat(match[1]) / 100 : 0;
+
             subtotal += price * qty;
+            tax += price * qty * taxRate;
         });
 
-        const tax = subtotal * TAX_RATE;
-        const delivery = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : (items.length ? DELIVERY_FEE : 0);
-        const total = subtotal + tax + delivery;
+        const total = subtotal + tax;
 
         const subEl = $('#subtotalValue');
         const taxEl = $('#taxValue');
-        const delEl = $('#deliveryValue');
         const totEl = $('#totalValue');
 
-        if (subEl) subEl.textContent = fmtMoney(subtotal);
-        if (taxEl) taxEl.textContent = fmtMoney(tax);
-        if (delEl) delEl.textContent = (delivery === 0 ? 'FREE' : fmtMoney(delivery));
-        if (totEl) totEl.textContent = fmtMoney(total);
+        if (subEl) subEl.textContent = `${Math.round(subtotal)}đ`;
+        if (taxEl) taxEl.textContent = `${Math.round(tax)}đ`;
+        if (totEl) totEl.textContent = `${Math.round(total)}đ`;
     }
+
 
     function showEmptyState() {
         const cartContent = $('#cartContent');

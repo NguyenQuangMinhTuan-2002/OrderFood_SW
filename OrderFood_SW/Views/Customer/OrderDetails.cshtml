@@ -95,8 +95,18 @@
                         <td>
                             <div class="item-quantity">@item.Quantity</div>
                         </td>
-                        <td class="item-price">@item.DishPrice</td>
-                        <td class="item-total">@item.Total</td>
+                        @{
+                            decimal price = item.DishPrice;
+                            decimal taxdish = item.TaxRate * 100;
+                            string formatted_price = price.ToString("0") + "đ" + " + " + taxdish.ToString("0") + "%";
+                        }
+                        <td class="item-price">@formatted_price</td>
+                        @{
+                            decimal total = item.Total;
+                            string formatted_total = total.ToString("0") + "đ";
+                        }
+                        
+                        <td class="item-total">@formatted_total</td>
                         <td>
                             @if (item.DishStatus == 1)
                             {
@@ -121,21 +131,44 @@
                         <div class="item-image food-item">🥬</div>
                         <div>
                             <div class="item-name">@item.DishName</div>
-                            <div class="item-status">@item.DishStatus</div>
+                            <div class="item-status">@item.Quantity</div>
                         </div>
                     </div>
                     <div class="item-details">
                         <div class="detail-row">
-                            <span class="detail-label">Quantity:</span>
-                            <span class="detail-value">@item.Quantity</span>
+                            <span class="detail-label">Note:</span>
+                            @{
+                                var note = item.Note;
+                                if (note.Equals("n/a"))
+                                {
+                                    note = "no note";
+                                }
+                            }
+                            <span class="detail-value">@note</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Dish Price:</span>
-                            <span class="detail-value">@item.DishPrice</span>
+                            @{
+                                decimal price = item.DishPrice;
+                                string formatted_price = price.ToString("0") + "đ";
+                            }
+                            <span class="detail-value">@formatted_price</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Total:</span>
-                            <span class="detail-value" style="color: #4CAF50; font-weight: bold;">@item.Total</span>
+                            @{
+                                decimal total = item.Total;
+                                string formatted_total = total.ToString("0") + "đ";
+                            }
+                            <span class="detail-value" style="color: #4CAF50; font-weight: bold;">@formatted_total</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            @{
+                                // 0: pending, 1: served
+                                string statusText = item.DishStatus == 1 ? "Has Served" : "Pending...";
+                            }
+                            <span class="detail-value">@statusText</span>
                         </div>
                     </div>
                 </div>
@@ -146,36 +179,35 @@
         </div>
 
         <div class="summary-section">
-            <div class="summary-row">
-                <span>Total Amount:</span>
-                @{
-                    decimal t = 0;
-                    foreach (var item in Model.OrderDetails)
+            @{
+                decimal sub = 0;
+                decimal tax = 0;
+                foreach (var item in Model.OrderDetails)
+                {
+                    if (item.DishStatus == 1)
                     {
-                        if (item.DishStatus == 1)
-                        {
-                            t += (item.DishPrice * item.Quantity);
-                        }
+                        sub += (item.DishPrice * item.Quantity);
+                        // Sử dụng taxrate của từng món ăn
+                        tax += (item.DishPrice * item.Quantity) * (item.TaxRate);
                     }
                 }
-                <span>@t</span>
+                decimal sum = sub + tax;
+                string formatted_t = sub.ToString("0") + "đ";
+                string formatted_tax = tax.ToString("0") + "đ";
+                string formatted_sum = sum.ToString("0") + "đ";
+            }
+
+            <div class="summary-row">
+                <span>Total Amount:</span>
+                <span>@formatted_t</span>
             </div>
             <div class="summary-row">
-                <span>Thuế VAT (10%):</span>
-                @{
-                    double x = 0.1;
-                    double s = 0;
-                    s = (double)t * x;
-                }
-                <span>@s VND</span>
+                <span>Tax amount:</span>
+                <span>@formatted_tax</span>
             </div>
             <div class="summary-row total">
                 <span>Sumary:</span>
-                @{
-                    double sum = 0;
-                    sum = (double)t + s;
-                }
-                <span>@sum</span>
+                <span>@formatted_sum</span>
             </div>
 
             <!-- check status == 1 still can add dish -->

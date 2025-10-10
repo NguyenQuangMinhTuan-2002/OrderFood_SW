@@ -14,6 +14,7 @@
                     <th>Dish Name</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
+                    <th>TaxRate</th>
                     <th>Total Price</th>
                     <th style="width: 77px ;color: darkgray">Options</th>
                 </tr>
@@ -25,6 +26,7 @@
                         <td>@item.DishName</td>
                         <td>@item.Quantity</td>
                         <td>@item.Price</td>
+                        <td>@item.TaxRate %</td>
                         <td>@item.Total</td>
                         <td>
                             <button style="margin-right: 10px" onclick="removeFromCart(@item.DishId)" class="btn btn-xs btn-danger"><i class="fa fa-minus"></i></button>

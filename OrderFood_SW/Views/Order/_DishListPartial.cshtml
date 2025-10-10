@@ -8,6 +8,7 @@
                 <th>Image</th>
                 <th>Dish Name</th>
                 <th>Dish Description</th>
+                <th>TaxRate</th>
                 <th>Dish Price</th>
                 <th style="width:100px; color: darkgray">Place Order</th>
             </tr>
@@ -22,6 +23,7 @@
                     </td>
                     <td>@item.DishName</td>
                     <td>@item.DishDescription</td>
+                    <td>@item.TaxRate %</td>
                     <td>@item.DishPrice</td>
                     <td>
                         <form method="post" asp-action="AddCart" asp-controller="Order" class="d-flex">

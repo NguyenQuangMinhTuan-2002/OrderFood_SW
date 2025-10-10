@@ -8,13 +8,11 @@ namespace OrderFood_SW.Services
     {
         private readonly OrderRepository _repo;
         private readonly TableRepository _tableRepo;
-        private readonly TaxRateService _taxRateService;
 
-        public OrderService(OrderRepository repo, TableRepository tableRepo, TaxRateService taxRateService)
+        public OrderService(OrderRepository repo, TableRepository tableRepo)
         {
             _repo = repo;
             _tableRepo = tableRepo;
-            _taxRateService = taxRateService;
         }
 
         public List<Table> GetAllTables()
@@ -81,6 +79,7 @@ namespace OrderFood_SW.Services
             foreach (var item in cart)
             {
                 var existingDetail = _repo.GetOrderDetail(order.OrderId, item.DishId);
+                var dish = _repo.GetDishById(item.DishId);
 
                 if (existingDetail != null)
                     existingDetail.Quantity += item.Quantity;
@@ -90,7 +89,10 @@ namespace OrderFood_SW.Services
                         OrderId = order.OrderId,
                         DishId = item.DishId,
                         Quantity = item.Quantity,
-                        DishStatus = 0
+                        DishStatus = 0,
+                        Note = "n/a",
+                        TaxRate = dish?.TaxRate ?? 0,
+                        TaxAmount = item.Quantity * item.Price * (dish?.TaxRate ?? 0),
                     });
             }
 
@@ -157,8 +159,8 @@ namespace OrderFood_SW.Services
 
             // Tính tổng tiền
             decimal total = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice);
-            decimal taxRate = _taxRateService.GetCurrentTaxRate();
-            total += total * taxRate;
+            decimal taxplus = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice * (decimal)od.Dish.TaxRate);
+            total += taxplus;
             order.TotalAmount = total;
 
             // Đổi trạng thái đơn hàng sang "2 = đã duyệt"

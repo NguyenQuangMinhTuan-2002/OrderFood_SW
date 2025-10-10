@@ -125,6 +125,7 @@ namespace OrderFood_SW.Repositories
                     ImageUrl = d.ImageUrl ?? "/images/nophoto.png",
                     DishName = d.DishName,
                     Quantity = od.Quantity,
+                    TaxRate = od.TaxRate ?? 0, // Giả sử thuế cố định 10%
                     DishPrice = d.DishPrice,
                     DishStatus = od.DishStatus,
                     OrderId = od.OrderId,
@@ -165,22 +166,30 @@ namespace OrderFood_SW.Repositories
             _db.OrderDetails.Remove(detail);
             await _db.SaveChangesAsync();
 
-            // Kiểm tra còn món nào trong đơn
+            // Kiểm tra còn món nào trong đơn không
             bool hasRemaining = await _db.OrderDetails.AnyAsync(od => od.OrderId == orderId);
 
             if (!hasRemaining)
             {
                 var order = await _db.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+                var table = await _db.Tables.FirstOrDefaultAsync(t => t.CurrentOrderId == orderId);
+
                 if (order != null)
-                {
                     _db.Orders.Remove(order);
-                    await _db.SaveChangesAsync();
-                    return true; // đơn hàng bị xóa
+
+                if (table != null)
+                {
+                    table.Status = "Available";
+                    table.CurrentOrderId = null;
                 }
+
+                await _db.SaveChangesAsync();
+                return true;
             }
 
-            return false; // chỉ xóa 1 món
+            return false;
         }
+
 
         public async Task<bool> ToggleDishStatusAsync(int orderId, int Id)
         {
@@ -258,7 +267,9 @@ namespace OrderFood_SW.Repositories
                 DishId = detail.DishId,
                 Quantity = detail.Quantity,
                 DishStatus = 0,
-                Note = note ?? string.Empty
+                Note = note ?? string.Empty,
+                TaxRate = detail.Dish?.TaxRate ?? 0,
+                TaxAmount = detail.Dish != null ? detail.Quantity * detail.Dish.DishPrice * (detail.Dish.TaxRate ?? 0) : 0
             };
 
             _db.OrderDetails.Add(newDetail);

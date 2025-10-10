@@ -141,7 +141,8 @@ namespace OrderFood_SW.Controllers
                     ImageUrl = dish.ImageUrl ?? "nophoto.png",
                     DishName = dish.DishName,
                     Price = dish.DishPrice,
-                    Quantity = Quantity
+                    Quantity = Quantity,
+                    TaxRate = dish.TaxRate ?? 0.1m
                 });
 
                 HttpContext.Session.SetObject("Cart", cart);

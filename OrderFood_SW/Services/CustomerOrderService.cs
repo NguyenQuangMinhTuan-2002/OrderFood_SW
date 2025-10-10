@@ -44,13 +44,20 @@ namespace OrderFood_SW.Services
                     continue;
                 }
 
+                // Always fetch Dish to get correct TaxRate and DishPrice
+                var dish = await GetDishByIdAsync(item.DishId);
+                decimal taxRate = dish?.TaxRate ?? 0.1m;
+                decimal price = dish?.DishPrice ?? item.Price;
+
                 // Different note or new dish - add as new detail
                 _repo.AddOrderDetail(new OrderDetail
                 {
                     OrderId = order.OrderId,
                     DishId = item.DishId,
                     Quantity = item.Quantity,
-                    Note = string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note
+                    Note = string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note,
+                    TaxRate = taxRate,
+                    TaxAmount = price * item.Quantity * taxRate
                 });
             }
 
@@ -93,7 +100,9 @@ namespace OrderFood_SW.Services
                     OrderId = newOrder.OrderId,
                     DishId = item.DishId,
                     Quantity = item.Quantity,
-                    Note = string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note
+                    Note = string.IsNullOrWhiteSpace(item.Note) ? "n/a" : item.Note,
+                    TaxRate = item.TaxRate,
+                    TaxAmount = item.Price * item.Quantity * item.TaxRate
                 });
             }
 

@@ -16,6 +16,7 @@
         public string ImageUrl { get; set; } = "";
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
+        public decimal TaxRate { get; set; }
         public string Note { get; set; } = "";
     }
 }

@@ -98,6 +98,7 @@ namespace OrderFood_SW.Repositories
                                 ImageUrl = d.ImageUrl ?? "nophoto.png",
                                 Quantity = od.Quantity,
                                 UnitPrice = d.DishPrice,
+                                TaxRate = (decimal)d.TaxRate,
                                 Note = od.Note ?? "n/a"
                             })
                         .ToList()
@@ -130,6 +131,7 @@ namespace OrderFood_SW.Repositories
                                 ImageUrl = d.ImageUrl ?? "nophoto.png",
                                 Quantity = od.Quantity,
                                 UnitPrice = d.DishPrice,
+                                TaxRate = (decimal)d.TaxRate,
                                 Note = od.Note ?? "n/a"
                             })
                         .ToList()
@@ -189,6 +191,7 @@ namespace OrderFood_SW.Repositories
                     DishPrice = d.DishPrice,
                     DishStatus = od.DishStatus,
                     OrderId = od.OrderId,
+                    TaxRate = (od.TaxRate ?? 0.1m),
                     Note = od.Note ?? ""
                 })
             .ToListAsync();

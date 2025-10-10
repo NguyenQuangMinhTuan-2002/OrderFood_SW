@@ -20,8 +20,6 @@ namespace OrderFood_SW.Helper
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
-        public DbSet<TaxRate> TaxRates { get; set; }
-
         public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<NotificationReads> NotificationReads { get; set; }
@@ -94,36 +92,6 @@ namespace OrderFood_SW.Helper
             modelBuilder.Entity<Notification>()
                 .Property(n => n.Type)
                 .HasDefaultValue("General");
-
-            // Configure TaxRate entity
-            modelBuilder.Entity<TaxRate>()
-                .HasKey(tr => tr.Id);
-
-            modelBuilder.Entity<TaxRate>()
-                .Property(tr => tr.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<TaxRate>()
-                .Property(tr => tr.Name)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            modelBuilder.Entity<TaxRate>()
-                .Property(tr => tr.Description)
-                .HasMaxLength(500);
-
-            modelBuilder.Entity<TaxRate>()
-                .Property(tr => tr.Rate)
-                .HasPrecision(5, 4)
-                .IsRequired();
-
-            modelBuilder.Entity<TaxRate>()
-                .Property(tr => tr.IsActive)
-                .HasDefaultValue(false);
-
-            modelBuilder.Entity<TaxRate>()
-                .Property(tr => tr.CreatedDate)
-                .HasDefaultValueSql("GETDATE()");
         }
 
     }

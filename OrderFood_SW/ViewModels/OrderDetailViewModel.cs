@@ -15,9 +15,10 @@ public class DetailsWithDish
     public string ImageUrl { get; set; } = string.Empty;
     public string DishName { get; set; } = string.Empty;
     public int Quantity { get; set; }
+    public decimal TaxRate { get; set; } = 0.1m; // Default tax rate of 10%
     public decimal DishPrice { get; set; }
     public int DishStatus { get; set; } // 0: Đang chờ, 1: Đã hoàn thành
     public int OrderId { get; set; }
     public string Note { get; set; } = string.Empty;
-    public decimal Total => DishPrice * Quantity;
+    public decimal Total => DishPrice * Quantity + (DishPrice * Quantity * TaxRate);
 }

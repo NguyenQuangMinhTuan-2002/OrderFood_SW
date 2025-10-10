@@ -87,7 +87,12 @@
                                 </div>
                                 <div class="item-price-qty">
                                     <span class="item-quantity">@detail.Quantity</span>
-                                    <span class="item-price">@detail.UnitPrice</span>
+                                    @{
+                                        var price = detail.UnitPrice;
+                                        var taxdish = detail.TaxRate * 100;
+                                        var formatted_price = price.ToString("0") + "đ" + " + " + taxdish.ToString("0") + "%";
+                                    }
+                                    <span class="item-price">@formatted_price</span>
                                 </div>
                             </div>
                         }

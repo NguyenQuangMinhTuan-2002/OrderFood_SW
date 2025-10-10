@@ -32,6 +32,7 @@
                         <th>Amount</th>
                         <th>Price</th>
                         <th>Note</th>
+                        <th>TaxRate</th>
                         <th>Total</th>
                         <th>Status</th>
                         @if (Model.Order.OrderStatus == 1)
@@ -62,6 +63,14 @@
                                         @item.Note
                                     }
                                 }
+                            </td>
+                            @* @{
+                                decimal a = item.TaxRate;
+                                a *= 100;
+                                String.Format("{0:0.00}%", a);
+                            } *@
+                            <td>
+                                @String.Format("{0:0.##} %", item.TaxRate * 100)
                             </td>
                             <td>@item.Total.ToString("N0")</td>
                             @if (item.DishStatus == 0)

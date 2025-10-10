@@ -35,13 +35,14 @@
                         <div class="order-status">
                             <span class="status-badge status-processing">Pending...</span>
                             @{
-                                double v = 0;
+                                decimal s = 0;
                                 foreach (var detail in item.OrderDetails)
                                 {
-                                    v += (double)(detail.UnitPrice * detail.Quantity);
+                                    s += (detail.UnitPrice * detail.Quantity + (detail.UnitPrice * detail.Quantity * detail.TaxRate));
                                 }
+                                string formatted_s = s.ToString("0");
                             }
-                            <div class="order-total">@v</div>
+                            <div class="order-total">@formatted_s đ</div>
                         </div>
                     </div>
                     <div class="order-body">
@@ -63,7 +64,11 @@
                                     </div>
                                     <div class="item-price-qty">
                                         <span class="item-quantity">@detail.Quantity</span>
-                                        <span class="item-price">@detail.UnitPrice</span>
+                                        @{
+                                            decimal PlusTax = detail.UnitPrice + detail.UnitPrice * detail.TaxRate;
+                                            string formatted_PlusTax = PlusTax.ToString("0");
+                                        }
+                                        <span class="item-price">@formatted_PlusTax đ</span>
                                     </div>
                                 </div>
                             }

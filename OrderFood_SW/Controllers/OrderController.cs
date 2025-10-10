@@ -111,14 +111,15 @@ public class OrderController : Controller
 
         var existing = cart.FirstOrDefault(x => x.DishId == dishId);
         if (existing != null)
-            existing.Quantity += quantity;  // ✅ sửa thành cộng thêm số lượng
+            existing.Quantity += quantity;
         else
             cart.Add(new OrderCartItem
             {
                 DishId = dish.DishId,
                 DishName = dish.DishName,
                 Price = dish.DishPrice,
-                Quantity = quantity
+                Quantity = quantity,
+                TaxRate = dish.TaxRate ?? 0.1m,
             });
 
         HttpContext.Session.SetObject("Cart", cart);
