@@ -48,16 +48,16 @@ namespace OrderFood_SW.Services
             {
                 // Validate input
                 if (string.IsNullOrWhiteSpace(title))
-                    return (false, "Tiêu đề không được để trống.");
+                    return (false, "Title cannot be empty.");
                 
                 if (string.IsNullOrWhiteSpace(content))
-                    return (false, "Nội dung không được để trống.");
+                    return (false, "Content cannot be empty.");
                 
                 if (string.IsNullOrWhiteSpace(senderId))
-                    return (false, "SenderId không được để trống.");
+                    return (false, "SenderId cannot be empty.");
                 
                 if (string.IsNullOrWhiteSpace(senderName))
-                    return (false, "SenderName không được để trống.");
+                    return (false, "SenderName cannot be empty.");
 
                 var notification = new Notification
                 {
@@ -74,13 +74,13 @@ namespace OrderFood_SW.Services
                 _repo.AddNotification(notification);
                 _repo.SaveChanges();
 
-                return (true, "Thông báo đã được tạo thành công.");
+                return (true, "Notification has been created !.");
             }
             catch (Exception ex)
             {
                 // Log the full exception for debugging
                 System.Diagnostics.Debug.WriteLine($"Error creating notification: {ex}");
-                return (false, $"Lỗi khi tạo thông báo: {ex.Message}");
+                return (false, $"Error creating notification: {ex.Message}");
             }
         }
 
@@ -90,7 +90,7 @@ namespace OrderFood_SW.Services
             {
                 var notification = _repo.GetNotificationById(id);
                 if (notification == null)
-                    return (false, "Không tìm thấy thông báo.");
+                    return (false, "Notification not found.");
 
                 notification.Title = title;
                 notification.Content = content;
@@ -101,11 +101,11 @@ namespace OrderFood_SW.Services
                 _repo.UpdateNotification(notification);
                 _repo.SaveChanges();
 
-                return (true, "Thông báo đã được cập nhật thành công.");
+                return (true, "Notification updated successfully.");
             }
             catch (Exception ex)
             {
-                return (false, $"Lỗi khi cập nhật thông báo: {ex.Message}");
+                return (false, $"Error updating notification: {ex.Message}");
             }
         }
 
@@ -115,16 +115,16 @@ namespace OrderFood_SW.Services
             {
                 var notification = _repo.GetNotificationById(id);
                 if (notification == null)
-                    return (false, "Không tìm thấy thông báo.");
+                    return (false, "Notification not found.");
 
                 _repo.DeleteNotification(id);
                 _repo.SaveChanges();
 
-                return (true, "Thông báo đã được xóa thành công.");
+                return (true, "Notification deleted successfully.");
             }
             catch (Exception ex)
             {
-                return (false, $"Lỗi khi xóa thông báo: {ex.Message}");
+                return (false, $"Error deleting notification: {ex.Message}");
             }
         }
 
@@ -134,16 +134,16 @@ namespace OrderFood_SW.Services
             {
                 var notification = _repo.GetNotificationById(notificationId);
                 if (notification == null)
-                    return (false, "Không tìm thấy thông báo.");
+                    return (false, "Notification not found.");
 
                 _repo.MarkAsRead(notificationId, userId);
                 _repo.SaveChanges();
 
-                return (true, "Thông báo đã được đánh dấu là đã đọc.");
+                return (true, "Notification marked as read.");
             }
             catch (Exception ex)
             {
-                return (false, $"Lỗi khi đánh dấu thông báo: {ex.Message}");
+                return (false, $"Error marking notification: {ex.Message}");
             }
         }
 
@@ -155,11 +155,11 @@ namespace OrderFood_SW.Services
                 _repo.MarkAllAsRead(userId);
                 _repo.SaveChanges();
 
-                return (true, "Tất cả thông báo đã được đánh dấu là đã đọc.");
+                return (true, "All notifications marked as read.");
             }
             catch (Exception ex)
             {
-                return (false, $"Lỗi khi đánh dấu tất cả thông báo: {ex.Message}");
+                return (false, $"Error marking all notifications: {ex.Message}");
             }
         }
 

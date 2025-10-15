@@ -3,7 +3,7 @@ using OrderFood_SW.Helper;
 using OrderFood_SW.Services;
 using OrderFood_SW.ViewModels;
 
-[AuthorizeRole("Admin", "Staff")]
+[AuthorizeRole("Staff")]
 public class OrderController : Controller
 {
     private const int PageSize = 4;

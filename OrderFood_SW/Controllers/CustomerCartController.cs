@@ -4,7 +4,7 @@ using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff", "Customer")]
+    [AuthorizeRole("Customer")]
     public class CustomerCartController : Controller
     {
         private readonly CartService _cartService;

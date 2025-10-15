@@ -7,7 +7,7 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff", "Customer")]
+    [AuthorizeRole("Customer")]
     public class CustomerController : Controller
     {
         private readonly CustomerService _service;
@@ -22,7 +22,7 @@ namespace OrderFood_SW.Controllers
             int? userIdSession = HttpContext.Session.GetInt32("UserId");
             if (userIdSession == null)
             {
-                TempData["Error"] = "Bạn cần đăng nhập để xem đơn hàng.";
+                TempData["Error"] = "You need to log in to view orders.";
                 return RedirectToAction("Login", "Account");
             }
 
@@ -46,7 +46,7 @@ namespace OrderFood_SW.Controllers
             ViewBag.HasNextPage = page < totalPages;
             ViewBag.TotalOrders = totalOrders;
 
-            // Giữ lại filter để bind ra view
+            // Keep filter to bind to view
             ViewBag.Status = status;
             ViewBag.FromDate = fromDate?.ToString("yyyy-MM-dd");
             ViewBag.ToDate = toDate?.ToString("yyyy-MM-dd");

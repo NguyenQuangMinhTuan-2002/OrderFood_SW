@@ -35,18 +35,18 @@ namespace OrderFood_SW.Services
         {
             var order = _repo.GetOrderWithDetails(orderId);
             if (order == null)
-                return (false, "Không tìm thấy đơn hàng.", null);
+                return (false, "Order not found.", null);
 
             bool hasServed = order.OrderDetails.Any(d => d.DishStatus == 1);
             if (hasServed)
-                return (false, "Không thể hủy đơn vì đã có món được phục vụ.", order.TableId);
+                return (false, "Cannot cancel order because some dishes have been served.", order.TableId);
 
-            // Cập nhật trạng thái đơn
+            // Update order status
             order.OrderStatus = -1;
             order.TotalAmount = 0;
             _repo.UpdateOrder(order);
 
-            // Cập nhật trạng thái bàn
+            // Update table status
             var table = _repo.GetTableById(order.TableId);
             if (table != null)
             {
@@ -56,7 +56,7 @@ namespace OrderFood_SW.Services
             }
 
             _repo.Save();
-            return (true, "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).", order.TableId);
+            return (true, "Order has been cancelled (status saved in system).", order.TableId);
         }
 
         public async Task<(bool Success, string? Message, OrderDetailViewModel? Data, int? TableNumber)>
@@ -64,7 +64,7 @@ namespace OrderFood_SW.Services
         {
             var order = await _repo.GetOrderByIdAsync(orderId);
             if (order == null)
-                return (false, "Không tìm thấy đơn hàng.", null, null);
+                return (false, "Order not found.", null, null);
 
             var table = await _repo.GetTableByIdAsync(order.TableId);
 

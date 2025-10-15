@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Sender";
+}
+
+<h2>FCM Sender Page</h2>
+<button id="btnSend">Gửi tín hiệu Reload</button>
+
+<script>
+    document.getElementById("btnSend").addEventListener("click", async () => {
+        const res = await fetch('/Test/SendReload', { method: 'POST' });
+        alert(await res.text());
+    });
+</script>

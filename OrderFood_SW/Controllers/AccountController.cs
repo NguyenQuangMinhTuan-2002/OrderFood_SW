@@ -71,19 +71,19 @@ namespace OrderFood_SW.Controllers
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || 
                 string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email))
             {
-                ViewBag.Error = "Vui lòng điền đầy đủ thông tin.";
+                ViewBag.Error = "Please fill in all information.";
                 return View();
             }
 
             if (password != confirmPassword)
             {
-                ViewBag.Error = "Mật khẩu xác nhận không khớp.";
+                ViewBag.Error = "Confirm password does not match.";
                 return View();
             }
 
             if (password.Length < 6)
             {
-                ViewBag.Error = "Mật khẩu phải có ít nhất 6 ký tự.";
+                ViewBag.Error = "Password must be at least 6 characters.";
                 return View();
             }
 
@@ -91,12 +91,12 @@ namespace OrderFood_SW.Controllers
             
             if (success)
             {
-                ViewBag.Success = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.";
+                ViewBag.Success = "Registration successful! You can log in now.";
                 return View("Login");
             }
             else
             {
-                ViewBag.Error = "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.";
+                ViewBag.Error = "Username already exists. Please choose another username.";
                 return View();
             }
         }

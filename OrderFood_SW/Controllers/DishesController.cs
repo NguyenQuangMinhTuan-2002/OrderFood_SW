@@ -5,7 +5,7 @@ using OrderFood_SW.Helper;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff")]
+    [AuthorizeRole("Admin")]
     public class DishesController : Controller
     {
         private readonly DishService _service;

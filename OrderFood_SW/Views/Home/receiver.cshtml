@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Receiver";
+}
+
+<h2>FCM Receiver Page</h2>
+<p>Trang này sẽ tự reload khi nhận tín hiệu từ server.</p>
+
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js"></script>
+<script src="~/js/fcm-init.js" asp-append-version="true"></script>
+
+<script>
+        navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data && event.data.type === 'RELOAD_SIGNAL') {
+            console.log('Reload signal received');
+            location.reload();
+        }
+    });
+
+</script>

@@ -58,7 +58,7 @@ namespace OrderFood_SW.Services
             if (existingOrderId.HasValue)
             {
                 order = _repo.GetOrderById(existingOrderId.Value)
-                    ?? throw new Exception("Không tìm thấy đơn hàng cũ!");
+                    ?? throw new Exception("Old order not found!");
             }
             else
             {
@@ -75,7 +75,7 @@ namespace OrderFood_SW.Services
                 _repo.SaveChanges();
             }
 
-            // Thêm món
+            // Add dishes
             foreach (var item in cart)
             {
                 var existingDetail = _repo.GetOrderDetail(order.OrderId, item.DishId);
@@ -96,10 +96,10 @@ namespace OrderFood_SW.Services
                     });
             }
 
-            // Cập nhật tổng tiền
+            // Update total amount
             order.TotalAmount = _repo.CalculateTotalAmount(order.OrderId);
 
-            // Cập nhật bàn
+            // Update table
             var table = await _tableRepo.GetByIdAsync(order.TableId);
             if (table != null)
             {
@@ -115,7 +115,7 @@ namespace OrderFood_SW.Services
         {
             var order = _repo.GetOrderById(orderId);
             if (order == null)
-                throw new Exception("Không tìm thấy đơn hàng");
+                throw new Exception("Order not found");
 
             var orderDetails = _repo.GetOrderDetailsWithDish(orderId);
 
@@ -150,23 +150,23 @@ namespace OrderFood_SW.Services
         {
             var order = await _repo.GetOrderWithDetailsAsync(orderId);
             if (order == null)
-                return (false, "Không tìm thấy đơn hàng");
+                return (false, "Order not found");
 
-            // Kiểm tra tất cả món đã được phục vụ
+            // Check if all dishes have been served
             bool allServed = order.OrderDetails.All(od => od.DishStatus == 1);
             if (!allServed)
-                return (false, "Chỉ được duyệt đơn khi tất cả món đã được phục vụ.");
+                return (false, "Order can only be approved when all dishes have been served.");
 
-            // Tính tổng tiền
+            // Calculate total amount
             decimal total = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice);
             decimal taxplus = order.OrderDetails.Sum(od => od.Quantity * od.Dish.DishPrice * (decimal)od.Dish.TaxRate);
             total += taxplus;
             order.TotalAmount = total;
 
-            // Đổi trạng thái đơn hàng sang "2 = đã duyệt"
+            // Change order status to "2 = approved"
             order.OrderStatus = 2;
 
-            // Cập nhật trạng thái bàn
+            // Update table status
             var table = await _repo.GetTableByIdAsync(order.TableId);
             if (table != null)
             {
@@ -174,25 +174,25 @@ namespace OrderFood_SW.Services
             }
 
             await _repo.SaveChangesAsync();
-            return (true, "Đơn hàng đã được duyệt và tính tổng tiền thành công.");
+            return (true, "Order has been approved and total amount calculated successfully.");
         }
 
         public (bool Success, string Message) CancelOrder(int orderId)
         {
             var order = _repo.GetOrderWithDetails(orderId);
             if (order == null)
-                return (false, "Không tìm thấy đơn hàng.");
+                return (false, "Order not found.");
 
-            // Nếu có món đã phục vụ -> không hủy
+            // If any dish has been served -> cannot cancel
             bool hasServed = order.OrderDetails.Any(d => d.DishStatus == 1);
             if (hasServed)
-                return (false, "Không thể hủy đơn vì đã có món được phục vụ.");
+                return (false, "Cannot cancel order because some dishes have been served.");
 
-            // Đánh dấu đơn hàng hủy
+            // Mark order as cancelled
             order.OrderStatus = -1;
             order.TotalAmount = 0;
 
-            // Cập nhật trạng thái bàn
+            // Update table status
             var table = _repo.GetTableById(order.TableId);
             if (table != null)
             {
@@ -201,20 +201,20 @@ namespace OrderFood_SW.Services
             }
 
             _repo.SaveChanges();
-            return (true, "Đơn hàng đã được hủy (lưu trạng thái trong hệ thống).");
+            return (true, "Order has been cancelled (status saved in system).");
         }
 
         // --- Notes & Duplicate APIs ---
         public async Task<(bool Success, string Message)> UpdateOrderNoteAsync(int orderId, string note)
         {
             var ok = await _repo.UpdateOrderNoteAsync(orderId, note);
-            return ok ? (true, "Cập nhật ghi chú đơn hàng thành công.") : (false, "Không tìm thấy đơn hàng.");
+            return ok ? (true, "Order note updated successfully.") : (false, "Order not found.");
         }
 
         public async Task<(bool Success, string Message)> UpdateOrderDetailNoteAsync(int orderDetailId, string note)
         {
             var ok = await _repo.UpdateOrderDetailNoteAsync(orderDetailId, note);
-            return ok ? (true, "Cập nhật ghi chú món thành công.") : (false, "Không tìm thấy món trong đơn hàng.");
+            return ok ? (true, "Dish note updated successfully.") : (false, "Dish not found in order.");
         }
 
         public async Task<(bool Success, string Message)> DuplicateOrderDetailWithNoteAsync(int orderDetailId, string note)

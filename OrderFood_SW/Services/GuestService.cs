@@ -20,7 +20,7 @@ namespace OrderFood_SW.Services
             var table = _repo.GetTableById(tableId);
             if (table == null)
             {
-                return ("Home/Index", null, "Không tìm thấy bàn này.");
+                return ("Home/Index", null, "Table not found.");
             }
 
             var session = _httpContext.HttpContext!.Session;
@@ -31,18 +31,18 @@ namespace OrderFood_SW.Services
             session.SetString("Role", "Customer");
 
             if (!session.GetInt32("UserId").HasValue)
-                session.SetInt32("UserId", 1); // Guest mặc định
+                session.SetInt32("UserId", 1); // Default guest
 
             var currentUserId = session.GetInt32("UserId");
 
-            // Nếu bàn có order mở
+            // If table has open order
             if (table.CurrentOrderId.HasValue)
             {
                 var order = _repo.GetOrderById(table.CurrentOrderId.Value);
 
                 if (order != null && order.OrderStatus == 1)
                 {
-                    if (currentUserId == 1) // Guest đang quét QR
+                    if (currentUserId == 1) // Guest scanning QR
                     {
                         if (order.UserId == 1)
                         {
@@ -56,13 +56,13 @@ namespace OrderFood_SW.Services
                     }
                 }
 
-                // Order đã đóng/hủy → reset bàn
+                // Order closed/cancelled → reset table
                 table.Status = "Available";
                 table.CurrentOrderId = null;
                 _repo.UpdateTable(table);
             }
 
-            // Nếu tới đây → chưa có order -> Guest được tạo đơn mới
+            // If we reach here → no order yet -> Guest can create new order
             session.Remove("CurrentOrderId");
             session.Remove("Cart");
 

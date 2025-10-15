@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Send Firebase Notification";
+}
+
+<h2>Send Firebase Notification</h2>
+
+<form method="post" action="/Notification/Send">
+    <div class="form-group">
+        <label>Token</label>
+        <input type="text" name="token" class="form-control" placeholder="Enter FCM token here" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Send Notification</button>
+</form>

@@ -111,7 +111,7 @@ namespace OrderFood_SW.Controllers
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = $"Lỗi hệ thống: {ex.Message}";
+                TempData["ErrorMessage"] = $"System error: {ex.Message}";
                 return View(notification);
             }
         }
@@ -125,7 +125,7 @@ namespace OrderFood_SW.Controllers
 
             if (notification == null || notification.SenderId != userId?.ToString())
             {
-                TempData["ErrorMessage"] = "Không tìm thấy thông báo hoặc bạn không có quyền chỉnh sửa.";
+                TempData["ErrorMessage"] = "Notification not found or you do not have permission to edit.";
                 return RedirectToAction("Index");
             }
 
@@ -146,7 +146,7 @@ namespace OrderFood_SW.Controllers
 
             if (existingNotification == null || existingNotification.SenderId != userId?.ToString())
             {
-                TempData["ErrorMessage"] = "Không tìm thấy thông báo hoặc bạn không có quyền chỉnh sửa.";
+                TempData["ErrorMessage"] = "Notification not found or you do not have permission to edit.";
                 return RedirectToAction("Index");
             }
 
@@ -179,7 +179,7 @@ namespace OrderFood_SW.Controllers
 
             if (notification == null || notification.SenderId != userId?.ToString())
             {
-                TempData["ErrorMessage"] = "Không tìm thấy thông báo hoặc bạn không có quyền xóa.";
+                TempData["ErrorMessage"] = "Notification not found or you do not have permission to delete.";
                 return RedirectToAction("Index");
             }
 
@@ -195,7 +195,7 @@ namespace OrderFood_SW.Controllers
 
             if (notification == null || notification.SenderId != userId?.ToString())
             {
-                TempData["ErrorMessage"] = "Không tìm thấy thông báo hoặc bạn không có quyền xóa.";
+                TempData["ErrorMessage"] = "Notification not found or you do not have permission to delete.";
                 return RedirectToAction("Index");
             }
 
@@ -220,7 +220,7 @@ namespace OrderFood_SW.Controllers
             
             if (notification == null)
             {
-                TempData["ErrorMessage"] = "Không tìm thấy thông báo.";
+                TempData["ErrorMessage"] = "Notification not found.";
                 return RedirectToAction("Index");
             }
 

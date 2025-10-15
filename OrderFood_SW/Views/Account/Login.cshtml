@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewData["Title"] = "Đăng nhập";
+    ViewData["Title"] = "Login";
 }
 
 <!DOCTYPE html>
@@ -56,7 +56,7 @@
                 <div class="organic-field">
                     <div class="field-nature"></div>
                     <input type="text" name="username" required />
-                    <label>Tên đăng nhập:</label>
+                    <label>Username:</label>
                     <div class="growth-indicator">
                         <div class="leaf-sprout"></div>
                     </div>
@@ -66,7 +66,7 @@
                 <div class="organic-field">
                     <div class="field-nature"></div>
                     <input style="padding: 18px 20px" type="password" name="password" required />
-                    <label>Mật khẩu:</label>
+                    <label>Password:</label>
                     <span class="gentle-error" id="passwordError"></span>
                 </div>
 
@@ -83,7 +83,7 @@
             </form>
 
             <div class="nurture-signup">
-                <span>Chưa có tài khoản? </span>
+                <span>Don't have an account? </span>
                 <a href="@Url.Action("Register")" class="growth-link">Register now</a>
             </div>
 

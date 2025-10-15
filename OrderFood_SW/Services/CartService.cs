@@ -99,8 +99,8 @@ namespace OrderFood_SW.Services
                 ImageUrl = item.ImageUrl,
                 DishName = item.DishName,
                 Price = item.Price,
-                Quantity = item.Quantity, // giữ nguyên số lượng
-                Note = note               // gán note mới
+                Quantity = item.Quantity, // keep original quantity
+                Note = note               // assign new note
             };
 
             cart.Add(newItem);

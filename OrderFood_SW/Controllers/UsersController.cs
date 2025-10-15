@@ -5,7 +5,7 @@ using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Staff")]
+    [AuthorizeRole("Admin")]
     public class UsersController : Controller
     {
         private readonly UserService _service;

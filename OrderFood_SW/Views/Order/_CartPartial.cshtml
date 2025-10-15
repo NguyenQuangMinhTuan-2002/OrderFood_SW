@@ -25,9 +25,17 @@
                     <tr>
                         <td>@item.DishName</td>
                         <td>@item.Quantity</td>
-                        <td>@item.Price</td>
-                        <td>@item.TaxRate %</td>
-                        <td>@item.Total</td>
+                        @{
+                            decimal unitPrice = item.Price;
+                            string formattedUnitPrice = unitPrice.ToString("0.##") + "đ";
+                        }
+                        <td>@formattedUnitPrice</td>
+                        <td>@item.TaxRate</td>
+                        @{
+                            decimal taxAmount = item.Price * item.Quantity * item.TaxRate;
+                            string formattedTax = taxAmount.ToString("0.##") + "đ";
+                        }
+                        <td>@formattedTax</td>
                         <td>
                             <button style="margin-right: 10px" onclick="removeFromCart(@item.DishId)" class="btn btn-xs btn-danger"><i class="fa fa-minus"></i></button>
                             <button onclick="#" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></button>

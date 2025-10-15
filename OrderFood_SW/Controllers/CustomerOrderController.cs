@@ -6,7 +6,7 @@ using OrderFood_SW.Services;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff", "Customer")]
+    [AuthorizeRole("Customer")]
     public class CustomerOrderController : Controller
     {
         private readonly CustomerOrderService _service;
@@ -211,7 +211,7 @@ namespace OrderFood_SW.Controllers
 
                 HttpContext.Session.Remove("Cart");
 
-                // 🔹 Nếu user là Guest (id = 1) → redirect thẳng vào OrderDetails
+                // 🔹 If user is Guest (id = 1) → redirect directly to OrderDetails
                 if (userId == 1)
                 {
                     return RedirectToAction("OrderDetails", "Customer", new { orderId = order.OrderId });
@@ -227,7 +227,7 @@ namespace OrderFood_SW.Controllers
                 return RedirectToAction("OrderProcessing", "Customer");
             }
 
-            // 🔹 Nếu là đơn mới
+            // 🔹 If it's a new order
             Order newOrder;
             try
             {

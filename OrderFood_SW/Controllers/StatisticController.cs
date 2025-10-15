@@ -5,7 +5,7 @@ using OrderFood_SW.ViewModels;
 
 namespace OrderFood_SW.Controllers
 {
-    [AuthorizeRole("Admin", "Staff")]
+    [AuthorizeRole("Admin")]
     public class StatisticController : Controller
     {
         private readonly StatisticService _service;

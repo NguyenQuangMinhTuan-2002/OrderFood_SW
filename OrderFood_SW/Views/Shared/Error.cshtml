@@ -2,7 +2,7 @@
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
 @{
     Layout = null;
-    ViewData["Title"] = "Có lỗi xảy ra";
+    ViewData["Title"] = "An Error Occurred";
 }
 
 <!DOCTYPE html>
@@ -75,34 +75,34 @@
                         @if (Model.StatusCode == 404)
                         {
                             <p style="color: #666; line-height: 1.6;">
-                                • Kiểm tra lại URL bạn đã nhập<br/>
-                                • Sử dụng menu điều hướng để tìm trang bạn cần<br/>
-                                • Quay lại trang trước đó và thử lại<br/>
-                                • Liên hệ với chúng tôi nếu bạn tin rằng đây là lỗi
+                                • Check the URL you entered<br/>
+                                • Use the navigation menu to find the page you need<br/>
+                                • Go back to the previous page and try again<br/>
+                                • Contact us if you believe this is an error
                             </p>
                         }
                         else if (Model.StatusCode == 403)
                         {
                             <p style="color: #666; line-height: 1.6;">
-                                • Đăng nhập với tài khoản có quyền phù hợp<br/>
-                                • Liên hệ quản trị viên để được cấp quyền truy cập<br/>
-                                • Quay lại trang chính và chọn chức năng khác
+                                • Log in with an account that has appropriate permissions<br/>
+                                • Contact the administrator to be granted access<br/>
+                                • Return to the main page and select another function
                             </p>
                         }
                         else if (Model.StatusCode == 401)
                         {
                             <p style="color: #666; line-height: 1.6;">
-                                • Đăng nhập để tiếp tục sử dụng<br/>
-                                • Kiểm tra thông tin đăng nhập của bạn<br/>
-                                • Liên hệ hỗ trợ nếu không thể đăng nhập
+                                • Log in to continue using<br/>
+                                • Check your login information<br/>
+                                • Contact support if you cannot log in
                             </p>
                         }
                         else
                         {
                             <p style="color: #666; line-height: 1.6;">
-                                • Thử lại sau vài phút<br/>
-                                • Quay lại trang trước đó<br/>
-                                • Liên hệ hỗ trợ nếu vấn đề vẫn tiếp tục
+                                • Try again in a few minutes<br/>
+                                • Go back to the previous page<br/>
+                                • Contact support if the problem persists
                             </p>
                         }
                     }
@@ -119,18 +119,18 @@
             <div class="action-buttons">
                 @if (Model.StatusCode == 401)
                 {
-                    <a href="/Account/Login" class="btn btn-primary">Đăng nhập</a>
-                    <button onclick="history.back()" class="btn btn-secondary">Quay lại</button>
+                    <a href="/Account/Login" class="btn btn-primary">Login</a>
+                    <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
                 }
                 else if (Model.StatusCode == 403)
                 {
-                    <a href="/" class="btn btn-primary">Trang chủ</a>
-                    <button onclick="history.back()" class="btn btn-secondary">Quay lại</button>
+                    <a href="/" class="btn btn-primary">Home</a>
+                    <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
                 }
                 else
                 {
-                    <a href="/" class="btn btn-primary">Trang chủ</a>
-                    <button onclick="history.back()" class="btn btn-secondary">Quay lại</button>
+                    <a href="/" class="btn btn-primary">Home</a>
+                    <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
                 }
             </div>
         </div>
