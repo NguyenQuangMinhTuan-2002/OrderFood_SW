@@ -17,6 +17,7 @@ namespace OrderFood_SW.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
                 return RedirectToAction("Index", "Home");
 
