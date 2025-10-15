@@ -1,0 +1,2 @@
+D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\wwwroot\images\Users\c89486da-e3b3-4a90-a2a8-42da31fd6d3e.png
+D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW\wwwroot\js\site.js

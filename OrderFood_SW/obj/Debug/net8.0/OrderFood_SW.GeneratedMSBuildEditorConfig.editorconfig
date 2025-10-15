@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Categories/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -122,6 +126,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Home/receiver.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxyZWNlaXZlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Home/Sender.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZW5kZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Notification/Create.cshtml]
@@ -232,16 +244,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/TaxRate/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4UmF0ZVxDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/TaxRate/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4UmF0ZVxFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/TaxRate/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4UmF0ZVxJbmRleC5jc2h0bWw=
+[D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Test/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVzdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/C\#/SW_Web/OrderFood_SW/OrderFood_SW/Views/Users/Create.cshtml]

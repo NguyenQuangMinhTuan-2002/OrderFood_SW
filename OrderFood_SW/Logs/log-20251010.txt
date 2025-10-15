@@ -1,0 +1,1276 @@
+[2025-10-10 08:53:20.093 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 08:53:20.827 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 08:53:20.829 +07:00 INF] Hosting environment: Development
+[2025-10-10 08:53:20.830 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 08:53:22.114 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 08:53:24.964 +07:00 INF] HTTP GET / responded 302 in 2854.8996 ms
+[2025-10-10 08:53:26.850 +07:00 INF] HTTP GET /Account/Login responded 200 in 1840.6652 ms
+[2025-10-10 08:53:26.889 +07:00 INF] HTTP GET /css/user-login.css responded 304 in 5.2586 ms
+[2025-10-10 08:53:26.895 +07:00 INF] HTTP GET /js/Login.js responded 404 in 10.8471 ms
+[2025-10-10 08:53:29.265 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 2.6101 ms
+[2025-10-10 08:53:33.078 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 08:53:33.080 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 08:53:33.080 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 08:53:33.080 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 08:53:33.080 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 08:53:36.877 +07:00 INF] HTTP POST /Account/Login responded 302 in 5569.3161 ms
+[2025-10-10 08:53:37.537 +07:00 INF] HTTP GET /Home responded 200 in 641.7953 ms
+[2025-10-10 08:53:39.352 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.7826 ms
+[2025-10-10 08:53:41.359 +07:00 INF] HTTP GET /Order responded 200 in 313.7175 ms
+[2025-10-10 08:53:42.787 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 100.8930 ms
+[2025-10-10 08:53:43.050 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.7879 ms
+[2025-10-10 08:53:44.444 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.6346 ms
+[2025-10-10 08:53:44.496 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 282.9040 ms
+[2025-10-10 08:53:46.171 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.3908 ms
+[2025-10-10 08:53:52.425 +07:00 INF] HTTP GET /Order/OrderHistory responded 200 in 78.1925 ms
+[2025-10-10 08:53:54.132 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 17.5496 ms
+[2025-10-10 08:53:55.620 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 26.6033 ms
+[2025-10-10 08:53:57.132 +07:00 INF] HTTP GET /Order/Detail/283 responded 200 in 52.0383 ms
+[2025-10-10 08:53:57.247 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.5693 ms
+[2025-10-10 08:53:58.777 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 6.4966 ms
+[2025-10-10 08:53:59.536 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 58.1579 ms
+[2025-10-10 08:54:01.185 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.2593 ms
+[2025-10-10 08:54:05.441 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.3044 ms
+[2025-10-10 08:54:05.520 +07:00 INF] HTTP GET /Order/Detail/283 responded 200 in 93.1612 ms
+[2025-10-10 08:54:07.184 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.5058 ms
+[2025-10-10 09:01:15.819 +07:00 INF] HTTP POST /Order/CancelOrder responded 302 in 603.5901 ms
+[2025-10-10 09:01:15.856 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 32.4230 ms
+[2025-10-10 09:01:17.543 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.5316 ms
+[2025-10-10 09:01:17.787 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 20.2949 ms
+[2025-10-10 09:01:19.478 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.4320 ms
+[2025-10-10 09:10:19.168 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 09:10:20.245 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 09:10:20.247 +07:00 INF] Hosting environment: Development
+[2025-10-10 09:10:20.271 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 09:10:20.562 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 09:10:26.148 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:10:26.151 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:10:26.151 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:10:26.152 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:10:26.152 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:10:29.209 +07:00 INF] HTTP GET / responded 200 in 8670.7576 ms
+[2025-10-10 09:10:30.070 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 620.4160 ms
+[2025-10-10 09:10:31.133 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 13.8948 ms
+[2025-10-10 09:10:33.582 +07:00 INF] HTTP GET /Account/Logout responded 302 in 75.7273 ms
+[2025-10-10 09:10:33.921 +07:00 INF] HTTP GET /Account/Login responded 200 in 325.1706 ms
+[2025-10-10 09:10:33.959 +07:00 INF] HTTP GET /js/Login.js responded 404 in 28.7276 ms
+[2025-10-10 09:10:35.599 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 4.0711 ms
+[2025-10-10 09:10:38.169 +07:00 INF] HTTP POST /Account/Login responded 302 in 671.0510 ms
+[2025-10-10 09:10:38.364 +07:00 INF] HTTP GET / responded 200 in 172.8305 ms
+[2025-10-10 09:10:38.487 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 7.3824 ms
+[2025-10-10 09:10:39.587 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 244.0937 ms
+[2025-10-10 09:10:39.664 +07:00 INF] HTTP GET /images/Products/e663c6fa-8a1c-48eb-b960-a46e042f75b0.png responded 304 in 14.3345 ms
+[2025-10-10 09:10:39.831 +07:00 INF] HTTP GET /images/Products/816985c3-291d-44c3-9ce4-f56c843f4949.png responded 304 in 0.3650 ms
+[2025-10-10 09:10:39.851 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 16.7384 ms
+[2025-10-10 09:10:40.236 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 52.4249 ms
+[2025-10-10 09:10:41.503 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.1532 ms
+[2025-10-10 09:10:42.986 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 305.0390 ms
+[2025-10-10 09:10:50.397 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 62.3525 ms
+[2025-10-10 09:10:52.099 +07:00 INF] HTTP GET /CustomerCart/Index responded 200 in 603.8211 ms
+[2025-10-10 09:10:52.106 +07:00 INF] HTTP GET /css/customer-style/customer-cart.css responded 304 in 0.2480 ms
+[2025-10-10 09:10:52.348 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 97.0101 ms
+[2025-10-10 09:10:53.952 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 11.6742 ms
+[2025-10-10 09:28:41.356 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 09:28:41.575 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 09:28:41.577 +07:00 INF] Hosting environment: Development
+[2025-10-10 09:28:41.580 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 09:28:41.652 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 09:28:45.219 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:28:45.220 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:28:45.220 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:28:45.220 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:28:45.221 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:28:47.207 +07:00 INF] HTTP GET / responded 200 in 5560.1327 ms
+[2025-10-10 09:28:47.627 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 200.1202 ms
+[2025-10-10 09:28:49.076 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.8512 ms
+[2025-10-10 09:28:49.644 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 837.7387 ms
+[2025-10-10 09:28:49.935 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 12.0860 ms
+[2025-10-10 09:28:51.539 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.2212 ms
+[2025-10-10 09:28:53.855 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 329.7501 ms
+[2025-10-10 09:29:04.191 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 14.1826 ms
+[2025-10-10 09:29:05.758 +07:00 INF] HTTP GET /CustomerCart/Index responded 200 in 233.4586 ms
+[2025-10-10 09:29:05.942 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 12.1846 ms
+[2025-10-10 09:29:07.540 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.0282 ms
+[2025-10-10 09:29:09.407 +07:00 INF] HTTP POST /CustomerOrder/OrderInit responded 302 in 735.4608 ms
+[2025-10-10 09:29:09.938 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 518.7912 ms
+[2025-10-10 09:29:10.014 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.0399 ms
+[2025-10-10 09:29:11.660 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.7139 ms
+[2025-10-10 09:29:13.466 +07:00 INF] HTTP POST /Customer/CancelOrder responded 302 in 173.5517 ms
+[2025-10-10 09:29:13.496 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 20.9345 ms
+[2025-10-10 09:29:13.645 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.3367 ms
+[2025-10-10 09:29:15.238 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.6475 ms
+[2025-10-10 09:29:16.462 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 24.1073 ms
+[2025-10-10 09:29:16.511 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.1140 ms
+[2025-10-10 09:29:18.146 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.4230 ms
+[2025-10-10 09:29:23.952 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 155.8289 ms
+[2025-10-10 09:29:24.007 +07:00 INF] HTTP GET /css/customer-style/customer-details.css responded 304 in 6.1064 ms
+[2025-10-10 09:29:24.126 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 4.8587 ms
+[2025-10-10 09:29:25.744 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.2996 ms
+[2025-10-10 09:31:01.590 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 42.8269 ms
+[2025-10-10 09:31:01.658 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.1582 ms
+[2025-10-10 09:31:03.345 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 15.2696 ms
+[2025-10-10 09:31:03.656 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 37.5832 ms
+[2025-10-10 09:31:03.719 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.6881 ms
+[2025-10-10 09:31:05.296 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.9534 ms
+[2025-10-10 09:42:40.994 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 09:42:41.292 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 09:42:41.294 +07:00 INF] Hosting environment: Development
+[2025-10-10 09:42:41.296 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 09:42:41.339 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 09:42:44.914 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:42:44.915 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:42:44.915 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:42:44.915 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:42:44.915 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:42:46.242 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4914.0600 ms
+[2025-10-10 09:42:46.443 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 62.8755 ms
+[2025-10-10 09:42:46.541 +07:00 INF] HTTP GET /favicon.ico responded 304 in 5.3971 ms
+[2025-10-10 09:42:47.919 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.7259 ms
+[2025-10-10 09:43:33.336 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 09:43:33.589 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 09:43:33.591 +07:00 INF] Hosting environment: Development
+[2025-10-10 09:43:33.592 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 09:43:33.613 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 09:43:36.942 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:43:36.942 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:43:36.942 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:43:36.943 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:43:36.943 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:43:38.196 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4586.2628 ms
+[2025-10-10 09:43:38.391 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 28.9902 ms
+[2025-10-10 09:43:39.946 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.8762 ms
+[2025-10-10 09:43:58.983 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 09:43:59.232 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 09:43:59.233 +07:00 INF] Hosting environment: Development
+[2025-10-10 09:43:59.235 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 09:43:59.278 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 09:44:03.242 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:44:03.243 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:44:03.243 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:44:03.243 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:44:03.243 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:44:05.922 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 6643.4573 ms
+[2025-10-10 09:44:05.973 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 24.2970 ms
+[2025-10-10 09:44:07.509 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.1298 ms
+[2025-10-10 09:44:51.072 +07:00 INF] HTTP GET /Account/Logout responded 302 in 12.2471 ms
+[2025-10-10 09:44:51.226 +07:00 INF] HTTP GET /Account/Login responded 200 in 145.2255 ms
+[2025-10-10 09:44:51.260 +07:00 INF] HTTP GET /js/Login.js responded 404 in 4.3599 ms
+[2025-10-10 09:44:52.914 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 1.7387 ms
+[2025-10-10 09:44:57.283 +07:00 INF] HTTP POST /Account/Login responded 302 in 169.1891 ms
+[2025-10-10 09:44:57.650 +07:00 INF] HTTP GET /Home responded 200 in 357.7542 ms
+[2025-10-10 09:44:59.396 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.3925 ms
+[2025-10-10 09:44:59.943 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 62.5812 ms
+[2025-10-10 09:45:00.945 +07:00 INF] HTTP GET /Order/Detail/285 responded 200 in 111.5297 ms
+[2025-10-10 09:45:01.565 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.5742 ms
+[2025-10-10 09:45:02.608 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.4054 ms
+[2025-10-10 09:45:04.681 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 40.3934 ms
+[2025-10-10 09:45:05.109 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0743 ms
+[2025-10-10 09:45:06.395 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.1420 ms
+[2025-10-10 09:55:31.326 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 09:55:31.634 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 09:55:31.636 +07:00 INF] Hosting environment: Development
+[2025-10-10 09:55:31.637 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 09:55:31.827 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 09:55:34.885 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:55:34.887 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:55:34.887 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:55:34.887 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:55:34.887 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 09:55:35.081 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 14.2981 ms
+[2025-10-10 09:55:35.978 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 4165.5702 ms
+[2025-10-10 09:55:35.990 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 926.4800 ms
+[2025-10-10 09:55:37.646 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.0717 ms
+[2025-10-10 09:55:39.298 +07:00 INF] HTTP GET /Order/Detail/285 responded 200 in 219.7766 ms
+[2025-10-10 09:55:39.876 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.8556 ms
+[2025-10-10 09:55:40.926 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.8180 ms
+[2025-10-10 09:55:45.987 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 561.9296 ms
+[2025-10-10 09:55:46.016 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 27.3720 ms
+[2025-10-10 09:55:46.082 +07:00 INF] HTTP GET /Order/Detail/285 responded 200 in 56.5459 ms
+[2025-10-10 09:55:47.709 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.7975 ms
+[2025-10-10 09:55:47.715 +07:00 INF] HTTP POST /Order/ApproveOrder responded 302 in 409.5585 ms
+[2025-10-10 09:55:47.805 +07:00 INF] HTTP GET /Order/Detail/285 responded 200 in 80.1746 ms
+[2025-10-10 09:55:48.990 +07:00 INF] HTTP GET /Order/OrderHistory responded 200 in 96.9161 ms
+[2025-10-10 09:55:49.430 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.5275 ms
+[2025-10-10 09:55:50.125 +07:00 INF] HTTP GET /Order/Detail/285 responded 200 in 63.4539 ms
+[2025-10-10 09:55:50.630 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.6369 ms
+[2025-10-10 09:55:51.767 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.9294 ms
+[2025-10-10 09:55:55.986 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.2856 ms
+[2025-10-10 09:56:15.887 +07:00 INF] HTTP GET /Order/OrderHistory responded 200 in 43.3711 ms
+[2025-10-10 09:56:17.518 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.7574 ms
+[2025-10-10 09:56:18.896 +07:00 INF] HTTP GET /Order/OrderHistory responded 200 in 35.5241 ms
+[2025-10-10 09:56:20.524 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2631 ms
+[2025-10-10 09:56:27.579 +07:00 INF] HTTP GET /Account/Logout responded 302 in 5.5623 ms
+[2025-10-10 09:56:27.667 +07:00 INF] HTTP GET /Account/Login responded 200 in 82.1620 ms
+[2025-10-10 09:56:27.686 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.0684 ms
+[2025-10-10 09:56:29.291 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 7.0862 ms
+[2025-10-10 09:56:32.698 +07:00 INF] HTTP POST /Account/Login responded 302 in 83.6537 ms
+[2025-10-10 09:56:32.810 +07:00 INF] HTTP GET / responded 200 in 103.1650 ms
+[2025-10-10 09:56:32.928 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 23.3004 ms
+[2025-10-10 09:56:34.178 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 189.2731 ms
+[2025-10-10 09:56:34.316 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 6.3754 ms
+[2025-10-10 09:56:34.641 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 7.5375 ms
+[2025-10-10 09:56:35.990 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.9309 ms
+[2025-10-10 09:56:37.597 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 220.2607 ms
+[2025-10-10 09:56:41.342 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 44.4319 ms
+[2025-10-10 09:56:42.499 +07:00 INF] HTTP GET /CustomerCart/Index responded 200 in 101.8592 ms
+[2025-10-10 09:56:42.565 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.1553 ms
+[2025-10-10 09:56:44.248 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.1319 ms
+[2025-10-10 09:56:47.859 +07:00 INF] HTTP POST /CustomerOrder/OrderInit responded 302 in 295.8342 ms
+[2025-10-10 09:56:48.013 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 145.7839 ms
+[2025-10-10 09:56:48.075 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.5725 ms
+[2025-10-10 09:56:49.709 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 10.0328 ms
+[2025-10-10 09:56:51.140 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.2680 ms
+[2025-10-10 09:56:51.151 +07:00 INF] HTTP GET /Account/Login responded 200 in 3.6833 ms
+[2025-10-10 09:56:51.189 +07:00 INF] HTTP GET /js/Login.js responded 404 in 3.7361 ms
+[2025-10-10 09:56:52.880 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 3.0360 ms
+[2025-10-10 09:56:54.740 +07:00 INF] HTTP POST /Account/Login responded 302 in 10.2469 ms
+[2025-10-10 09:56:54.797 +07:00 INF] HTTP GET /Home responded 200 in 52.9124 ms
+[2025-10-10 09:56:56.442 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.7109 ms
+[2025-10-10 09:56:56.730 +07:00 INF] HTTP GET /Order responded 200 in 66.3618 ms
+[2025-10-10 09:56:58.374 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.7396 ms
+[2025-10-10 09:56:59.320 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 57.6750 ms
+[2025-10-10 09:57:00.780 +07:00 INF] HTTP GET /Order/Detail/286 responded 200 in 33.7367 ms
+[2025-10-10 09:57:00.982 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2556 ms
+[2025-10-10 09:57:02.427 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.4474 ms
+[2025-10-10 10:15:50.003 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 10:15:50.205 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 10:15:50.207 +07:00 INF] Hosting environment: Development
+[2025-10-10 10:15:50.207 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 10:15:50.232 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 10:15:53.137 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:15:53.138 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:15:53.138 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:15:53.138 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:15:53.138 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:15:54.592 +07:00 INF] HTTP GET /Order/Detail/286 responded 200 in 4365.4092 ms
+[2025-10-10 10:15:56.284 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.1973 ms
+[2025-10-10 10:15:58.399 +07:00 INF] HTTP GET /Account/Logout responded 302 in 7.8650 ms
+[2025-10-10 10:15:58.457 +07:00 INF] HTTP GET /Account/Login responded 200 in 54.1023 ms
+[2025-10-10 10:15:58.482 +07:00 INF] HTTP GET /js/Login.js responded 404 in 6.7320 ms
+[2025-10-10 10:16:00.093 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 6.8935 ms
+[2025-10-10 10:16:02.437 +07:00 INF] HTTP POST /Account/Login responded 302 in 161.9636 ms
+[2025-10-10 10:16:02.648 +07:00 INF] HTTP GET / responded 200 in 205.0827 ms
+[2025-10-10 10:16:02.779 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 31.1112 ms
+[2025-10-10 10:16:04.457 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.4953 ms
+[2025-10-10 10:16:05.056 +07:00 INF] HTTP GET /Customer/OrderHistory responded 200 in 223.9242 ms
+[2025-10-10 10:16:05.171 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 4.3663 ms
+[2025-10-10 10:16:06.816 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2228 ms
+[2025-10-10 10:16:08.924 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 99.8133 ms
+[2025-10-10 10:16:08.987 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.7350 ms
+[2025-10-10 10:16:10.580 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.3294 ms
+[2025-10-10 10:16:18.422 +07:00 INF] HTTP GET /Customer/OrderHistory responded 200 in 31.1356 ms
+[2025-10-10 10:16:20.143 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.9621 ms
+[2025-10-10 10:17:55.808 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 10:17:56.101 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 10:17:56.103 +07:00 INF] Hosting environment: Development
+[2025-10-10 10:17:56.104 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 10:17:56.153 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 10:17:59.435 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:17:59.436 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:17:59.436 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:17:59.436 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:17:59.436 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:18:01.111 +07:00 INF] HTTP GET /Customer/OrderHistory responded 200 in 4958.3291 ms
+[2025-10-10 10:18:01.207 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 29.0250 ms
+[2025-10-10 10:18:02.806 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 5.2966 ms
+[2025-10-10 10:18:08.705 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 342.5541 ms
+[2025-10-10 10:18:08.793 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 10.1540 ms
+[2025-10-10 10:18:10.338 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.2451 ms
+[2025-10-10 10:18:17.655 +07:00 INF] HTTP GET /Customer/OrderHistory responded 200 in 152.2069 ms
+[2025-10-10 10:18:19.336 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.1375 ms
+[2025-10-10 10:18:20.601 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.1751 ms
+[2025-10-10 10:22:31.412 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 10:22:31.689 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 10:22:31.692 +07:00 INF] Hosting environment: Development
+[2025-10-10 10:22:31.693 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 10:22:31.764 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 10:22:35.010 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:22:35.012 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:22:35.012 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:22:35.012 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:22:35.012 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:22:36.559 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4815.9759 ms
+[2025-10-10 10:22:36.679 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 32.5239 ms
+[2025-10-10 10:22:38.211 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.3170 ms
+[2025-10-10 10:24:54.227 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 10:24:54.517 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 10:24:54.518 +07:00 INF] Hosting environment: Development
+[2025-10-10 10:24:54.519 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 10:24:54.576 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 10:24:57.771 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:24:57.772 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:24:57.772 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:24:57.772 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:24:57.772 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:24:59.077 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4507.7880 ms
+[2025-10-10 10:24:59.279 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 21.2983 ms
+[2025-10-10 10:25:01.867 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.1984 ms
+[2025-10-10 10:25:23.753 +07:00 INF] HTTP GET /Account/Logout responded 302 in 32.8804 ms
+[2025-10-10 10:25:23.829 +07:00 INF] HTTP GET /Account/Login responded 200 in 68.7278 ms
+[2025-10-10 10:25:23.865 +07:00 INF] HTTP GET /js/Login.js responded 404 in 2.8630 ms
+[2025-10-10 10:25:25.496 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 1.7176 ms
+[2025-10-10 10:25:26.883 +07:00 INF] HTTP POST /Account/Login responded 302 in 125.4744 ms
+[2025-10-10 10:25:27.231 +07:00 INF] HTTP GET /Home responded 200 in 343.8890 ms
+[2025-10-10 10:25:28.912 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0982 ms
+[2025-10-10 10:25:32.266 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 75.7938 ms
+[2025-10-10 10:25:33.377 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 88.5258 ms
+[2025-10-10 10:25:33.912 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2446 ms
+[2025-10-10 10:25:35.036 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.7321 ms
+[2025-10-10 10:25:46.283 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 200.1154 ms
+[2025-10-10 10:25:46.316 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 28.7754 ms
+[2025-10-10 10:25:46.883 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 16.0130 ms
+[2025-10-10 10:25:46.917 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 28.7215 ms
+[2025-10-10 10:25:47.349 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 14.7192 ms
+[2025-10-10 10:25:47.393 +07:00 INF] HTTP GET /Order/Detail/281 responded 200 in 37.5746 ms
+[2025-10-10 10:25:48.668 +07:00 INF] HTTP POST /Order/CancelOrder responded 302 in 181.7321 ms
+[2025-10-10 10:25:48.689 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 16.4490 ms
+[2025-10-10 10:25:49.046 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2900 ms
+[2025-10-10 10:25:49.918 +07:00 INF] HTTP GET /Order/Detail/286 responded 200 in 33.2078 ms
+[2025-10-10 10:25:50.295 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.5530 ms
+[2025-10-10 10:25:51.557 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.9426 ms
+[2025-10-10 10:25:52.184 +07:00 INF] HTTP POST /Order/DeleteDishFromOrder responded 302 in 103.1066 ms
+[2025-10-10 10:25:52.213 +07:00 INF] HTTP GET /Order/Detail/286 responded 200 in 24.3565 ms
+[2025-10-10 10:25:52.689 +07:00 INF] HTTP POST /Order/DeleteDishFromOrder responded 302 in 73.0285 ms
+[2025-10-10 10:25:52.729 +07:00 INF] HTTP GET /Order responded 200 in 34.1146 ms
+[2025-10-10 10:25:54.377 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0316 ms
+[2025-10-10 10:25:55.669 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.2938 ms
+[2025-10-10 10:25:55.684 +07:00 INF] HTTP GET /Account/Login responded 200 in 4.7623 ms
+[2025-10-10 10:25:55.721 +07:00 INF] HTTP GET /js/Login.js responded 404 in 0.9011 ms
+[2025-10-10 10:25:57.318 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 0.9844 ms
+[2025-10-10 10:26:00.269 +07:00 INF] HTTP POST /Account/Login responded 302 in 14.1902 ms
+[2025-10-10 10:26:00.313 +07:00 INF] HTTP GET / responded 200 in 36.3100 ms
+[2025-10-10 10:26:00.394 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 8.3212 ms
+[2025-10-10 10:26:01.571 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 139.5534 ms
+[2025-10-10 10:26:01.656 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.1481 ms
+[2025-10-10 10:26:02.072 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8899 ms
+[2025-10-10 10:26:03.300 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8326 ms
+[2025-10-10 10:26:11.617 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 163.3069 ms
+[2025-10-10 10:26:15.690 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 60.1930 ms
+[2025-10-10 10:26:16.533 +07:00 INF] HTTP GET /CustomerCart/Index responded 200 in 43.4551 ms
+[2025-10-10 10:26:16.604 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.2696 ms
+[2025-10-10 10:26:18.214 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2992 ms
+[2025-10-10 10:26:19.436 +07:00 INF] HTTP POST /CustomerOrder/OrderInit responded 302 in 129.9828 ms
+[2025-10-10 10:26:19.647 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 201.8484 ms
+[2025-10-10 10:26:19.828 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 16.1566 ms
+[2025-10-10 10:26:21.087 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 29.4038 ms
+[2025-10-10 10:26:21.169 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 14.3361 ms
+[2025-10-10 10:26:21.297 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8184 ms
+[2025-10-10 10:26:22.730 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.8221 ms
+[2025-10-10 10:26:28.179 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.5629 ms
+[2025-10-10 10:26:28.189 +07:00 INF] HTTP GET /Account/Login responded 200 in 2.2476 ms
+[2025-10-10 10:26:28.239 +07:00 INF] HTTP GET /js/Login.js responded 404 in 2.7017 ms
+[2025-10-10 10:26:29.832 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 1.3316 ms
+[2025-10-10 10:26:31.417 +07:00 INF] HTTP POST /Account/Login responded 302 in 10.9893 ms
+[2025-10-10 10:26:31.444 +07:00 INF] HTTP GET /Home responded 200 in 21.0404 ms
+[2025-10-10 10:26:33.065 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.6108 ms
+[2025-10-10 10:26:33.474 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 22.2228 ms
+[2025-10-10 10:26:34.440 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 24.7998 ms
+[2025-10-10 10:26:36.069 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8649 ms
+[2025-10-10 10:45:41.474 +07:00 INF] Application is shutting down...
+[2025-10-10 10:49:21.571 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 10:49:21.733 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 10:49:21.779 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 10:49:21.779 +07:00 INF] Hosting environment: Development
+[2025-10-10 10:49:21.780 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 10:49:23.996 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2272.0332 ms
+[2025-10-10 10:49:24.606 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:49:24.607 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:49:24.607 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:49:24.607 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:49:24.607 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 10:49:25.610 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 3798.9515 ms
+[2025-10-10 10:49:27.699 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.1759 ms
+[2025-10-10 10:49:37.797 +07:00 INF] HTTP GET /Order/OrderHistory responded 200 in 71.1147 ms
+[2025-10-10 10:49:39.215 +07:00 INF] HTTP GET /Order/Detail/284 responded 200 in 78.7403 ms
+[2025-10-10 10:49:39.441 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.3417 ms
+[2025-10-10 10:49:40.817 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2988 ms
+[2025-10-10 10:49:42.261 +07:00 INF] HTTP GET /Order/Detail/280 responded 200 in 12.1883 ms
+[2025-10-10 10:49:42.812 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0222 ms
+[2025-10-10 10:49:43.882 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0733 ms
+[2025-10-10 10:49:45.655 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.3365 ms
+[2025-10-10 10:49:45.660 +07:00 INF] HTTP GET /Order/Detail/282 responded 200 in 12.2626 ms
+[2025-10-10 10:49:47.337 +07:00 INF] HTTP GET /Order/Detail/283 responded 200 in 10.9749 ms
+[2025-10-10 10:49:49.601 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0253 ms
+[2025-10-10 10:49:50.014 +07:00 INF] HTTP GET /Account/Logout responded 302 in 6.1557 ms
+[2025-10-10 10:49:50.061 +07:00 INF] HTTP GET /Account/Login responded 200 in 41.3937 ms
+[2025-10-10 10:49:50.081 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.1242 ms
+[2025-10-10 10:49:51.737 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 2.4626 ms
+[2025-10-10 10:50:01.775 +07:00 INF] HTTP POST /Account/Login responded 302 in 163.9254 ms
+[2025-10-10 10:50:01.860 +07:00 INF] HTTP GET / responded 200 in 78.8515 ms
+[2025-10-10 10:50:02.078 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 38.0729 ms
+[2025-10-10 10:50:03.771 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.9558 ms
+[2025-10-10 10:50:04.641 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 113.3059 ms
+[2025-10-10 10:50:04.722 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 4.1211 ms
+[2025-10-10 10:50:06.352 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2793 ms
+[2025-10-10 10:50:08.467 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 83.7097 ms
+[2025-10-10 10:50:08.592 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.5936 ms
+[2025-10-10 10:50:10.270 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.7268 ms
+[2025-10-10 11:03:46.510 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:03:46.734 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:03:46.747 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:03:46.748 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:03:46.763 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:03:49.881 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:03:49.883 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:03:49.884 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:03:49.884 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:03:49.884 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:03:51.334 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4573.6583 ms
+[2025-10-10 11:03:51.472 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 27.5235 ms
+[2025-10-10 11:03:53.096 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 26.7406 ms
+[2025-10-10 11:03:53.676 +07:00 INF] HTTP GET /CustomerOrder/AddMoreOrder responded 302 in 13.1089 ms
+[2025-10-10 11:03:54.039 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 354.9000 ms
+[2025-10-10 11:03:54.315 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 6.0876 ms
+[2025-10-10 11:03:55.925 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.4327 ms
+[2025-10-10 11:04:00.286 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 295.8689 ms
+[2025-10-10 11:04:03.169 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 56.5401 ms
+[2025-10-10 11:04:04.180 +07:00 INF] HTTP GET /CustomerCart/Index responded 200 in 88.3217 ms
+[2025-10-10 11:04:04.284 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 7.0828 ms
+[2025-10-10 11:04:06.024 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.4934 ms
+[2025-10-10 11:04:10.710 +07:00 INF] HTTP POST /CustomerOrder/OrderInit responded 302 in 296.9007 ms
+[2025-10-10 11:04:10.793 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 79.1402 ms
+[2025-10-10 11:04:10.860 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.7336 ms
+[2025-10-10 11:04:12.437 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.8012 ms
+[2025-10-10 11:04:15.013 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 16.3335 ms
+[2025-10-10 11:04:15.075 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.8755 ms
+[2025-10-10 11:04:16.691 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.1689 ms
+[2025-10-10 11:04:27.046 +07:00 INF] HTTP GET /Account/Logout responded 302 in 9.2661 ms
+[2025-10-10 11:04:27.114 +07:00 INF] HTTP GET /Account/Login responded 200 in 60.3653 ms
+[2025-10-10 11:04:27.138 +07:00 INF] HTTP GET /js/Login.js responded 404 in 2.1594 ms
+[2025-10-10 11:04:28.756 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 2.1405 ms
+[2025-10-10 11:04:30.487 +07:00 INF] HTTP POST /Account/Login responded 302 in 73.9892 ms
+[2025-10-10 11:04:30.595 +07:00 INF] HTTP GET /Home responded 200 in 101.9077 ms
+[2025-10-10 11:04:32.255 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0333 ms
+[2025-10-10 11:04:32.398 +07:00 INF] HTTP GET /Order responded 200 in 29.3868 ms
+[2025-10-10 11:04:33.809 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 24.5689 ms
+[2025-10-10 11:04:34.052 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8925 ms
+[2025-10-10 11:04:34.673 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 56.6932 ms
+[2025-10-10 11:04:36.322 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.1445 ms
+[2025-10-10 11:04:39.228 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 25.8577 ms
+[2025-10-10 11:04:39.242 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 9.3339 ms
+[2025-10-10 11:04:39.825 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 6.6791 ms
+[2025-10-10 11:04:39.841 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 10.0019 ms
+[2025-10-10 11:04:40.296 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 4.5425 ms
+[2025-10-10 11:04:40.311 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 8.3646 ms
+[2025-10-10 11:04:40.863 +07:00 INF] HTTP POST /Order/ToggleDishStatus responded 302 in 4.6865 ms
+[2025-10-10 11:04:40.877 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 8.1117 ms
+[2025-10-10 11:04:41.477 +07:00 INF] HTTP POST /Order/ApproveOrder responded 302 in 58.8773 ms
+[2025-10-10 11:04:41.491 +07:00 INF] HTTP GET /Order/Detail/287 responded 200 in 8.3756 ms
+[2025-10-10 11:04:42.657 +07:00 INF] HTTP GET /Order/OrderHistory responded 200 in 24.3856 ms
+[2025-10-10 11:04:43.120 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8973 ms
+[2025-10-10 11:04:44.272 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2125 ms
+[2025-10-10 11:04:47.364 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.1972 ms
+[2025-10-10 11:04:47.375 +07:00 INF] HTTP GET /Account/Login responded 200 in 4.8912 ms
+[2025-10-10 11:04:47.412 +07:00 INF] HTTP GET /js/Login.js responded 404 in 0.8762 ms
+[2025-10-10 11:04:49.022 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 0.8748 ms
+[2025-10-10 11:10:14.282 +07:00 INF] HTTP GET /Account/Login responded 200 in 12.6359 ms
+[2025-10-10 11:10:14.312 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.5143 ms
+[2025-10-10 11:10:16.757 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 2.6667 ms
+[2025-10-10 11:11:45.000 +07:00 INF] HTTP POST /Account/Login responded 302 in 172.1945 ms
+[2025-10-10 11:11:45.035 +07:00 INF] HTTP GET / responded 200 in 28.7671 ms
+[2025-10-10 11:11:45.118 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.1525 ms
+[2025-10-10 11:11:46.872 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8259 ms
+[2025-10-10 11:11:47.429 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 36.9380 ms
+[2025-10-10 11:11:47.527 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.0101 ms
+[2025-10-10 11:11:49.098 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.1755 ms
+[2025-10-10 11:11:49.122 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 9.2537 ms
+[2025-10-10 11:11:49.182 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.1732 ms
+[2025-10-10 11:11:50.818 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.5899 ms
+[2025-10-10 11:11:51.230 +07:00 INF] HTTP GET /Customer/OrderHistory responded 200 in 141.0116 ms
+[2025-10-10 11:11:51.357 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.1908 ms
+[2025-10-10 11:11:52.979 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.1155 ms
+[2025-10-10 11:11:55.169 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 15.2753 ms
+[2025-10-10 11:11:55.222 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.0584 ms
+[2025-10-10 11:11:56.804 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8299 ms
+[2025-10-10 11:16:47.754 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:16:47.978 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:16:47.979 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:16:47.980 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:16:48.004 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:16:51.008 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:16:51.009 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:16:51.009 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:16:51.009 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:16:51.009 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:16:52.126 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4126.0619 ms
+[2025-10-10 11:16:52.246 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 24.7393 ms
+[2025-10-10 11:16:54.293 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.1100 ms
+[2025-10-10 11:17:41.328 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:17:41.536 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:17:41.538 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:17:41.539 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:17:41.554 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:17:44.639 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:17:44.640 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:17:44.640 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:17:44.640 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:17:44.641 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:17:45.797 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4244.9871 ms
+[2025-10-10 11:17:45.857 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 26.3599 ms
+[2025-10-10 11:17:47.399 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.5043 ms
+[2025-10-10 11:18:13.200 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:18:13.471 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:18:13.473 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:18:13.474 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:18:13.522 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:18:16.471 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:18:16.472 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:18:16.472 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:18:16.472 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:18:16.472 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:18:17.462 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 3950.7207 ms
+[2025-10-10 11:18:17.532 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 19.2468 ms
+[2025-10-10 11:18:19.449 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.3827 ms
+[2025-10-10 11:18:43.050 +07:00 INF] HTTP GET /Account/Logout responded 302 in 26.8091 ms
+[2025-10-10 11:18:43.190 +07:00 INF] HTTP GET /Account/Login responded 200 in 130.6049 ms
+[2025-10-10 11:18:43.196 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.6856 ms
+[2025-10-10 11:18:44.793 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 1.6064 ms
+[2025-10-10 11:18:46.108 +07:00 INF] HTTP POST /Account/Login responded 302 in 93.9143 ms
+[2025-10-10 11:18:46.347 +07:00 INF] HTTP GET /Home responded 200 in 232.9864 ms
+[2025-10-10 11:18:47.986 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2151 ms
+[2025-10-10 11:18:50.351 +07:00 INF] HTTP GET /Order responded 200 in 36.9372 ms
+[2025-10-10 11:18:52.012 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.3612 ms
+[2025-10-10 11:18:53.516 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 26.4322 ms
+[2025-10-10 11:18:55.124 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.9610 ms
+[2025-10-10 11:18:59.573 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.6743 ms
+[2025-10-10 11:18:59.581 +07:00 INF] HTTP GET /Account/Login responded 200 in 3.8706 ms
+[2025-10-10 11:18:59.615 +07:00 INF] HTTP GET /js/Login.js responded 404 in 2.0810 ms
+[2025-10-10 11:19:01.226 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 2.0022 ms
+[2025-10-10 11:19:03.506 +07:00 INF] HTTP POST /Account/Login responded 302 in 8.6410 ms
+[2025-10-10 11:19:03.533 +07:00 INF] HTTP GET / responded 200 in 21.3784 ms
+[2025-10-10 11:19:03.608 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 4.3211 ms
+[2025-10-10 11:19:05.006 +07:00 INF] HTTP GET /CustomerOrder/CreateOrder responded 200 in 74.5323 ms
+[2025-10-10 11:19:05.066 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.8459 ms
+[2025-10-10 11:19:05.271 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0183 ms
+[2025-10-10 11:19:06.715 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.1642 ms
+[2025-10-10 11:19:18.922 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 159.4422 ms
+[2025-10-10 11:19:22.666 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 48.1807 ms
+[2025-10-10 11:19:23.985 +07:00 INF] HTTP POST /CustomerOrder/AddCart responded 200 in 5.2497 ms
+[2025-10-10 11:19:26.189 +07:00 INF] HTTP GET /CustomerCart/Index responded 200 in 62.6533 ms
+[2025-10-10 11:19:26.268 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.3986 ms
+[2025-10-10 11:19:27.947 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0556 ms
+[2025-10-10 11:19:30.813 +07:00 INF] HTTP POST /CustomerOrder/OrderInit responded 302 in 299.9309 ms
+[2025-10-10 11:19:30.898 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 80.3834 ms
+[2025-10-10 11:19:30.947 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.7979 ms
+[2025-10-10 11:19:32.557 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.9485 ms
+[2025-10-10 11:19:33.700 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 20.0390 ms
+[2025-10-10 11:19:33.755 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 2.8461 ms
+[2025-10-10 11:19:35.359 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.2481 ms
+[2025-10-10 11:19:44.549 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.3572 ms
+[2025-10-10 11:19:44.565 +07:00 INF] HTTP GET /Account/Login responded 200 in 2.8725 ms
+[2025-10-10 11:19:44.617 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.7468 ms
+[2025-10-10 11:19:46.228 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 0.9652 ms
+[2025-10-10 11:19:47.661 +07:00 INF] HTTP POST /Account/Login responded 302 in 9.9863 ms
+[2025-10-10 11:19:47.687 +07:00 INF] HTTP GET /Home responded 200 in 19.9530 ms
+[2025-10-10 11:19:49.308 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.3471 ms
+[2025-10-10 11:19:49.341 +07:00 INF] HTTP GET /Order/OrderList responded 200 in 25.7573 ms
+[2025-10-10 11:19:50.747 +07:00 INF] HTTP GET /Order/Detail/288 responded 200 in 56.3245 ms
+[2025-10-10 11:19:50.941 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8169 ms
+[2025-10-10 11:19:52.408 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.2297 ms
+[2025-10-10 11:19:54.726 +07:00 INF] HTTP POST /Order/DeleteDishFromOrder responded 302 in 59.1382 ms
+[2025-10-10 11:19:54.737 +07:00 INF] HTTP GET /Order/Detail/288 responded 200 in 7.4826 ms
+[2025-10-10 11:19:56.387 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 0.8488 ms
+[2025-10-10 11:19:56.820 +07:00 INF] HTTP GET /Account/Logout responded 302 in 1.3973 ms
+[2025-10-10 11:19:56.828 +07:00 INF] HTTP GET /Account/Login responded 200 in 2.1880 ms
+[2025-10-10 11:19:56.864 +07:00 INF] HTTP GET /js/Login.js responded 404 in 0.9008 ms
+[2025-10-10 11:19:58.592 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 0.9073 ms
+[2025-10-10 11:19:59.832 +07:00 INF] HTTP POST /Account/Login responded 200 in 16.0614 ms
+[2025-10-10 11:19:59.876 +07:00 INF] HTTP GET /js/Login.js responded 404 in 4.4517 ms
+[2025-10-10 11:20:01.460 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 0.9254 ms
+[2025-10-10 11:20:03.635 +07:00 INF] HTTP POST /Account/Login responded 302 in 3.0210 ms
+[2025-10-10 11:20:03.649 +07:00 INF] HTTP GET / responded 200 in 6.1270 ms
+[2025-10-10 11:20:03.727 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.6855 ms
+[2025-10-10 11:20:05.427 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 2.5679 ms
+[2025-10-10 11:20:07.253 +07:00 INF] HTTP GET /Customer/OrderHistory responded 200 in 147.8460 ms
+[2025-10-10 11:20:07.313 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.1252 ms
+[2025-10-10 11:20:08.942 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.1201 ms
+[2025-10-10 11:20:10.862 +07:00 INF] HTTP GET /Customer/OrderProcessing responded 200 in 19.0791 ms
+[2025-10-10 11:20:10.936 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 3.8492 ms
+[2025-10-10 11:20:12.062 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 13.6745 ms
+[2025-10-10 11:20:12.115 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.4175 ms
+[2025-10-10 11:20:12.542 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.0334 ms
+[2025-10-10 11:20:13.710 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.8038 ms
+[2025-10-10 11:20:25.926 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 14.0786 ms
+[2025-10-10 11:20:25.930 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 35.7959 ms
+[2025-10-10 11:21:27.470 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 20.5869 ms
+[2025-10-10 11:21:27.555 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 1.6000 ms
+[2025-10-10 11:21:29.181 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 1.5338 ms
+[2025-10-10 11:23:29.873 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:23:30.134 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:23:30.136 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:23:30.137 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:23:30.179 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:23:33.540 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:23:33.541 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:23:33.541 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:23:33.541 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:23:33.541 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:23:35.093 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4919.7639 ms
+[2025-10-10 11:23:35.130 +07:00 INF] HTTP GET /css/customer-style/customer-details.css responded 200 in 19.5900 ms
+[2025-10-10 11:23:35.214 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 29.9628 ms
+[2025-10-10 11:23:36.750 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.1095 ms
+[2025-10-10 11:24:27.124 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:24:27.340 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:24:27.341 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:24:27.342 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:24:27.381 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:24:30.464 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:30.465 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:30.465 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:30.465 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:30.465 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:31.569 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4194.7279 ms
+[2025-10-10 11:24:31.584 +07:00 INF] HTTP GET /css/customer-style/customer-details.css responded 304 in 7.3362 ms
+[2025-10-10 11:24:31.632 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 28.5393 ms
+[2025-10-10 11:24:33.185 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.3657 ms
+[2025-10-10 11:24:55.138 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:24:55.375 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:24:55.377 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:24:55.377 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:24:55.398 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:24:58.279 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:58.279 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:58.280 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:58.280 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:58.280 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:24:59.284 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 3891.6244 ms
+[2025-10-10 11:24:59.297 +07:00 INF] HTTP GET /css/customer-style/customer-details.css responded 304 in 3.8644 ms
+[2025-10-10 11:24:59.371 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 23.9117 ms
+[2025-10-10 11:25:01.747 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 4.3431 ms
+[2025-10-10 11:25:52.991 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 11:25:53.265 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 11:25:53.266 +07:00 INF] Hosting environment: Development
+[2025-10-10 11:25:53.267 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 11:25:53.304 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 11:25:56.411 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:25:56.412 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:25:56.412 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:25:56.413 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:25:56.413 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 11:25:57.557 +07:00 INF] HTTP GET /Customer/OrderDetails responded 200 in 4263.3483 ms
+[2025-10-10 11:25:57.570 +07:00 INF] HTTP GET /css/customer-style/customer-details.css responded 304 in 4.5242 ms
+[2025-10-10 11:25:57.630 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 33.5048 ms
+[2025-10-10 11:25:59.191 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 404 in 3.7304 ms
+[2025-10-10 13:21:57.795 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 13:21:58.157 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 13:21:58.158 +07:00 INF] Hosting environment: Development
+[2025-10-10 13:21:58.159 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 13:21:58.871 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 13:22:01.239 +07:00 INF] HTTP GET / responded 302 in 2376.0509 ms
+[2025-10-10 13:22:01.872 +07:00 INF] HTTP GET /Account/Login responded 200 in 585.5160 ms
+[2025-10-10 13:22:01.930 +07:00 INF] HTTP GET /js/Login.js responded 404 in 15.3632 ms
+[2025-10-10 13:22:03.553 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 1.0287 ms
+[2025-10-10 13:22:14.886 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 302 in 3.6390 ms
+[2025-10-10 13:33:41.313 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 13:33:41.562 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 13:33:41.564 +07:00 INF] Hosting environment: Development
+[2025-10-10 13:33:41.564 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 13:33:41.582 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 13:33:43.826 +07:00 INF] HTTP GET / responded 302 in 2248.3743 ms
+[2025-10-10 13:33:44.152 +07:00 INF] HTTP GET /Account/Login responded 200 in 303.7516 ms
+[2025-10-10 13:33:44.197 +07:00 INF] HTTP GET /js/Login.js responded 404 in 6.2491 ms
+[2025-10-10 13:33:46.071 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 154.6236 ms
+[2025-10-10 13:33:50.807 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:33:50.808 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:33:50.809 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:33:50.809 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:33:50.809 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:33:52.441 +07:00 INF] HTTP POST /Account/Login responded 302 in 2712.4601 ms
+[2025-10-10 13:33:52.822 +07:00 INF] HTTP GET /Home responded 200 in 370.1936 ms
+[2025-10-10 13:33:54.565 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.7857 ms
+[2025-10-10 13:34:19.931 +07:00 INF] HTTP GET /Home/Sender responded 200 in 96.5726 ms
+[2025-10-10 13:34:21.539 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1871 ms
+[2025-10-10 13:34:36.201 +07:00 INF] HTTP GET /Home/receiver responded 302 in 10.8063 ms
+[2025-10-10 13:34:36.221 +07:00 INF] HTTP GET /Account/Login responded 200 in 14.8488 ms
+[2025-10-10 13:34:36.259 +07:00 INF] HTTP GET /css/user-login.css responded 200 in 1.1635 ms
+[2025-10-10 13:34:36.274 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.6048 ms
+[2025-10-10 13:34:36.404 +07:00 INF] HTTP GET /favicon.ico responded 200 in 11.1377 ms
+[2025-10-10 13:34:41.322 +07:00 INF] HTTP POST /Account/Login responded 302 in 16.6258 ms
+[2025-10-10 13:34:41.358 +07:00 INF] HTTP GET /Home responded 200 in 25.7297 ms
+[2025-10-10 13:34:41.402 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 2.4268 ms
+[2025-10-10 13:34:41.412 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 9.0062 ms
+[2025-10-10 13:34:41.413 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 9.0335 ms
+[2025-10-10 13:34:41.426 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 4.7388 ms
+[2025-10-10 13:34:41.431 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 26.8324 ms
+[2025-10-10 13:34:41.431 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 11.6700 ms
+[2025-10-10 13:34:41.432 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 34.9655 ms
+[2025-10-10 13:34:41.434 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 25.9590 ms
+[2025-10-10 13:34:41.440 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 9.7404 ms
+[2025-10-10 13:34:41.449 +07:00 INF] HTTP GET /images/Users/3679c1c3-e8f6-4c55-bb73-f16c9de09905.png responded 200 in 39.8979 ms
+[2025-10-10 13:34:41.451 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 3.4454 ms
+[2025-10-10 13:34:41.453 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 2.2358 ms
+[2025-10-10 13:34:41.707 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 32.3212 ms
+[2025-10-10 13:34:47.648 +07:00 INF] HTTP GET /Home/receive responded 404 in 1.5042 ms
+[2025-10-10 13:34:54.351 +07:00 INF] HTTP GET /Home/receiver responded 200 in 233.5633 ms
+[2025-10-10 13:34:54.392 +07:00 INF] HTTP GET /js/fcm-init.js responded 200 in 0.7900 ms
+[2025-10-10 13:35:06.766 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 1.8756 ms
+[2025-10-10 13:35:16.061 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 1.5404 ms
+[2025-10-10 13:35:27.440 +07:00 INF] HTTP GET /Notification/Index responded 200 in 91.4061 ms
+[2025-10-10 13:35:29.098 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3410 ms
+[2025-10-10 13:35:30.007 +07:00 INF] HTTP GET /Notification/Create responded 200 in 103.9101 ms
+[2025-10-10 13:35:31.645 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1217 ms
+[2025-10-10 13:35:33.877 +07:00 INF] HTTP POST /Notification/Create responded 302 in 241.2485 ms
+[2025-10-10 13:35:33.951 +07:00 INF] HTTP GET /Notification responded 200 in 67.5194 ms
+[2025-10-10 13:35:35.587 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1659 ms
+[2025-10-10 13:35:38.156 +07:00 INF] HTTP GET /Notification/Create responded 200 in 22.8309 ms
+[2025-10-10 13:35:41.243 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1711 ms
+[2025-10-10 13:35:41.966 +07:00 INF] HTTP GET /Home/Sender responded 200 in 16.8580 ms
+[2025-10-10 13:35:43.564 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1422 ms
+[2025-10-10 13:35:44.000 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 2.5873 ms
+[2025-10-10 13:44:10.816 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 13:44:11.082 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 13:44:11.084 +07:00 INF] Hosting environment: Development
+[2025-10-10 13:44:11.084 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 13:44:11.124 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 13:44:14.455 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:44:14.456 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:44:14.457 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:44:14.457 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:44:14.457 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 13:44:15.749 +07:00 INF] HTTP GET /Home/Sender responded 200 in 4631.2418 ms
+[2025-10-10 13:44:17.610 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 6.0416 ms
+[2025-10-10 13:44:27.958 +07:00 INF] HTTP GET /Home/receiver responded 200 in 57.6882 ms
+[2025-10-10 13:44:27.986 +07:00 INF] HTTP GET /js/fcm-init.js responded 304 in 0.4727 ms
+[2025-10-10 13:44:32.795 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 2.3251 ms
+[2025-10-10 13:44:36.327 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 1.3720 ms
+[2025-10-10 13:44:39.616 +07:00 INF] HTTP GET /Notification/Index responded 200 in 206.9301 ms
+[2025-10-10 13:44:41.164 +07:00 INF] HTTP GET /Notification/Delete/130 responded 200 in 67.2720 ms
+[2025-10-10 13:44:41.260 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1641 ms
+[2025-10-10 13:44:42.359 +07:00 INF] HTTP POST /Notification/DeleteConfirmed responded 302 in 127.6233 ms
+[2025-10-10 13:44:42.405 +07:00 INF] HTTP GET /Notification responded 200 in 37.7184 ms
+[2025-10-10 13:44:42.778 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2148 ms
+[2025-10-10 13:44:44.037 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.4167 ms
+[2025-10-10 13:44:48.344 +07:00 INF] HTTP GET /Notification/Delete/130 responded 200 in 26.9475 ms
+[2025-10-10 13:44:50.504 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1503 ms
+[2025-10-10 13:44:51.614 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1874 ms
+[2025-10-10 13:44:51.755 +07:00 INF] HTTP GET /Home/Sender responded 200 in 14.4515 ms
+[2025-10-10 13:44:53.361 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.5294 ms
+[2025-10-10 13:44:53.670 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 2.4412 ms
+[2025-10-10 13:46:51.740 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1769 ms
+[2025-10-10 13:46:52.510 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 2.3425 ms
+[2025-10-10 13:46:53.149 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1230 ms
+[2025-10-10 13:47:20.093 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.8969 ms
+[2025-10-10 13:47:20.118 +07:00 INF] HTTP GET /Home/Sender responded 200 in 47.8946 ms
+[2025-10-10 13:48:08.670 +07:00 INF] HTTP GET /Home/Sender responded 200 in 33.8019 ms
+[2025-10-10 13:48:08.757 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.7375 ms
+[2025-10-10 13:48:11.373 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1698 ms
+[2025-10-10 13:48:28.474 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 2.0596 ms
+[2025-10-10 13:48:51.039 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 2.3310 ms
+[2025-10-10 13:48:51.212 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css.map responded 200 in 43.8503 ms
+[2025-10-10 13:48:54.448 +07:00 INF] HTTP GET /Home/receiver responded 200 in 32.1136 ms
+[2025-10-10 13:48:54.534 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.8745 ms
+[2025-10-10 13:48:54.540 +07:00 INF] HTTP GET /js/fcm-init.js responded 304 in 0.2653 ms
+[2025-10-10 13:50:44.936 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 1.2464 ms
+[2025-10-10 13:52:06.657 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.4024 ms
+[2025-10-10 13:54:09.632 +07:00 INF] HTTP POST /Test/SendReload responded 404 in 1.6618 ms
+[2025-10-10 13:54:15.396 +07:00 INF] HTTP GET /Home/receiver responded 200 in 114.0645 ms
+[2025-10-10 13:54:15.480 +07:00 INF] HTTP GET /js/fcm-init.js responded 304 in 0.1514 ms
+[2025-10-10 13:54:15.490 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 8.4465 ms
+[2025-10-10 14:06:28.522 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 2.0568 ms
+[2025-10-10 14:13:49.834 +07:00 INF] HTTP GET /Home/receiver responded 200 in 381.1219 ms
+[2025-10-10 14:13:49.871 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.6069 ms
+[2025-10-10 14:13:49.877 +07:00 INF] HTTP GET /js/fcm-init.js responded 200 in 5.8481 ms
+[2025-10-10 14:14:07.316 +07:00 INF] HTTP GET /Home/receiver responded 200 in 54.7454 ms
+[2025-10-10 14:14:07.386 +07:00 INF] HTTP GET /js/fcm-init.js responded 404 in 18.4491 ms
+[2025-10-10 14:14:07.433 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 3.1554 ms
+[2025-10-10 14:14:41.245 +07:00 INF] HTTP GET /Home/receiver responded 200 in 28.0582 ms
+[2025-10-10 14:14:41.283 +07:00 INF] HTTP GET /js/fcm-init.js responded 404 in 4.1794 ms
+[2025-10-10 14:14:41.295 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 0.8401 ms
+[2025-10-10 14:14:56.111 +07:00 INF] HTTP GET /Home/receiver responded 200 in 18.6203 ms
+[2025-10-10 14:14:56.144 +07:00 INF] HTTP GET /js/fcm-init.js responded 404 in 1.4609 ms
+[2025-10-10 14:14:56.169 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 0.8790 ms
+[2025-10-10 14:14:58.736 +07:00 INF] HTTP GET /Home/receiver responded 200 in 30.5757 ms
+[2025-10-10 14:14:58.781 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 0.9949 ms
+[2025-10-10 14:14:58.787 +07:00 INF] HTTP GET /js/fcm-init.js responded 404 in 0.6157 ms
+[2025-10-10 14:15:31.783 +07:00 INF] HTTP GET /Home/receiver responded 200 in 36.1766 ms
+[2025-10-10 14:15:31.814 +07:00 INF] HTTP GET /js/fcm-init.js responded 404 in 1.4901 ms
+[2025-10-10 14:15:31.836 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 0.9100 ms
+[2025-10-10 14:19:24.007 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:19:24.216 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:19:24.280 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:19:24.280 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:19:24.281 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:19:24.301 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 96.0979 ms
+[2025-10-10 14:19:27.966 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:19:27.966 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:19:27.967 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:19:27.967 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:19:27.967 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:19:29.079 +07:00 INF] HTTP GET / responded 200 in 4309.0081 ms
+[2025-10-10 14:19:29.447 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 66.3755 ms
+[2025-10-10 14:19:31.133 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.4112 ms
+[2025-10-10 14:19:32.064 +07:00 INF] HTTP GET /Account/Logout responded 302 in 30.2250 ms
+[2025-10-10 14:19:32.204 +07:00 INF] HTTP GET /Account/Login responded 200 in 133.9957 ms
+[2025-10-10 14:19:32.216 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.9911 ms
+[2025-10-10 14:19:33.860 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2060 ms
+[2025-10-10 14:19:35.887 +07:00 INF] HTTP POST /Account/Login responded 302 in 313.1752 ms
+[2025-10-10 14:19:36.161 +07:00 INF] HTTP GET /Home responded 200 in 267.0266 ms
+[2025-10-10 14:19:37.872 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2764 ms
+[2025-10-10 14:19:40.110 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.2782 ms
+[2025-10-10 14:19:40.158 +07:00 INF] HTTP GET /Home responded 200 in 79.2228 ms
+[2025-10-10 14:20:53.476 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1859 ms
+[2025-10-10 14:20:54.664 +07:00 INF] HTTP GET /Test/Index responded 404 in 1.0817 ms
+[2025-10-10 14:20:55.799 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2078 ms
+[2025-10-10 14:21:09.728 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 2.8993 ms
+[2025-10-10 14:21:10.899 +07:00 INF] HTTP GET /Test/Send responded 405 in 1.7450 ms
+[2025-10-10 14:21:11.942 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1796 ms
+[2025-10-10 14:21:22.608 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.5902 ms
+[2025-10-10 14:21:24.817 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2161 ms
+[2025-10-10 14:21:25.260 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1757 ms
+[2025-10-10 14:21:26.443 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 3.8993 ms
+[2025-10-10 14:21:28.209 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1880 ms
+[2025-10-10 14:21:29.600 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1598 ms
+[2025-10-10 14:21:30.766 +07:00 INF] HTTP GET /Home responded 200 in 37.6367 ms
+[2025-10-10 14:21:30.788 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.2346 ms
+[2025-10-10 14:21:32.614 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1783 ms
+[2025-10-10 14:24:55.539 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3404 ms
+[2025-10-10 14:24:56.739 +07:00 INF] HTTP GET /Test/Index responded 404 in 0.9376 ms
+[2025-10-10 14:24:57.802 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2262 ms
+[2025-10-10 14:25:02.905 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3453 ms
+[2025-10-10 14:25:04.054 +07:00 INF] HTTP GET /Test/Send responded 405 in 1.2480 ms
+[2025-10-10 14:25:05.088 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1414 ms
+[2025-10-10 14:27:15.174 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:27:15.382 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:27:15.395 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 22.2568 ms
+[2025-10-10 14:27:15.442 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:27:15.443 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:27:15.443 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:27:19.880 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:27:19.882 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:27:19.882 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:27:19.882 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:27:19.883 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:27:20.994 +07:00 INF] HTTP GET / responded 200 in 4171.4505 ms
+[2025-10-10 14:27:21.353 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 62.2418 ms
+[2025-10-10 14:27:22.856 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.4049 ms
+[2025-10-10 14:30:55.951 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3234 ms
+[2025-10-10 14:30:57.182 +07:00 INF] HTTP GET /Account/Logout responded 302 in 31.0341 ms
+[2025-10-10 14:30:57.193 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3834 ms
+[2025-10-10 14:30:58.432 +07:00 INF] HTTP GET /Account/Login responded 200 in 102.0762 ms
+[2025-10-10 14:30:58.469 +07:00 INF] HTTP GET /js/Login.js responded 404 in 2.0158 ms
+[2025-10-10 14:31:00.126 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1770 ms
+[2025-10-10 14:31:01.785 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2484 ms
+[2025-10-10 14:31:03.166 +07:00 INF] HTTP POST /Account/Login responded 302 in 254.9048 ms
+[2025-10-10 14:31:03.175 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2284 ms
+[2025-10-10 14:31:04.600 +07:00 INF] HTTP GET /Home responded 200 in 273.2856 ms
+[2025-10-10 14:31:06.316 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1922 ms
+[2025-10-10 14:31:08.456 +07:00 INF] HTTP GET /Home responded 200 in 20.2606 ms
+[2025-10-10 14:31:08.495 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.6582 ms
+[2025-10-10 14:31:29.671 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3211 ms
+[2025-10-10 14:31:30.810 +07:00 INF] HTTP GET /Test/Index responded 200 in 17.5489 ms
+[2025-10-10 14:31:30.881 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.1084 ms
+[2025-10-10 14:31:32.654 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.5266 ms
+[2025-10-10 14:35:24.045 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 91.1292 ms
+[2025-10-10 14:35:25.278 +07:00 INF] HTTP GET /Test/Index responded 200 in 42.4288 ms
+[2025-10-10 14:35:25.358 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.6393 ms
+[2025-10-10 14:35:27.567 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1211 ms
+[2025-10-10 14:35:44.247 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 40.2625 ms
+[2025-10-10 14:35:45.440 +07:00 INF] HTTP GET /Test/Index responded 200 in 21.2798 ms
+[2025-10-10 14:35:45.483 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 3.8467 ms
+[2025-10-10 14:35:48.370 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1544 ms
+[2025-10-10 14:38:00.649 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:38:00.908 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:38:00.917 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 15.0963 ms
+[2025-10-10 14:38:00.963 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:38:00.964 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:38:00.964 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:38:05.561 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:38:05.562 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:38:05.562 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:38:05.562 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:38:05.562 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:38:06.649 +07:00 INF] HTTP GET /Test/Index responded 200 in 4221.2689 ms
+[2025-10-10 14:38:06.746 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 8.3170 ms
+[2025-10-10 14:38:09.738 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.6885 ms
+[2025-10-10 14:47:17.858 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 1.0712 ms
+[2025-10-10 14:47:45.502 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:47:45.754 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:47:45.768 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 28.3591 ms
+[2025-10-10 14:47:45.811 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:47:45.812 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:47:45.812 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:47:50.171 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:47:50.172 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:47:50.172 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:47:50.172 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:47:50.172 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:47:51.137 +07:00 INF] HTTP GET / responded 200 in 4043.4447 ms
+[2025-10-10 14:47:51.653 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 24.3371 ms
+[2025-10-10 14:47:54.209 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3349 ms
+[2025-10-10 14:48:37.018 +07:00 INF] HTTP GET /Home responded 200 in 376.4022 ms
+[2025-10-10 14:48:38.703 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2296 ms
+[2025-10-10 14:48:42.334 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 2.4190 ms
+[2025-10-10 14:48:42.362 +07:00 INF] HTTP GET /Home responded 200 in 144.7034 ms
+[2025-10-10 14:50:45.006 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:50:45.223 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:50:45.236 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 21.5676 ms
+[2025-10-10 14:50:45.277 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:50:45.277 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:50:45.277 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:50:49.003 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:50:49.004 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:50:49.004 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:50:49.004 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:50:49.004 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:50:50.067 +07:00 INF] HTTP GET /Home responded 200 in 4390.4026 ms
+[2025-10-10 14:50:50.217 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 7.9221 ms
+[2025-10-10 14:50:52.377 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.7853 ms
+[2025-10-10 14:51:09.026 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:51:09.282 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:51:09.330 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:51:09.331 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:51:09.333 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:51:09.406 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 131.6192 ms
+[2025-10-10 14:51:13.728 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:51:13.728 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:51:13.729 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:51:13.729 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:51:13.729 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:51:14.799 +07:00 INF] HTTP GET /Home responded 200 in 4187.7929 ms
+[2025-10-10 14:51:14.933 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 6.2585 ms
+[2025-10-10 14:51:17.947 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.4546 ms
+[2025-10-10 14:54:01.749 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 14:54:01.924 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 14:54:01.939 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 23.0132 ms
+[2025-10-10 14:54:01.995 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 14:54:01.995 +07:00 INF] Hosting environment: Development
+[2025-10-10 14:54:01.996 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 14:54:06.463 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:54:06.464 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:54:06.464 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:54:06.464 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:54:06.465 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 14:54:07.452 +07:00 INF] HTTP GET /Home responded 200 in 4210.9449 ms
+[2025-10-10 14:54:07.545 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 8.2765 ms
+[2025-10-10 14:54:10.318 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.5885 ms
+[2025-10-10 14:57:01.278 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2738 ms
+[2025-10-10 14:57:02.519 +07:00 INF] HTTP GET /Home responded 200 in 51.3658 ms
+[2025-10-10 14:57:02.613 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.5139 ms
+[2025-10-10 14:57:04.347 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2232 ms
+[2025-10-10 14:57:33.172 +07:00 INF] HTTP GET /Home responded 200 in 106.1809 ms
+[2025-10-10 14:57:33.299 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.3061 ms
+[2025-10-10 14:57:33.607 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1806 ms
+[2025-10-10 14:58:04.656 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2889 ms
+[2025-10-10 14:58:05.897 +07:00 INF] HTTP GET /Home responded 200 in 34.1381 ms
+[2025-10-10 14:58:05.963 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.1227 ms
+[2025-10-10 14:58:07.896 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1391 ms
+[2025-10-10 15:12:11.735 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.8418 ms
+[2025-10-10 15:12:13.067 +07:00 INF] HTTP GET /Home responded 200 in 99.4260 ms
+[2025-10-10 15:12:13.126 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 304 in 0.1982 ms
+[2025-10-10 15:12:13.524 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.5274 ms
+[2025-10-10 15:12:15.503 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1894 ms
+[2025-10-10 15:12:25.271 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1755 ms
+[2025-10-10 15:12:26.417 +07:00 INF] HTTP GET /Home responded 200 in 18.4350 ms
+[2025-10-10 15:12:26.532 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 0.9286 ms
+[2025-10-10 15:12:28.286 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1547 ms
+[2025-10-10 15:12:55.443 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:12:55.617 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 15:12:55.624 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 14.6531 ms
+[2025-10-10 15:12:55.651 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:12:55.652 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:12:55.652 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:13:00.337 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:13:00.338 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:13:00.338 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:13:00.338 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:13:00.338 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:13:01.798 +07:00 INF] HTTP GET /Home responded 200 in 4943.9129 ms
+[2025-10-10 15:13:01.998 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 7.3162 ms
+[2025-10-10 15:13:04.765 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.4414 ms
+[2025-10-10 15:16:28.389 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:16:28.643 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 15:16:28.652 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 13.5457 ms
+[2025-10-10 15:16:28.679 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:16:28.679 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:16:28.679 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:16:33.246 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:16:33.247 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:16:33.247 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:16:33.247 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:16:33.247 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:16:34.459 +07:00 INF] HTTP GET /Home responded 200 in 4382.4230 ms
+[2025-10-10 15:16:35.156 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 11.2323 ms
+[2025-10-10 15:16:36.365 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.7190 ms
+[2025-10-10 15:20:27.051 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:20:27.310 +07:00 INF] Now listening on: https://localhost:19443
+[2025-10-10 15:20:27.312 +07:00 INF] Now listening on: https://0.0.0.0:19443
+[2025-10-10 15:20:27.371 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:20:27.372 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:20:27.372 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:20:31.064 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:20:31.066 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:20:31.066 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:20:31.066 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:20:31.066 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:20:31.858 +07:00 INF] HTTP GET / responded 200 in 3713.0358 ms
+[2025-10-10 15:20:31.877 +07:00 INF] HTTP GET /css/customer-style/customer-table-select.css responded 200 in 15.3831 ms
+[2025-10-10 15:20:31.880 +07:00 INF] HTTP GET /css/customer-style/customer-layout.css responded 200 in 18.9802 ms
+[2025-10-10 15:20:31.889 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 200 in 27.8228 ms
+[2025-10-10 15:20:32.401 +07:00 INF] HTTP GET /favicon.ico responded 200 in 3.7260 ms
+[2025-10-10 15:20:32.434 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 64.5400 ms
+[2025-10-10 15:20:44.375 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 11.3652 ms
+[2025-10-10 15:21:07.761 +07:00 INF] HTTP GET /Account/Logout responded 302 in 34.9480 ms
+[2025-10-10 15:21:07.874 +07:00 INF] HTTP GET /Account/Login responded 200 in 107.0208 ms
+[2025-10-10 15:21:07.899 +07:00 INF] HTTP GET /css/user-login.css responded 200 in 2.1921 ms
+[2025-10-10 15:21:07.899 +07:00 INF] HTTP GET /js/Login.js responded 404 in 2.0139 ms
+[2025-10-10 15:21:11.717 +07:00 INF] HTTP POST /Account/Login responded 302 in 275.0680 ms
+[2025-10-10 15:21:12.005 +07:00 INF] HTTP GET /Home responded 200 in 279.1725 ms
+[2025-10-10 15:21:12.054 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 10.1832 ms
+[2025-10-10 15:21:12.070 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 19.3110 ms
+[2025-10-10 15:21:12.071 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 15.7265 ms
+[2025-10-10 15:21:12.071 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 8.7988 ms
+[2025-10-10 15:21:12.073 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 10.8150 ms
+[2025-10-10 15:21:12.073 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 21.7434 ms
+[2025-10-10 15:21:12.073 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 11.2214 ms
+[2025-10-10 15:21:12.074 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 21.0833 ms
+[2025-10-10 15:21:12.074 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 22.7137 ms
+[2025-10-10 15:21:12.089 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 37.5581 ms
+[2025-10-10 15:21:12.093 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 40.3806 ms
+[2025-10-10 15:21:12.277 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 22.7232 ms
+[2025-10-10 15:21:12.280 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 0.9860 ms
+[2025-10-10 15:21:18.904 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 1.8239 ms
+[2025-10-10 15:21:19.105 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css.map responded 200 in 25.3851 ms
+[2025-10-10 15:22:12.822 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:22:13.018 +07:00 INF] Now listening on: https://localhost:19443
+[2025-10-10 15:22:13.021 +07:00 INF] Now listening on: https://0.0.0.0:19443
+[2025-10-10 15:22:13.079 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:22:13.079 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:22:13.079 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:48:49.105 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:48:49.470 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:48:49.472 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:48:49.472 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:48:49.882 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 15:48:53.145 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:48:53.147 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:48:53.147 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:48:53.147 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:48:53.147 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:48:54.107 +07:00 INF] HTTP GET / responded 200 in 4228.4051 ms
+[2025-10-10 15:48:54.417 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 34.8203 ms
+[2025-10-10 15:48:56.086 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 6.6767 ms
+[2025-10-10 15:48:59.272 +07:00 INF] HTTP GET /Account/Logout responded 302 in 36.6154 ms
+[2025-10-10 15:48:59.392 +07:00 INF] HTTP GET /Account/Login responded 200 in 109.0088 ms
+[2025-10-10 15:48:59.426 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.8665 ms
+[2025-10-10 15:49:01.081 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3379 ms
+[2025-10-10 15:53:02.364 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:53:02.564 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 15:53:02.574 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 16.7521 ms
+[2025-10-10 15:53:02.602 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:53:02.603 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:53:02.603 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:53:04.997 +07:00 INF] HTTP GET / responded 302 in 2191.3147 ms
+[2025-10-10 15:53:05.314 +07:00 INF] HTTP GET /Account/Login responded 200 in 309.2237 ms
+[2025-10-10 15:53:05.363 +07:00 INF] HTTP GET /js/Login.js responded 404 in 7.2075 ms
+[2025-10-10 15:53:07.060 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.4252 ms
+[2025-10-10 15:54:24.907 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:54:25.088 +07:00 INF] Now listening on: https://0.0.0.0:19443
+[2025-10-10 15:54:25.205 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:54:25.206 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:54:25.206 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:54:57.999 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:54:58.164 +07:00 INF] Now listening on: https://0.0.0.0:19443
+[2025-10-10 15:54:58.220 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:54:58.220 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:54:58.220 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:55:46.341 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:55:46.515 +07:00 INF] Now listening on: https://0.0.0.0:7000
+[2025-10-10 15:55:46.570 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:55:46.570 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:55:46.570 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:56:06.307 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 15:56:06.415 +07:00 INF] Now listening on: http://localhost:7000
+[2025-10-10 15:56:06.467 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 15:56:06.468 +07:00 INF] Hosting environment: Development
+[2025-10-10 15:56:06.468 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 15:56:06.944 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 15:56:09.118 +07:00 INF] HTTP GET / responded 302 in 2176.5191 ms
+[2025-10-10 15:56:09.347 +07:00 INF] HTTP GET /Account/Login responded 200 in 220.2705 ms
+[2025-10-10 15:56:09.384 +07:00 INF] HTTP GET /css/user-login.css responded 304 in 2.8698 ms
+[2025-10-10 15:56:09.393 +07:00 INF] HTTP GET /js/Login.js responded 404 in 10.4766 ms
+[2025-10-10 15:56:09.519 +07:00 INF] HTTP GET /favicon.ico responded 200 in 28.3791 ms
+[2025-10-10 15:57:29.348 +07:00 INF] HTTP GET / responded 302 in 2.6925 ms
+[2025-10-10 15:57:29.506 +07:00 INF] HTTP GET /Account/Login responded 200 in 19.4629 ms
+[2025-10-10 15:57:29.701 +07:00 INF] HTTP GET /css/user-login.css responded 200 in 1.2910 ms
+[2025-10-10 15:57:29.704 +07:00 INF] HTTP GET /js/Login.js responded 404 in 0.6846 ms
+[2025-10-10 15:57:30.640 +07:00 INF] HTTP GET /favicon.ico responded 200 in 0.9092 ms
+[2025-10-10 15:57:36.473 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:57:36.473 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:57:36.473 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:57:36.474 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:57:36.474 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 15:57:37.238 +07:00 INF] HTTP POST /Account/Login responded 302 in 1335.4101 ms
+[2025-10-10 15:57:37.616 +07:00 INF] HTTP GET /Home responded 200 in 226.2774 ms
+[2025-10-10 15:57:37.962 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 3.3256 ms
+[2025-10-10 15:57:37.962 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 200 in 4.0657 ms
+[2025-10-10 15:57:38.045 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 2.4660 ms
+[2025-10-10 15:57:38.050 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 6.2479 ms
+[2025-10-10 15:57:38.050 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 7.3599 ms
+[2025-10-10 15:57:38.050 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 7.6195 ms
+[2025-10-10 15:57:38.053 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 9.5443 ms
+[2025-10-10 15:57:38.053 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 9.7639 ms
+[2025-10-10 15:57:38.055 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 10.9258 ms
+[2025-10-10 15:57:38.055 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 12.4824 ms
+[2025-10-10 15:57:38.055 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 12.2965 ms
+[2025-10-10 15:57:38.056 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 12.9275 ms
+[2025-10-10 15:57:42.638 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 1.7352 ms
+[2025-10-10 15:57:42.653 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 3.2581 ms
+[2025-10-10 15:57:51.792 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css.map responded 200 in 9.7982 ms
+[2025-10-10 16:04:59.283 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2814 ms
+[2025-10-10 16:05:00.798 +07:00 INF] HTTP GET /Home responded 200 in 206.2829 ms
+[2025-10-10 16:05:02.962 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1582 ms
+[2025-10-10 16:11:54.276 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 16:11:54.385 +07:00 INF] Now listening on: http://localhost:7000
+[2025-10-10 16:11:54.435 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 16:11:54.435 +07:00 INF] Hosting environment: Development
+[2025-10-10 16:11:54.435 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 16:11:55.098 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 16:11:57.312 +07:00 INF] HTTP GET / responded 302 in 2215.6951 ms
+[2025-10-10 16:11:57.576 +07:00 INF] HTTP GET /Account/Login responded 200 in 222.1393 ms
+[2025-10-10 16:11:57.609 +07:00 INF] HTTP GET /js/Login.js responded 404 in 7.8943 ms
+[2025-10-10 16:12:30.950 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:12:30.951 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:12:30.952 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:12:30.952 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:12:30.952 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:12:31.675 +07:00 INF] HTTP POST /Account/Login responded 302 in 1329.7703 ms
+[2025-10-10 16:12:31.862 +07:00 INF] HTTP GET /Home responded 200 in 181.3479 ms
+[2025-10-10 16:12:31.909 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 9.2713 ms
+[2025-10-10 16:12:31.909 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 10.1853 ms
+[2025-10-10 16:12:31.909 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 20.5781 ms
+[2025-10-10 16:12:31.911 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 200 in 11.0939 ms
+[2025-10-10 16:12:31.914 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 14.4457 ms
+[2025-10-10 16:12:31.920 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 31.4693 ms
+[2025-10-10 16:12:31.922 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 2.1719 ms
+[2025-10-10 16:12:31.923 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 7.4572 ms
+[2025-10-10 16:12:31.925 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 14.2377 ms
+[2025-10-10 16:12:31.935 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 2.4580 ms
+[2025-10-10 16:12:31.941 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 1.3945 ms
+[2025-10-10 16:12:31.952 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 4.2095 ms
+[2025-10-10 16:12:32.011 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 10.9932 ms
+[2025-10-10 16:12:32.056 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 1.1890 ms
+[2025-10-10 16:12:34.896 +07:00 INF] HTTP GET /.well-known/appspecific/com.chrome.devtools.json responded 404 in 3.7242 ms
+[2025-10-10 16:12:35.084 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css.map responded 200 in 9.3017 ms
+[2025-10-10 16:14:34.780 +07:00 INF] HTTP GET / responded 302 in 1.8664 ms
+[2025-10-10 16:14:34.914 +07:00 INF] HTTP GET /Account/Login responded 200 in 8.5294 ms
+[2025-10-10 16:14:35.115 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.6355 ms
+[2025-10-10 16:14:35.117 +07:00 INF] HTTP GET /css/user-login.css responded 200 in 0.4830 ms
+[2025-10-10 16:14:35.692 +07:00 INF] HTTP GET /favicon.ico responded 200 in 0.9038 ms
+[2025-10-10 16:14:52.282 +07:00 INF] HTTP POST /Account/Login responded 200 in 95.6391 ms
+[2025-10-10 16:14:52.443 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.1665 ms
+[2025-10-10 16:14:56.103 +07:00 INF] HTTP POST /Account/Login responded 302 in 4.2033 ms
+[2025-10-10 16:14:56.290 +07:00 INF] HTTP GET /Home responded 200 in 30.3884 ms
+[2025-10-10 16:14:56.561 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 0.7519 ms
+[2025-10-10 16:14:56.561 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 200 in 1.4272 ms
+[2025-10-10 16:14:56.562 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 0.4447 ms
+[2025-10-10 16:14:56.562 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 0.9998 ms
+[2025-10-10 16:14:56.562 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 0.4278 ms
+[2025-10-10 16:14:56.563 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 0.5153 ms
+[2025-10-10 16:14:56.610 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 0.4112 ms
+[2025-10-10 16:14:56.610 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 0.3195 ms
+[2025-10-10 16:14:56.611 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 1.7133 ms
+[2025-10-10 16:14:56.612 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 0.4486 ms
+[2025-10-10 16:14:56.612 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 0.5417 ms
+[2025-10-10 16:14:56.612 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 0.4579 ms
+[2025-10-10 16:14:59.758 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 0.6895 ms
+[2025-10-10 16:14:59.791 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 1.6696 ms
+[2025-10-10 16:15:45.422 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css.map responded 200 in 8.2285 ms
+[2025-10-10 16:21:01.198 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 16:21:01.422 +07:00 INF] Now listening on: http://localhost:7000
+[2025-10-10 16:21:01.513 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 16:21:01.513 +07:00 INF] Hosting environment: Development
+[2025-10-10 16:21:01.513 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 16:21:01.708 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 16:21:01.830 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 123.1808 ms
+[2025-10-10 16:21:04.779 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:21:04.780 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:21:04.780 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:21:04.780 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:21:04.780 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:21:05.454 +07:00 INF] HTTP GET / responded 200 in 3431.0669 ms
+[2025-10-10 16:21:05.470 +07:00 INF] HTTP GET /css/customer-style/customer-table-select.css responded 200 in 0.7793 ms
+[2025-10-10 16:21:05.481 +07:00 INF] HTTP GET /css/customer-style/customer-layout.css responded 200 in 11.5847 ms
+[2025-10-10 16:21:05.660 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 56.5692 ms
+[2025-10-10 16:21:07.234 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.9564 ms
+[2025-10-10 16:21:17.370 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 0.8939 ms
+[2025-10-10 16:21:17.991 +07:00 INF] HTTP GET / responded 200 in 63.7856 ms
+[2025-10-10 16:21:18.785 +07:00 INF] HTTP GET /css/customer-style/customer-layout.css responded 200 in 0.6643 ms
+[2025-10-10 16:21:18.800 +07:00 INF] HTTP GET /css/customer-style/customer-table-select.css responded 200 in 0.4935 ms
+[2025-10-10 16:21:19.570 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 9.8615 ms
+[2025-10-10 16:21:21.156 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1637 ms
+[2025-10-10 16:21:30.515 +07:00 INF] HTTP GET /home responded 200 in 358.3001 ms
+[2025-10-10 16:21:32.534 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2926 ms
+[2025-10-10 16:21:37.566 +07:00 INF] HTTP GET /home responded 200 in 13.7160 ms
+[2025-10-10 16:21:55.751 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2157 ms
+[2025-10-10 16:21:55.933 +07:00 INF] HTTP GET / responded 200 in 8.9991 ms
+[2025-10-10 16:21:56.083 +07:00 INF] HTTP GET /CustomerCart/Count responded 200 in 4.1627 ms
+[2025-10-10 16:21:57.668 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.5446 ms
+[2025-10-10 16:22:27.392 +07:00 INF] HTTP GET / responded 302 in 5.6959 ms
+[2025-10-10 16:22:27.579 +07:00 INF] HTTP GET /Account/Login responded 200 in 42.5109 ms
+[2025-10-10 16:22:27.857 +07:00 INF] HTTP GET /css/user-login.css responded 200 in 0.4814 ms
+[2025-10-10 16:22:27.859 +07:00 INF] HTTP GET /js/Login.js responded 404 in 1.6641 ms
+[2025-10-10 16:22:29.257 +07:00 INF] HTTP GET /favicon.ico responded 200 in 0.5695 ms
+[2025-10-10 16:22:48.947 +07:00 INF] HTTP POST /Account/Login responded 302 in 74.0220 ms
+[2025-10-10 16:22:49.111 +07:00 INF] HTTP GET /Home responded 200 in 20.8246 ms
+[2025-10-10 16:22:49.456 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 0.7531 ms
+[2025-10-10 16:22:49.456 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 1.0349 ms
+[2025-10-10 16:22:49.472 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 0.6515 ms
+[2025-10-10 16:22:49.545 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 0.4416 ms
+[2025-10-10 16:22:49.545 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 1.1666 ms
+[2025-10-10 16:22:49.545 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 0.3422 ms
+[2025-10-10 16:22:49.554 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 9.4128 ms
+[2025-10-10 16:22:49.554 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 9.8827 ms
+[2025-10-10 16:22:49.554 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 8.2510 ms
+[2025-10-10 16:22:49.558 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 200 in 12.2407 ms
+[2025-10-10 16:22:49.558 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 13.1685 ms
+[2025-10-10 16:22:49.558 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 2.8732 ms
+[2025-10-10 16:22:54.276 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 0.4860 ms
+[2025-10-10 16:22:54.287 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 1.0342 ms
+[2025-10-10 16:23:01.855 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css.map responded 200 in 9.2407 ms
+[2025-10-10 16:25:30.996 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3131 ms
+[2025-10-10 16:25:32.320 +07:00 INF] HTTP GET /Home responded 200 in 34.2855 ms
+[2025-10-10 16:25:34.408 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1548 ms
+[2025-10-10 16:29:11.762 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.1891 ms
+[2025-10-10 16:29:13.088 +07:00 INF] HTTP GET /Home responded 200 in 32.4963 ms
+[2025-10-10 16:29:15.297 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2692 ms
+[2025-10-10 16:30:22.365 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3245 ms
+[2025-10-10 16:30:25.487 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.2655 ms
+[2025-10-10 16:37:11.977 +07:00 INF] HTTP GET /Home responded 302 in 1.1219 ms
+[2025-10-10 16:37:12.121 +07:00 INF] HTTP GET /Account/Login responded 200 in 14.0454 ms
+[2025-10-10 16:37:12.314 +07:00 INF] HTTP GET /css/user-login.css responded 200 in 0.5403 ms
+[2025-10-10 16:37:12.381 +07:00 INF] HTTP GET /js/Login.js responded 404 in 0.6146 ms
+[2025-10-10 16:37:13.644 +07:00 INF] HTTP GET /favicon.ico responded 200 in 0.4219 ms
+[2025-10-10 16:37:16.955 +07:00 INF] HTTP POST /Account/Login responded 302 in 115.4195 ms
+[2025-10-10 16:37:17.100 +07:00 INF] HTTP GET /Home responded 200 in 22.7031 ms
+[2025-10-10 16:37:17.297 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/css/bootstrap.min.css responded 200 in 0.8355 ms
+[2025-10-10 16:37:17.404 +07:00 INF] HTTP GET /themes/bower_components/Ionicons/css/ionicons.min.css responded 200 in 0.6006 ms
+[2025-10-10 16:37:17.429 +07:00 INF] HTTP GET /themes/bower_components/fastclick/lib/fastclick.js responded 200 in 0.5101 ms
+[2025-10-10 16:37:17.430 +07:00 INF] HTTP GET /themes/bower_components/bootstrap/dist/js/bootstrap.min.js responded 200 in 0.3499 ms
+[2025-10-10 16:37:17.430 +07:00 INF] HTTP GET /themes/dist/css/AdminLTE.min.css responded 200 in 0.9894 ms
+[2025-10-10 16:37:17.433 +07:00 INF] HTTP GET /themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js responded 200 in 1.3168 ms
+[2025-10-10 16:37:17.433 +07:00 INF] HTTP GET /themes/dist/css/skins/_all-skins.min.css responded 200 in 0.3939 ms
+[2025-10-10 16:37:17.436 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/css/font-awesome.min.css responded 200 in 2.8940 ms
+[2025-10-10 16:37:17.437 +07:00 INF] HTTP GET /images/Users/2511e59d-5ec1-4cc6-ba91-7bdbc20f7b64.png responded 200 in 5.8488 ms
+[2025-10-10 16:37:17.437 +07:00 INF] HTTP GET /themes/bower_components/jquery/dist/jquery.min.js responded 200 in 0.5852 ms
+[2025-10-10 16:37:17.454 +07:00 INF] HTTP GET /themes/dist/js/adminlte.min.js responded 200 in 0.2608 ms
+[2025-10-10 16:37:17.455 +07:00 INF] HTTP GET /themes/dist/js/demo.js responded 200 in 0.7365 ms
+[2025-10-10 16:37:19.656 +07:00 INF] HTTP GET /themes/bower_components/font-awesome/fonts/fontawesome-webfont.woff2 responded 200 in 1.2733 ms
+[2025-10-10 16:37:20.755 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 0.4879 ms
+[2025-10-10 16:37:24.184 +07:00 INF] HTTP GET /Home responded 200 in 8.1536 ms
+[2025-10-10 16:38:18.157 +07:00 INF] Starting OrderFood_SW web host...
+[2025-10-10 16:38:18.353 +07:00 WRN] Failed to determine the https port for redirect.
+[2025-10-10 16:38:18.392 +07:00 INF] Application started. Press Ctrl+C to shut down.
+[2025-10-10 16:38:18.392 +07:00 INF] Hosting environment: Development
+[2025-10-10 16:38:18.393 +07:00 INF] Content root path: D:\workspace\C#\SW_Web\OrderFood_SW\OrderFood_SW
+[2025-10-10 16:38:21.017 +07:00 INF] HTTP GET / responded 302 in 2679.3506 ms
+[2025-10-10 16:38:21.316 +07:00 INF] HTTP GET /Account/Login responded 200 in 284.9758 ms
+[2025-10-10 16:38:21.342 +07:00 INF] HTTP GET /js/Login.js responded 404 in 5.8322 ms
+[2025-10-10 16:38:22.969 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 200 in 28.5251 ms
+[2025-10-10 16:38:29.361 +07:00 WRN] No store type was specified for the decimal property 'DishPrice' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:38:29.362 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Dish'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:38:29.362 +07:00 WRN] No store type was specified for the decimal property 'TotalAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:38:29.362 +07:00 WRN] No store type was specified for the decimal property 'TaxAmount' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:38:29.362 +07:00 WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'OrderDetail'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-10 16:38:30.074 +07:00 INF] HTTP POST /Account/Login responded 302 in 1295.2895 ms
+[2025-10-10 16:38:30.301 +07:00 INF] HTTP GET /Home responded 200 in 224.0999 ms
+[2025-10-10 16:38:31.974 +07:00 INF] HTTP GET /firebase-messaging-sw.js responded 304 in 0.3718 ms
